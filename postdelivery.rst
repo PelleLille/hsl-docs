@@ -26,7 +26,7 @@ $errorcode        number  550                        The error code from the ser
 $errorndr         string  "5.7.1"                    The NDR code from the server (if available)
 $transfertime     number  0.512                      The transfer time for this delivery attempt (seconds)
 $messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
-$actionid         number  1                          Same as $actionid in DATA flow
+$actionid         number  1                          Same as $actionid in DATA context
 $queueid          number  12345                      Queue ID of the message
 $transportid      string  "mailtransport\:1"         ID of the transport profile that was used
 ================= ======= ========================== ===========

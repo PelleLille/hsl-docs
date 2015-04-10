@@ -270,7 +270,7 @@ The following cache options are available.
    * **force** (boolean) Force a cache-miss. The default is ``false``.
    * **size** (number) The size of the cache (a cache is namespace + function-name). The default is ``32``.
    * **namespace** (string) Custom namespace so that multiple caches can be created per function name.
-   * **per_message** (boolean) Create a per-message cache (can be used in certain flows). The default is ``false``.
+   * **per_message** (boolean) Create a per-message cache (can be used in certain contexts). The default is ``false``.
    * **lru** (boolean) If the cache is full and a cache-miss occur it will remove 10% of the Least Recently Used (LRU) entries in order to be able to store new entries. The default is ``true``.
 
   There are some special namespaces which are reserved. However, they may still be used with caution. 

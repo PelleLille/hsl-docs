@@ -1,7 +1,7 @@
 AUTH
 ====
 
-The AUTH flow allows trusted SMTP clients.
+The AUTH context allows trusted SMTP clients.
 
 Pre-defined variables
 ---------------------

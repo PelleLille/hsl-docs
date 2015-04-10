@@ -3,7 +3,7 @@
 Standard library
 ================
 
-Functions which are documented in this chapter are considered `core` functions hence are available in all `flows`. Functions in the standard library may be recognized by the fact that they are all in lowercase.
+Functions which are documented in this chapter are considered `core` functions hence are available in all `contexts`. Functions in the standard library may be recognized by the fact that they are all in lowercase.
 
 * **Array** :func:`array_keys` :func:`array_reverse` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
 * **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`md5` :func:`sha1`
@@ -793,8 +793,7 @@ Misc
   :param priority: message priority
   :type priority: string or number
   :param string message: message
-  :return: 0
-  :rtype: number
+  :rtype: none
 
   Priority may be any of
 
@@ -828,8 +827,7 @@ Misc
 
   :param string name: name of the graph
   :param array legends: key value pair of legends
-  :return: 0
-  :rtype: number
+  :rtype: none
 
   Values stat'ed are available using the statList SOAP API, visual graphs and SNMP.
 
@@ -877,7 +875,7 @@ Misc
 
   .. note::
 
-  	Rates are shared between all flows, and may also be synchronized in clusters.
+  	Rates are shared between all contexts, and may also be synchronized in clusters.
 
 String
 ------

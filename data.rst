@@ -1,7 +1,7 @@
 DATA
 ====
 
-The DATA flow scans the message.
+The DATA context scans the message.
 
 Pre-defined variables
 ---------------------
@@ -34,7 +34,7 @@ Functions
 * **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
 * **Attachments** :func:`GetAttachmentsByName` :func:`GetAttachmentsByType` :func:`GetAttachmentName` :func:`GetAttachmentType` :func:`GetAttachmentSize` :func:`GuessAttachmentType` :func:`RemoveAttachments`
-* **Actions** :func:`Deliver` :func:`DirectDeliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`CopyMail` :func:`DiscardMailDataChanges`
+* **Actions** :func:`Deliver` :func:`DirectDeliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`CopyMail` :func:`DiscardMailDataChanges` :func:`Abort`
 * **Anti-spam and anti-virus** :func:`ScanRPD` :func:`ScanRPDAV` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM` :func:`ScanDLP`
 * **DKIM** :func:`DeliverWithDKIM` :func:`ScanDMARC` :func:`DKIMSDID` :func:`DKIMADSP`
 
@@ -297,6 +297,12 @@ Actions
 
   :return: number of changes discarded
   :rtype: number
+
+.. function:: Abort()
+
+  Abort the current recipient without doing an additional action. This can be used with e.g. CopyMail.
+
+  :return: doesn't return, script is terminated
 
 Anti-spam and anti-virus
 ^^^^^^^^^^^^^^^^^^^^^^^^

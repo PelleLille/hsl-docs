@@ -1,7 +1,7 @@
 IP
 ==
 
-The IP flow acts as a firewall.
+The IP context acts as a firewall.
 
 Pre-defined variables
 ---------------------

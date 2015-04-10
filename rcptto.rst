@@ -1,7 +1,7 @@
 RCPT TO
 =======
 
-The RCPT TO flow allows verification of `RCPT TO` recipients.
+The RCPT TO context allows verification of `RCPT TO` recipients.
 
 Pre-defined variables
 ---------------------
