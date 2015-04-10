@@ -3,7 +3,7 @@ Introduction
 
 This language reference manual will not cover the basics of programming, instead it's a reference manual for the language.
 
-If you want to test out the language there is a REPL command available over SSH and in the web UI. The web UI also features a string scripting area to run block code.
+If you want to test out the language there is a `REPL <http://en.wikipedia.org/wiki/Read-eval-print_loop>`_ command available over SSH and in the web UI. The web UI also features a scripting area to run block code.
 
 Variables
 ---------
