@@ -270,7 +270,7 @@ The following cache options are available.
    * **argv_filter** (array) A list of arguments (positions starting at 1) which should make this cache entry unique. The default is to use all arguments.
    * **force** (boolean) Force a cache-miss. The default is ``false``.
    * **size** (number) The size of the cache (a cache is namespace + function-name). The default is ``32``.
-   * **namespace** (string) Custom namespace so that multiple caches can be created per function name.
+   * **namespace** (string) Custom namespace so that multiple caches can be created per function name. The default is an empty string.
    * **per_message** (boolean) Create a per-message cache (can be used in certain contexts). The default is ``false``.
    * **lru** (boolean) If the cache is full and a cache-miss occur it will remove 10% of the Least Recently Used (LRU) entries in order to be able to store new entries. The default is ``true``.
 
@@ -279,14 +279,23 @@ The following cache options are available.
   * **$messageid** This namespace is used to implement the per-message cache. 
   * **file:X** This namespace may be used to cache functions using files. It's cleared when the file is changed. 
 
+  .. code-block:: hsl
+
+  	// cache both the json_decode() and http() request
+	function json_decode_and_http(...$args) {
+		    return json_decode(http(...$args));
+	}
+	$list = cache [] json_decode_and_http("http://api.example.com/v1/get/list"); 
+
 .. warning::
 
-	Not all function should be cached. If calls cannot be distinguished by their argument, bad things will happen.
+	Not all function should be cached. If calls cannot be distinguished by their arguments, bad things will happen.
 
 	.. code-block:: hsl
 
 		if (cache [] ScanRPD() == 100)  // The same (and incorrect) result will be used for multiple messages
-			Reject();                   // Reject will only happen once
+		    cache [] Reject();          // Reject will only happen once...
+		Deliver();                      // ...and all other messages will be delivered. 
 
 barrier
 -------
