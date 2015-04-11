@@ -173,7 +173,7 @@ The `return` statement return a value from a function::
 Default argument
 ^^^^^^^^^^^^^^^^
 
-Formal parameters may be initialized with a default value if not given by the caller. Default values may only defined as trailing parameters in the function definition. Constant expressions which can be evaluated during compile-time may be used as default values (e.g. $a = 10 * 1024 or $a = []):: 
+Formal parameters may be initialized with a default value if not given by the caller. Default values may only defined as trailing parameters in the function definition. Constant expressions which can be evaluated during compile-time may be used as default values (e.g. ``$a = 10 * 1024`` and ``$a = []``):: 
 	
 	function funcname($arg1 = constant_expressions) {
 		statements
