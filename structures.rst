@@ -212,7 +212,7 @@ Arbitrary-length argument lists are supported using the ``...$argument`` syntax 
 
 global
 ^^^^^^
-The global statement allows variables to be imported in to a local function scope. If the variable is not defined at the time of execution (of the global statement) it will simply be marked as "global" and if later assigned; written back to the global scope once the function returns. If the variable that is imported to the function scope already exists in the function scope an error will be raised. If an imported variable is read-only, it will be read-only in the function scope as well::
+The `global` statement allows variables to be imported in to a local function scope. If the variable is not defined at the time of execution (of the global statement) it will simply be marked as "global" and if later assigned; written back to the global scope once the function returns. If the variable that is imported to the function scope already exists in the function scope an error will be raised. If an imported variable is read-only, it will be read-only in the function scope as well::
 
 	function funcname() {
 		global $variable[, $variable [, ...]];
@@ -258,7 +258,7 @@ The `builtin` statement allows you to explicitly call the builtin version of an 
 cache
 -----
 
-The cache statement can be prepended to any function call. It will cache the function call in a process wide cache. If the same call is done and the result is already in its cache the function will not be executed again, instead the previous result will be used. The cache take the function name and argument values into account when caching.::
+The `cache` statement can be prepended to any function call. It will cache the function call in a process wide cache. If the same call is done and the result is already in its cache the function will not be executed again, instead the previous result will be used. The cache take the function name and argument values into account when caching.::
 
 	cache [ cache-option [, cache-option [, ...]]] [builtin] funcname()
 
@@ -267,6 +267,7 @@ The following cache options are available.
    * **ttl** (number) Time to Live (TTL) in seconds for the cache entry if added to the cache during the call. The default time is ``60`` seconds.
    * **ttl_override** (array) An associative array where the key is the `return value` and the value is the overridden `ttl` to be used.
    * **ttl_function** (string) The name of a custom function taking one argument (the function's `return value`) and returning the `ttl` to be used.
+   * **argv_filter** (array) A list of arguments (positions starting at 1) which should make this cache entry unique. The default is to use all arguments.
    * **force** (boolean) Force a cache-miss. The default is ``false``.
    * **size** (number) The size of the cache (a cache is namespace + function-name). The default is ``32``.
    * **namespace** (string) Custom namespace so that multiple caches can be created per function name.
@@ -284,13 +285,13 @@ The following cache options are available.
 
 	.. code-block:: hsl
 
-		if (cache [] ScanRPD() == 100)	// The same (and incorrect) result will be used for multiple messages
-			Reject();					// Reject will only happen once
+		if (cache [] ScanRPD() == 100)  // The same (and incorrect) result will be used for multiple messages
+			Reject();                   // Reject will only happen once
 
 barrier
 -------
 
-A barrier is system-wide `named` mutually exclusive scope, only one execution is allowed to enter the same named scope (applies to all thread and processes). Waiters are queued for execution in random order. Optionally with every barrier comes a shared variable (`shared memory`) which data is shared among executions::
+A `barrier` is system-wide `named` mutually exclusive scope, only one execution is allowed to enter the same named scope (applies to all thread and processes). Waiters are queued for execution in random order. Optionally with every barrier comes a shared variable (`shared memory`) which data is shared among executions::
 
 	barrier statement {
 		statements
