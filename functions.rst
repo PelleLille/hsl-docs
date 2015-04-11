@@ -986,7 +986,7 @@ String
 
   .. seealso::
 
-	  For matching only use the :ref:`regular expression <regex>` operator since it's a lot faster.
+	  For matching only the :ref:`regular expression <regex>` operator can be used.
 
 .. function:: pcre_match_all(pattern, subject)
 
