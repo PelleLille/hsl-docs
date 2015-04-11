@@ -142,14 +142,14 @@ function
 
 It's possible to write new functions in HSL, and also to override builtin functions. A function may take any number of arguments and return a value using the :ref:`return` statement. Function argument may either be specified by name or if omitted stored in the special variable name ``$argv`` as an array (and count in ``$argc`` as a number). If arguments are specified, the number of argument given by the caller must match the number of required arguments in the function definition::
 
-	function name {
+	function funcname {
 		// $argv and $argc
 		return expression;
 	}
-	function name() {
+	function funcname() {
 		return expression;
 	}
-	function name($arg1, $arg2) {
+	function funcname($arg1, $arg2) {
 		return expression;
 	}
 
@@ -163,7 +163,7 @@ return
 
 The `return` statements return a value from a function::
 
-	function name() {
+	function funcname() {
 		return 42;
 	}
 
@@ -175,7 +175,7 @@ Default argument
 
 Formal parameters may be initialized with a default value if not given by the caller. Default values may only defined as trailing parameters in the function definition. Constant expressions which can be evaluated during compile-time may be used as default values (e.g. $a = 10 * 1024 or $a = []):: 
 	
-	function name($arg1 = constant_expressions) {
+	function funcname($arg1 = constant_expressions) {
 		statements
 	}
 
@@ -194,7 +194,7 @@ Variadic function
 
 Arbitrary-length argument lists are supported using the ``...$argument`` syntax when declaring a function, the rest of the arguments which were not picked up by an other named argument will be added to the last variable as an array. This variable has to be defined at the end of the argument list::
 	
-	function name($arg1, ...$argN) {
+	function funcname($arg1, ...$argN) {
 		statements
 	}
 
@@ -214,8 +214,8 @@ global
 ^^^^^^
 The global statement allows variables to be imported in to a local function scope. If the variable is not defined at the time of execution (of the global statement) it will simply be marked as "global" and if later assigned; written back to the global scope once the function returns. If the variable that is imported to the function scope already exists in the function scope an error will be raised. If an imported variable is read-only, it will be read-only in the function scope as well::
 
-	function name() {
-		global $variable[, $variable, ...];
+	function funcname() {
+		global $variable[, $variable [, ...]];
 	}
 
 .. code-block:: hsl
@@ -237,14 +237,14 @@ Argument unpacking
 
 Argument unpacking make it possible to call a function with the arguments unpacked from an array at runtime, using the `spread` or `splat` operator (``...``). The calling rules still apply, the argument count must match. This make it easy to override function::
 
-	call ( ... expression ) ;
+	funcname(...expression)
 
 builtin
 *******
 
 The `builtin` statement allows you to explicitly call the builtin version of an overridden function::
 
-	builtin call ( ... ) ;
+	builtin funcname()
 
 .. code-block:: hsl
 
@@ -260,7 +260,7 @@ cache
 
 The cache statement can be prepended to any function call. It will cache the function call in a process wide cache. If the same call is done and the result is already in its cache the function will not be executed again, instead the previous result will be used. The cache take the function name and argument values into account when caching.::
 
-	cache [ cache-option, cache-option, ... ] name()
+	cache [ cache-option [, cache-option [, ...]]] [builtin] funcname()
 
 The following cache options are available.
 
