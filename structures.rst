@@ -161,7 +161,7 @@ It's possible to write new functions in HSL, and also to override builtin functi
 return
 ^^^^^^
 
-The `return` statements return a value from a function::
+The `return` statement return a value from a function::
 
 	function funcname() {
 		return 42;
