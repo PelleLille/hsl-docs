@@ -84,12 +84,12 @@ The keywords ``true`` and ``false`` are aliases for `1` and `0`.
 		if (5 == true) { } // false: 5 is not equal to 1
 		if (5) { } // true: 5 is not false, hence true
 
-.. _array:
+.. _arraytype:
 
 Array
 ------
 
-An array is a very useful container; it can act as an array (automatically indexed at zero) or an ordered map with any data type as a key and value when used as an ordered map. The short form for literal arrays ``[]`` is recommended.
+An array is a very useful container; it can act as an array (automatically indexed at zero) or as an ordered map with any data type as key and value. The short array syntax for literal arrays ``[]`` is recommended.
 
 .. code-block:: hsl
 
@@ -104,7 +104,7 @@ An array is a very useful container; it can act as an array (automatically index
 
 .. note::
 
-	Accessing any element in a zero indexed array using the `subscript` or `slice` operator is very fast O(1).
+	Accessing any element in a zero indexed array using the `subscript` or `slice` operator is very fast (it has the complexity of `O(1)`).
 
 .. _none:
 

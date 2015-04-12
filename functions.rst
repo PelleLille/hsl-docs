@@ -81,6 +81,11 @@ Array
   :return: an array with numbers
   :rtype: array
 
+  .. code-block:: hsl
+
+	  foreach (range(0, 9) as $i) // 0,1,2,..,9
+		echo $i;
+
 Cryptographic
 -------------
 
@@ -128,6 +133,10 @@ Data types
   :param any any: the input
   :return: an array
   :rtype: array
+
+  .. note::
+
+	`array` is not a function, it's a language contrustruct to create an :ref:`array <arraytype>` type. It's an alias for the short array syntax ``[]``.
 
 .. function:: number(x)
 
