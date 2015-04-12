@@ -68,7 +68,7 @@ The number type is a double-precision 64-bit `IEEE 754 <http://en.wikipedia.org/
 
 .. warning::
 
-	After some arithmetics operations on floating point numbers; the equality (`==`) of two floating point numbers may not be true even if they mathematically "should". This caveat is not unique to HSL, instead it is the result of how computers calculates and stores `floating point numbers <http://en.wikipedia.org/wiki/Floating_point>`_. Arithmetics operations on `numbers` without decimals are not affected.
+	After some arithmetic operations on floating point numbers; the equality (`==`) of two floating point numbers may not be true even if they mathematically "should". This caveat is not unique to HSL, instead it is the result of how computers calculates and stores `floating point numbers <http://en.wikipedia.org/wiki/Floating_point>`_. Arithmetic operations on `numbers` without decimals are not affected.
 
 .. _boolean:
 
