@@ -457,7 +457,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
    * **response_headers** (boolean) Return the full request, including response headers (regardless of HTTP status). The default is ``false``.
    * **ssl_verify_peer** (boolean) Verify SSL peer. The default is ``true``.
    * **ssl_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
-   * **ssl_default_cs** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
+   * **ssl_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
 
 Mail
 ----
@@ -527,8 +527,8 @@ Mail
    There are also some protocol specific flags that may be configured.
 
 	   * **service** (string) Service name to identify this request. The default is ``smtp``.
-	   * **rip** (string) The IP-address of the client (remote IP)
-	   * **lip** (string) The IP-address of the Halon (local IP)
+	   * **rip** (string) The IP-address of the client (remote IP).
+	   * **lip** (string) The IP-address of the Halon (local IP).
 	   * **secured** (boolean) Set to true if the client has tlsstarted. The default is ``false``.
 
 .. function:: ldap_search(profile, lookup, [override])
@@ -544,10 +544,10 @@ Mail
   The following overrides are available in the override array.
 
    * **host** (string) IP-address or hostname.
-   * **username** (string) LDAP username
-   * **password** (string) LDAP password
-   * **base** (string) LDAP base
-   * **query** (string) LDAP query (unescaped)
+   * **username** (string) LDAP username.
+   * **password** (string) LDAP password.
+   * **base** (string) LDAP base.
+   * **query** (string) LDAP query (unescaped).
 
 .. function:: ldap_bind(profile, username, password, [override])
 
@@ -581,7 +581,7 @@ Mail
    * **secret** (string) The secret. **required**
    * **port** (number) TCP port. The default is ``1812``.
    * **timeout** (number) The default is ``5`` seconds.
-   * **clientip** (string) The IP-address of the client (remote IP)
+   * **clientip** (string) The IP-address of the client (remote IP).
    * **retry** (number) The retry count is ``3``.
 
    Vendor strings must be strings and must be registered as ID 33234 (`Halon Security's Enterprise Number <http://www.iana.org/assignments/enterprise-numbers>`_)
@@ -602,7 +602,7 @@ Mail
    * **secret** (string) The secret. **required**
    * **port** (number) TCP port. The default is ``49``.
    * **timeout** (number) The default is ``5`` seconds.
-   * **clientip** (string) The IP-address of the client (remote IP)
+   * **clientip** (string) The IP-address of the client (remote IP).
 
 .. function:: tacplus_author(options, username, avpair)
 
@@ -620,7 +620,7 @@ Mail
    * **secret** (string) The secret. **required**
    * **port** (number) TCP port. The default is ``49``.
    * **timeout** (number) The default is ``5`` seconds.
-   * **clientip** (string) The IP-address of the client (remote IP)
+   * **clientip** (string) The IP-address of the client (remote IP).
 
 .. function:: dnsbl(ip, hostname, [resolvers, [timeout = 5]])
 
@@ -672,12 +672,12 @@ Mail
    * **serverid** (string) Helps the decision making of where we should send this email.
    * **plaintext** (boolean) Send message as `plain/text` (default is `text/html`). The default is ``false``.
    * **rawbody** (boolean) Instead of using a template, send body as raw text. The default is ``false``.
-   * **headers** (array) Add additional message headers (KVP)
-   * **metadata** (array) Add additional metadata to the message (KVP)
+   * **headers** (array) Add additional message headers (KVP).
+   * **metadata** (array) Add additional metadata to the message (KVP).
 
    If sending the message with custom templates.
 
-	   * **variables** (array) Set additional to the template engine (KVP)
+	   * **variables** (array) Set additional to the template engine (KVP).
 	   * **template** (array) Choose template. The default is ``internal/en_EN``.
 	   * **templatefile** (array) Choose template file. The default is ``plain_mail.html``.
 
