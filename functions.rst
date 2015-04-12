@@ -450,8 +450,8 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 
   The following options are available in the options array.
 
-   * **connect_timeout** (numbers) Connection timeout. The default is ``10`` seconds.
-   * **timeout** (number) Timeout waiting for data once the connection is established. The default is to wait indefinitely.
+   * **connect_timeout** (numbers) Connection timeout (in seconds). The default is ``10`` seconds.
+   * **timeout** (number) Timeout (in seconds) waiting for data once the connection is established. The default is to wait indefinitely.
    * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
    * **headers** (array) An array of additional HTTP headers.
    * **response_headers** (boolean) Return the full request, including response headers (regardless of HTTP status). The default is ``false``.
@@ -522,7 +522,7 @@ Mail
 
    * **host** (string) IP-address or hostname of the dovecot server. **required**
    * **port** (number) TCP port. **required**
-   * **timeout** (number) The default is ``5`` seconds.
+   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
 
    There are also some protocol specific flags that may be configured.
 
@@ -580,7 +580,7 @@ Mail
    * **host** (string) IP-address or hostname of the RADISU server. **required**
    * **secret** (string) The secret. **required**
    * **port** (number) TCP port. The default is ``1812``.
-   * **timeout** (number) The default is ``5`` seconds.
+   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
    * **clientip** (string) The IP-address of the client (remote IP).
    * **retry** (number) The retry count is ``3``.
 
@@ -601,7 +601,7 @@ Mail
    * **host** (string) IP-address or hostname of the TACACS+ server. **required**
    * **secret** (string) The secret. **required**
    * **port** (number) TCP port. The default is ``49``.
-   * **timeout** (number) The default is ``5`` seconds.
+   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
    * **clientip** (string) The IP-address of the client (remote IP).
 
 .. function:: tacplus_author(options, username, avpair)
@@ -619,7 +619,7 @@ Mail
    * **host** (string) IP-address or hostname of the TACACS+ server. **required**
    * **secret** (string) The secret. **required**
    * **port** (number) TCP port. The default is ``49``.
-   * **timeout** (number) The default is ``5`` seconds.
+   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
    * **clientip** (string) The IP-address of the client (remote IP).
 
 .. function:: dnsbl(ip, hostname, [resolvers, [timeout = 5]])
