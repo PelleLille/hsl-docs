@@ -451,7 +451,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
   The following options are available in the options array.
 
    * **connect_timeout** (numbers) Connection timeout. The default is ``10`` seconds.
-   * **timeout** (number) Timeout waiting for data.
+   * **timeout** (number) Timeout waiting for data once the connection is established. The default is to wait indefinitely.
    * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
    * **headers** (array) An array of additional HTTP headers.
    * **response_headers** (boolean) Return the full request, including response headers (regardless of HTTP status). The default is ``false``.
@@ -551,7 +551,7 @@ Mail
 
 .. function:: ldap_bind(profile, username, password, [override])
 
-  Try to issue an LDAP bind against an LDAP server.
+  Try to bind (authenticate) against an LDAP server.
 
   :param string server: ldap profile
   :param string username: LDAP username
