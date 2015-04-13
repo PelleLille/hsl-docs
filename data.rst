@@ -95,7 +95,7 @@ Routing
 
 .. function:: SetMetaData(array)
 
-  Set the metadata for the next recipient. The metadata must be an array with both string keys and values.
+  Set the metadata for the next recipient(s). The metadata must be an array with both string keys and values.
 
   :param array metadata: metadata to set
   :rtype: none
