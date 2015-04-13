@@ -10,6 +10,8 @@ String
 
 There are two kinds of string literals, `double-quoted strings` and `raw strings`. Double-quoted strings support language features such as variable interpolation and escape sequences. Most functions (e.g. :func:`strlen` and :func:`substr`) are **not** `UTF-8 <http://en.wikipedia.org/wiki/UTF-8>`_ aware, with the exception of :ref:`regular expression <regex>` matching (e.g. :func:`pcre_match`) which may be configured to be UTF-8 aware with the :ref:`/u <patternmodifiers>` modifier.
 
+.. _doublequoted:
+
 Double-quoted string
 ^^^^^^^^^^^^^^^^^^^^
 

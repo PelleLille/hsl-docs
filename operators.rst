@@ -279,7 +279,7 @@ The regular expression operator (``=~`` and not-match ``!~`` operator) matches a
 
 .. note::
 
-	If using :ref:`raw strings <rawstring>` with regular expressions there is no need to escape some characters twice. 
+	If using :ref:`raw strings <rawstring>` with regular expressions there is no need to escape some characters twice. Literal strings (both :ref:`double-quoted <doublequoted>` (without variable interpolation) and :ref:`raw strings <rawstring>`) as regular expressions may be precompiled for greater performance.
 
 .. seealso::
 
