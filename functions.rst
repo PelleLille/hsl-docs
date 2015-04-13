@@ -15,7 +15,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Mail** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`dovecot_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author` :func:`dnsbl` :func:`spf` :func:`globalview` :func:`mail`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`rate`
-* **String** :func:`chr` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_replace`
+* **String** :func:`chr` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
 
 Array
 -----
@@ -1005,6 +1005,14 @@ String
   :param string subject: the string to match against
   :return: returns multiple results group by capture groups, and matched result.
   :rtype: array
+
+.. function:: pcre_quote(string)
+
+  Quote all metacharacters which has special meaning in a regular expression.
+
+  :param string string: the string
+  :return: a quoted string
+  :rtype: string
 
 .. function:: pcre_replace(pattern, replace, subject, [limit = 0])
 
