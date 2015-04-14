@@ -300,7 +300,7 @@ Actions
 
 .. function:: Abort()
 
-  Abort the current recipient without doing an additional action. This can be used with e.g. CopyMail.
+  Abort the current recipient without doing an additional action. This can be used with e.g. :func:`CopyMail`.
 
   :return: doesn't return, script is terminated
 
