@@ -9,7 +9,7 @@ Assignment
 Assignments will store the value of the expression to the right of the equal sign (`=`) in a variable to the left. An expression consisting of an assignment will have the value that was assigned. This is useful when assigning a variables in e.g. :ref:`if` statements. 
 
   .. code-block:: hsl
- 
+
 		$var = 42;
 		if (($random = rand(0, 9)) > 5) echo "$random is larger than 5";
 
@@ -271,15 +271,15 @@ These operators compare the expressions (operands) on both sides of the operator
 Regular expression
 ^^^^^^^^^^^^^^^^^^
 
-The regular expression operator (``=~`` and not-match ``!~`` operator) matches a string by default using partial matching. That means it allows a substring to match. To explicit mark the beginning or end of a pattern, use ``^`` for beginning and ``$`` for the end. The following :ref:`modifiers<patternmodifiers>` are supported.
+The regular expression operator (``=~`` and not-match ``!~`` operator) matches a string by default using partial matching. That means it allows a substring to match. To explicit mark the beginning or end of a pattern, use ``^`` for beginning and ``$`` for the end. The regular expression implementation is "Perl Compatible" (hence the function names `pcre_...`), for syntax see the `perlre <http://perldoc.perl.org/perlre.html>`_ documentation. The following :ref:`modifiers<patternmodifiers>` are supported.
 
 .. code-block:: hsl
 	
-	if ($var =~ ''/\bhalon\b/i'') echo "contain the word halon";
+	if ($var =~ ''\bhalon\b'') echo "contain the word halon";
 
 .. note::
 
-	If using :ref:`raw strings <rawstring>` with regular expressions there is no need to escape some characters twice. Literal strings (both :ref:`double-quoted <doublequoted>` (without variable interpolation) and :ref:`raw strings <rawstring>`) as regular expressions may be precompiled for greater performance.
+	If using :ref:`raw strings <rawstring>` with regular expressions there is no need to escape some characters twice. Literal strings (both :ref:`double-quoted <doublequoted>` (without variable interpolation) and :ref:`raw strings <rawstring>`) as regular expressions will be precompiled for greater performance.
 
 .. seealso::
 
@@ -309,3 +309,7 @@ Use pattern modifiers to change the behavior of the pattern engine, they have th
 +----------+-----------------+------------------------------+
 | X        | PCRE_EXTRA      | See perl documentation       |
 +----------+-----------------+------------------------------+
+
+.. note::
+
+	It's not necessary to encapsulate regular expressions with ``//`` unless modifiers are used.
