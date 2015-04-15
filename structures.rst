@@ -140,7 +140,7 @@ The `include` statement allows code to be structures in logical modules and shar
 function
 --------
 
-It's possible to write new functions in HSL, and also to override builtin functions. A function may take any number of arguments and return a value using the :ref:`return` statement. Function argument may either be specified by name or if omitted stored in the special variable named ``$argv`` (as an array). If non-variadic arguments are specified, the number of argument given by the caller must match the number of required arguments in the function definition::
+It's possible to write new functions in HSL, and also to override builtin functions. A function may take any number of arguments and return a value using the :ref:`return` statement. If non-variadic arguments are specified, the number of argument given by the caller must match the number of required arguments in the function definition::
 
 	function funcname() {
 		return expression;
@@ -149,10 +149,6 @@ It's possible to write new functions in HSL, and also to override builtin functi
 		return expression;
 	}
 	function funcname(...$argv) {
-		return expression;
-	}
-	function funcname {
-		// $argv is populated as a variadic argument
 		return expression;
 	}
 
