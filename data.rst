@@ -34,7 +34,7 @@ Functions
 * **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
 * **Attachments** :func:`GetAttachmentsByName` :func:`GetAttachmentsByType` :func:`GetAttachmentName` :func:`GetAttachmentType` :func:`GetAttachmentSize` :func:`GuessAttachmentType` :func:`RemoveAttachments`
-* **Actions** :func:`Deliver` :func:`DirectDeliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`CopyMail` :func:`DiscardMailDataChanges` :func:`Abort`
+* **Actions** :func:`Deliver` :func:`DirectDeliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`CopyMail` :func:`DiscardMailDataChanges` :func:`Done`
 * **Anti-spam and anti-virus** :func:`ScanRPD` :func:`ScanRPDAV` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM` :func:`ScanDLP`
 * **DKIM** :func:`DeliverWithDKIM` :func:`ScanDMARC` :func:`DKIMSDID` :func:`DKIMADSP`
 
