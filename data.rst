@@ -420,6 +420,7 @@ DKIM
   :param string key: private key to use, either ``pki:X`` or a private RSA key in PEM format.
   :param array options: options array
   :return: doesn't return, script is terminated
+  :updates: ``$transportid``
 
   The following options are available in the options array.
 
