@@ -68,7 +68,7 @@ Routing
 
   .. warning::
 
-  	This function changes the sender for all recipients. To change sender per recipient use SetSender in the :doc:`Pre-delivery <predelivery>` context.
+  	This function changes the sender for all recipients. To change sender per recipient use ``SetSender()`` in the :doc:`Pre-delivery <predelivery>` context.
 
 .. function:: SetRecipient(recipient)
 

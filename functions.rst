@@ -1,5 +1,3 @@
-.. _funclib:
-
 Standard library
 ================
 

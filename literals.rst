@@ -15,7 +15,7 @@ There are two kinds of string literals, `double-quoted strings` and `raw strings
 Double-quoted string
 ^^^^^^^^^^^^^^^^^^^^
 
-Variable interpolation replaces ``$variable`` placeholders within string literals. Variables are matched in strings with the following pattern ``$[a-zA-Z]+[a-zA-Z0-9]``. If needed there is also a more explicit syntax ``${variable}`` (which allows variables mid-words). Interpolating an undeclared variable raises a runtime error.
+Variable interpolation replaces ``$variable`` placeholders within string literals. Variables are matched in strings with the following pattern :regexp:`$[a-zA-Z]+[a-zA-Z0-9]`. If needed there is also a more explicit syntax ``${variable}`` (which allows variables mid-words). Interpolating an undeclared variable raises a runtime error.
 
 .. code-block:: hsl
 
