@@ -244,6 +244,7 @@ Actions
   :param string recipient: an e-mail address
   :param string transportid: the transportid to be used
   :return: doesn't return, script is terminated
+  :updates: ``$actionid``
 
 .. function:: DirectDeliver([recipient, [transportid]])
 
@@ -252,6 +253,7 @@ Actions
   :param string recipient: an e-mail address
   :param string transportid: the transportid to be used
   :return: doesn't return, script is terminated
+  :updates: ``$actionid``
 
 .. function:: Reject([reason])
 .. function:: Defer([reason])
@@ -262,12 +264,14 @@ Actions
   :param reason: reject message with reason
   :type reason: string or array
   :return: doesn't return, script is terminated
+  :updates: ``$actionid``
 
 .. function:: Delete()
 
   Delete the message (and return 250).
 
   :return: doesn't return, script is terminated
+  :updates: ``$actionid``
 
 .. function:: Quarantine(quarantineid, [recipient, [transportid, [options]]])
 
@@ -278,6 +282,7 @@ Actions
   :param string transportid: the transportid to be used
   :param array options: an options array
   :return: doesn't return, script is terminated
+  :updates: ``$actionid``
 
   The following options are available in the options array.
 
@@ -290,6 +295,7 @@ Actions
   :param string recipient: an e-mail address
   :param string transportid: the transportid to be used
   :rtype: none
+  :updates: ``$actionid``
 
 .. function:: DiscardMailDataChanges()
 
@@ -300,7 +306,7 @@ Actions
 
 .. function:: Done()
 
-  Finishes the execution of the current recipient without doing an additional action. This can be used with e.g. :func:`CopyMail`.
+  Finishes the execution of the current recipient without doing an additional action. This can be used with e.g. :func:`CopyMail`. If a message is scanned without any action, it will be deferred.
 
   :return: doesn't return, script is terminated
 
