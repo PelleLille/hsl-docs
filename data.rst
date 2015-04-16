@@ -298,9 +298,9 @@ Actions
   :return: number of changes discarded
   :rtype: number
 
-.. function:: Abort()
+.. function:: Done()
 
-  Abort the current recipient without doing an additional action. This can be used with e.g. :func:`CopyMail`.
+  Finishes the execution of the current recipient without doing an additional action. This can be used with e.g. :func:`CopyMail`.
 
   :return: doesn't return, script is terminated
 
