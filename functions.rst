@@ -190,7 +190,7 @@ Data types
 
 .. function:: unset(x)
 
-  Unsets the variable or array index of x, it return true if the variable was defined.
+  Unsets the variable or array index of x, it return true if the variable or array index was defined.
 
 	.. note::
 
