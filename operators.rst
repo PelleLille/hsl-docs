@@ -292,23 +292,23 @@ Pattern modifiers
 
 Use pattern modifiers to change the behavior of the pattern engine, they have the capability to make the match case-insensitive and activate UTF-8 support (where one UTF-8 characters may be matched using only one dot) etc. They are activated by encapsulate the pattern using the `/regular_expression/modifiers` syntax. The `regular_expression` part should be a `regular expression`, and the modifiers should be zero or many of.
 
-+----------+-----------------+------------------------------+
-| Modifier | Internal define | Description                  |
-+==========+=================+==============================+
-| i        | PCRE_CASELESS   | Do case-insensitive matching |
-+----------+-----------------+------------------------------+
-| m        | PCRE_MULTILINE  | See perl documentation       |
-+----------+-----------------+------------------------------+
-| u        | PCRE_UTF8       | Enable UTF-8 support         |
-+----------+-----------------+------------------------------+
-| s        | PCRE_DOTALL     | See perl documentation       |
-+----------+-----------------+------------------------------+
-| x        | PCRE_EXTENDED   | See perl documentation       |
-+----------+-----------------+------------------------------+
-| U        | PCRE_UNGREEDY   | See perl documentation       |
-+----------+-----------------+------------------------------+
-| X        | PCRE_EXTRA      | See perl documentation       |
-+----------+-----------------+------------------------------+
++----------+-----------------+---------------------------------------------------------------------------------+
+| Modifier | Internal define | Description                                                                     |
++==========+=================+=================================================================================+
+| i        | PCRE_CASELESS   | Do case-insensitive matching                                                    |
++----------+-----------------+---------------------------------------------------------------------------------+
+| m        | PCRE_MULTILINE  | See `perl <http://perldoc.perl.org/perlre.html#Modifiers>`_ documentation       |
++----------+-----------------+---------------------------------------------------------------------------------+
+| u        | PCRE_UTF8       | Enable UTF-8 support                                                            |
++----------+-----------------+---------------------------------------------------------------------------------+
+| s        | PCRE_DOTALL     | See `perl <http://perldoc.perl.org/perlre.html#Modifiers>`_ documentation       |
++----------+-----------------+---------------------------------------------------------------------------------+
+| x        | PCRE_EXTENDED   | See `perl <http://perldoc.perl.org/perlre.html#Modifiers>`_ documentation       |
++----------+-----------------+---------------------------------------------------------------------------------+
+| U        | PCRE_UNGREEDY   | See `perl <http://perldoc.perl.org/perlre.html#Modifiers>`_ documentation       |
++----------+-----------------+---------------------------------------------------------------------------------+
+| X        | PCRE_EXTRA      | See `perl <http://perldoc.perl.org/perlre.html#Modifiers>`_ documentation       |
++----------+-----------------+---------------------------------------------------------------------------------+
 
 .. note::
 
