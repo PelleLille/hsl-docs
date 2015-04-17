@@ -1,9 +1,3 @@
-.. function:: GetMailQueueMetric(options)
-
-  Return metric information about the mail queue, it can be used to enforce quotas.
-
-  :param array options: options array
-
   The following options are available in the options array.
 
    * **metric** (string) Metric to be returned; `count` or `bytes`. The default is ``count``.

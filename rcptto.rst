@@ -1,3 +1,5 @@
+.. module:: rcptto
+
 RCPT TO
 =======
 
@@ -46,6 +48,12 @@ Functions
 
   :param string message: the defer message
   :return: doesn't return, script is terminated
+
+.. function:: GetMailQueueMetric(options)
+
+  Return metric information about the mail queue, it can be used to enforce quotas.
+
+  :param array options: options array
 
 .. include:: func_getmailqueuemetric.rst
 

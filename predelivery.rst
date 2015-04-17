@@ -1,3 +1,5 @@
+.. module:: predelivery
+
 Pre-delivery
 ============
 
@@ -152,6 +154,12 @@ Functions
 
   :return: the data set by :func:`SetMetaData`
   :rtype: array
+
+.. function:: GetMailQueueMetric(options)
+
+  Return metric information about the mail queue, it can be used to enforce quotas.
+
+  :param array options: options array
 
 .. include:: func_getmailqueuemetric.rst
 

@@ -21,6 +21,20 @@ from sphinx.highlighting import lexers
 from pygments.lexers.web import PhpLexer
 lexers['hsl'] = PhpLexer(startinline=True)
 
+# Fix anchor
+from sphinx.domains.python import PyObject
+add_target_and_index_old = PyObject.add_target_and_index
+def add_target_and_index(self, name_cls, sig, signode):
+	signode['ids'].append(name_cls[0])
+	return add_target_and_index_old(self, name_cls, sig, signode)
+PyObject.add_target_and_index = add_target_and_index
+
+# Hide class. in function output
+from sphinx.writers.html import HTMLTranslator
+def emptyvisit(self, node):
+	self.body.append('<code style="display:none;">')
+HTMLTranslator.visit_desc_addname = emptyvisit
+
 # Disable 'refs' in function: type/rtype
 from docutils import nodes
 def make_xref(self, rolename, domain, target, innernode=nodes.emphasis, contnode=None):
@@ -116,7 +130,7 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build', 'lib', 'lib64']
+exclude_patterns = ['_build', 'lib', 'lib64', 'func_getmailqueuemetric.rst']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.

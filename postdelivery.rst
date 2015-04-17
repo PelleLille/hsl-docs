@@ -1,3 +1,5 @@
+.. module:: postdelivery
+
 Post-delivery
 =============
 

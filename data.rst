@@ -1,3 +1,5 @@
+.. module:: data
+
 DATA
 ====
 
@@ -53,6 +55,12 @@ Misc
 
  	$headerSender = GetAddressList(GetHeader("From"))[0]; // first e-mail address in From header
 
+.. function:: GetMailQueueMetric(options)
+
+  Return metric information about the mail queue, it can be used to enforce quotas.
+
+  :param array options: options array
+
 .. include:: func_getmailqueuemetric.rst
 
 Routing
@@ -68,7 +76,7 @@ Routing
 
   .. warning::
 
-  	This function changes the sender for all recipients. To change sender per recipient use ``SetSender()`` in the :doc:`Pre-delivery <predelivery>` context.
+  	This function changes the sender for all recipients. To change sender per recipient use :func:`~predelivery.SetSender` in the :doc:`Pre-delivery <predelivery>` context.
 
 .. function:: SetRecipient(recipient)
 
