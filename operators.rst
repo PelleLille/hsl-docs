@@ -1,7 +1,7 @@
 Operators
 ==========
 
-Operators are used with one or more values (or expressions) which yields another value (so that the operator itself becomes an expression). Expressions can be combinations of operators, functions and variables. Below are the available operator types described. Note that operators are always part of expressions. If no parentheses are used when combining multiple operators within a statement, the expression is resolved from left to right. Therefore, the expression 2 + 2 + "test" will return "4test". The exception is multiplication, division and modulus, which has higher priority than plus and minus. 
+Operators are used with one or more values (or expressions) which yields another value (so that the operator itself becomes an expression). Expressions can be combinations of operators, functions and variables. Below are the available operator types described. Note that operators are always part of expressions. If no parentheses are used when combining multiple operators within a statement, the expression is resolved from left to right. Therefore, the expression ``2 + 2 . "test"`` will return ``"4test"``. The exception is multiplication, division and modulus, which has higher priority than plus and minus. 
 
 Assignment
 ----------
