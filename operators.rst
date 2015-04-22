@@ -67,6 +67,18 @@ These are the arithmetic operators supported, most of which operates on :ref:`nu
 | Concatenation | .        | .=                   | x = x . y                      |
 +---------------+----------+----------------------+--------------------------------+
 
++------------+---------------+---------------+
+| Precedence | Operator      | Associativity |
++============+===============+===============+
+|          1 | .             | Left to right |
++------------+---------------+---------------+
+|          2 | \+ \-         | Left to right |
++------------+---------------+---------------+
+|          3 | \* / %        | Left to right |
++------------+---------------+---------------+
+|          4 | \*\*          | Right to left |
++------------+---------------+---------------+
+
 .. note::
 
 	HSL has constant folding, so numeric calculations are done at compile-time. Which means that ``3600 * 24`` is just as fast as using the constant ``86400``.
