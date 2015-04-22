@@ -57,7 +57,7 @@ In addition to `if` there is also an `else` branch available; executed if the ex
 
 .. warning::
 
-	If you want to check for truthiness, do not comparre values to the :ref:`boolean <boolean>` types `true` or `false` (since they are alises for numeric values `1` and `0`).
+	If you want to check for truthiness, do not compare values to the :ref:`boolean <boolean>` types `true` or `false` (since they are alises for numeric values `1` and `0`).
 
 	.. code-block:: hsl
 
