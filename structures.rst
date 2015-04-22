@@ -55,6 +55,15 @@ In addition to `if` there is also an `else` branch available; executed if the ex
 		echo "statement is true";
 	}
 
+.. warning::
+
+	If you want to check for truthiness, avoid comparing values to the :ref:`boolean <boolean>` types `true` and `false` (since they are alises for numeric values `1` and `0`).
+
+	.. code-block:: hsl
+
+		if (5 == true) // false
+		if (5) // true
+
 Ternary operator
 ^^^^^^^^^^^^^^^^
 
