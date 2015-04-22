@@ -35,7 +35,7 @@ In addition to `if` there is also an `else` branch available; executed if the ex
 
 .. _truthtable:
 
-`if` statements check the expression for truthiness
+`if` statements check the expression for truthiness. It does so by checking if the expression is not false. Everything that is not false is definition true.
 
 +-----------+------------+
 | data type | truthiness |
@@ -57,12 +57,12 @@ In addition to `if` there is also an `else` branch available; executed if the ex
 
 .. warning::
 
-	If you want to check for truthiness, avoid comparing values to the :ref:`boolean <boolean>` types `true` and `false` (since they are alises for numeric values `1` and `0`).
+	If you want to check for truthiness, do not comparre values to the :ref:`boolean <boolean>` types `true` or `false` (since they are alises for numeric values `1` and `0`).
 
 	.. code-block:: hsl
 
 		if (5 == true) // false because (5 == 1) is not true
-		if (5) // true
+		if (5) // true because (5 != 0) is true
 
 Ternary operator
 ^^^^^^^^^^^^^^^^
