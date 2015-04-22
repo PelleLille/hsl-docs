@@ -35,7 +35,7 @@ In addition to `if` there is also an `else` branch available; executed if the ex
 
 .. _truthtable:
 
-`if` statements check the expression for truthiness. It does so by checking if the expression is not false. Everything that is not false is definition true.
+`if` statements check the expression for truthiness. It does so by checking if the expression is not false. Everything that is not false is by definition true.
 
 +-----------+------------+
 | data type | truthiness |
