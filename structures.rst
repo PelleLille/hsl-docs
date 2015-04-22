@@ -61,7 +61,7 @@ In addition to `if` there is also an `else` branch available; executed if the ex
 
 	.. code-block:: hsl
 
-		if (5 == true) // false
+		if (5 == true) // false because (5 == 1) is not true
 		if (5) // true
 
 Ternary operator
