@@ -187,7 +187,7 @@ The `return` statement return a value from a function::
 Default argument
 ^^^^^^^^^^^^^^^^
 
-Formal parameters may be initialized with a default value if not given by the caller. Default values may only defined as trailing parameters in the function definition. Constant expressions which can be evaluated during compile-time may be used as default values (e.g. ``$a = 10 * 1024`` and ``$a = []``):: 
+Formal parameters may be initialized with a default value if not given by the caller. Default values may only defined as trailing parameters in the function definition. Constant expressions which can be evaluated during compile-time may be used as default values (e.g. ``$a = 10 * 1024`` and ``$a = []``)::
 	
 	function funcname($arg1 = constant_expressions) {
 		statements
@@ -199,7 +199,7 @@ Formal parameters may be initialized with a default value if not given by the ca
    		return "Hello $name.";
 	}
 	echo hello(); // Hello World.
-	echo hello("You"); // Hello You. 
+	echo hello("You"); // Hello You.
 
 .. _variadicfunction:
 
@@ -239,7 +239,7 @@ The `global` statement allows variables to be imported in to a local function sc
 		echo "Message sent to $recipient";
 		builtin Deliver();
 	}
-	Deliver(); 
+	Deliver();
 
 Function calling
 ^^^^^^^^^^^^^^^^
@@ -288,10 +288,10 @@ The following cache options are available.
    * **per_message** (boolean) Create a per-message cache (can be used in certain contexts). The default is ``false``.
    * **lru** (boolean) If the cache is full and a cache-miss occur it will remove 10% of the Least Recently Used (LRU) entries in order to be able to store new entries. The default is ``true``.
 
-  There are some special namespaces which are reserved. However, they may still be used with caution. 
+  There are some special namespaces which are reserved. However, they may still be used with caution.
 
-  * **$messageid** This namespace is used to implement the per-message cache. 
-  * **"file:X"** This namespace may be used to cache functions using files. It's cleared when the file is changed. 
+  * **$messageid** This namespace is used to implement the per-message cache.
+  * **"file:X"** This namespace may be used to cache functions using files. It's cleared when the file is changed.
 
   .. code-block:: hsl
 
@@ -299,7 +299,7 @@ The following cache options are available.
 	function json_decode_and_http(...$args) {
 		    return json_decode(http(...$args));
 	}
-	$list = cache [] json_decode_and_http("http://api.example.com/v1/get/list"); 
+	$list = cache [] json_decode_and_http("http://api.example.com/v1/get/list");
 
 .. warning::
 
@@ -309,7 +309,7 @@ The following cache options are available.
 
 		if (cache [] ScanRPD() == 100)  // The same (and incorrect) result will be used for multiple messages
 		    cache [] Reject();          // Reject will only happen once...
-		Deliver();                      // ...and all other messages will be delivered. 
+		Deliver();                      // ...and all other messages will be delivered.
 
 barrier
 -------
