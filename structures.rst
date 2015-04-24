@@ -172,6 +172,12 @@ return
 The `return` statement return a value from a function::
 
 	function funcname() {
+		return expression;
+	}
+	
+.. code-block:: hsl
+
+	function funcname() {
 		return 42;
 	}
 
@@ -285,7 +291,7 @@ The following cache options are available.
   There are some special namespaces which are reserved. However, they may still be used with caution. 
 
   * **$messageid** This namespace is used to implement the per-message cache. 
-  * **file:X** This namespace may be used to cache functions using files. It's cleared when the file is changed. 
+  * **"file:X"** This namespace may be used to cache functions using files. It's cleared when the file is changed. 
 
   .. code-block:: hsl
 
