@@ -370,7 +370,7 @@ Encodings and JSON
 
   The following options are available in the options array.
 
-   * **ensure_ascii** (boolean) Convert all non-ASCII characters (UTF-8) to unicode (`\\uXXXX`). The default type is ``true``.
+   * **ensure_ascii** (boolean) Convert all non-ASCII characters (UTF-8) to unicode (`\\uXXXX`). The default is ``true``.
 
   Encode an array, number or string into a JSON representation (string). The encoding distinguishes arrays from objects if they are sequentially numbered from zero. On encoding errors an object with the data type of undefined is returned. All non-ASCII characters will be escaped as Unicode code points (\\uXXXX).
 
