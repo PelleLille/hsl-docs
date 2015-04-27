@@ -359,15 +359,20 @@ Encodings and JSON
   :return: the string representation
   :rtype: string
 
-.. function:: json_encode(value)
+.. function:: json_encode(value, [options])
 
   JSON encode a HSL data type.
 
   :param any value: HSL data type
+  :param array options: options array
   :return: a JSON representation of value
   :rtype: string
 
-  Encode an array, number or string into a JSON representation (string). The encoding distinguishes arrays from objects if they are sequentially numbered from zero. On encoding errors an object with the data type of undefined is returned. All non-ASCII characters will be escaped as Unicode code points (\uXXXX).
+  The following options are available in the options array.
+
+   * **ensure_ascii** (boolean) Convert all non-ASCII characters (UTF-8) to unicode (`\\uXXXX`). The default type is ``true``.
+
+  Encode an array, number or string into a JSON representation (string). The encoding distinguishes arrays from objects if they are sequentially numbered from zero. On encoding errors an object with the data type of undefined is returned. All non-ASCII characters will be escaped as Unicode code points (\\uXXXX).
 
   .. note::
 

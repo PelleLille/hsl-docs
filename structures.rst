@@ -169,10 +169,10 @@ It's possible to write new functions in HSL, and also to override builtin functi
 return
 ^^^^^^
 
-The `return` statement return a value from a function::
+The `return` statement return a value from a function. If the expression is omitted a value of `none` is returned::
 
 	function funcname() {
-		return expression;
+		return [ expression ];
 	}
 	
 .. code-block:: hsl
