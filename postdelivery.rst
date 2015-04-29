@@ -54,12 +54,12 @@ Functions
 
   :return: doesn't return, script is terminated
 
-.. function:: Deliver(recipient, transport)
+.. function:: Deliver(recipient, transportid)
 
   Deliver the message to a new recipient and/or transport. The retry count is reset and the message is queued for immediate delivery. 
 
   :param string recipient: an e-mail address
-  :param string transport: a transport profile
+  :param string transportid: the transportid to be used
   :return: doesn't return, script is terminated
 
 .. function:: SetMetaData(metadata)
