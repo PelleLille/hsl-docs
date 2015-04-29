@@ -36,7 +36,14 @@ Functions
   :param string message: the reject message
   :return: doesn't return, script is terminated
 
+.. function:: Defer([message])
+
+  Defer the login request with a temporary (454) error.
+
+  :param string message: the defer message
+  :return: doesn't return, script is terminated
+
 On script error
 ---------------
 
-On script error ``Reject()`` is called.
+On script error ``Defer()`` is called.
