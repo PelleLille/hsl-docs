@@ -42,17 +42,29 @@ Functions
 
   :return: doesn't return, script is terminated
 
+  .. warning::
+
+     If the message was delivered (``$errorcode == 250``) this function will raise an runtime error.
+
 .. function:: GenerateDSN()
 
   Delete the message from the queue, and generating a DSN (bounce) to the sender.
 
   :return: doesn't return, script is terminated
 
+  .. warning::
+
+     If the message was delivered (``$errorcode == 250``) this function will raise an runtime error.
+
 .. function:: Retry()
 
   Retry the message again later. This is the default action for non-permanent (5XX) ``$errorcode``'s. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.
 
   :return: doesn't return, script is terminated
+
+  .. warning::
+
+     If the message was delivered (``$errorcode == 250``) this function will raise an runtime error.
 
 .. function:: Deliver(recipient, transportid)
 
@@ -61,6 +73,10 @@ Functions
   :param string recipient: an e-mail address
   :param string transportid: the transportid to be used
   :return: doesn't return, script is terminated
+
+  .. warning::
+
+     If the message was delivered (``$errorcode == 250``) this function will raise an runtime error.
 
 .. function:: SetMetaData(metadata)
 
