@@ -470,7 +470,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 
   The following options are available in the options array.
 
-   * **connect_timeout** (numbers) Connection timeout (in seconds). The default is ``10`` seconds.
+   * **connect_timeout** (number) Connection timeout (in seconds). The default is ``10`` seconds.
    * **timeout** (number) Timeout (in seconds) waiting for data once the connection is established. The default is to wait indefinitely.
    * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
    * **headers** (array) An array of additional HTTP headers.
