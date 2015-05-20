@@ -8,7 +8,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Data types** :func:`array` :func:`number` :func:`string` :func:`is_array` :func:`is_number` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnsmx` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
-* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`json_encode` :func:`json_decode`
+* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`json_encode` :func:`json_decode` :func:`hash`
 * **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http`
 * **Mail** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`dovecot_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author` :func:`dnsbl` :func:`spf` :func:`globalview` :func:`mail`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
@@ -396,6 +396,14 @@ Encodings and JSON
   * **false** to ``0`` (is_number)
   * **null** to **none** (check for expected type instead)
 
+.. function:: hash(string)
+
+  Return the numeric hash value of the input string. The hash value is same for equal strings.
+
+  :param string string: string to be hased
+  :return: a hash value
+  :rtype: number
+
 File and HTTP
 -------------
 The filename may point to a file in the configuration ``file:X`` or a file relative on the accessible filesystem ``file://filename.txt``.
@@ -470,6 +478,8 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
    * **ssl_verify_peer** (boolean) Verify SSL peer. The default is ``true``.
    * **ssl_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
    * **ssl_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
+   * **background** (boolean) Perform request in the background. In which case this function returns ``None``. The default is ``false``.
+   * **background_hash** (number) Assign this request to a specific queue, if this value is higher than the number of queues, it's chosen by modulus. The default is queue ``0``.
 
 Mail
 ----
