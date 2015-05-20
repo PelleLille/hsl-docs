@@ -4,11 +4,11 @@ Standard library
 Functions which are documented in this chapter are considered `core` functions hence are available in all `contexts`. Functions in the standard library may be recognized by the fact that they are all in lowercase.
 
 * **Array** :func:`array_keys` :func:`array_reverse` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
-* **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`md5` :func:`sha1`
+* **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`md5` :func:`sha1` :func:`hash`
 * **Data types** :func:`array` :func:`number` :func:`string` :func:`is_array` :func:`is_number` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnsmx` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
-* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`json_encode` :func:`json_decode` :func:`hash`
+* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`json_encode` :func:`json_decode`
 * **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http`
 * **Mail** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`dovecot_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author` :func:`dnsbl` :func:`spf` :func:`globalview` :func:`mail`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
@@ -120,6 +120,14 @@ Cryptographic
   :param string s: the value to hash
   :return: the hash value hex encoded
   :rtype: string
+
+.. function:: hash(string)
+
+  Return the numeric hash value of the input string. The hash value is same for equal strings.
+
+  :param string string: string to be hased
+  :return: a hash value
+  :rtype: number
 
 Data types
 ----------
@@ -395,14 +403,6 @@ Encodings and JSON
   * **true** to ``1`` (is_number)
   * **false** to ``0`` (is_number)
   * **null** to **none** (check for expected type instead)
-
-.. function:: hash(string)
-
-  Return the numeric hash value of the input string. The hash value is same for equal strings.
-
-  :param string string: string to be hased
-  :return: a hash value
-  :rtype: number
 
 File and HTTP
 -------------
