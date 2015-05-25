@@ -281,6 +281,7 @@ The following cache options are available.
    * **ttl** (number) Time to Live (TTL) in seconds for the cache entry if added to the cache during the call. The default time is ``60`` seconds.
    * **ttl_override** (array) An associative array where the key is the `return value` and the value is the overridden `ttl` to be used.
    * **ttl_function** (string) The name of a custom function taking one argument (the function's `return value`) and returning the `ttl` to be used.
+   * **update_function** (string) The name of a custom function called at cache updates; taking two arguments (the `old` and `new` value) and returning the value to be used and cached.
    * **argv_filter** (array) A list of arguments (positions starting at 1) which should make this cache entry unique. The default is to use all arguments.
    * **force** (boolean) Force a cache-miss. The default is ``false``.
    * **size** (number) The size of the cache (a cache is namespace + function-name). The default is ``32``.
