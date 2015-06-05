@@ -1,7 +1,7 @@
 Data types and literals
 =======================
 
-HSL has multiple data types; `strings`, `numbers` and `arrays` (which also works as an ordered map to store key-value pairs, similar to PHP's `array <http://php.net/manual/en/language.types.array.php>`_). These data types may be represented as literals. There is also a `none` (or `null`) data type that is rarely encountered (e.g. a failed :func:`json_decode` may return `none`).
+HSL has multiple data types; `strings`, `numbers` and `arrays` (which also works as an ordered map to store key-value pairs, similar to PHP's `array <http://php.net/manual/en/language.types.array.php>`_). These data types may be represented as literals. There is also a `none` (or `null`) data type that is rarely encountered (e.g. a :ref:`return` statement without a value or a failed :func:`json_decode` both of which return `none`).
 
 .. _string:
 

@@ -164,6 +164,13 @@ It's possible to write new functions in HSL, and also to override builtin functi
 .. warning::
 	Recursion is not allowed.
 
+Function name
+^^^^^^^^^^^^^
+
+A function may be named according to this regular expression pattern :regexp:`[a-zA-Z_]+[a-zA-Z_0-9]*` with the exception of reserved keywords. In order to prevent naming conflicts in the future with added reserved keywords; it may be a good idea to prefix the function name with an unique identifier like ``halon_func``.
+
+``and`` ``array`` ``as`` ``barrier`` ``break`` ``builtin`` ``cache`` ``case`` ``continue`` ``default`` ``echo`` ``else`` ``false`` ``foreach`` ``forever`` ``function`` ``global`` ``if`` ``include`` ``isset`` ``not`` ``or`` ``return`` ``switch`` ``true`` ``unset``
+
 .. _return:
 
 return
