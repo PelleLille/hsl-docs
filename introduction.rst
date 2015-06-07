@@ -24,7 +24,7 @@ Variables may store values from expression (e.g. constants or function calls). I
 Functions
 ---------
 
-A lot of functions are available in the :doc:`function library <functions>`. Functions are called by named followed by parentheses ``()`` with parameters in between them. Function names are case-sensitive. The argument types must be supported by the function, otherwise an error will be raised.
+A lot of functions are available in the :doc:`function library <functions>`. Functions are called by named followed by parentheses ``()`` with input parameters in between them. Function names are case-sensitive. The argument types must be supported by the function, otherwise an error will be raised.
 
 .. code-block:: hsl
 
@@ -48,5 +48,3 @@ Comments may be added to the code using two syntaxes, C-style "multi-line" comme
 	*/
 
 	// single-line comment
-
-.. _variable:
