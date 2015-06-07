@@ -311,7 +311,7 @@ The following cache options are available.
 
 .. warning::
 
-	Not all function should be cached. If calls cannot be distinguished by their arguments, bad things will happen.
+	Not all functions should be cached. If calls cannot be distinguished by their arguments or if they have side-effects (like Deliver), bad things will happen.
 
 	.. code-block:: hsl
 
