@@ -125,7 +125,7 @@ Cryptographic
 
   Return the numeric hash value of the input string. The hash value is same for equal strings.
 
-  :param string string: string to be hased
+  :param string string: string to be hashed
   :return: a hash value
   :rtype: number
 
