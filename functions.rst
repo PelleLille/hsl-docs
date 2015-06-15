@@ -146,7 +146,7 @@ Data types
 
 .. function:: number(x)
 
-  This function fast the input of x to the number type.
+  This function converts the input of x to the number type.
 
   :param any x: the input
   :return: a number
@@ -154,7 +154,7 @@ Data types
 
 .. function:: string(x)
 
-  This function fast the input of s to the string type, hence converting it to it's string representation.
+  This function converts the input of s to the string type, hence converting it to its string representation.
 
   :param any x: the input
   :return: a string
@@ -162,7 +162,7 @@ Data types
 
 .. function:: is_array(a)
 
-  Returns true if the value of a is an array.
+  Returns true if the type of a is an array.
 
   :param any a: the input
   :return: the result
@@ -170,7 +170,7 @@ Data types
 
 .. function:: is_number(n)
 
-  Returns true if the value of n is a number.
+  Returns true if the type of n is a number.
 
   :param any n: the input
   :return: the result
@@ -178,7 +178,7 @@ Data types
 
 .. function:: is_string(s)
 
-  Returns true if the value of s is a string.
+  Returns true if the type of s is a string.
 
   :param any s: the input
   :return: the result
