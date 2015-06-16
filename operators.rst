@@ -1,12 +1,12 @@
 Operators
 ==========
 
-Operators are used with one or more values (or expressions) which yields another value (so that the operator itself becomes an expression). Expressions can be combinations of operators, functions and variables. Below are the available operator types described. Note that operators are always part of expressions. If no parentheses are used when combining multiple operators within a statement, the expression is resolved from left to right. Therefore, the expression ``2 + 2 . "test"`` will return ``"4test"``. The exception is multiplication, division and modulus, which has higher priority than plus and minus. 
+Operators are used with one or more values (or expressions) which yields another value (so that the operator itself becomes an expression). Expressions can be combinations of operators, functions and variables. Below are the available operator types described. Note that operators are always part of expressions. If no parentheses are used when combining multiple operators within a statement, the expression is resolved from left to right. Therefore, the expression ``2 + 2 . "test"`` will return ``"4test"``. The exception is multiplication, division and modulus, which has higher priority than plus and minus.
 
 Assignment
 ----------
 
-Assignments will store the value of the expression to the right of the equal sign (`=`) in a variable to the left. An expression consisting of an assignment will have the value that was assigned. This is useful when assigning a variables in e.g. :ref:`if` statements. 
+Assignments will store the value of the expression to the right of the equal sign (`=`) in a variable to the left. An expression consisting of an assignment will have the value that was assigned. This is useful when assigning a variables in e.g. :ref:`if` statements.
 
   .. code-block:: hsl
 
@@ -16,7 +16,7 @@ Assignments will store the value of the expression to the right of the equal sig
 Augmented assignment
 ^^^^^^^^^^^^^^^^^^^^
 
-Augmented assignment operators are documented in the arithmetic chapter. 
+Augmented assignment operators are documented in the arithmetic chapter.
 
   .. code-block:: hsl
 
@@ -32,7 +32,7 @@ Augmented assignment operators are documented in the arithmetic chapter.
 
 .. warning::
 
-  An assignment to "self" (the same variable) on the right side of an augmented assignment yields "undefined" behavior and should not be relied upon. 
+  An assignment to "self" (the same variable) on the right side of an augmented assignment yields "undefined" behavior and should not be relied upon.
 
   .. code-block:: hsl
 
@@ -47,7 +47,7 @@ These are the arithmetic operators supported, most of which operates on :ref:`nu
 
 .. code-block:: hsl
 
-	$var = (3 - 2) + 2; 
+	$var = (3 - 2) + 2;
 
 +---------------+----------+----------------------+--------------------------------+
 |               | Operator | Augmented assignment | Augmented assignment expansion |
@@ -95,7 +95,7 @@ Strings support the :ref:`subscript <subscript>` and :ref:`slicing <slicing>` op
 Concatenation
 ^^^^^^^^^^^^^
 
-It's possible to use the ``.`` concatenation operator on any data type, in which case both operands will be casted to a string. 
+It's possible to use the ``.`` concatenation operator on any data type (except ``none``), in which case both operands will be casted to a string.
 
 .. code-block:: hsl
 
@@ -143,7 +143,7 @@ Numeric indexes are zero based. If the indexing is sequential (starting from zer
 	 +---+---+---+---+---+
 	   0   1   2   3   4
 
-It's possible to chain the index operator with the [:] :ref:`slicing <slicing>` operator. 
+It's possible to chain the index operator with the [:] :ref:`slicing <slicing>` operator.
 
 The following key casting rules apply.
 
@@ -155,7 +155,7 @@ The following key casting rules apply.
 
 	echo ["1"=>123]; // [1=>123]
 	echo [1.9=>123]; // [1=>123]
-	echo ["1.9"=>123]; // ["1.9"=>123] 
+	echo ["1.9"=>123]; // ["1.9"=>123]
 
 .. note::
 
@@ -182,7 +182,7 @@ Slicing is done using the `[first:last]` operator. The indexes of each side of t
 	echo $test[-1:]; // n
 	echo $test[-3:]; // lon
 	echo $test[-5:-2]; // Hal
-	echo $test[:2] . $test[2:]; // Halon 
+	echo $test[:2] . $test[2:]; // Halon
 
 Push and pop
 ^^^^^^^^^^^^
@@ -192,7 +192,7 @@ Push and pop
 +==============+==============================+================================+
 | shift        | $array = $array[1:];         | array_shift($array);           |
 +--------------+------------------------------+--------------------------------+
-| unshift      | $array = ["item"] + $array;  | array_unshift($array, "item"); | 
+| unshift      | $array = ["item"] + $array;  | array_unshift($array, "item"); |
 +--------------+------------------------------+--------------------------------+
 | pop          | $array = $array[:-1];        | array_pop($array);             |
 +--------------+------------------------------+--------------------------------+
@@ -214,7 +214,7 @@ In order to remove specific value(s) from an array (and if push and pop is not a
 
 	echo ["foo", 5] - 5; // [0=>"foo"]
 	echo ["foo", "foo", 5] - "foo"; // [2=>5]
-	echo ["foo", 5] - ["foo", 5]; // [] 
+	echo ["foo", 5] - ["foo", 5]; // []
 
 .. note::
 
@@ -223,7 +223,7 @@ In order to remove specific value(s) from an array (and if push and pop is not a
 Logic (boolean)
 ---------------
 
-Logic operators treats all expressions and variables as either true or false. The :ref:`truthiness <truthtable>` depends on the data type. 
+Logic operators treats all expressions and variables as either true or false. The :ref:`truthiness <truthtable>` depends on the data type.
 
 +------+----------+--------------+
 | Test | Operator | Descriptions |
@@ -295,7 +295,7 @@ The regular expression operator (``=~`` and not-match ``!~`` operator) matches a
 
 .. seealso::
 
-	For data extraction using regular expressions see :func:`pcre_match` family of functions. 
+	For data extraction using regular expressions see :func:`pcre_match` family of functions.
 
 .. _patternmodifiers:
 
