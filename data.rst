@@ -146,10 +146,28 @@ Headers
   :rtype: none
 
 .. function:: SetHeader(name, value, [refold = true])
+
+  Overwrite existing header(s) or create a new header.
+
+  :param string name: name of the header
+  :param string value: value of the header
+  :param boolean refold: refold header to 80 characters per line
+  :return: number of headers changed
+  :rtype: number
+
 .. function:: PrependHeader(name, value, [refold = true])
+
+  Prepend to existing header(s) or create a new header.
+
+  :param string name: name of the header
+  :param string value: value of the header
+  :param boolean refold: refold header to 80 characters per line
+  :return: number of headers changed
+  :rtype: number
+
 .. function:: AppendHeader(name, value, [refold = true])
 
-  Set, prepend or append to existing header(s).
+  Append to existing header(s) or create a new header.
 
   :param string name: name of the header
   :param string value: value of the header
@@ -158,6 +176,8 @@ Headers
   :rtype: number
 
 .. function:: DelHeader(name)
+
+  Delete all headers by the name.
 
   :param string name: name of the header
   :return: number of headers deleted
@@ -264,10 +284,17 @@ Actions
   :updates: ``$actionid``
 
 .. function:: Reject([reason])
+
+  Reject (550) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
+
+  :param reason: reject message with reason
+  :type reason: string or array
+  :return: doesn't return, script is terminated
+  :updates: ``$actionid``
+
 .. function:: Defer([reason])
 
-  Reject (550) or defer (421) a message. If `reason` is an array or 
-  contains `\\n` it will be split into a multiline response.
+  Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
   :param reason: reject message with reason
   :type reason: string or array
