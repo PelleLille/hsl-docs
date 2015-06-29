@@ -426,7 +426,7 @@ Anti-spam and anti-virus
 
   :param array patterns: array of specific rules to look for
   :param array options: options array
-  :return: all patterns found
+  :return: all patterns found (may include `ERR_` rules even if not explicitly given in the `patterns` argument)
   :rtype: array
 
   The following options are available in the options array.
