@@ -93,6 +93,13 @@ Functions
   :param string protocol: ``smtp`` or ``lmtp``
   :rtype: none
 
+.. function:: SetTLS(mode)
+
+  Set the TLS mode for the current delivery attempt (it is not remembered for the next retry).
+
+  :param string mode: ``optional``, ``optional_verify``, ``require``, ``require_verify`` or ``disabled``
+  :rtype: none
+
 .. function:: SetSASL(username, password)
 
   Set the SASL `AUTH` username and password for the current delivery attempt (it is not remembered for the next retry).
