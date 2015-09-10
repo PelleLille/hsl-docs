@@ -173,4 +173,4 @@ Functions
 On script error
 ---------------
 
-On script error ``Reschedule(300)`` is called.
+On script error ``Reschedule(300)`` is called with ``increment_retry`` set to false.
