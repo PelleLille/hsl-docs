@@ -164,6 +164,16 @@ It's possible to write new functions in HSL, and also to override builtin functi
 .. warning::
 	Recursion is not allowed.
 
+.. note::
+	Functions are unconditionally registered at compile-time (control flow is not taken into consideration). Hence it doesn't matter where in the code it's defined (eg. before or after it's being called).
+
+	.. code-block:: hsl
+
+		funcname();
+		function funcname() {
+			echo "hello";
+		}
+
 Function name
 ^^^^^^^^^^^^^
 
