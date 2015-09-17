@@ -102,12 +102,38 @@ foreach
 break
 ^^^^^
 
-`break` will abort the iteration of `foreach` loops and execution of `switch` statements.
+`break` will abort the loop iteration of a `foreach` and `forever` loop and also the execution of `switch` statements.
 
 continue
 ^^^^^^^^
 
-`continue` will abort the current iteration of a `foreach` loop, and restart on the next iteration.
+`continue` will abort the current loop iteration of a `foreach` and `forever` loop, and restart on the next iteration.
+
+forever
+-------
+
+`forever` statements allows indefinite loops::
+
+	forever
+		statements
+
+.. code-block:: hsl
+
+	$i = 0;
+	forever {
+		echo $i;
+		$i += 1;
+	}
+
+break
+^^^^^
+
+`break` will abort the loop iteration of a `foreach` and `forever` loop and also the execution of `switch` statements.
+
+continue
+^^^^^^^^
+
+`continue` will abort the current loop iteration of a `foreach` and `forever` loop, and restart on the next iteration.
 
 switch
 ------
