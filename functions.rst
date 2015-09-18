@@ -142,7 +142,7 @@ Data types
 
   .. note::
 
-	`array` is not a function, it's a language contrustruct to create an :ref:`array <arraytype>` type. It's an alias for the short array syntax ``[]``.
+	`array` is not a function, it's a language construct to create an :ref:`array <arraytype>` type. It's an alias for the short array syntax ``[]``.
 
 .. function:: number(x)
 
@@ -245,7 +245,7 @@ Date and time
 	 echo strftime("%H:%M:%S"); // prints current time eg "13:58:38"
 
   :param string format: the format string
-  :return: the time formated (max length 100)
+  :return: the time formatted (max length 100)
   :rtype: string
 
 .. function:: time()
@@ -628,7 +628,7 @@ Mail
 
 .. function:: tacplus_author(options, username, avpair)
 
-  Send a authorization request to a TACACS+ server.
+  Send an authorization request to a TACACS+ server.
 
   :param array options: options array
   :param string username: username

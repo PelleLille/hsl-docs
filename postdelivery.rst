@@ -44,7 +44,7 @@ Functions
 
   .. warning::
 
-     If the message was delivered (``$errorcode == 250``) this function will raise an runtime error.
+     If the message was delivered (``$errorcode == 250``) this function will raise a runtime error.
 
 .. function:: GenerateDSN()
 
@@ -54,7 +54,7 @@ Functions
 
   .. warning::
 
-     If the message was delivered (``$errorcode == 250``) this function will raise an runtime error.
+     If the message was delivered (``$errorcode == 250``) this function will raise a runtime error.
 
 .. function:: Retry()
 
@@ -64,7 +64,7 @@ Functions
 
   .. warning::
 
-     If the message was delivered (``$errorcode == 250``) this function will raise an runtime error.
+     If the message was delivered (``$errorcode == 250``) this function will raise a runtime error.
 
 .. function:: Deliver(recipient, transportid)
 
@@ -76,7 +76,7 @@ Functions
 
   .. warning::
 
-     If the message was delivered (``$errorcode == 250``) this function will raise an runtime error.
+     If the message was delivered (``$errorcode == 250``) this function will raise a runtime error.
 
 .. function:: SetMetaData(metadata)
 
