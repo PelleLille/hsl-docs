@@ -42,14 +42,20 @@ Array
   :return: the number of items in array
   :rtype: number
 
-.. function:: explode(delimiter, string)
+.. function:: explode(delimiter, string, [limit = 0])
 
   Splits the string into an array on the delimiter.
 
   :param string delimiter: the delimiter
   :param string string: the string
+  :param number limit: the maximum number of parts returned
   :return: an array of strings
   :rtype: array
+
+  .. code-block:: hsl
+
+	explode(" ", "how are you",  2) // ["how","are you"]
+	explode(" ", "how are you", -2) // ["how are","you"]
 
 .. function:: implode(glue, array)
 
