@@ -408,7 +408,7 @@ Anti-spam and anti-virus
 
 .. function:: ScanKAV()
 
-  Scan the message using Kaspersky anti-virus.
+  Scan the message using the commerial anti-virus.
 
   :return: any viruses found
   :rtype: array
