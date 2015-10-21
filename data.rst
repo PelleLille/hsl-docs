@@ -121,7 +121,7 @@ Headers
 
 .. function:: GetHeader(name, [decode = true])
 
-  Return the value of a header (if multiple headers with the same name exists, the first will be returned).
+  Return the value of a header (if multiple headers with the same name exists, the first will be returned). The name is not case sensitive.
 
   :param string name: name of the header
   :param boolean decode: if false, the header will not be decoded
@@ -130,7 +130,7 @@ Headers
 
 .. function:: GetHeaders(name, [decode = true])
 
-  Return the value of all headers with the name. If name is true, all headers will be returned.
+  Return the value of all headers with the name. If name is boolean true, all headers will be returned. The name is not case sensitive.
 
   :param string name: name of the header
   :param boolean decode: if false, the header will not be decoded
@@ -139,7 +139,7 @@ Headers
 
 .. function:: AddHeader(name, value, [refold = true])
 
-  Add a new header (at the top of the message).
+  Add a new header (at the top of the message). The name is not case sensitive.
 
   :param string name: name of the header
   :param string value: value of the header
@@ -147,7 +147,7 @@ Headers
 
 .. function:: SetHeader(name, value, [refold = true])
 
-  Overwrite existing header(s) or create a new header.
+  Overwrite existing header(s) or create a new header. The name is not case sensitive.
 
   :param string name: name of the header
   :param string value: value of the header
@@ -157,7 +157,7 @@ Headers
 
 .. function:: PrependHeader(name, value, [refold = true])
 
-  Prepend to existing header(s) or create a new header.
+  Prepend to existing header(s) or create a new header. The name is not case sensitive.
 
   :param string name: name of the header
   :param string value: value of the header
@@ -167,7 +167,7 @@ Headers
 
 .. function:: AppendHeader(name, value, [refold = true])
 
-  Append to existing header(s) or create a new header.
+  Append to existing header(s) or create a new header. The name is not case sensitive.
 
   :param string name: name of the header
   :param string value: value of the header
@@ -177,7 +177,7 @@ Headers
 
 .. function:: DelHeader(name)
 
-  Delete all headers by the name.
+  Delete all headers by the name. The name is not case sensitive.
 
   :param string name: name of the header
   :return: number of headers deleted
