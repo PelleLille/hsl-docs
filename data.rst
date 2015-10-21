@@ -183,9 +183,9 @@ Headers
   :return: number of headers deleted
   :rtype: number
 
-.. function:: GetRoute([extended = false])
+.. function:: GetRoute([extended_result = false])
 
-  :param boolean extended: include more information
+  :param boolean extended_result: include more information
   :return: the message's `Received` header(s) parsed in a usable format
   :rtype: array
 
@@ -198,7 +198,7 @@ Headers
 
 .. function:: GetDSNHeader(name, [skip_decode = false])
 
-  Same as GetHeader except it works on attached DSN messages.
+  Same as GetHeader except it works on attached DSN messages. The name is not case sensitive.
 
   :param string name: the header
   :param boolean skip_decode: if decoding should be skipped (return raw)
