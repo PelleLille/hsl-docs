@@ -278,65 +278,53 @@ Date and time
 DNS
 ---
 
-.. function:: dns(hostname, [resolvers, [timeout = 5]])
+.. function:: dns(name, [options])
 
-  Query the resolvers for the A and AAAA record of the hostname. If no resolvers are given, the system default is used.
+  Query for the A and AAAA record of a hostname.
 
-  :param string hostname: the hostname
-  :param array resolvers: list of resolvers
-  :param number timeout: timeout in seconds
-  :return: list of IP addresses
-  :rtype: array
+  .. include:: func_dns.rst
 
-.. function:: dns4(hostname, [resolvers, [timeout = 5]])
+  .. code-block:: hsl
 
-  Query the resolvers for the A record of the hostname. If no resolvers are given, the system default is used.
+	echo dns("nxdomain.halon.se");
+	// []
+	echo dns("nxdomain.halon.se", ["extended_result" => true]);
+	// ["error"=>"NXDOMAIN","dnssec"=>0]
 
-  :param string hostname: the hostname
-  :param array resolvers: list of resolvers
-  :param number timeout: timeout in seconds
-  :return: list of IP addresses
-  :rtype: array
+	echo dns("halon.se");
+	// [0=>"54.152.237.238"]
+	echo dns("halon.se", ["extended_result" => true]);
+	// ["result"=>[0=>"54.152.237.238"],"dnssec"=>0]
 
-.. function:: dns6(hostname, [resolvers, [timeout = 5]])
+.. function:: dns4(name, [options])
 
-  Query the resolvers for the AAAA record of the hostname. If no resolvers are given, the system default is used.
+  Query the resolvers for the A record of the hostname.
 
-  :param string hostname: the hostname
-  :param array resolvers: list of resolvers
-  :param number timeout: timeout in seconds
-  :return: list of IPv6 addresses
-  :rtype: array
+  .. include:: func_dns.rst
 
-.. function:: dnsmx(hostname, [resolvers, [timeout = 5]])
+.. function:: dns6(name, [options])
 
-  Query the resolvers for the MX record of the hostname. If no resolvers are given, the system default is used.
+  Query the resolvers for the AAAA record of the hostname.
 
-  :param string hostname: the hostname
-  :param array resolvers: list of resolvers
-  :param number timeout: timeout in seconds
-  :return: list of MX records
-  :rtype: array
+  .. include:: func_dns.rst
 
-.. function:: dnsptr(address, [resolvers, [timeout = 5]])
+.. function:: dnsmx(name, [options])
 
-  Query the resolvers for the PTR record of the address. If no resolvers are given, the system default is used.
+  Query the resolvers for the MX record of the hostname.
 
-  :param string address: the address (IPv4 or IPv6)
-  :param array resolvers: list of resolvers
-  :param number timeout: timeout in seconds
-  :return: the PTR record of address
-  :rtype: array
+  .. include:: func_dns.rst
 
-.. function:: dnstxt(hostname, [resolvers, [timeout = 5]])
+.. function:: dnsptr(name, [options])
 
-  Query the resolvers for the TXT record of the hostname. If no resolvers are given, the system default is used.
+  Query the resolvers for the PTR record of the address.
 
-  :param string hostname: the hostname
-  :param array resolvers: list of resolvers
-  :param number timeout: timeout in seconds
-  :return: list of TXT records
-  :rtype: array
+  .. include:: func_dns.rst
+
+.. function:: dnstxt(name, [options])
+
+  Query the resolvers for the TXT record of the hostname.
+
+  .. include:: func_dns.rst
 
 .. function:: is_subdomain(d, domain)
 

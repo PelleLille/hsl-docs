@@ -13,6 +13,7 @@ These are the read-only pre-defined variables available. Some of them can be cha
 ================= ======= ========================== ===========
 Variable          Type    Example                    Description
 ================= ======= ========================== ===========
+$receivedtime     number  1445937340                 The unix time (in UTC) when the message was received
 $sourceip         string  "10.0.0.1"                 The delivery source IP (initially defined by the transport profile) 
 $destination      string  "172.16.1.25"              The destination host (initially defined by the transport profile)
 $destinationport  number  25                         The destination port (initially defined by the transport profile)
