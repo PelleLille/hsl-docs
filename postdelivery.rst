@@ -13,6 +13,7 @@ These are the read-only pre-defined variables available each time after a delive
 ================= ======= ========================== ===========
 Variable          Type    Example                    Description
 ================= ======= ========================== ===========
+$receivedtime     number  1445937340                 The unix time (in UTC) when the message was received
 $serverip         string  "172.16.1.25"              IP which we tried to connect to (empty on DNS problems)
 $serverport       number  25                         Port which we tried to connect to
 $senderip         string  "192.168.1.11"             IP address of the sender
