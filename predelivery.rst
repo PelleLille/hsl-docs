@@ -98,7 +98,7 @@ Functions
 
   Set the TLS mode for the current delivery attempt (it is not remembered for the next retry).
 
-  :param string mode: ``optional``, ``optional_verify``, ``require``, ``require_verify`` or ``disabled``
+  :param string mode: ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require``, ``require_verify`` or ``disabled``
   :rtype: none
 
 .. function:: SetSASL(username, password)

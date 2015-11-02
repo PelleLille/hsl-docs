@@ -499,7 +499,7 @@ Mail
    * **sourceip** (string) Explicitly bind a ``netaddr:X``. The default is ``auto``.
    * **sasl_username** (string) If specified issue a AUTH LOGIN before RCPT TO.
    * **sasl_password** (string) If specified issue a AUTH LOGIN before RCPT TO.
-   * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``require`` or ``require_verify``. The default is ``disabled``.
+   * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
 
   The following options are available in the options array.
 
@@ -523,7 +523,7 @@ Mail
    * **port** (number) TCP port. The default is ``25``.
    * **helo** (string) The default is to use the system hostname.
    * **sourceip** (string) Explicitly bind a ``netaddr:X``. The default is ``auto``.
-   * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``require`` or ``require_verify``. The default is ``disabled``.
+   * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
 
 .. function:: dovecot_lookup_auth(options, username, password)
 
