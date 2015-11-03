@@ -355,6 +355,10 @@ The following cache options are available.
 		    cache [] Reject();          // Reject will only happen once...
 		Deliver();                      // ...and all other messages will be delivered.
 
+.. note::
+
+	By default (if not distinguish by `namespace`), all cached calls to the same function name share the same cache bucket, consequently the cache statement with the smallest size set the effective max size for that cache. It's recommended to use different `namespaces` for unrelated function calls.
+
 barrier
 -------
 
