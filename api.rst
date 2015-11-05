@@ -36,10 +36,11 @@ Functions
    * **fullname** (string) Corresponds to the "Full Name" property of configuration users. The default is ``$username``.
    * **accesslevel** (string) The access level string, such as "r" for read-only. The default is no accesslevel restrictions.
 
-.. function:: Deny()
+.. function:: Deny([reason])
 
   Denies the API call.
 
+  :param string reason: reason for denying. The default is `Unauthorized`.
   :return: doesn't return, script is terminated
 
 On script error
