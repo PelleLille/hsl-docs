@@ -26,6 +26,7 @@ $recipientdomains array   ["example.com", ...]       List of all domain part of 
 $messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
 $actionid         number  1                          ID; incremented per message action/recipient (Deliver, CopyMail, Quarantine, etc.)
 $serverid         string  "mailserver\:1"            ID of the mailserver profile
+$serverip         string  "10.0.0.1"                 IP address of the mailserver
 $transportid      string  "mailtransport\:1"         ID of the transport profile to be used
 ================= ======= ========================== ===========
 

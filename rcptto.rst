@@ -23,6 +23,7 @@ $senderdomain    string  "example.org"       Domain part of sender's address
 $recipient       string  "test\@example.com" E-mail address of recipient
 $recipientdomain string  "example.com"       Domain part of recipient's address
 $serverid        string  "mailserver\:1"     ID of the mailserver profile
+$serverip        string  "10.0.0.1"          IP address of the mailserver
 $transportid     string  "mailtransport\:1"  ID of the transport profile to be used
 ================ ======= =================== ===========
 
