@@ -24,4 +24,3 @@ foreach($file as $f)
 }
 
 dump();
-?>

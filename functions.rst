@@ -10,9 +10,10 @@ Functions which are documented in this chapter are considered `core` functions h
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnsmx` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`json_encode` :func:`json_decode`
 * **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http`
-* **Mail** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`dovecot_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author` :func:`dnsbl` :func:`spf` :func:`globalview` :func:`mail`
+* **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
-* **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`rate`
+* **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`rate` :func:`mail`
+* **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`dovecot_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author`
 * **String** :func:`chr` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
 
 Array
@@ -479,166 +480,6 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 Mail
 ----
 
-.. function:: smtp_lookup_rcpt(server, sender, recipient, [options])
-
-  Check if sender is allowed to send mail to recipient.
-
-  :param server: array with server settings or mailtransport profile
-  :type server: string or array
-  :param string sender: the sender (MAIL FROM)
-  :param string recipient: the recipient (RCPT TO)
-  :param array options: options array
-  :return: ``1`` if the command succeeded, ``0`` if the command failed and ``-1`` if an error occurred. The ``error_code`` option may change this behavior.
-  :rtype: number or array
-
-  The following server settings are available in the server array.
-
-   * **host** (string) IP-address or hostname. **required**
-   * **port** (number) TCP port. The default is ``25``.
-   * **helo** (string) The default is to use the system hostname.
-   * **sourceip** (string) Explicitly bind a ``netaddr:X``. The default is ``auto``.
-   * **sasl_username** (string) If specified issue a AUTH LOGIN before RCPT TO.
-   * **sasl_password** (string) If specified issue a AUTH LOGIN before RCPT TO.
-   * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
-
-  The following options are available in the options array.
-
-   * **error_code** (boolean) If error_code is true and associative array with "error_code" and "error_message" is returned. The default is ``false``.
-
-.. function:: smtp_lookup_auth(server, username, password)
-
-  Try to authenticate the username against a SMTP server.
-
-  :param server: array with server settings or mailtransport profile
-  :type server: string or array
-  :param string username: username
-  :param string password: password
-  :param array options: options array
-  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
-  :rtype: number
-
-  The following server settings are available in the server array.
-
-   * **host** (string) IP-address or hostname. **required**
-   * **port** (number) TCP port. The default is ``25``.
-   * **helo** (string) The default is to use the system hostname.
-   * **sourceip** (string) Explicitly bind a ``netaddr:X``. The default is ``auto``.
-   * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
-
-.. function:: dovecot_lookup_auth(options, username, password)
-
-  Try to authenticate the username against a dovecot server.
-
-  :param array options: options array
-  :param string username: username
-  :param string password: password
-  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
-  :rtype: number
-
-  The following options are available in the options array.
-
-   * **host** (string) IP-address or hostname of the dovecot server. **required**
-   * **port** (number) TCP port. **required**
-   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
-
-   There are also some protocol specific flags that may be configured.
-
-	   * **service** (string) Service name to identify this request. The default is ``smtp``.
-	   * **rip** (string) The IP-address of the client (remote IP).
-	   * **lip** (string) The IP-address of the Halon (local IP).
-	   * **secured** (boolean) Set to true if the client has tlsstarted. The default is ``false``.
-
-.. function:: ldap_search(profile, lookup, [override])
-
-  Query an LDAP server for lookup and return all LDAP entries found.
-
-  :param string profile: ldap profile
-  :param string lookup: query that will be inserted into the ldap query (ldapescaped)
-  :param array override: options array
-  :return: an array with LDAP entries or ``-1`` if an error occurred.
-  :rtype: array or number
-
-  The following overrides are available in the override array.
-
-   * **host** (string) IP-address or hostname.
-   * **username** (string) LDAP username.
-   * **password** (string) LDAP password.
-   * **base** (string) LDAP base.
-   * **query** (string) LDAP query (unescaped).
-
-.. function:: ldap_bind(profile, username, password, [override])
-
-  Try to bind (authenticate) against an LDAP server.
-
-  :param string server: ldap profile
-  :param string username: LDAP username
-  :param string password: LDAP password
-  :param array override: options array
-  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
-  :rtype: number
-
-  The following overrides are available in the override array.
-
-   * **host** (string) IP-address or hostname.
-
-.. function:: radius_authen(options, username, password, [vendorstrings])
-
-  Authenticate against a RADIUS server.
-
-  :param array options: options array
-  :param string username: username
-  :param string password: password
-  :param array vendorstrings: array of vendor strings
-  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
-  :rtype: number
-
-  The following options are available in the options array.
-
-   * **host** (string) IP-address or hostname of the RADISU server. **required**
-   * **secret** (string) The secret. **required**
-   * **port** (number) TCP port. The default is ``1812``.
-   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
-   * **clientip** (string) The IP-address of the client (remote IP).
-   * **retry** (number) The retry count is ``3``.
-
-   Vendor strings must be strings and must be registered as ID 33234 (`Halon Security's Enterprise Number <http://www.iana.org/assignments/enterprise-numbers>`_)
-
-.. function:: tacplus_authen(options, username, password)
-
-  Authenticate against a TACACS+ server (e.g. Cisco Secure ACS).
-
-  :param array options: options array
-  :param string username: username
-  :param string password: password
-  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
-  :rtype: number
-
-  The following options are available in the options array.
-
-   * **host** (string) IP-address or hostname of the TACACS+ server. **required**
-   * **secret** (string) The secret. **required**
-   * **port** (number) TCP port. The default is ``49``.
-   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
-   * **clientip** (string) The IP-address of the client (remote IP).
-
-.. function:: tacplus_author(options, username, avpair)
-
-  Send an authorization request to a TACACS+ server.
-
-  :param array options: options array
-  :param string username: username
-  :param array avpair: an array of avpairs
-  :return: an array with avpairs entries if the authorization succeeded, ``0`` if the authorization failed and ``-1`` if an error occurred.
-  :rtype: array or number
-
-  The following options are available in the options array.
-
-   * **host** (string) IP-address or hostname of the TACACS+ server. **required**
-   * **secret** (string) The secret. **required**
-   * **port** (number) TCP port. The default is ``49``.
-   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
-   * **clientip** (string) The IP-address of the client (remote IP).
-
 .. function:: dnsbl(ip, hostname, [resolvers, [timeout = 5]])
 
   Query the resolvers for the DNSBL status of an address. If no resolvers are given, the system default is used.
@@ -669,38 +510,6 @@ Mail
   :param string ip: IP or IPv6 address to check
   :return: the recommended action to take for the ip ``accept``, ``tempfail`` or ``permfail``.
   :rtype: string
-
-.. function:: mail(sender, recipient, subject, body, [options])
-
-  Send an email to recipient.
-
-  :param string sender: the sender
-  :param string recipient: the recipient
-  :param string subject: the subject
-  :param string body: the body
-  :param array options: options array
-  :return: the message id
-  :rtype: string
-
-  The following options are available in the options array.
-
-   * **sender_name** (string) Friendly name of the sender.
-   * **recipient_name** (string) Friendly name of the recipient.
-   * **serverid** (string) Helps the decision making of where we should send this email.
-   * **plaintext** (boolean) Send message as `plain/text` (default is `text/html`). The default is ``false``.
-   * **rawbody** (boolean) Instead of using a template, send body as raw text. The default is ``false``.
-   * **headers** (array) Add additional message headers (KVP).
-   * **metadata** (array) Add additional metadata to the message (KVP).
-
-   If sending the message with custom templates.
-
-	   * **variables** (array) Set additional to the template engine (KVP).
-	   * **template** (array) Choose template. The default is ``internal/en_EN``.
-	   * **templatefile** (array) Choose template file. The default is ``plain_mail.html``.
-
-  .. code-block:: hsl
-
-	  mail("postmaster@example.com", "support@halon.se", "Lunch", "How about lunch on Friday?");
 
 Mathematical
 ------------
@@ -893,6 +702,201 @@ Misc
   .. note::
 
   	Rates are shared between all contexts, and may also be synchronized in clusters.
+
+.. function:: mail(sender, recipient, subject, body, [options])
+
+  Send an email to recipient.
+
+  :param string sender: the sender
+  :param string recipient: the recipient
+  :param string subject: the subject
+  :param string body: the body
+  :param array options: options array
+  :return: the message id
+  :rtype: string
+
+  The following options are available in the options array.
+
+   * **sender_name** (string) Friendly name of the sender.
+   * **recipient_name** (string) Friendly name of the recipient.
+   * **serverid** (string) Helps the decision making of where we should send this email.
+   * **plaintext** (boolean) Send message as `plain/text` (default is `text/html`). The default is ``false``.
+   * **rawbody** (boolean) Instead of using a template, send body as raw text. The default is ``false``.
+   * **headers** (array) Add additional message headers (KVP).
+   * **metadata** (array) Add additional metadata to the message (KVP).
+
+   If sending the message with custom templates.
+
+	   * **variables** (array) Set additional to the template engine (KVP).
+	   * **template** (array) Choose template. The default is ``internal/en_EN``.
+	   * **templatefile** (array) Choose template file. The default is ``plain_mail.html``.
+
+  .. code-block:: hsl
+
+	  mail("postmaster@example.com", "support@halon.se", "Lunch", "How about lunch on Friday?");
+
+Protocols
+---------
+
+.. function:: smtp_lookup_rcpt(server, sender, recipient, [options])
+
+  Check if sender is allowed to send mail to recipient.
+
+  :param server: array with server settings or mailtransport profile
+  :type server: string or array
+  :param string sender: the sender (MAIL FROM)
+  :param string recipient: the recipient (RCPT TO)
+  :param array options: options array
+  :return: ``1`` if the command succeeded, ``0`` if the command failed and ``-1`` if an error occurred. The ``error_code`` option may change this behavior.
+  :rtype: number or array
+
+  The following server settings are available in the server array.
+
+   * **host** (string) IP-address or hostname. **required**
+   * **port** (number) TCP port. The default is ``25``.
+   * **helo** (string) The default is to use the system hostname.
+   * **sourceip** (string) Explicitly bind a ``netaddr:X``. The default is ``auto``.
+   * **sasl_username** (string) If specified issue a AUTH LOGIN before RCPT TO.
+   * **sasl_password** (string) If specified issue a AUTH LOGIN before RCPT TO.
+   * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
+
+  The following options are available in the options array.
+
+   * **error_code** (boolean) If error_code is true and associative array with "error_code" and "error_message" is returned. The default is ``false``.
+
+.. function:: smtp_lookup_auth(server, username, password)
+
+  Try to authenticate the username against a SMTP server.
+
+  :param server: array with server settings or mailtransport profile
+  :type server: string or array
+  :param string username: username
+  :param string password: password
+  :param array options: options array
+  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
+  :rtype: number
+
+  The following server settings are available in the server array.
+
+   * **host** (string) IP-address or hostname. **required**
+   * **port** (number) TCP port. The default is ``25``.
+   * **helo** (string) The default is to use the system hostname.
+   * **sourceip** (string) Explicitly bind a ``netaddr:X``. The default is ``auto``.
+   * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
+
+.. function:: dovecot_lookup_auth(options, username, password)
+
+  Try to authenticate the username against a dovecot server.
+
+  :param array options: options array
+  :param string username: username
+  :param string password: password
+  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
+  :rtype: number
+
+  The following options are available in the options array.
+
+   * **host** (string) IP-address or hostname of the dovecot server. **required**
+   * **port** (number) TCP port. **required**
+   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
+
+   There are also some protocol specific flags that may be configured.
+
+	   * **service** (string) Service name to identify this request. The default is ``smtp``.
+	   * **rip** (string) The IP-address of the client (remote IP).
+	   * **lip** (string) The IP-address of the Halon (local IP).
+	   * **secured** (boolean) Set to true if the client has tlsstarted. The default is ``false``.
+
+.. function:: ldap_search(profile, lookup, [override])
+
+  Query an LDAP server for lookup and return all LDAP entries found.
+
+  :param string profile: ldap profile
+  :param string lookup: query that will be inserted into the ldap query (ldapescaped)
+  :param array override: options array
+  :return: an array with LDAP entries or ``-1`` if an error occurred.
+  :rtype: array or number
+
+  The following overrides are available in the override array.
+
+   * **host** (string) IP-address or hostname.
+   * **username** (string) LDAP username.
+   * **password** (string) LDAP password.
+   * **base** (string) LDAP base.
+   * **query** (string) LDAP query (unescaped).
+
+.. function:: ldap_bind(profile, username, password, [override])
+
+  Try to bind (authenticate) against an LDAP server.
+
+  :param string server: ldap profile
+  :param string username: LDAP username
+  :param string password: LDAP password
+  :param array override: options array
+  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
+  :rtype: number
+
+  The following overrides are available in the override array.
+
+   * **host** (string) IP-address or hostname.
+
+.. function:: radius_authen(options, username, password, [vendorstrings])
+
+  Authenticate against a RADIUS server.
+
+  :param array options: options array
+  :param string username: username
+  :param string password: password
+  :param array vendorstrings: array of vendor strings
+  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
+  :rtype: number
+
+  The following options are available in the options array.
+
+   * **host** (string) IP-address or hostname of the RADISU server. **required**
+   * **secret** (string) The secret. **required**
+   * **port** (number) TCP port. The default is ``1812``.
+   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
+   * **clientip** (string) The IP-address of the client (remote IP).
+   * **retry** (number) The retry count is ``3``.
+
+   Vendor strings must be strings and must be registered as ID 33234 (`Halon Security's Enterprise Number <http://www.iana.org/assignments/enterprise-numbers>`_)
+
+.. function:: tacplus_authen(options, username, password)
+
+  Authenticate against a TACACS+ server (e.g. Cisco Secure ACS).
+
+  :param array options: options array
+  :param string username: username
+  :param string password: password
+  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
+  :rtype: number
+
+  The following options are available in the options array.
+
+   * **host** (string) IP-address or hostname of the TACACS+ server. **required**
+   * **secret** (string) The secret. **required**
+   * **port** (number) TCP port. The default is ``49``.
+   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
+   * **clientip** (string) The IP-address of the client (remote IP).
+
+.. function:: tacplus_author(options, username, avpair)
+
+  Send an authorization request to a TACACS+ server.
+
+  :param array options: options array
+  :param string username: username
+  :param array avpair: an array of avpairs
+  :return: an array with avpairs entries if the authorization succeeded, ``0`` if the authorization failed and ``-1`` if an error occurred.
+  :rtype: array or number
+
+  The following options are available in the options array.
+
+   * **host** (string) IP-address or hostname of the TACACS+ server. **required**
+   * **secret** (string) The secret. **required**
+   * **port** (number) TCP port. The default is ``49``.
+   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
+   * **clientip** (string) The IP-address of the client (remote IP).
 
 String
 ------
