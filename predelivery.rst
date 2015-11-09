@@ -104,7 +104,7 @@ Functions
   The following options are available in the options array.
 
    * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
-   * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv1``, ``SSLv2``, ``TLSv1``, ``TLSv1.1`` or ``TLSv1.2``. Protocols may be separated by ``,`` and negated by ``!``. The default is ``!SSLv2``.
+   * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv1``, ``SSLv2``, ``TLSv1``, ``TLSv1.1`` or ``TLSv1.2``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2``.
    * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
 
 .. function:: SetSASL(username, password)
