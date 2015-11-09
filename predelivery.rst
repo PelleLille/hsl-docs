@@ -94,12 +94,11 @@ Functions
   :param string protocol: ``smtp`` or ``lmtp``
   :rtype: none
 
-.. function:: SetTLS([options | tls])
+.. function:: SetTLS(options)
 
   Set the TLS options for the current delivery attempt (it is not remembered for the next retry).
 
   :param array options: options array
-  :param string tls: see the `tls` option below
   :rtype: none
 
   The following options are available in the options array.
