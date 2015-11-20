@@ -8,7 +8,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Data types** :func:`array` :func:`number` :func:`string` :func:`is_array` :func:`is_number` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnsmx` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
-* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`json_encode` :func:`json_decode`
+* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_explode` :func:`json_encode` :func:`json_decode`
 * **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http`
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
@@ -361,6 +361,14 @@ Encodings and JSON
   :param string string: the input string
   :return: the string representation
   :rtype: string
+
+.. function:: csv_explode(string)
+
+  CSV explode the string.
+
+  :param string string: CSV formated string
+  :return: an array of strings
+  :rtype: rray
 
 .. function:: json_encode(value, [options])
 
