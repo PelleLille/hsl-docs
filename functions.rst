@@ -368,7 +368,7 @@ Encodings and JSON
 
   :param string string: CSV formated string
   :return: an array of strings
-  :rtype: rray
+  :rtype: array
 
 .. function:: json_encode(value, [options])
 
