@@ -841,7 +841,7 @@ Protocols
 
   Try to bind (authenticate) against an LDAP server.
 
-  :param string server: ldap profile
+  :param string profile: ldap profile
   :param string username: LDAP username
   :param string password: LDAP password
   :param array override: options array
