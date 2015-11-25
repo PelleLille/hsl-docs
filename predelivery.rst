@@ -8,13 +8,13 @@ The pre-delivery script is executed just before a delivery attempt of a message 
 Pre-defined variables
 ---------------------
 
-These are the read-only pre-defined variables available. Some of them can be changed using the functions below. 
+These are the read-only pre-defined variables available. Some of them can be changed using the functions below.
 
 ================= ======= ========================== ===========
 Variable          Type    Example                    Description
 ================= ======= ========================== ===========
 $receivedtime     number  1445937340                 The unix time (in UTC) when the message was received
-$sourceip         string  "10.0.0.1"                 The delivery source IP (initially defined by the transport profile) 
+$sourceip         string  "10.0.0.1"                 The delivery source IP (initially defined by the transport profile)
 $destination      string  "172.16.1.25"              The destination host (initially defined by the transport profile)
 $destinationport  number  25                         The destination port (initially defined by the transport profile)
 $senderip         string  "192.168.1.11"             IP address of the sender
@@ -63,7 +63,7 @@ Functions
 
 .. function:: CurrentConnections(namespace, entry, max)
 
-  Can be used to limit concurrency. It returns false of the current number of connections with the same `entry` name in that `namespace` exceeds `max`, and true otherwise. The function will also occupy one "slot" after being executed, over the duration of its delivery attempt. 
+  Can be used to limit concurrency. It returns false of the current number of connections with the same `entry` name in that `namespace` exceeds `max`, and true otherwise. The function will also occupy one "slot" after being executed, over the duration of its delivery attempt.
 
   :param string namespace: the namespace
   :param string entry: the entry
@@ -75,7 +75,7 @@ Functions
 		    Reschedule(rand(1, 30), [
 				"reason" => "Too many concurrent connections for this domain",
 			 	"increment_retry" => false
-			]); 
+			]);
 	Try();
 
 .. function:: SetDestination(host, [port])
@@ -146,7 +146,7 @@ Functions
 .. function:: SetRecipient(recipient)
 
   Set the sender `RCPT TO` for the current delivery attempt (it is not remembered for the next retry).
-  
+
   :param string recipient: an e-mail address
   :rtype: none
   :updates: ``$recipient`` and ``$recipientdomain``

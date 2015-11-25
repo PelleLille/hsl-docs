@@ -8,7 +8,7 @@ If you want to test out the language there is a `REPL <http://en.wikipedia.org/w
 Variables
 ---------
 
-Variables may store values from expression (e.g. constants or function calls). In HSL variables are prefixed with ``$`` followed by :regexp:`[a-zA-Z]+[a-zA-Z0-9]*`. Variable names are case-sensitive. Some variables are read-only, hence they are not allowed to be assigned to (primarily pre-defined variables in contexts). Variables are assigned by value (`copy-on-write <http://en.wikipedia.org/wiki/Copy-on-write>`_).
+Variables may store values from expression (e.g. constants or function calls) or callable function objects such as anonymous functions and named function pointers. In HSL variables are prefixed with ``$`` followed by :regexp:`[a-zA-Z]+[a-zA-Z0-9]*`. Variable names are case-sensitive. Some variables are read-only, hence they are not allowed to be assigned to (primarily pre-defined variables in contexts). Variables are assigned by value (`copy-on-write <http://en.wikipedia.org/wiki/Copy-on-write>`_).
 
 .. code-block:: hsl
 
@@ -24,7 +24,7 @@ Variables may store values from expression (e.g. constants or function calls). I
 Functions
 ---------
 
-A lot of functions are available in the :doc:`function library <functions>`. Functions are called by named followed by parentheses ``()`` with input parameters in between them. Function names are case-sensitive. The argument types must be supported by the function, otherwise an error will be raised.
+A lot of builtin functions are available in the :doc:`function library <functions>`. Functions are called by named followed by parentheses ``()`` with input parameters in between them. Function names are case-sensitive. The argument types must be supported by the function, otherwise an error will be raised. It's also possible to create :ref:`user-defined functions <user_function>`.
 
 .. code-block:: hsl
 

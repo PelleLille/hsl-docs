@@ -111,7 +111,7 @@ Routing
 
   .. code-block:: hsl
 
-  	SetMetaData(["foo"=>"bar", "foo2" => json_encode(["array", 123.45, false])); 
+  	SetMetaData(["foo"=>"bar", "foo2" => json_encode(["array", 123.45, false]));
 
   .. note::
 
@@ -367,7 +367,7 @@ Anti-spam and anti-virus
   0     Unknown
   10    Suspect
   40    Valid bulk
-  50    Bulk 
+  50    Bulk
   100   Spam
   ===== ===========
 
@@ -383,7 +383,7 @@ Anti-spam and anti-virus
   ===== ===========
   0     Unknown
   50    Medium probability
-  100   High probability 
+  100   High probability
   ===== ===========
 
 .. function:: ScanSA([options])
@@ -469,9 +469,9 @@ DKIM
 
 .. function:: ScanDMARC()
 
-  Returns the `DMARC <http://wiki.halon.se/DMARC>`_ policy to apply to the message for the From-address. It will return an associative array containing the domain as result. If the domain cannot be properly extracted or missing an error message will be returned. 
+  Returns the `DMARC <http://wiki.halon.se/DMARC>`_ policy to apply to the message for the From-address. It will return an associative array containing the domain as result. If the domain cannot be properly extracted or missing an error message will be returned.
 
-  :return: associative array containing the domain and result or an error. 
+  :return: associative array containing the domain and result or an error.
   :rtype: array or string
 
 .. function:: DKIMSDID([explicitdomains, [options]])
@@ -480,7 +480,7 @@ DKIM
 
   :param array explicitdomains: array of explicit domains to check, empty array for all
   :param array options: options array
-  :return: associative array containing the domain and result. 
+  :return: associative array containing the domain and result.
   :rtype: array
 
   The following options are available in the options array.
@@ -489,9 +489,9 @@ DKIM
 
 .. function:: DKIMADSP()
 
-  Returns the ADSP (Author Domain Signing Practices) policy from the `DKIM <http://wiki.halon.se/DKIM>`_ header of the message. 
- 
-  :return: associative array containing the domain and result. 
+  Returns the ADSP (Author Domain Signing Practices) policy from the `DKIM <http://wiki.halon.se/DKIM>`_ header of the message.
+
+  :return: associative array containing the domain and result.
   :rtype: array
 
   ========= ===========
@@ -504,7 +504,7 @@ DKIM
   discard 	No valid Author Domain Signature was found on the message and the published ADSP was "discardable".
   nxdomain  Evaluating the ADSP for the Author's DNS domain indicated that the Author's DNS domain does not exist.
   temperror An ADSP record could not be retrieved due to some error that is likely transient in nature, such as a temporary DNS error. A later attempt may produce a final result.
-  permerror An ADSP record could not be retrieved due to some error that is likely not transient in nature, such as a permanent DNS error. A later attempt is unlikely to produce a final result. 
+  permerror An ADSP record could not be retrieved due to some error that is likely not transient in nature, such as a permanent DNS error. A later attempt is unlikely to produce a final result.
   ========= ===========
 
   As defined in `RFC5617 <http://tools.ietf.org/search/rfc5617>`_.

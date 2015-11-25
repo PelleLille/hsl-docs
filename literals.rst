@@ -1,7 +1,7 @@
 Data types and literals
 =======================
 
-HSL has multiple data types; `strings`, `numbers` and `arrays` (which also works as an ordered map to store key-value pairs, similar to PHP's `array <http://php.net/manual/en/language.types.array.php>`_). These data types may be represented as literals. There is also a `none` (or `null`) data type that is rarely encountered (e.g. a :ref:`return` statement without a value or a failed :func:`json_decode` both of which return `none`).
+HSL has multiple data types; `strings`, `numbers`, `arrays` (which also works as an ordered map to store key-value pairs, similar to PHP's `array <http://php.net/manual/en/language.types.array.php>`_) and `functions` (both anonymous functions and named function pointers). These data types may be represented as literals. There is also a `none` (or `null`) data type that is rarely encountered (e.g. a :ref:`return` statement without a value or a failed :func:`json_decode` both of which return `none`).
 
 .. _string:
 
@@ -110,10 +110,41 @@ An array is a very useful container; it can act as an array (automatically index
 
 .. _none:
 
+Function
+--------
+
+Both `anonymous functions` (lambas) and `named function pointers` (references to functions) are available. This datatype is primarly used to be passed as callbacks to other functions.
+
+.. _anonymous_functions:
+
+Anonymous functions
+^^^^^^^^^^^^^^^^^^^
+
+An anonymous function is a unnamed :ref:`function <user_function>`, it can be passed as value to a function or assigned to a variable. The :ref:`global-keyword` variable scoping rules apply.
+
+.. code-block:: hsl
+
+	$multiply = function ($x, $y) { return $x * $y };
+	echo $multiply(3, 5); // 15
+
+	cache ["ttl_function" => function($v) { return 5; }] foo();
+
+Named function pointers
+^^^^^^^^^^^^^^^^^^^^^^^
+
+A named function pointer is a reference to a named function. It can reference both a builtin :doc:`function <functions>` or a user-defined :ref:`function <user_function>`. Prepending the function name with the :ref:`builtin_keyword` keyword works as expected.
+
+.. code-block:: hsl
+
+	function strlen($str) { return 42; }
+
+	$function = builtin strlen;
+	echo $function("Hello"); // 5
+
 None
 ----
 
-This data type does not have a literal syntax (keyword), instead it may be return from :func:`json_decode` in case of a decode error or from a user-defined :ref:`function` with no :ref:`return` statement. This data type should **not** be used as it yields **undefined** behavior for the most part. The only functions safe to handle this data type is:
+This data type does not have a literal syntax (keyword), instead it may be return from :func:`json_decode` in case of a decode error or from a user-defined :ref:`user_function` with no :ref:`return` statement. This data type should **not** be used as it yields **undefined** behavior for the most part. The only functions safe to handle this data type is:
 
  * :func:`is_string`
  * :func:`is_number`

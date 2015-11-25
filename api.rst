@@ -8,7 +8,7 @@ The API script is executed for each `SOAP <http://wiki.halon.se/SOAP>`_ API call
 Pre-defined variables
 ---------------------
 
-These are the read-only pre-defined variables available each time a SOAP function is called. 
+These are the read-only pre-defined variables available each time a SOAP function is called.
 
 =========== ======= =============== ===========
 Variable    Type    Example         Description

@@ -9,7 +9,7 @@ The syntax is inspired by languages such as `PHP <http://php.net/>`_ (e.g. ``$va
 
 Design
 --------------
-Here are some of the internals of Halon Scripting Language (HSL). 
+Here are some of the internals of Halon Scripting Language (HSL).
 
 Compiled language
 
@@ -41,8 +41,8 @@ Garbage collection
 
 Type system
 
-	HSL is a "dynamically-typed programming language". Featuring numbers, strings and associative arrays.
+	HSL is a "dynamically-typed programming language". Featuring numbers, strings, associative arrays and functions.
 
 Scoping
 
-	Variables are function scoped, in addition to the global scope. Functions are available in all scopes (and registered at compile time). Scoping may be changed with the `global` keyword. 
+	Variables are function scoped, in addition to the global scope. Functions are available in all scopes (and registered at compile time). Scoping may be changed with the `global` keyword.

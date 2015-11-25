@@ -170,12 +170,12 @@ The `include` statement allows code to be structures in logical modules and shar
 	
 	The same file may be included multiple times. However cyclic inclusion is not permitted.
 
-.. _function:
+.. _user_function:
 
 function
 --------
 
-It's possible to write new functions in HSL, and also to override builtin functions. A function may take any number of arguments and return a value using the :ref:`return` statement. If non-variadic arguments are specified, the number of argument given by the caller must match the number of required arguments in the function definition::
+It's possible to write new functions in HSL, and also to override builtin :doc:`functions <functions>`. A function may take any number of arguments and return a value using the :ref:`return` statement. If non-variadic arguments are specified, the number of argument given by the caller must match the number of required arguments in the function definition::
 
 	function funcname() {
 		return expression;
@@ -191,7 +191,7 @@ It's possible to write new functions in HSL, and also to override builtin functi
 	Recursion is not allowed.
 
 .. note::
-	Functions are unconditionally registered at compile-time (control flow is not taken into consideration). Hence it doesn't matter where in the code it's defined (eg. before or after it's being called).
+	Named functions are unconditionally registered at compile-time (control flow is not taken into consideration). Hence it doesn't matter where in the code it's defined (eg. before or after it's being called).
 
 	.. code-block:: hsl
 
@@ -200,12 +200,28 @@ It's possible to write new functions in HSL, and also to override builtin functi
 			echo "hello";
 		}
 
-Function name
-^^^^^^^^^^^^^
+Named functions
+^^^^^^^^^^^^^^^
 
-A function may be named according to this regular expression pattern :regexp:`[a-zA-Z_]+[a-zA-Z_0-9]*` with the exception of reserved keywords. In order to prevent naming conflicts in the future with added reserved keywords; it may be a good idea to prefix the function name with a unique identifier like ``halon_func``.
+A function may be named (in order to be callable by its name) according to the regular expression pattern :regexp:`[a-zA-Z_]+[a-zA-Z_0-9]*` with the exception of reserved keywords. In order to prevent naming conflicts in the future with added reserved keywords; it may be a good idea to prefix the function name with a unique identifier like ``halon_func``.
 
 ``and`` ``array`` ``as`` ``barrier`` ``break`` ``builtin`` ``cache`` ``case`` ``continue`` ``default`` ``echo`` ``else`` ``false`` ``foreach`` ``forever`` ``function`` ``global`` ``if`` ``include`` ``isset`` ``not`` ``or`` ``return`` ``switch`` ``true`` ``unset``
+
+Anonymous functions
+^^^^^^^^^^^^^^^^^^^
+
+The syntax for :ref:`anonymous functions <anonymous_functions>` are the same as for named functions, with the exception that the function name is omitted. Hence they must be called by their value and not by name::
+
+	function () {
+		return expression;
+	};
+
+.. code-block:: hsl
+
+	$variable = function () {
+		echo "hello";
+	};
+	$variable();
 
 .. _return:
 
@@ -267,6 +283,8 @@ Arbitrary-length argument lists are supported using the ``...$argument`` syntax 
 	$values = [0, 5, 10, 15];
 	echo avg(...$values);
 
+.. _global-keyword:
+
 global
 ^^^^^^
 The `global` statement allows variables to be imported in to a local function scope. If the variable is not defined at the time of execution (of the global statement) it will simply be marked as "global" and if later assigned; written back to the global scope once the function returns. If the variable that is imported to the function scope already exists in the function scope an error will be raised. If an imported variable is read-only, it will be read-only in the function scope as well::
@@ -284,6 +302,8 @@ The `global` statement allows variables to be imported in to a local function sc
 	}
 	Deliver();
 
+.. _function_calling:
+
 Function calling
 ^^^^^^^^^^^^^^^^
 
@@ -295,6 +315,9 @@ Argument unpacking
 Argument unpacking make it possible to call a function with the arguments unpacked from an array at runtime, using the `spread` or `splat` operator (``...``). The calling rules still apply, the argument count must match. This make it easy to override function::
 
 	funcname(...expression)
+	$variable(...expression)
+
+.. _builtin_keyword:
 
 builtin
 *******
@@ -302,6 +325,7 @@ builtin
 The `builtin` statement allows you to explicitly call the builtin version of an overridden function::
 
 	builtin funcname()
+	builtin funcname
 
 .. code-block:: hsl
 
@@ -315,7 +339,7 @@ The `builtin` statement allows you to explicitly call the builtin version of an 
 cache
 -----
 
-The `cache` statement can be prepended to any function call. It will cache the function call in a process wide cache. If the same call is done and the result is already in its cache the function will not be executed again, instead the previous result will be used. The cache take the function name and argument values into account when caching.::
+The `cache` statement can be prepended to any named function call. It will cache the function call in a process wide cache. If the same call is done and the result is already in its cache the function will not be executed again, instead the previous result will be used. The cache take the function name and argument values into account when caching.::
 
 	cache [ cache-option [, cache-option [, ...]]] [builtin] funcname()
 
@@ -323,8 +347,8 @@ The following cache options are available.
 
    * **ttl** (number) Time to Live (TTL) in seconds for the cache entry if added to the cache during the call. The default time is ``60`` seconds.
    * **ttl_override** (array) An associative array where the key is the `return value` and the value is the overridden `ttl` to be used.
-   * **ttl_function** (string) The name of a custom function taking one argument (the function's `return value`) and returning the `ttl` to be used.
-   * **update_function** (string) The name of a custom function called at cache updates; taking two arguments (the `old` and `new` value) and returning the value to be used and cached.
+   * **ttl_function** (function) A function taking one argument (the function's `return value`) and returning the `ttl` to be used.
+   * **update_function** (function) A function called at cache updates; taking two arguments (the `old` and `new` value) and returning the value to be used and cached.
    * **argv_filter** (array) A list of arguments (positions starting at 1) which should make this cache entry unique. The default is to use all arguments.
    * **force** (boolean) Force a cache-miss. The default is ``false``.
    * **size** (number) The size of the cache (a cache is namespace + function-name). The default is ``32``.

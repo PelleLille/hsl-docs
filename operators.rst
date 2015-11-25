@@ -325,3 +325,18 @@ Use pattern modifiers to change the behavior of the pattern engine, they have th
 .. note::
 
 	It's not necessary to encapsulate regular expressions with ``//`` unless modifiers are used.
+
+Function
+--------
+
+.. _callable:
+
+Call
+^^^^
+
+Functions may be :ref:`called <function_calling>` using the ``()`` operator. It applies to both regular functions as well as anonymous functions and named function pointers.
+
+.. code-block:: hsl
+
+	$multiply = function ($x, $y) { return $x * $y };
+	echo $multiply(3, 5); // 5

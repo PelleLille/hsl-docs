@@ -8,7 +8,7 @@ The post-delivery script is executed after a delivery attempt.
 Pre-defined variables
 ---------------------
 
-These are the read-only pre-defined variables available each time after a delivery attempt is made. 
+These are the read-only pre-defined variables available each time after a delivery attempt is made.
 
 ================= ======= ========================== ===========
 Variable          Type    Example                    Description
@@ -24,7 +24,7 @@ $recipient        string  "test\@example.com"        E-mail address of recipient
 $recipientdomain  string  "example.com"              Domain part of recipient's address
 $retry            number  3                          The current retry count
 $retries          number  30                         The maximum number of retries for that message
-$errormsg         string  "5.7.1... we do not relay" The error message from the server 
+$errormsg         string  "5.7.1... we do not relay" The error message from the server
 $errorcode        number  550                        The error code from the server (A value 0 of indicates network problems)
 $errorndr         string  "5.7.1"                    The NDR code from the server (if available)
 $transfertime     number  0.512                      The transfer time for this delivery attempt (seconds)
@@ -69,7 +69,7 @@ Functions
 
 .. function:: Deliver(recipient, transportid)
 
-  Deliver the message to a new recipient and/or transport. The retry count is reset and the message is queued for immediate delivery. 
+  Deliver the message to a new recipient and/or transport. The retry count is reset and the message is queued for immediate delivery.
 
   :param string recipient: an e-mail address
   :param string transportid: the transportid to be used

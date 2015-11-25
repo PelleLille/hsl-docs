@@ -17,7 +17,7 @@ $senderip     string  "192.168.1.11"  IP address of the connected client
 $tlsstarted   boolean false           Whether or not the SMTP session is using TLS
 $saslusername string  "mailuser"      SASL username
 $saslpassword string  "secret"        SASL password
-$serverid     string  "mailserver\:1" ID of the mailserver profile 
+$serverid     string  "mailserver\:1" ID of the mailserver profile
 $serverip     string  "10.0.0.1"      IP address of the mailserver
 ============= ======= =============== ===========
 

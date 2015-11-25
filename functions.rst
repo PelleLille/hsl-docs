@@ -1059,5 +1059,5 @@ String
 	// <a href="http://halon.se">http://halon.se</a>
 
 	echo pcre_replace("\\d", "($0)", "foo1bar2baz");
-	// foo(1)bar(2)baz 
+	// foo(1)bar(2)baz
 
