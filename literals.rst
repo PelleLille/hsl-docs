@@ -132,7 +132,7 @@ An anonymous function is a unnamed :ref:`function <user_function>`, it can be pa
 Named function pointers
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-A named function pointer is a reference to a named function. It can reference both a builtin :doc:`function <functions>` or a user-defined :ref:`function <user_function>`. Prepending the function name with the :ref:`builtin_keyword` keyword works as expected.
+A named function pointer is a reference to a named function. It can reference both a :doc:`builtin function <functions>` or a :ref:`user-defined function <user_function>`. Prepending the function name with the :ref:`builtin_keyword` keyword works as expected.
 
 .. code-block:: hsl
 
