@@ -3,7 +3,7 @@ Standard library
 
 Functions which are documented in this chapter are considered `core` functions hence are available in all `contexts`. Functions in the standard library may be recognized by the fact that they are all in lowercase.
 
-* **Array** :func:`array_keys` :func:`array_reverse` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
+* **Array** :func:`array_keys` :func:`array_filter` :func:`array_map` :func:`array_reduce` :func:`array_reverse` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
 * **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`md5` :func:`sha1` :func:`hash`
 * **Data types** :func:`array` :func:`number` :func:`string` :func:`is_array` :func:`is_number` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`time` :func:`timelocal` :func:`uptime`
@@ -26,6 +26,62 @@ Array
   :param array array: the array
   :return: array's keys
   :rtype: array
+
+.. function:: array_filter(callback, array)
+
+  Returns the filtered items from the array using a callback.
+
+  :param function callback: the callback
+  :param array array: the array
+  :return: array of filtered values, keys are preserved
+  :rtype: array
+
+  The function should take one argument (value) and return a boolean value.
+
+.. code-block:: hsl
+
+	array_filter(function ($x) { return $x % 2 == 0; }, [0, 1, 2, 3]); // even values
+	array_filter(is_number, [0, "Hello World", 2]);
+
+.. function:: array_map(callback, array)
+
+  Returns values from the array with the callback applied.
+
+  :param function callback: the callback
+  :param array array: the array
+  :return: array of values, keys are preserved
+  :rtype: array
+
+  The function should take one argument (value) and return a value.
+
+.. code-block:: hsl
+
+	array_map(function ($x) { return $x * $x; }, [0, 1, 2, 3]); // square values
+
+.. function:: array_reduce(callback, array, [initial])
+
+  Reduces the values in the array using the callback from left-to-right, optionally starting with a initial value.
+
+  :param function callback: the callback
+  :param array array: the array
+  :param any initial: the initial value
+  :return: a single value
+  :rtype: any
+
+  The function should take two arguments (carry and value) and return a value.
+
+  If no initial value is provided and;
+
+	* the array is empty, an error will be raised.
+	* the array contains one value, that value will be returned.
+  
+.. code-block:: hsl
+
+	array_recude(function ($carry, $x) { return $carry + $x; }, [0, 1, 2, 3]); // sum values
+
+.. code-block:: hsl
+
+	array_map(function ($x) { return $x * $x; }, [0, 1, 2, 3]); // square values
 
 .. function:: array_reverse(array)
 
