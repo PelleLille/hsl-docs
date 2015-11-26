@@ -480,11 +480,11 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
   :return: the file content as a string
   :rtype: string
 
-.. function:: in_file(word, filename, [options])
+.. function:: in_file(needle, filename, [options])
 
-  Searches for word at the beginning (`index`) of each line in filename. If found, the line is returned as an array separated by the `delimiter`.
+  Searches for a needle at the beginning (or at `index`) of each line in filename. If found, the line is returned as an array separated by the `delimiter`.
 
-  :param string word: the string to look for
+  :param mixed needle: the string to match or a callback function
   :param string filename: the file name
   :param array options: options array
   :return: if word is found in string, return all words on that line as an array
@@ -496,6 +496,8 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
    * **delimiter** (string) separates words. The default is a white space for `text/plain` and ``,`` for `text/csv`.
    * **assoc** (boolean) in `text/csv` mode the first line may be used as associative index for the returned array. The default is ``true``.
    * **index** (number) the word index to search for (indexed at zero). The default is ``0`` (the first word).
+
+  The needle function should take one argument (the line) and return a boolean value.
 
   .. note::
 
@@ -511,6 +513,10 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 		if ($infile) {
 			// e.g. ["ip" => "192.168.1.26", "comment" => "mailserver"]
 		}
+		$infile = in_file(function ($v) {
+						global $senderip;
+						return $v["ip"] == $senderip;
+					}, "file:1", ["type" => "text/csv"]);
 
 .. function:: http(url, [options, [get, [post]]]])
 
