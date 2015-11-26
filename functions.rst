@@ -77,11 +77,7 @@ Array
   
 .. code-block:: hsl
 
-	array_recude(function ($carry, $x) { return $carry + $x; }, [0, 1, 2, 3]); // sum values
-
-.. code-block:: hsl
-
-	array_map(function ($x) { return $x * $x; }, [0, 1, 2, 3]); // square values
+	array_reduce(function ($carry, $x) { return $carry + $x; }, [0, 1, 2, 3]); // sum values
 
 .. function:: array_reverse(array)
 
