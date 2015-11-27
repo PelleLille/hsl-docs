@@ -37,9 +37,9 @@ Functions
 * **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
 * **Attachments** :func:`GetAttachmentsByName` :func:`GetAttachmentsByType` :func:`GetAttachmentName` :func:`GetAttachmentType` :func:`GetAttachmentSize` :func:`GuessAttachmentType` :func:`RemoveAttachments`
-* **Actions** :func:`Deliver` :func:`DirectDeliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`CopyMail` :func:`DiscardMailDataChanges` :func:`Done`
+* **Actions** :func:`Deliver` :func:`DirectDeliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`CopyMail` :func:`DiscardMailDataChanges` :func:`Done` :func:`DeliverWithDKIM`
 * **Anti-spam and anti-virus** :func:`ScanRPD` :func:`ScanRPDAV` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM` :func:`ScanDLP`
-* **DKIM** :func:`DeliverWithDKIM` :func:`ScanDMARC` :func:`DKIMSDID` :func:`DKIMADSP`
+* **DKIM** :func:`ScanDMARC` :func:`DKIMSign` :func:`DKIMSDID` :func:`DKIMADSP`
 
 Misc
 ^^^^
@@ -346,6 +346,30 @@ Actions
 
   :return: doesn't return, script is terminated
 
+.. function:: DeliverWithDKIM(selector, domain, key, [options])
+
+  Sign and deliver the message using `DKIM <http://wiki.halon.se/DKIM>`_.
+
+  :param string selector: selector to use when signing
+  :param string domain: domain to use when signing
+  :param string key: private key to use, either ``pki:X`` or a private RSA key in PEM format.
+  :param array options: options array
+  :return: doesn't return, script is terminated
+  :updates: ``$actionid``
+
+  The following options are available in the options array.
+
+   * **canonicalization_header** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``simple``.
+   * **canonicalization_body** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``simple``.
+   * **algorithm** (string) algorithm to hash the message with (``sha1`` or ``sha256``). The default is ``sha256``.
+   * **additional_headers** (array) additional headers to sign in addition to those recommended by the RFC.
+   * **headers** (array)  headers to sign. The default is to sign all headers recommended by the RFC.
+   * **discard_changes** (boolean) Discard any changes to the original message before signing. The default is ``false``.
+
+  .. note::
+
+    This function will be deprecated in the future; use :func:`DKIMSign` instead.
+
 Anti-spam and anti-virus
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -447,16 +471,23 @@ Anti-spam and anti-virus
 DKIM
 ^^^^
 
-.. function:: DeliverWithDKIM(selector, domain, key, [options])
+.. function:: ScanDMARC()
 
-  Sign and deliver the message using `DKIM <http://wiki.halon.se/DKIM>`_.
+  Returns the `DMARC <http://wiki.halon.se/DMARC>`_ policy to apply to the message for the From-address. It will return an associative array containing the domain as result. If the domain cannot be properly extracted or missing an error message will be returned.
+
+  :return: associative array containing the domain and result or an error.
+  :rtype: array or string
+
+.. function:: DKIMSign(selector, domain, key, [options])
+
+  Sign the message using `DKIM <http://wiki.halon.se/DKIM>`_.
 
   :param string selector: selector to use when signing
   :param string domain: domain to use when signing
   :param string key: private key to use, either ``pki:X`` or a private RSA key in PEM format.
   :param array options: options array
-  :return: doesn't return, script is terminated
-  :updates: ``$transportid``
+  :return: true if the message could be signed
+  :rtype: boolean
 
   The following options are available in the options array.
 
@@ -466,13 +497,16 @@ DKIM
    * **additional_headers** (array) additional headers to sign in addition to those recommended by the RFC.
    * **headers** (array)  headers to sign. The default is to sign all headers recommended by the RFC.
    * **discard_changes** (boolean) Discard any changes to the original message before signing. The default is ``false``.
+   * **return_header** (boolean) Return the DKIM signature as a string, instead of adding it to the message. The default is ``false``.
 
-.. function:: ScanDMARC()
+  .. note::
 
-  Returns the `DMARC <http://wiki.halon.se/DMARC>`_ policy to apply to the message for the From-address. It will return an associative array containing the domain as result. If the domain cannot be properly extracted or missing an error message will be returned.
+   If `return_header` is used, you need to add the header yourself without refolding.
 
-  :return: associative array containing the domain and result or an error.
-  :rtype: array or string
+	  .. code-block:: hsl
+
+		$dkimsig = DKIMSign("selector", "example.com", $key, ["return_header" => true]);
+		AddHeader("DKIM-Signature", $dkimsig, false); // without refolding
 
 .. function:: DKIMSDID([explicitdomains, [options]])
 
