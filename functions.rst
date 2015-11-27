@@ -56,7 +56,7 @@ Array
 
 .. code-block:: hsl
 
-	array_map(function ($x) { return $x * $x; }, [0, 1, 2, 3]); // square values
+	array_map(function ($x) { return $x * 2; }, [0, 1, 2, 3]); // double values
 
 .. function:: array_reduce(callback, array, [initial])
 
