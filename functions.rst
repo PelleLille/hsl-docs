@@ -1103,13 +1103,15 @@ String
   Perl compatible regular expression data matching and replacing
 
   :param string pattern: the regular expression to match
-  :param string replace: the pattern to replace with
+  :param any replace: the pattern to replace as string or a callback function
   :param string subject: the string acted upon
   :param number limit: max occurrences to replace (`0` equals `unlimited`)
   :return: return subject with the replacements done
   :rtype: string
 
   In `replace` matches are available using ``$0`` to ``$n``. ``$0`` will be the entire match, and ``$1`` (and forward) each match group.
+
+  The replace function should take one argument (array of values [$0, $n...]) and return a string value.
 
 .. code-block:: hsl
 
@@ -1120,4 +1122,8 @@ String
 
 	echo pcre_replace("\\d", "($0)", "foo1bar2baz");
 	// foo(1)bar(2)baz
+
+	// "ucfirst()"
+	echo pcre_replace(''\b[a-z]'', function ($i) { return strtoupper($i[0]); }, "hello world");
+	// Hello World
 
