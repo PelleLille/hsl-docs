@@ -119,14 +119,16 @@ Array
   :return: a string from an array
   :rtype: string
 
-.. function:: in_array(value, array)
+.. function:: in_array(needle, array)
 
-  Returns true if value is found in the array.
+  Returns true if nedle is found in the array.
 
-  :param any value: the value to search for
+  :param any needle: the value to match or a callback function
   :param array array: the array
-  :return: true if value is found
+  :return: true if needle is found
   :rtype: boolean
+
+  The needle function should take one argument (the current item) and return a boolean value.
 
 .. function:: range(start, stop, [step = 1])
 
@@ -484,7 +486,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 
   Searches for a needle at the beginning (or at `index`) of each line in filename. If found, the line is returned as an array separated by the `delimiter`.
 
-  :param mixed needle: the string to match or a callback function
+  :param any needle: the string to match or a callback function
   :param string filename: the file name
   :param array options: options array
   :return: if word is found in string, return all words on that line as an array
