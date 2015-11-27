@@ -1111,7 +1111,7 @@ String
 
   In `replace` matches are available using ``$0`` to ``$n``. ``$0`` will be the entire match, and ``$1`` (and forward) each match group.
 
-  The replace function should take one argument (array of values [$0, $n...]) and return a string value.
+  The replace function should take one argument (array of values ``[$0, $n...]``) and return a string value.
 
 .. code-block:: hsl
 
