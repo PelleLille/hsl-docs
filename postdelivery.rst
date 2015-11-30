@@ -101,3 +101,8 @@ On script error
 ---------------
 
 On script error the default action is taken.
+
+On implicit termination
+-----------------------
+
+If not explicitly terminated then the default action is taken.

@@ -69,3 +69,8 @@ On script error
 ---------------
 
 On script error ``Allow()`` is called.
+
+On implicit termination
+-----------------------
+
+If not explicitly terminated then ``Allow()`` is called.

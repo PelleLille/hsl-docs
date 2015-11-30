@@ -62,3 +62,8 @@ On script error
 ---------------
 
 On script error ``Defer()`` is called.
+
+On implicit termination
+-----------------------
+
+If not explicitly terminated then ``Reject()`` is called (if not $error is set, then ``Defer()`` is called instead).

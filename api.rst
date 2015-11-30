@@ -47,3 +47,8 @@ On script error
 ---------------
 
 On script error ``Deny()`` is called.
+
+On implicit termination
+-----------------------
+
+If not explicitly terminated then ``Deny()`` is called.
