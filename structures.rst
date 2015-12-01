@@ -202,11 +202,10 @@ A function may be named (in order to be callable by its name) according to the r
 
 	.. code-block:: hsl
 
-		funcname();
-		function funcname() {
-			echo "hello";
+		funcname("World");
+		function funcname($name) {
+			echo "Hello $name";
 		}
-
 
 Anonymous functions
 ^^^^^^^^^^^^^^^^^^^
@@ -219,10 +218,21 @@ The syntax for :ref:`anonymous functions <anonymous_functions>` are the same as 
 
 .. code-block:: hsl
 
-	$variable = function () {
-		echo "hello";
+	$variable = function ($name) {
+		echo "Hello $name";
 	};
-	$variable();
+	$variable("World");
+
+.. note::
+
+	An anonymous function may be used as an `immediately-invoked function expression` (IIFE), meaning it may be invoked directly.
+
+	.. code-block:: hsl
+
+		echo function($name) {
+			return "Hello $name";
+		}("World");
+
 
 .. _return:
 
