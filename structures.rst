@@ -298,7 +298,7 @@ Arbitrary-length argument lists are supported using the ``...$argument`` syntax 
 
 global
 ^^^^^^
-The `global` statement allows variables to be imported in to a local function scope. If the variable is not defined at the time of execution (of the global statement) it will simply be marked as "global" and if later assigned; written back to the global scope once the function returns. If the variable that is imported to the function scope already exists in the function scope an error will be raised. If an imported variable is read-only, it will be read-only in the function scope as well::
+The `global` statement allows variables to be imported in to a local function scope (by reference). If the variable is not defined at the time of execution (of the global statement) it will simply be marked as "global" and if later assigned; written back to the global scope once the function returns. If the variable that is imported to the function scope already exists in the function scope an error will be raised. If an imported variable is read-only, it will be read-only in the function scope as well::
 
 	function funcname() {
 		global $variable[, $variable [, ...]];
