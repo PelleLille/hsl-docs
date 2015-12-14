@@ -113,14 +113,14 @@ An array is a very useful container; it can act as an array (automatically index
 Function
 --------
 
-Both `anonymous functions` (lambas) and `named function pointers` (references to functions) are available. This datatype is primarly used to be passed as callbacks to other functions.
+Both `anonymous functions` (closures) and `named function pointers` (references to functions) are available. This datatype is primarly used to be passed as callbacks to other functions.
 
 .. _anonymous_functions:
 
 Anonymous functions
 ^^^^^^^^^^^^^^^^^^^
 
-An anonymous function is a unnamed :ref:`function <user_function>`, it can be passed as value to a function or assigned to a variable. The :ref:`global-keyword` variable scoping rules apply.
+An anonymous function is a unnamed :ref:`function <user_function>`, it can be passed as value to a function or assigned to a variable. An anonymous function can also act as a :ref:`closure <closure>`. The :ref:`global-keyword` variable scoping rules apply.
 
 .. code-block:: hsl
 

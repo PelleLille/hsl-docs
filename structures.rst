@@ -233,6 +233,39 @@ The syntax for :ref:`anonymous functions <anonymous_functions>` are the same as 
 			return "Hello $name";
 		}("World");
 
+.. _closure:
+
+Closure functions
+^^^^^^^^^^^^^^^^^
+
+The difference between an anonymous function and a closure function is that a closure function may capture (close over) the environment in which it is created. By adding the `closure` keyword followed by a capture list after the function parameters list. These variables are captured by reference from the parent scope (function or global) in which they are created::
+
+	function () closure (variable-list) {
+		return expression;
+	};
+
+Most languages which implement closures capture (closes over) the entire scope (doesn't use the concept of a capture list). HSL does not with the reasoning that all variables are function local; if the entire scope were to be closed over ambiguities could easily arise, and secondly it allows the developer to explicitly state the intention of the code.
+
+.. code-block:: hsl
+
+	function makeCounter() {
+		$n = 0;
+		return [
+			"inc" => function () closure ($n) { $n += 1; },
+			"get" => function () closure ($n) { return $n; },
+		];
+	}
+	$counter1 = makeCounter();
+	$counter2 = makeCounter();
+
+	$counter1["inc"]();
+
+	echo $counter1["get"](); // 1
+	echo $counter2["get"](); // still 0, $counter2 hasn't been updated
+
+.. note::
+
+	This feature is similar to the PHP implementation of closures (`use`). However the `closure` statement will always capture by reference unlike PHP which by default captures by value (if the variable is not prefixed with a `&`).
 
 .. _return:
 
