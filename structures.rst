@@ -265,7 +265,7 @@ Most languages which implement closures capture (closes over) the entire scope (
 
 .. note::
 
-	This feature is similar to the PHP implementation of closures (`use`). However the `closure` statement will always capture by reference unlike PHP which by default captures by value (if the variable is not prefixed with a `&`).
+	This feature is similar to the PHP implementation of closures (`use`) however HSL's `closure` statement captures by reference.
 
 .. _return:
 
