@@ -238,7 +238,7 @@ The syntax for :ref:`anonymous functions <anonymous_functions>` are the same as 
 Closure functions
 ^^^^^^^^^^^^^^^^^
 
-The difference between an anonymous function and a closure function is that a closure function may capture (close over) the environment in which it is created. An anonymous function can be converted to a closure by adding the `closure` keyword followed by a capture list after the function parameters list. These variables are captured by reference from the parent scope (function or global) in which they are created::
+The difference between an anonymous function and a closure function is that a closure function may capture (close over) the environment in which it is created. An anonymous function can be converted to a closure by adding the `closure` keyword followed by a capture list after the function argument list. These variables are captured by reference from the parent scope (function or global) in which they are created::
 
 	function () closure (variable-list) {
 		return expression;
