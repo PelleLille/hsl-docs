@@ -267,6 +267,15 @@ Most languages which implement closures capture (closes over) the entire scope (
 
 	This feature is similar to the PHP implementation of closures (`use`) however HSL's `closure` statement captures by reference.
 
+In order to capture by value, the following `immediately-invoked function expression` (IIFE) pattern may be used.
+
+.. code-block:: hsl
+
+	$i = 3;
+	$f = function ($i) { return function () closure ($i) { return $i * $i; }; } ($i);
+	$i = 10;
+	echo $f(); // 3 * 3 = 9
+
 .. _return:
 
 return
