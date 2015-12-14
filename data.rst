@@ -459,6 +459,7 @@ Anti-spam and anti-virus
    * **stop_on_match** (boolean) processing the mail when one match (of the requested type) is found. The default is ``false``.
    * **timeout** (number) set an approximate timeout time in seconds. The default in no timeout.
    * **recursion_limit** (number) how deep to dig through MIME trees, archive files (such as ZIP), etc. The default is ``9``.
+   * **attachmentid** (boolean) return a data structure with the attachmentid where the pattern is found. The default is ``false``.
 
   ========================== ===========
   Builtin rules              Description
