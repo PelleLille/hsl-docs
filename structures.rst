@@ -212,7 +212,7 @@ Anonymous functions
 
 The syntax for :ref:`anonymous functions <anonymous_functions>` are the same as for named functions, with the exception that the function name is omitted. Hence they must be called by their value and not by name::
 
-	function () {
+	function (argument-list) {
 		return expression;
 	};
 
@@ -229,7 +229,7 @@ The syntax for :ref:`anonymous functions <anonymous_functions>` are the same as 
 
 	.. code-block:: hsl
 
-		echo function($name) {
+		echo function ($name) {
 			return "Hello $name";
 		}("World");
 
@@ -240,7 +240,7 @@ Closure functions
 
 The difference between an anonymous function and a closure function is that a closure function may capture (close over) the environment in which it is created. An anonymous function can be converted to a closure by adding the `closure` keyword followed by a capture list after the function argument list. These variables are captured by reference from the parent scope (function or global) in which they are created::
 
-	function () closure (variable-list) {
+	function (argument-list) closure (variable-list) {
 		return expression;
 	};
 
