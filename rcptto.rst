@@ -15,6 +15,9 @@ Variable         Type    Example             Description
 ================ ======= =================== ===========
 $senderip        string  "192.168.1.11"      IP address of the connected client
 $tlsstarted      boolean false               Whether or not the SMTP session is using TLS
+$tlsprotocol     string  "TLSv1.2"           Negotiated TLS version
+$tlscipher       string  "DHE-RSA-AES256..." Negotiated TLS cipher
+$tlskeysize      number  256                 Negotiated TLS key size
 $saslauthed      boolean true                Whether or not the SMTP session is authenticated (SASL)
 $saslusername    string  "mailuser"          SASL username
 $senderhelo      string  "mail.example.com"  HELO message of sender
