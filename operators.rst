@@ -343,8 +343,8 @@ Functions may be :ref:`called <function_calling>` using the ``()`` operator. It 
 
 .. _propertyoperator:
 
-Property operator
-^^^^^^^^^^^^^^^^^
+Property
+^^^^^^^^
 
 The property operator may be used to call functions on objects (:ref:`arrays <arraytype>`). It acts the same as the :ref:`subscript <subscript>` operator (``[]``) but only supports function :ref:`calling <callable>` ``()``.
 
