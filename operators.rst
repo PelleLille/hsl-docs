@@ -340,3 +340,24 @@ Functions may be :ref:`called <function_calling>` using the ``()`` operator. It 
 
 	$multiply = function ($x, $y) { return $x * $y };
 	echo $multiply(3, 5); // 5
+
+.. _propertyoperator:
+
+Property operator
+^^^^^^^^^^^^^^^^^
+
+The property operator may be used to call functions on objects (:ref:`arrays <arraytype>`). It acts the same as the :ref:`subscript <subscript>` operator (``[]``) but only supports function :ref:`calling <callable>` ``()``.
+
+.. code-block:: hsl
+
+	function makeCounter() {
+		$n = 0;
+		return [
+			"inc" => function () closure ($n) { $n += 1; },
+			"get" => function () closure ($n) { return $n; },
+		];
+	}
+	$counter1 = makeCounter();
+
+	$counter1["inc"](); // 2
+	$counter1->inc();   // 1
