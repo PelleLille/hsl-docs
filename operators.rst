@@ -208,7 +208,7 @@ When adding two arrays together, associative keys will be merged (the first arra
 Removing
 ^^^^^^^^
 
-In order to remove specific value(s) from an array (and if push and pop is not appropriate) use the subtraction (``-``) operator to remove based on value (all value matched will be removed) and :func:`unset` to remove based on a specific key (index). The subtraction operator supports both single items and arrays (where all values will be removed). The array will not be re-indexed (for that merge with an empty array (``$var + []``) or use the slice operator (``$var = $var[:]``).
+In order to remove specific value(s) from an array (and if push and pop is not appropriate) use the subtraction (``-``) operator to remove based on value (all value matched will be removed) and :func:`unset` to remove based on a specific key (index). The subtraction operator supports both single items and arrays (where all values will be removed). The array will not be re-indexed (for that use the slice operator (``$var = $var[:]``).
 
 .. code-block:: hsl
 
