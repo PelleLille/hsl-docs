@@ -146,9 +146,10 @@ None
 
 This data type does not have a literal syntax (keyword), instead it may be return from :func:`json_decode` in case of a decode error or from a user-defined :ref:`user_function` with no :ref:`return` statement. This data type should **not** be used as it yields **undefined** behavior for the most part. The only functions safe to handle this data type is:
 
- * :func:`is_string`
- * :func:`is_number`
  * :func:`is_array`
+ * :func:`is_function`
+ * :func:`is_number`
+ * :func:`is_string`
 
 .. code-block:: hsl
 	
