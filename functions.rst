@@ -3,7 +3,7 @@ Standard library
 
 Functions which are documented in this chapter are considered `core` functions hence are available in all `contexts`. Functions in the standard library may be recognized by the fact that they are all in lowercase.
 
-* **Array** :func:`array_keys` :func:`array_filter` :func:`array_map` :func:`array_reduce` :func:`array_reverse` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
+* **Array** :func:`array_keys` :func:`array_filter` :func:`array_map` :func:`array_reduce` :func:`array_reverse` :func:`array_sort` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
 * **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`md5` :func:`sha1` :func:`hash`
 * **Data types** :func:`array` :func:`number` :func:`string` :func:`is_array` :func:`is_function` :func:`is_number` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`time` :func:`timelocal` :func:`uptime`
@@ -86,6 +86,27 @@ Array
   :param array array: the array
   :return: array in reverse order
   :rtype: array
+
+.. function:: array_sort(callback, array, [options])
+
+  Returns the array sorted using the callback function to determine the order. The sort is not guaranteed to be stable.
+
+  :param function callback: the callback
+  :param array array: the array
+  :param array options: options array
+  :return: a sorted array
+  :rtype: array
+
+  The following options are available in the options array.
+
+   * **keys** (boolean) Sort the array based on their keys. The default is ``false``.
+
+  The callback function should take two arguments (a and b) and return true if a is less than b.
+
+.. code-block:: hsl
+
+	array_sort(function ($a, $b) { return $a < $b; }, [2, 3, 1]); // sort
+	array_sort(function ($a, $b) { return $a > $b; }, [2, 3, 1]); // reverse-sort
 
 .. function:: count(array)
 
