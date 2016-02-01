@@ -89,7 +89,7 @@ Array
 
 .. function:: array_sort(callback, array, [options])
 
-  Returns the array sorted using the callback function to determine the order. The sort is not guaranteed to be stable.
+  Returns the array sorted (with index association maintained) using the callback function to determine the order. The sort is not guaranteed to be stable.
 
   :param function callback: the callback
   :param array array: the array
