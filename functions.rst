@@ -110,7 +110,7 @@ Array
 
 .. note::
 
-  While other langauges (eg. Javascript, PHP) may use a trivalue function (-1, 0, 1) in order to determine the order; HSL does not since it by itself may be implemented only using a less-than function. Some sorting implementation may only need the less-than result hence the greater-than and equality result may be superfluous to establish.
+  Some other languages (eg. javascript and PHP) use a trivalue function (-1, 0, 1) in a similar way in order to determine the order. HSL does not since if needed, a trivalue function may be implemented only using a less-than function. Further some sorting implementation may only need the less-than result hence the greater-than and equality result may be superfluous to establish.
 
 	.. code-block:: hsl
 
