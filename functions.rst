@@ -101,12 +101,25 @@ Array
 
    * **keys** (boolean) Sort the array based on their keys. The default is ``false``.
 
-  The callback function should take two arguments (a and b) and return true if a is less than b.
+  The callback function should take two arguments (a and b) and return true if a is less-than b.
 
 .. code-block:: hsl
 
 	array_sort(function ($a, $b) { return $a < $b; }, [2, 3, 1]); // sort
 	array_sort(function ($a, $b) { return $a > $b; }, [2, 3, 1]); // reverse-sort
+
+.. note::
+
+  While other langauges (eg. Javascript, PHP) may use a trivalue function (-1, 0, 1) in order to determine the order; HSL does not since it by itself may be implemented only using a less-than function. Some sorting implementation may only need the less-than result hence the greater-than and equality result may be superfluous to establish.
+
+	.. code-block:: hsl
+
+		function trivalue($a, $b, $lessthan)
+		{
+			if ($lessthan($a, $b)) return -1;
+			if ($lessthan($b, $a)) return 1;
+			return 0;
+		}
 
 .. function:: count(array)
 
