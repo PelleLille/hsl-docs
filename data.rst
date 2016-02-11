@@ -574,13 +574,16 @@ MIME
 					->appendPart(
 						MIME()
 							->setType("text/html")
-							->setBody(''This is a custom footer with an image <img src="cid:logo.jpg">'')
+							->setBody("This is a custom footer with an image <img src='cid:logo.jpg'>")
 					)
 					->appendPart(
 						MIME()
 							->setType("image/jpeg")
 							->addHeader("Content-ID", "logo.jpg")
-							->setBody(cache [] http("http://pngimg.com/upload/small/cat_PNG92.png"))
+							->setBody(
+								cache [ "ttl" => 3600 * 24 * 7 ]
+									http("http://pngimg.com/upload/small/cat_PNG92.png")
+							)
 					)
 				)
 	);
