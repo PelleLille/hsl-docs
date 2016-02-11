@@ -33,6 +33,7 @@ $transportid      string  "mailtransport\:1"         ID of the transport profile
 Functions
 ---------
 
+* **MIME** :class:`~data.MIME`
 * **Misc** :func:`GetAddressList` :func:`GetMailQueueMetric`
 * **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
@@ -140,7 +141,7 @@ Headers
 
 .. function:: AddHeader(name, value, [refold = true])
 
-  Add a new header (at the top of the message). The name is not case sensitive.
+  Add a new header (at the top of the message).
 
   :param string name: name of the header
   :param string value: value of the header
@@ -543,6 +544,156 @@ DKIM
   ========= ===========
 
   As defined in `RFC5617 <http://tools.ietf.org/search/rfc5617>`_.
+
+MIME
+^^^^
+
+.. class:: MIME(partid)
+
+  :param string partid: the part id
+
+  Working with MIME parts is done using MIME objects. To instantiate a reference to the root MIME part object call the :class:`~data.MIME` function with the string literal `"0"` as the argument.
+
+  .. note::
+
+    If you call the :class:`MIME` function **without** arguments, the standard library's :class:`MIME` object will be created.
+
+  .. code-block:: hsl
+
+	MIME("0")->appendPart(
+		MIME()
+			->setType("multipart/alternative")
+			->appendPart(
+				MIME()
+					->setType("text/plain")
+					->setBody("This is a custom footer")
+				)
+			->appendPart(
+				MIME()
+					->setType("multipart/related")
+					->appendPart(
+						MIME()
+							->setType("text/html")
+							->setBody(''This is a custom footer with an image <img src="cid:logo.jpg">'')
+					)
+					->appendPart(
+						MIME()
+							->setType("image/jpeg")
+							->addHeader("Content-ID", "logo.jpg")
+							->setBody(cache [] http("http://pngimg.com/upload/small/cat_PNG92.png"))
+					)
+				)
+	);
+
+  .. note::
+
+    Changes done to any MIME object will **not** be reflected on consecutive calls to "get" functions, however they will be applied to the message upon delivery.
+
+.. function:: MIME.getID()
+
+  Return the MIME part's ID. This ID can be used to instantiate a new :class:`~data.MIME` object.
+
+  :return: part id
+  :rtype: string
+
+.. function:: MIME.getSize()
+
+  Return the MIME part's size in bytes.
+
+  :return: size in bytes
+  :rtype: number
+
+.. function:: MIME.getFileName()
+
+  Return the MIME part's file name (if it has one).
+
+  :return: file name
+  :rtype: string
+
+.. function:: MIME.getType()
+
+  Return the MIME part's `Content-Type`'s type field (eg. `text/plain`).
+
+  :return: content type
+  :rtype: string
+
+.. function:: MIME.getHeader(name)
+
+  Return the value of a header (if multiple headers with the same name exists, the first will be returned). The name is not case sensitive.
+
+  :param string name: name of the header
+  :return: header value
+  :rtype: string
+
+.. function:: MIME.setHeader(name, value)
+
+  Overwrite existing header(s) or create a new header. The name is not case sensitive.
+
+  :param string name: name of the header
+  :param string value: value of the header
+  :return: number of headers changed
+  :rtype: number
+
+.. function:: MIME.addHeader(name, value)
+
+  Add a new header (at the top of the message).
+
+  :param string name: name of the header
+  :param string value: value of the header
+  :rtype: none
+
+.. function:: MIME.delHeader(name)
+
+  Delete all headers by the name. The name is not case sensitive.
+
+  :param string name: name of the header
+  :return: number of headers deleted
+  :rtype: number
+
+.. function:: MIME.remove()
+
+  Remove this MIME part.
+
+  :rtype: none
+
+.. function:: MIME.prependPart(part)
+
+  Add a MIME part before the current content.
+
+  :param MIME part: a :class:`MIME` part
+  :return: this
+  :rtype: MIME
+
+.. function:: MIME.appendPart(part)
+
+  Add a MIME part after the current content.
+
+  :param MIME part: a :class:`MIME` part
+  :return: this
+  :rtype: MIME
+
+.. function:: MIME.findByType(type)
+
+  Find descendant parts (on any depth) based on their `Content-Type`.
+
+  :param string type: type as regex
+  :return: parts
+  :rtype: array of :class:`~data.MIME` objects
+
+.. function:: MIME.findByFileName(filename)
+
+  Find descendant parts (on any depth) based on their file name.
+
+  :param string filename: filename as regex
+  :return: parts
+  :rtype: array of :class:`~data.MIME` objects
+
+.. function:: MIME.getParts()
+
+  Return child parts.
+
+  :return: parts
+  :rtype: array of :class:`~data.MIME` objects
 
 On script error
 ---------------

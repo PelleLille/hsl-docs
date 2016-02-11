@@ -12,6 +12,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http`
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
+* **MIME** :class:`MIME`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`rate` :func:`mail`
 * **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`dovecot_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author`
 * **String** :func:`chr` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
@@ -692,6 +693,79 @@ Mathematical
   :return: the square root of x
   :rtype: number
 
+MIME
+----
+
+.. class:: MIME()
+
+  The MIME object "constructor" takes no function arguments, and returns a new MIME object.
+
+  The standard library's MIME object is a "string builder" to construct MIME parts. In the :doc:`DATA <data>` context there is an similar :class:`~data.MIME` object as well, which is useful to work with a message's MIME parts. To create a "string building" MIME object, call the :class:`MIME` function without any arguments.
+
+  .. code-block:: hsl
+
+	$part = MIME();
+	$part->setType("multipart/alternative");
+	$part->appendPart(MIME()->setType("text/plain")->setBody("*Hello World*"));
+	$part->appendPart(MIME()->setType("text/html")->setBody("<strong>Hello World</strong>"));
+	echo $part->toString();
+
+  .. note::
+
+    Many of the MIME object's member functions return `this`, allowing them to be called with method chaining.
+
+    .. code-block:: hsl
+
+      echo MIME()->addHeader("Subject", "Hello")->setBody("Hello World")->toString();
+
+.. function:: MIME.addHeader(name, value)
+
+  Add a header. The value may be encoded (if needed) and reformatted.
+
+  :param string name: name of the header
+  :param string value: value of the header
+  :return: this
+  :rtype: MIME
+
+  .. note::
+
+    If a `Content-Type` header is added, the value of :func:`MIME.setType` is ignored. If a `Content-Transfer-Encoding` header is added no encoding will be done on data added by :func:`MIME.setBody`.
+
+.. function:: MIME.appendPart(part)
+
+  Add a MIME part (child) object, this is useful when building a multipart MIME.
+
+  :param MIME part: a MIME part object
+  :return: this
+  :rtype: MIME
+
+  .. note::
+
+    The `Content-Type` is not automatically set to `multipart/\*`, this has to be done using :func:`MIME.setType`. The MIME boundary is however automatically created.
+
+.. function:: MIME.setBody(data)
+
+  Set the MIME part body content. In case the MIME part has children (multipart) this will be the MIME parts preamble. The data will be Base64 encoded if no `Content-Transfer-Encoding` header is added.
+
+  :param string data: the data
+  :return: this
+  :rtype: MIME
+
+.. function:: MIME.setType(type)
+
+  Set the type field of the `Content-Type` header. The default type is `text/plain`, and the charset is always utf-8.
+
+  :param string type: the content type
+  :return: this
+  :rtype: MIME
+
+.. function:: MIME.toString()
+
+  Return the created MIME as a string. This function useful for debugging.
+
+  :return: the MIME as string
+  :rtype: string
+
 Misc
 ----
 
@@ -1175,4 +1249,3 @@ String
 	// "ucfirst()"
 	echo pcre_replace(''\b[a-z]'', function ($i) { return strtoupper($i[0]); }, "hello world");
 	// Hello World
-
