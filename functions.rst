@@ -716,55 +716,55 @@ MIME
 
     .. code-block:: hsl
 
-      echo MIME()->addHeader("Subject", "Hello")->setBody("Hello World")->toString();
+       echo MIME()->addHeader("Subject", "Hello")->setBody("Hello World")->toString();
 
-.. function:: MIME.addHeader(name, value)
+  .. function:: MIME.addHeader(name, value)
 
-  Add a header. The value may be encoded (if needed) and reformatted.
+	  Add a header. The value may be encoded (if needed) and reformatted.
 
-  :param string name: name of the header
-  :param string value: value of the header
-  :return: this
-  :rtype: MIME
+	  :param string name: name of the header
+	  :param string value: value of the header
+	  :return: this
+	  :rtype: MIME
 
-  .. note::
+	  .. note::
 
-    If a `Content-Type` header is added, the value of :func:`MIME.setType` is ignored. If a `Content-Transfer-Encoding` header is added no encoding will be done on data added by :func:`MIME.setBody`.
+		If a `Content-Type` header is added, the value of :func:`MIME.setType` is ignored. If a `Content-Transfer-Encoding` header is added no encoding will be done on data added by :func:`MIME.setBody`.
 
-.. function:: MIME.appendPart(part)
+  .. function:: MIME.appendPart(part)
 
-  Add a MIME part (child) object, this is useful when building a multipart MIME.
+	  Add a MIME part (child) object, this is useful when building a multipart MIME.
 
-  :param MIME part: a MIME part object
-  :return: this
-  :rtype: MIME
+	  :param MIME part: a MIME part object
+	  :return: this
+	  :rtype: MIME
 
-  .. note::
+	  .. note::
 
-    The `Content-Type` is not automatically set to `multipart/\*`, this has to be done using :func:`MIME.setType`. The MIME boundary is however automatically created.
+		The `Content-Type` is not automatically set to `multipart/\*`, this has to be done using :func:`MIME.setType`. The MIME boundary is however automatically created.
 
-.. function:: MIME.setBody(data)
+  .. function:: MIME.setBody(data)
 
-  Set the MIME part body content. In case the MIME part has children (multipart) this will be the MIME parts preamble. The data will be Base64 encoded if no `Content-Transfer-Encoding` header is added.
+	  Set the MIME part body content. In case the MIME part has children (multipart) this will be the MIME parts preamble. The data will be Base64 encoded if no `Content-Transfer-Encoding` header is added.
 
-  :param string data: the data
-  :return: this
-  :rtype: MIME
+	  :param string data: the data
+	  :return: this
+	  :rtype: MIME
 
-.. function:: MIME.setType(type)
+  .. function:: MIME.setType(type)
 
-  Set the type field of the `Content-Type` header. The default type is `text/plain`, and the charset is always utf-8.
+	  Set the type field of the `Content-Type` header. The default type is `text/plain`, and the charset is always utf-8.
 
-  :param string type: the content type
-  :return: this
-  :rtype: MIME
+	  :param string type: the content type
+	  :return: this
+	  :rtype: MIME
 
-.. function:: MIME.toString()
+  .. function:: MIME.toString()
 
-  Return the created MIME as a string. This function useful for debugging.
+	  Return the created MIME as a string. This function useful for debugging.
 
-  :return: the MIME as string
-  :rtype: string
+	  :return: the MIME as string
+	  :rtype: string
 
 Misc
 ----

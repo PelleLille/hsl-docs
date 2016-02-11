@@ -592,111 +592,111 @@ MIME
 
     Changes done to any MIME object will **not** be reflected on consecutive calls to "get" functions, however they will be applied to the message upon delivery.
 
-.. function:: MIME.getID()
+  .. function:: MIME.getID()
 
-  Return the MIME part's ID. This ID can be used to instantiate a new :class:`~data.MIME` object.
+	  Return the MIME part's ID. This ID can be used to instantiate a new :class:`~data.MIME` object.
 
-  :return: part id
-  :rtype: string
+	  :return: part id
+	  :rtype: string
 
-.. function:: MIME.getSize()
+  .. function:: MIME.getSize()
 
-  Return the MIME part's size in bytes.
+	  Return the MIME part's size in bytes.
 
-  :return: size in bytes
-  :rtype: number
+	  :return: size in bytes
+	  :rtype: number
 
-.. function:: MIME.getFileName()
+  .. function:: MIME.getFileName()
 
-  Return the MIME part's file name (if it has one).
+	  Return the MIME part's file name (if it has one).
 
-  :return: file name
-  :rtype: string
+	  :return: file name
+	  :rtype: string
 
-.. function:: MIME.getType()
+  .. function:: MIME.getType()
 
-  Return the MIME part's `Content-Type`'s type field (eg. `text/plain`).
+	  Return the MIME part's `Content-Type`'s type field (eg. `text/plain`).
 
-  :return: content type
-  :rtype: string
+	  :return: content type
+	  :rtype: string
 
-.. function:: MIME.getHeader(name)
+  .. function:: MIME.getHeader(name)
 
-  Return the value of a header (if multiple headers with the same name exists, the first will be returned). The name is not case sensitive.
+	  Return the value of a header (if multiple headers with the same name exists, the first will be returned). The name is not case sensitive.
 
-  :param string name: name of the header
-  :return: header value
-  :rtype: string
+	  :param string name: name of the header
+	  :return: header value
+	  :rtype: string
 
-.. function:: MIME.setHeader(name, value)
+  .. function:: MIME.setHeader(name, value)
 
-  Overwrite existing header(s) or create a new header. The name is not case sensitive.
+	  Overwrite existing header(s) or create a new header. The name is not case sensitive.
 
-  :param string name: name of the header
-  :param string value: value of the header
-  :return: number of headers changed
-  :rtype: number
+	  :param string name: name of the header
+	  :param string value: value of the header
+	  :return: number of headers changed
+	  :rtype: number
 
-.. function:: MIME.addHeader(name, value)
+  .. function:: MIME.addHeader(name, value)
 
-  Add a new header (at the top of the message).
+	  Add a new header (at the top of the message).
 
-  :param string name: name of the header
-  :param string value: value of the header
-  :rtype: none
+	  :param string name: name of the header
+	  :param string value: value of the header
+	  :rtype: none
 
-.. function:: MIME.delHeader(name)
+  .. function:: MIME.delHeader(name)
 
-  Delete all headers by the name. The name is not case sensitive.
+	  Delete all headers by the name. The name is not case sensitive.
 
-  :param string name: name of the header
-  :return: number of headers deleted
-  :rtype: number
+	  :param string name: name of the header
+	  :return: number of headers deleted
+	  :rtype: number
 
-.. function:: MIME.remove()
+  .. function:: MIME.remove()
 
-  Remove this MIME part.
+	  Remove this MIME part.
 
-  :rtype: none
+	  :rtype: none
 
-.. function:: MIME.prependPart(part)
+  .. function:: MIME.prependPart(part)
 
-  Add a MIME part before the current content.
+	  Add a MIME part before the current content.
 
-  :param MIME part: a :class:`MIME` part
-  :return: this
-  :rtype: MIME
+	  :param MIME part: a :class:`MIME` part
+	  :return: this
+	  :rtype: MIME
 
-.. function:: MIME.appendPart(part)
+  .. function:: MIME.appendPart(part)
 
-  Add a MIME part after the current content.
+	  Add a MIME part after the current content.
 
-  :param MIME part: a :class:`MIME` part
-  :return: this
-  :rtype: MIME
+	  :param MIME part: a :class:`MIME` part
+	  :return: this
+	  :rtype: MIME
 
-.. function:: MIME.findByType(type)
+  .. function:: MIME.findByType(type)
 
-  Find descendant parts (on any depth) based on their `Content-Type`.
+	  Find descendant parts (on any depth) based on their `Content-Type`.
 
-  :param string type: type as regex
-  :return: parts
-  :rtype: array of :class:`~data.MIME` objects
+	  :param string type: type as regex
+	  :return: parts
+	  :rtype: array of :class:`~data.MIME` objects
 
-.. function:: MIME.findByFileName(filename)
+  .. function:: MIME.findByFileName(filename)
 
-  Find descendant parts (on any depth) based on their file name.
+	  Find descendant parts (on any depth) based on their file name.
 
-  :param string filename: filename as regex
-  :return: parts
-  :rtype: array of :class:`~data.MIME` objects
+	  :param string filename: filename as regex
+	  :return: parts
+	  :rtype: array of :class:`~data.MIME` objects
 
-.. function:: MIME.getParts()
+  .. function:: MIME.getParts()
 
-  Return child parts.
+	  Return child parts.
 
-  :return: parts
-  :rtype: array of :class:`~data.MIME` objects
+	  :return: parts
+	  :rtype: array of :class:`~data.MIME` objects
 
 On script error
 ---------------
