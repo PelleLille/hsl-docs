@@ -213,55 +213,55 @@ Attachments
 .. function:: GetAttachmentsByName(filename)
 
   :param string filename: filename (may be regular expression)
-  :return: attachment id(s)
+  :return: part id(s)
   :rtype: array
 
 .. function:: GetAttachmentsByType(mimetype)
 
   :param string mimetype: mimetype (may be regular expression)
-  :return: attachment id(s)
+  :return: part id(s)
   :rtype: array
 
-.. function:: GetAttachmentName(attachmentid)
+.. function:: GetAttachmentName(partid)
 
-  :param attachmentid: attachment id(s)
-  :type attachmentid: array or string
+  :param partid: part id(s)
+  :type partid: array or string
   :return: name of attachment(s)
   :rtype: array
 
-.. function:: GetAttachmentType(attachmentid)
+.. function:: GetAttachmentType(partid)
 
-  :param attachmentid: attachment id(s)
-  :type attachmentid: array or string
+  :param partid: part id(s)
+  :type partid: array or string
   :return: mimetype of attachment(s)
   :rtype: array
 
-.. function:: GetAttachmentSize(attachmentid)
+.. function:: GetAttachmentSize(partid)
 
-  :param attachmentid: attachment id(s)
-  :type attachmentid: array or string
+  :param partid: part id(s)
+  :type partid: array or string
   :return: size of attachment(s)
   :rtype: array
 
   .. note::
   	
-	If attachmentid is "/" the message size is returned.
+	If partid is "/" the message size is returned.
 
-.. function:: GuessAttachmentType(attachmentids)
+.. function:: GuessAttachmentType(partid)
 
   Guess the attachment type based on file magic.
 
-  :param attachmentid: attachment id(s)
-  :type attachmentid: array or string
+  :param partid: part id(s)
+  :type partid: array or string
   :return: mimetype of attachment(s)
   :rtype: array
 
-.. function:: RemoveAttachments(attachmentids)
+.. function:: RemoveAttachments(partid)
 
-  Remove attachmentid(s).
+  Remove partid(s).
 
-  :param attachmentid: attachment id(s)
-  :type attachmentid: array or string
+  :param partid: part id(s)
+  :type partid: array or string
   :rtype: none
 
 Actions
@@ -460,7 +460,7 @@ Anti-spam and anti-virus
    * **stop_on_match** (boolean) processing the mail when one match (of the requested type) is found. The default is ``false``.
    * **timeout** (number) set an approximate timeout time in seconds. The default in no timeout.
    * **recursion_limit** (number) how deep to dig through MIME trees, archive files (such as ZIP), etc. The default is ``9``.
-   * **attachmentid** (boolean) return a data structure with the attachmentid where the pattern is found. The default is ``false``.
+   * **partid** (boolean) return a data structure with the partid where the pattern is found. The default is ``false``.
 
   ========================== ===========
   Builtin rules              Description
