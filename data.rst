@@ -33,11 +33,11 @@ $transportid      string  "mailtransport\:1"         ID of the transport profile
 Functions
 ---------
 
-* **MIME** :class:`~data.MIME`
+* **MIME and attachments** :class:`~data.MIME` :func:`GuessAttachmentType`
 * **Misc** :func:`GetAddressList` :func:`GetMailQueueMetric`
 * **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
-* **Attachments** :func:`GetAttachmentsByName` :func:`GetAttachmentsByType` :func:`GetAttachmentName` :func:`GetAttachmentType` :func:`GetAttachmentSize` :func:`GuessAttachmentType` :func:`RemoveAttachments`
+* **Attachments** :func:`GuessAttachmentType`
 * **Actions** :func:`Deliver` :func:`DirectDeliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`CopyMail` :func:`DiscardMailDataChanges` :func:`Done` :func:`DeliverWithDKIM`
 * **Anti-spam and anti-virus** :func:`ScanRPD` :func:`ScanRPDAV` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM` :func:`ScanDLP`
 * **DKIM** :func:`ScanDMARC` :func:`DKIMSign` :func:`DKIMSDID` :func:`DKIMADSP`
@@ -209,60 +209,6 @@ Headers
 
 Attachments
 ^^^^^^^^^^^
-
-.. function:: GetAttachmentsByName(filename)
-
-  :param string filename: filename (may be regular expression)
-  :return: part id(s)
-  :rtype: array
-
-.. function:: GetAttachmentsByType(mimetype)
-
-  :param string mimetype: mimetype (may be regular expression)
-  :return: part id(s)
-  :rtype: array
-
-.. function:: GetAttachmentName(partid)
-
-  :param partid: part id(s)
-  :type partid: array or string
-  :return: name of attachment(s)
-  :rtype: array
-
-.. function:: GetAttachmentType(partid)
-
-  :param partid: part id(s)
-  :type partid: array or string
-  :return: mimetype of attachment(s)
-  :rtype: array
-
-.. function:: GetAttachmentSize(partid)
-
-  :param partid: part id(s)
-  :type partid: array or string
-  :return: size of attachment(s)
-  :rtype: array
-
-  .. note::
-  	
-	If partid is "/" the message size is returned.
-
-.. function:: GuessAttachmentType(partid)
-
-  Guess the attachment type based on file magic.
-
-  :param partid: part id(s)
-  :type partid: array or string
-  :return: mimetype of attachment(s)
-  :rtype: array
-
-.. function:: RemoveAttachments(partid)
-
-  Remove partid(s).
-
-  :param partid: part id(s)
-  :type partid: array or string
-  :rtype: none
 
 Actions
 ^^^^^^^
@@ -545,8 +491,8 @@ DKIM
 
   As defined in `RFC5617 <http://tools.ietf.org/search/rfc5617>`_.
 
-MIME
-^^^^
+MIME and attachments
+^^^^^^^^^^^^^^^^^^^^
 
 .. class:: MIME(partid)
 
@@ -697,6 +643,16 @@ MIME
 
 	  :return: parts
 	  :rtype: array of :class:`~data.MIME` objects
+
+.. function:: GuessAttachmentType(partid)
+
+  Guess the attachment type based on file magic.
+
+  :param partid: part id(s)
+  :type partid: array or string
+  :return: mimetype of attachment(s)
+  :rtype: array
+
 
 On script error
 ---------------
