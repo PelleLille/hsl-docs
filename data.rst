@@ -37,7 +37,6 @@ Functions
 * **Misc** :func:`GetAddressList` :func:`GetMailQueueMetric`
 * **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
-* **Attachments** :func:`GuessAttachmentType`
 * **Actions** :func:`Deliver` :func:`DirectDeliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`CopyMail` :func:`DiscardMailDataChanges` :func:`Done` :func:`DeliverWithDKIM`
 * **Anti-spam and anti-virus** :func:`ScanRPD` :func:`ScanRPDAV` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM` :func:`ScanDLP`
 * **DKIM** :func:`ScanDMARC` :func:`DKIMSign` :func:`DKIMSDID` :func:`DKIMADSP`
