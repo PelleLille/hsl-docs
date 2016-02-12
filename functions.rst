@@ -916,12 +916,6 @@ Misc
    * **headers** (array) Add additional message headers (KVP).
    * **metadata** (array) Add additional metadata to the message (KVP).
 
-   If sending the message with custom templates.
-
-	   * **variables** (array) Set additional to the template engine (KVP).
-	   * **template** (array) Choose template. The default is ``internal/en_EN``.
-	   * **templatefile** (array) Choose template file. The default is ``plain_mail.html``.
-
   .. code-block:: hsl
 
 	  mail("postmaster@example.com", "support@halon.se", "Lunch", "How about lunch on Friday?");
