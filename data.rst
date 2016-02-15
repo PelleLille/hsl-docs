@@ -556,22 +556,27 @@ MIME and attachments
 	  Return the MIME part's file name (if it has one).
 
 	  :return: file name
-	  :rtype: string
+	  :rtype: string (or none)
 
   .. function:: MIME.getType()
 
 	  Return the MIME part's `Content-Type`'s type field (eg. `text/plain`).
 
 	  :return: content type
-	  :rtype: string
+	  :rtype: string (or none)
 
   .. function:: MIME.getHeader(name)
 
-	  Return the value of a header (if multiple headers with the same name exists, the first will be returned). The name is not case sensitive.
+	  Return the value of a header (if multiple headers with the same name exists, the first will be returned). If no header is found, the type `none` is returned. The name is not case sensitive.
 
 	  :param string name: name of the header
 	  :return: header value
-	  :rtype: string
+	  :rtype: string (or none)
+
+	  .. code-block:: hsl
+
+	    if (is_string($contentid = $part->getHeader("Content-ID")))
+		  echo "Content-ID is $contentid";
 
   .. function:: MIME.setHeader(name, value)
 
