@@ -75,7 +75,7 @@ Array
 
 	* the array is empty, an error will be raised.
 	* the array contains one value, that value will be returned.
-  
+
 .. code-block:: hsl
 
 	array_reduce(function ($carry, $x) { return $carry + $x; }, [0, 1, 2, 3]); // sum values
@@ -756,6 +756,14 @@ MIME
 	  Set the type field of the `Content-Type` header. The default type is `text/plain`, and the charset is always utf-8.
 
 	  :param string type: the content type
+	  :return: this
+	  :rtype: MIME
+
+  .. function:: MIME.setBoundary(boundary)
+
+	  Set the MIME boundary for `multipart/\*` messages. The default is to use an UUID.
+
+	  :param string boundary: the boundary
 	  :return: this
 	  :rtype: MIME
 
