@@ -611,7 +611,7 @@ MIME and attachments
 
   .. function:: MIME.prependPart(part)
 
-	  Add a MIME part before the current content.
+	  Add a MIME part before this part.
 
 	  :param MIME part: a :class:`MIME` part
 	  :return: this
@@ -619,11 +619,18 @@ MIME and attachments
 
   .. function:: MIME.appendPart(part)
 
-	  Add a MIME part after the current content.
+	  Add a MIME part after this part.
 
 	  :param MIME part: a :class:`MIME` part
 	  :return: this
 	  :rtype: MIME
+
+  .. function:: MIME.replacePart(part)
+
+	  Replace the current MIME part.
+
+	  :param MIME part: a :class:`MIME` part
+	  :rtype: none
 
   .. function:: MIME.findByType(type)
 
