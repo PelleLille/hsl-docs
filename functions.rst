@@ -774,6 +774,28 @@ MIME
 	  :return: the MIME as string
 	  :rtype: string
 
+  .. function:: MIME.send(sender, recipient, transportid, [options])
+
+	  Send the MIME as an email to the recipient.
+
+	  :param string sender: the sender
+	  :param string recipient: the recipient
+	  :param string transportid: the transportid
+	  :param array options: options array
+	  :return: the message id
+	  :rtype: string
+
+	  The following options are available in the options array.
+
+	   * **metadata** (array) Add additional metadata to the message (KVP).
+
+	  .. code-block:: hsl
+
+		MIME()
+			->addHeader("Subject", "Hello")
+			->setBody("Hi, how are you?")
+			->send("", "info@example.com", "mailtransport:1");
+
 Misc
 ----
 
