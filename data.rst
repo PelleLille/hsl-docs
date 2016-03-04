@@ -24,7 +24,7 @@ $recipients       array   ["test\@example.com", ...] List of all recipient addre
 $recipientdomain  string  "example.com"              Domain part of recipient's address
 $recipientdomains array   ["example.com", ...]       List of all domain part of all recipient addresses
 $messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
-$actionid         number  1                          ID; incremented per message action/recipient (Deliver, CopyMail, Quarantine, etc.)
+$actionid         number  1                          ID; incremented per message action/recipient (Deliver, Quarantine, etc.)
 $serverid         string  "mailserver\:1"            ID of the mailserver profile
 $serverip         string  "10.0.0.1"                 IP address of the mailserver
 $transportid      string  "mailtransport\:1"         ID of the transport profile to be used
@@ -37,7 +37,7 @@ Functions
 * **Misc** :func:`GetAddressList` :func:`GetMailQueueMetric`
 * **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
-* **Actions** :func:`Deliver` :func:`DirectDeliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`CopyMail` :func:`DiscardMailDataChanges` :func:`Done` :func:`DeliverWithDKIM`
+* **Actions** :func:`Deliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`DiscardMailDataChanges` :func:`Done`
 * **Anti-spam and anti-virus** :func:`ScanRPD` :func:`ScanRPDAV` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM` :func:`ScanDLP`
 * **DKIM** :func:`ScanDMARC` :func:`DKIMSign` :func:`DKIMSDID` :func:`DKIMADSP`
 
@@ -212,23 +212,22 @@ Attachments
 Actions
 ^^^^^^^
 
-.. function:: Deliver([recipient, [transportid]])
+.. function:: Deliver([options])
 
   Deliver the message.
 
-  :param string recipient: an e-mail address
-  :param string transportid: the transportid to be used
+  :param array options: an options array
   :return: doesn't return, script is terminated
   :updates: ``$actionid``
 
-.. function:: DirectDeliver([recipient, [transportid]])
+  The following options are available in the options array.
 
-  Deliver the message inline.
-
-  :param string recipient: an e-mail address
-  :param string transportid: the transportid to be used
-  :return: doesn't return, script is terminated
-  :updates: ``$actionid``
+   * **recipient** (string) set the recipient. The default is ``$recipient``.
+   * **transportid** (string) set the recipient. The default is ``$transportid``.
+   * **metadata** (array) add additional metadata to the message (KVP). same as :func:`SetMetaData`.
+   * **delay** (number) same as :func:`SetDelayedDeliver`. The default is `0` seconds.
+   * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is `true`.
+   * **queue** (boolean) deliver the message using the delivery queue. The default is `true`.
 
 .. function:: Reject([reason])
 
@@ -255,29 +254,23 @@ Actions
   :return: doesn't return, script is terminated
   :updates: ``$actionid``
 
-.. function:: Quarantine(quarantineid, [recipient, [transportid, [options]]])
+.. function:: Quarantine(quarantineid, [options])
 
   Quarantine or `archive <http://wiki.halon.se/Archiving>`_ a message.
 
   :param string quarantineid: the quarantine profile
-  :param string recipient: an e-mail address
-  :param string transportid: the transportid to be used
   :param array options: an options array
   :return: doesn't return, script is terminated
   :updates: ``$actionid``
 
   The following options are available in the options array.
 
-   * **final_action** (boolean) if the function should terminate the script. The default is ``true``.
+   * **recipient** (string) set the recipient. The default is ``$recipient``.
+   * **transportid** (string) set the recipient. The default is ``$transportid``.
+   * **metadata** (array) add additional metadata to the message (KVP). same as :func:`SetMetaData`.
+   * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is ``true``.
    * **reject** (boolean) if the function should return an 500 error. The default is ``true``.
    * **reason** (string) the reason to report. The default is a system generated message.
-
-.. function:: CopyMail([recipient, [transportid]])
-
-  :param string recipient: an e-mail address
-  :param string transportid: the transportid to be used
-  :rtype: none
-  :updates: ``$actionid``
 
 .. function:: DiscardMailDataChanges()
 
@@ -288,33 +281,9 @@ Actions
 
 .. function:: Done()
 
-  Finishes the execution of the current recipient without doing an additional action. This can be used with e.g. :func:`CopyMail`. If a message is scanned without any action, it will be deferred.
+  Finishes the execution of the current recipient without doing an additional action. If a message is scanned without any action, it will be deferred.
 
   :return: doesn't return, script is terminated
-
-.. function:: DeliverWithDKIM(selector, domain, key, [options])
-
-  Sign and deliver the message using `DKIM <http://wiki.halon.se/DKIM>`_.
-
-  :param string selector: selector to use when signing
-  :param string domain: domain to use when signing
-  :param string key: private key to use, either ``pki:X`` or a private RSA key in PEM format.
-  :param array options: options array
-  :return: doesn't return, script is terminated
-  :updates: ``$actionid``
-
-  The following options are available in the options array.
-
-   * **canonicalization_header** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``simple``.
-   * **canonicalization_body** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``simple``.
-   * **algorithm** (string) algorithm to hash the message with (``sha1`` or ``sha256``). The default is ``sha256``.
-   * **additional_headers** (array) additional headers to sign in addition to those recommended by the RFC.
-   * **headers** (array)  headers to sign. The default is to sign all headers recommended by the RFC.
-   * **discard_changes** (boolean) Discard any changes to the original message before signing. The default is ``false``.
-
-  .. note::
-
-    This function will be deprecated in the future; use :func:`DKIMSign` instead.
 
 Anti-spam and anti-virus
 ^^^^^^^^^^^^^^^^^^^^^^^^
