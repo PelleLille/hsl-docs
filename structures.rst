@@ -389,6 +389,27 @@ The `builtin` statement allows you to explicitly call the builtin version of an 
 
 	echo strlen("hello");
 
+.. _object_keyword:
+
+object
+------
+
+The `object` statement can be used to create objects; a collection (:ref:`array <arraytype>`) of functions where the keyword :ref:`this <this_keyword>` refers to the current object instance::
+
+	object [ "self" => function() { return this; } ]
+
+.. code-block:: hsl
+
+	$x = object [ "self" => function() { return this; }];
+	echo $x->self()->self();
+
+.. _this_keyword:
+
+this
+^^^^
+
+The `this` statement is used to refer to the current instance of an :ref:`object <object_keyword>`. Allowing you to create :ref:`objects <object_keyword>` with functions supporting method chaining.
+
 cache
 -----
 
