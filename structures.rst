@@ -195,7 +195,9 @@ Named functions
 
 A function may be named (in order to be callable by its name) according to the regular expression pattern :regexp:`[a-zA-Z_]+[a-zA-Z_0-9]*` with the exception of reserved keywords. In order to prevent naming conflicts in the future with added reserved keywords; it may be a good idea to prefix the function name with a unique identifier like ``halon_func``.
 
-``and`` ``array`` ``as`` ``barrier`` ``break`` ``builtin`` ``cache`` ``case`` ``closure`` ``continue`` ``default`` ``echo`` ``else`` ``false`` ``foreach`` ``forever`` ``function`` ``global`` ``if`` ``include`` ``isset`` ``not`` ``or`` ``return`` ``switch`` ``true`` ``unset``
+``and`` ``array`` ``as`` ``barrier`` ``break`` ``builtin`` ``cache`` ``case`` ``closure`` ``continue`` ``default`` ``echo`` ``else`` ``false`` ``foreach`` ``forever`` ``function`` ``global`` ``if`` ``include`` ``isset`` ``not`` ``object`` ``or`` ``return`` ``switch`` ``this`` ``true`` ``unset``
+
+You *should* avoid using keywords available in other general purpose languages and they may be added in the future. That includes keywords such as `for`, `while`, `class`, `private`, `public` etc.
 
 .. note::
 	Named functions are unconditionally registered at compile-time (control flow is not taken into consideration). Hence it doesn't matter where in the code it's defined (eg. before or after it's being called).
