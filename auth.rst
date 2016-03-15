@@ -30,18 +30,18 @@ Functions
 
   :return: doesn't return, script is terminated
 
-.. function:: Reject([message])
+.. function:: Reject([reason])
 
   Reject the login request.
 
-  :param string message: the reject message
+  :param string reason: the reject message
   :return: doesn't return, script is terminated
 
-.. function:: Defer([message])
+.. function:: Defer([reason])
 
   Defer the login request with a temporary (454) error.
 
-  :param string message: the defer message
+  :param string reason: the defer message
   :return: doesn't return, script is terminated
 
 On script error

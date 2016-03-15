@@ -30,12 +30,12 @@ Functions
 
   :return: doesn't return, script is terminated
 
-.. function:: Block(message)
+.. function:: Block([reason])
 
-  Block IP connection from being established. The message is send back to the client in a TCP reply appended by CRLF (`\\r\\n`) and the connection is closed. If message is an array of strings, each item in the array is sent appended by CRLF (`\\r\\n`).
+  Block IP connection from being established. The reason is send back to the client in a TCP reply appended by CRLF (`\\r\\n`) and the connection is closed. If `reason` is an array of strings, each item in the array is sent appended by CRLF (`\\r\\n`).
 
-  :param message: message to send in block message
-  :type message: array or string
+  :param reason: message to send in block message
+  :type reason: array or string
   :return: doesn't return, script is terminated
 
   .. code-block:: hsl

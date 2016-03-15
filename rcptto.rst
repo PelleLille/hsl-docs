@@ -39,18 +39,18 @@ Functions
 
   :return: doesn't return, script is terminated
 
-.. function:: Reject([message])
+.. function:: Reject([reason])
 
   Reject the `RCPT TO` command (recipient) with a permanent (554) error.
 
-  :param string message: the reject message
+  :param string reason: the reject message
   :return: doesn't return, script is terminated
 
-.. function:: Defer([message])
+.. function:: Defer([reason])
 
   Defer the `RCPT TO` command (recipient) with a temporary (450) error.
 
-  :param string message: the defer message
+  :param string reason: the defer message
   :return: doesn't return, script is terminated
 
 .. function:: GetMailQueueMetric(options)
