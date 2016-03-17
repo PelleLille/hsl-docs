@@ -67,7 +67,7 @@ In addition to `if` there is also an `else` branch available; executed if the ex
 Ternary operator
 ^^^^^^^^^^^^^^^^
 
-The ternary operator is an expression and allows `expression branching`, if the `if_true_expression` is omitted the value of `expression` is used if true::
+The ternary operator is an expression and allows `expression branching`, if the `if_true_expression` is omitted (Elvis operator) then the value of `expression` is used if it tests positive for truthiness, also the expression is not re-evaluated::
 
 	expression ? if_true_expression : if_false_expression
 	expression ? : if_false_expression
@@ -77,6 +77,20 @@ The ternary operator is right-associative with makes them stackable like if-else
 .. code-block:: hsl
 
 	$var = isset($arg) ? $arg : "default value";
+
+Null coalescing operator
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The null coalescing operator (aka the isset() coalescing operator) is an expression and allows `expression branching`, if the `variable` tests positive for :func:`isset` it is used. The expression which makes up the variable is not re-evaluated::
+
+	variable ?? if_false_expression
+
+The null coalescing operator is right-associative with makes them stackable like if-else statements.
+
+.. code-block:: hsl
+
+	$data = json_deocde(...);
+	$var = $arg["settings"] ?? "default value";
 
 foreach
 -------
