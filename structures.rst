@@ -89,7 +89,7 @@ The null coalescing operator is right-associative with makes them stackable like
 
 .. code-block:: hsl
 
-	$data = json_deocde(...);
+	$data = json_decode(...);
 	$var = $data["settings"] ?? "default value";
 
 foreach
