@@ -90,7 +90,7 @@ The null coalescing operator is right-associative with makes them stackable like
 .. code-block:: hsl
 
 	$data = json_deocde(...);
-	$var = $arg["settings"] ?? "default value";
+	$var = $data["settings"] ?? "default value";
 
 foreach
 -------
