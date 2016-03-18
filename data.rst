@@ -33,7 +33,7 @@ $transportid      string  "mailtransport\:1"         ID of the transport profile
 Functions
 ---------
 
-* **MIME and attachments** :class:`~data.MIME` :func:`GuessAttachmentType`
+* **MIME and attachments** :class:`~data.MIME`
 * **Misc** :func:`GetAddressList` :func:`GetMailQueueMetric`
 * **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
@@ -623,16 +623,6 @@ MIME and attachments
 
 	  :return: parts
 	  :rtype: array of :class:`~data.MIME` objects
-
-.. function:: GuessAttachmentType(partid)
-
-  Guess the attachment type based on file magic.
-
-  :param partid: part id(s)
-  :type partid: array or string
-  :return: mimetype of attachment(s)
-  :rtype: array
-
 
 On script error
 ---------------
