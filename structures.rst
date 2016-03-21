@@ -81,7 +81,7 @@ The ternary operator is right-associative with makes them stackable like if-else
 Null coalescing operator
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-The null coalescing operator is an expression and allows `expression branching`, if the `variable` tests positive for :func:`isset` and is not a value of NONE (null) it is used. The expression which makes up the variable is not re-evaluated::
+The null coalescing operator is an expression and allows `expression branching`, if the `variable` tests positive for :func:`isset` and is not a value of None (null) it is used. The expression which makes up the variable is not re-evaluated::
 
 	variable ?? if_false_expression
 
