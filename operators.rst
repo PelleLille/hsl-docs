@@ -39,6 +39,31 @@ Augmented assignment operators are documented in the arithmetic chapter.
 	$var = 5;
 	$var += ($var = 10);
 
+Destructuring assignment
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Destructuring assignment assigns variables with values taken from an `array` value. If the value is not an `array`, all variables will be assigned `null` or its default value.
+
+  .. code-block:: hsl
+
+ 		[$a, $b, $c = 3] = [1, 2];
+		echo $a; // 1
+		echo $b; // 2
+		echo $c; // 3 // default value
+
+.. note::
+
+	If there is less variables in the assignment list than array value items, the values will be discarded. 
+
+	.. code-block:: hsl
+
+		[$a] = [0, 1, 2];
+
+	If there is more variables in the assignment list than array value items, the remaining variables will be assigned the value of `none` or its default value. 
+
+	.. code-block:: hsl
+
+		[$a, $b = 1, $c = 2] = [0];
 
 Arithmetic
 ----------
