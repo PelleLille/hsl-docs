@@ -113,12 +113,12 @@ Subscript
 
 Single items in arrays can be accessed using the subscript (``[]``) operator. This operator may be used on variables, literals or functions.
 
-If reading and the index doesn't exist, an empty string is returned.
+If reading and the index doesn't exist, ``none`` is returned.
 
 .. code-block:: hsl
 
 	$var = ["bar", "bar"];
-	echo $var[2]; // not found an empty string is returned
+	echo $var[2]; // not found none is returned
 
 If assigning to a variable and the index is not found, the variable is converted to an array and the item is created.
 
