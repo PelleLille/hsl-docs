@@ -53,13 +53,13 @@ Destructuring assignment assigns variables with values taken from an `array` val
 
 .. note::
 
-	If there is less variables in the assignment list than array value items, the values will be discarded. 
+	If there is less variables in the assignment list than array values, the remaining values will be discarded. 
 
 	.. code-block:: hsl
 
 		[$a] = [0, 1, 2];
 
-	If there is more variables in the assignment list than array value items, the remaining variables will be assigned the value of `none` or its default value. 
+	If there is more variables in the assignment list than array values, the remaining variables will be assigned the value of `none` or its default value. 
 
 	.. code-block:: hsl
 
