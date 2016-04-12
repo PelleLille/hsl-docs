@@ -885,7 +885,7 @@ Misc
 
   .. note::
 
-	You can only use "a-z0-9.-" in the name and "a-z0-9-" in the legends when using the stat function. For example, uppercase letters are not allowed.
+	You can only use "a-z0-9.-" in the name and "a-z0-9-" in the legends (at most 19 characters) when using the stat function. For example, uppercase letters are not allowed.
 
 .. function:: in_network(ip, network)
 
