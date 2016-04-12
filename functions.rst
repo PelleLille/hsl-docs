@@ -876,13 +876,13 @@ Misc
   :rtype: none
 
   Values stat'ed are available
-  
+
    * as a line graph (on the graphs and report page)
    * as a pie chart (on the graphs and report page)
    * using the statList SOAP API call.
    * using SNMP
 
-  In order for the line graph to work properly, all values should be defined to the stat function on every `stat` call (even if they are 0). 
+  In order for the line graph to work properly, all values should be defined to the stat function on every `stat` call (even if they are 0).
 
   .. code-block:: hsl
 
