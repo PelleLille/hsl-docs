@@ -869,13 +869,20 @@ Misc
 
 .. function:: stat(name, legends)
 
-  Stat values into a graph
+  Collect statistics based on one or more legend (value). The `name` is the name of the graph (the collection of `legends`). A legend is a value for which the system should collect statistics.
 
   :param string name: name of the graph
   :param array legends: key value pair of legends
   :rtype: none
 
-  Values stat'ed are available using the statList SOAP API, visual graphs and SNMP.
+  Values stat'ed are available
+  
+   * as a line graph (on the graphs and report page)
+   * as a pie chart (on the graphs and report page)
+   * using the statList SOAP API call.
+   * using SNMP
+
+  In order for the line graph to work properly, all values should be defined to the stat function on every `stat` call (even if they are 0). 
 
   .. code-block:: hsl
 
@@ -885,7 +892,7 @@ Misc
 
   .. note::
 
-	You can only use "a-z0-9.-" in the name and "a-z0-9-" in the legends (at most 19 characters) when using the stat function. For example, uppercase letters are not allowed.
+	You can only use "a-z0-9.-" in the name and "a-z0-9-" in the legends (legends longer than 19 characters will be truncated on the graph page) when using the stat function. For example, uppercase letters are not allowed.
 
 .. function:: in_network(ip, network)
 
