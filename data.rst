@@ -534,27 +534,56 @@ MIME and attachments
 	  :return: content type
 	  :rtype: string (or none)
 
-  .. function:: MIME.getHeader(name)
+  .. function:: MIME.getHeader(name, [options])
 
 	  Return the value of a header (if multiple headers with the same name exists, the first will be returned). If no header is found, the type `none` is returned. The name is not case sensitive.
 
 	  :param string name: name of the header
+	  :param array options: an options array
 	  :return: header value
 	  :rtype: string (or none)
+
+	  The following options are available in the options array.
+
+	   * **index** (number) The index of the header, from the top, starting at zero.
 
 	  .. code-block:: hsl
 
 	    if (is_string($contentid = $part->getHeader("Content-ID")))
 		  echo "Content-ID is $contentid";
 
-  .. function:: MIME.setHeader(name, value)
+  .. function:: MIME.getHeaders(name)
+
+	  Return a list of header values. If no header is found, an empty list is returned. The name is not case sensitive.
+
+	  :param string name: name of the header
+	  :return: header values
+	  :rtype: array of string
+
+	  .. code-block:: hsl
+
+		echo "Received headers: ".count(MIME("0")->getHeaders("Received"));
+
+  .. function:: MIME.getHeaderNames()
+
+	  Return a list of all header names, from the top. The names are in lower case.
+
+	  :return: header names
+	  :rtype: array of string
+
+  .. function:: MIME.setHeader(name, value, [options])
 
 	  Overwrite existing header(s) or create a new header. The name is not case sensitive.
 
 	  :param string name: name of the header
 	  :param string value: value of the header
+	  :param array options: an options array
 	  :return: number of headers changed
 	  :rtype: number
+
+	  The following options are available in the options array.
+
+	   * **index** (number) The index of the header, from the top, starting at zero.
 
   .. function:: MIME.addHeader(name, value)
 
@@ -564,13 +593,18 @@ MIME and attachments
 	  :param string value: value of the header
 	  :rtype: none
 
-  .. function:: MIME.delHeader(name)
+  .. function:: MIME.delHeader(name, [options])
 
 	  Delete all headers by the name. The name is not case sensitive.
 
 	  :param string name: name of the header
+	  :param array options: an options array
 	  :return: number of headers deleted
 	  :rtype: number
+
+	  The following options are available in the options array.
+
+	   * **index** (number) The index of the header, from the top, starting at zero.
 
   .. function:: MIME.remove()
 
