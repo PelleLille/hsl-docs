@@ -548,7 +548,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
    * **assoc** (boolean) in `text/csv` mode the first line may be used as associative index for the returned array. The default is ``true``.
    * **index** (number) the word index to search for (indexed at zero). The default is ``0`` (the first word).
 
-  The needle function should take one argument (the line) and return a boolean value.
+  The needle function should take one argument (the line, as an array of words) and return a boolean value.
 
   .. note::
 
