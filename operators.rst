@@ -120,7 +120,7 @@ Strings support the :ref:`subscript <subscript>` and :ref:`slicing <slicing>` op
 Concatenation
 ^^^^^^^^^^^^^
 
-It's possible to use the ``.`` concatenation operator on any data type (except ``none``), in which case both operands will be casted to a string.
+It's possible to use the ``.`` concatenation operator on any data type (except ``None``), in which case both operands will be casted to a string.
 
 .. code-block:: hsl
 
@@ -138,7 +138,7 @@ Subscript
 
 Single items in arrays can be accessed using the subscript (``[]``) operator. This operator may be used on variables, literals or functions.
 
-If reading and the index doesn't exist, ``none`` is returned.
+If reading and the index doesn't exist, ``None`` is returned.
 
 .. code-block:: hsl
 
