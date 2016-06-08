@@ -498,7 +498,7 @@ Encodings and JSON
   Decodes a JSON string into a HSL data type.
 
   :param string string: JSON serialized data
-  :return: any HSL data type on errors ``none`` is returned.
+  :return: the decoded string as the correct type, and on errors ``none`` is returned
   :rtype: any
 
   The following translations are done (JSON to HSL).
