@@ -498,7 +498,7 @@ Encodings and JSON
   Decodes a JSON string into a HSL data type.
 
   :param string string: JSON serialized data
-  :return: the decoded string as the correct type, and on errors ``none`` is returned
+  :return: the decoded string as the correct type, and on errors ``None`` is returned
   :rtype: any
 
   The following translations are done (JSON to HSL).
@@ -578,7 +578,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
   :param array get: GET variables, replaced and encoded in URL as $1, $2...
   :param post: POST data as an array or a string for raw POST data
   :type post: array or string
-  :return: if the request was successful (2XX) the content is returned
+  :return: if the request was successful (2XX) the content is returned, otherwise the type ``None`` is returned
   :rtype: string
 
   The following options are available in the options array.
