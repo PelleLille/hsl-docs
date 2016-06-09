@@ -21,10 +21,10 @@ $tlskeysize      number  256                 Negotiated TLS key size
 $saslauthed      boolean true                Whether or not the SMTP session is authenticated (SASL)
 $saslusername    string  "mailuser"          SASL username
 $senderhelo      string  "mail.example.com"  HELO message of sender
-$sender          string  "test\@example.org" E-mail address of sender
-$senderdomain    string  "example.org"       Domain part of sender's address
-$recipient       string  "test\@example.com" E-mail address of recipient
-$recipientdomain string  "example.com"       Domain part of recipient's address
+$sender          string  "test\@example.org" E-mail address of sender (envelope)
+$senderdomain    string  "example.org"       Domain part of sender's address (envelope)
+$recipient       string  "test\@example.com" E-mail address of recipient (envelope)
+$recipientdomain string  "example.com"       Domain part of recipient's address (envelope)
 $serverid        string  "mailserver\:1"     ID of the mailserver profile
 $serverip        string  "10.0.0.1"          IP address of the mailserver
 $transportid     string  "mailtransport\:1"  ID of the transport profile to be used

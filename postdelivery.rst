@@ -18,10 +18,10 @@ $serverip         string  "172.16.1.25"              IP which we tried to connec
 $serverport       number  25                         Port which we tried to connect to
 $senderip         string  "192.168.1.11"             IP address of the sender
 $saslusername     string  "mailuser"                 SASL username
-$sender           string  "test\@example.org"        E-mail address of sender
-$senderdomain     string  "example.org"              Domain part of sender's address
-$recipient        string  "test\@example.com"        E-mail address of recipient
-$recipientdomain  string  "example.com"              Domain part of recipient's address
+$sender           string  "test\@example.org"        E-mail address of sender (envelope)
+$senderdomain     string  "example.org"              Domain part of sender's address (envelope)
+$recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
+$recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
 $retry            number  3                          The current retry count
 $retries          number  30                         The maximum number of retries for that message
 $errormsg         string  "5.7.1... we do not relay" The error message from the server

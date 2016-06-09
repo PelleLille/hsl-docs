@@ -17,12 +17,12 @@ $senderip         string  "192.168.1.11"             IP address of the connected
 $saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
 $saslusername     string  "mailuser"                 SASL username
 $senderhelo       string  "mail.example.com"         HELO message of sender
-$sender           string  "test\@example.org"        E-mail address of sender
-$senderdomain     string  "example.org"              Domain part of sender's address
-$recipient        string  "test\@example.com"        E-mail address of recipient
-$recipients       array   ["test\@example.com", ...] List of all recipient addresses, in order of scanning
-$recipientdomain  string  "example.com"              Domain part of recipient's address
-$recipientdomains array   ["example.com", ...]       List of all domain part of all recipient addresses
+$sender           string  "test\@example.org"        E-mail address of sender (envelope)
+$senderdomain     string  "example.org"              Domain part of sender's address (envelope)
+$recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
+$recipients       array   ["test\@example.com", ...] List of all recipient addresses (envelope), in order of scanning
+$recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
+$recipientdomains array   ["example.com", ...]       List of all domain part of all recipient addresses (envelope)
 $messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
 $actionid         number  1                          ID; incremented per message action/recipient (Deliver, Quarantine, etc.)
 $serverid         string  "mailserver\:1"            ID of the mailserver profile

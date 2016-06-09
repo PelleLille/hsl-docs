@@ -20,10 +20,10 @@ $destinationport  number  25                         The destination port (initi
 $senderip         string  "192.168.1.11"             IP address of the sender
 $senderhelo       string  "mail.example.com"         HELO message of sender
 $saslusername     string  "mailuser"                 SASL username
-$sender           string  "test\@example.org"        E-mail address of sender
-$senderdomain     string  "example.org"              Domain part of sender's address
-$recipient        string  "test\@example.com"        E-mail address of recipient
-$recipientdomain  string  "example.com"              Domain part of recipient's address
+$sender           string  "test\@example.org"        E-mail address of sender (envelope)
+$senderdomain     string  "example.org"              Domain part of sender's address (envelope)
+$recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
+$recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
 $retry            number  3                          The current retry count
 $retries          number  30                         The maximum number of retries for that message
 $messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
