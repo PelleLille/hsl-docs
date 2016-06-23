@@ -51,6 +51,18 @@ Destructuring assignment assigns variables with values taken from an `array` val
 		echo $b; // 2
 		echo $c; // 3 // default value
 
+Keyed index assignments are also supported.
+
+  .. code-block:: hsl
+
+		[
+			"result" => $result = [],
+			"error" => $error = 0,
+			"dnssec" => $dnssec = false
+		] = dns("halon.io", ["extended_result" => true]);
+
+It's however not possible to mix keyed with unkeyed assignments.
+
 .. note::
 
 	If there is less variables in the assignment list than array values, the remaining values will be discarded. 
