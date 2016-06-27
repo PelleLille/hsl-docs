@@ -579,10 +579,11 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
   :param post: POST data as an array or a string for raw POST data
   :type post: array or string
   :return: if the request was successful (2XX) the content is returned, otherwise the type ``None`` is returned
-  :rtype: string
+  :rtype: string or array
 
   The following options are available in the options array.
 
+   * **extended_result** (boolean) Get a more extended result. The default is ``false``.
    * **connect_timeout** (number) Connection timeout (in seconds). The default is ``10`` seconds.
    * **timeout** (number) Timeout (in seconds) waiting for data once the connection is established. The default is to wait indefinitely.
    * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
@@ -595,6 +596,16 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
    * **background_hash** (number) Assign this request to a specific queue. If this value is higher than the number of queues, it's chosen by modulus. The default is queue ``0``.
    * **background_retry_count** (number) Number of retry attempts made after the initial failure. The default is ``0``.
    * **background_retry_delay** (number) The delay, in seconds, before each retry attempt. The default is ``0`` seconds.
+
+  If the option ``extended_result`` result is ``true``. This function will return an array containing the ``status`` code and ``content``. If no valid HTTP response is receivied `None` is return.
+
+	.. code-block:: hsl
+
+	  $response = http("http://halon.io/", ["extended_result" => true]);
+	  if ($response) {
+		  echo $response;
+	  }
+
 
 Mail
 ----

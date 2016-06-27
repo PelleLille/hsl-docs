@@ -23,7 +23,7 @@ There are multiple contexts (extensions) to the language, which provides context
 	   |           |                     <-- Pre-delivery context
 	   |   delivery attempt
 	   |           |                     <-- Post-delivery context
-	   \__________/ \_____ done
+	   \__________/ \______ done
 
 .. toctree::
 
