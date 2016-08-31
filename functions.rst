@@ -14,7 +14,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`rate` :func:`mail`
-* **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`dovecot_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author`
+* **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`dovecot_lookup_auth` :func:`ident_lookup` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author`
 * **String** :func:`chr` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
 
 Array
@@ -1045,6 +1045,33 @@ Protocols
 	   * **rip** (string) The IP-address of the client (remote IP).
 	   * **lip** (string) The IP-address of the Halon (local IP).
 	   * **secured** (boolean) Set to true if the client has tlsstarted. The default is ``false``.
+
+.. function:: ident_lookup(senderip, senderport, serverip, serverport, [options])
+
+  Try to lookup the username of the connecting client using the ident (rfc1413) protocol.
+
+  :param string senderip: the senderip
+  :param number senderport: the senderport
+  :param string serverip: the serverip 
+  :param number serverport: the serverport
+  :param array options: options array
+  :return: if request was made an array is returned, otherwise the type ``None`` is returned
+  :rtype: None or array
+
+  The following options are available in the options array.
+
+   * **port** (number) TCP port. The default is ``113``.
+   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
+
+  The array returned may containing index of either ``error`` or ``os`` and ``username``.
+
+  .. code-block:: hsl
+
+	["username" => $username, "error" => $error = "UNKNOWN-ERROR"] = ident_lookup($senderip, $senderport, $serverip, $serverport);
+	if (is_string($username))
+	    echo "Ident: $username";
+	else
+	    echo "Error: $error";
 
 .. function:: ldap_search(profile, lookup, [override])
 
