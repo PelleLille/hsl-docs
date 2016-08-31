@@ -14,6 +14,7 @@ These are the read-only pre-defined variables available for each recipient (on a
 Variable          Type    Example                    Description
 ================= ======= ========================== ===========
 $senderip         string  "192.168.1.11"             IP address of the connected client
+$senderport       number  41666                      TCP port of connected client
 $saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
 $saslusername     string  "mailuser"                 SASL username
 $senderhelo       string  "mail.example.com"         HELO message of sender
