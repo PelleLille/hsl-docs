@@ -207,9 +207,6 @@ Headers
   :return: the header value
   :rtype: string
 
-Attachments
-^^^^^^^^^^^
-
 Actions
 ^^^^^^^
 
