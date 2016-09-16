@@ -15,19 +15,19 @@ Variable         Type    Example             Description
 ================ ======= =================== ===========
 $senderip        string  "192.168.1.11"      IP address of the connected client
 $senderport      number  41666               TCP port of connected client
+$serverip        string  "10.0.0.1"          IP address of the mailserver
+$serverid        string  "mailserver\:1"     ID of the mailserver profile
+$senderhelo      string  "mail.example.com"  HELO message of sender
 $tlsstarted      boolean false               Whether or not the SMTP session is using TLS
 $tlsprotocol     string  "TLSv1.2"           Negotiated TLS version
 $tlscipher       string  "DHE-RSA-AES256..." Negotiated TLS cipher
 $tlskeysize      number  256                 Negotiated TLS key size
-$saslauthed      boolean true                Whether or not the SMTP session is authenticated (SASL)
 $saslusername    string  "mailuser"          SASL username
-$senderhelo      string  "mail.example.com"  HELO message of sender
-$sender          string  "test\@example.org" E-mail address of sender (envelope)
+$saslauthed      boolean true                Whether or not the SMTP session is authenticated (SASL)
 $senderdomain    string  "example.org"       Domain part of sender's address (envelope)
-$recipient       string  "test\@example.com" E-mail address of recipient (envelope)
+$sender          string  "test\@example.org" E-mail address of sender (envelope)
 $recipientdomain string  "example.com"       Domain part of recipient's address (envelope)
-$serverid        string  "mailserver\:1"     ID of the mailserver profile
-$serverip        string  "10.0.0.1"          IP address of the mailserver
+$recipient       string  "test\@example.com" E-mail address of recipient (envelope)
 $transportid     string  "mailtransport\:1"  ID of the transport profile to be used
 ================ ======= =================== ===========
 

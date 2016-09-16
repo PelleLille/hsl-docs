@@ -13,22 +13,22 @@ These are the read-only pre-defined variables available for each recipient (on a
 ================= ======= ========================== ===========
 Variable          Type    Example                    Description
 ================= ======= ========================== ===========
+$messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
 $senderip         string  "192.168.1.11"             IP address of the connected client
 $senderport       number  41666                      TCP port of connected client
-$saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
-$saslusername     string  "mailuser"                 SASL username
-$senderhelo       string  "mail.example.com"         HELO message of sender
-$sender           string  "test\@example.org"        E-mail address of sender (envelope)
-$senderdomain     string  "example.org"              Domain part of sender's address (envelope)
-$recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
-$recipients       array   ["test\@example.com", ...] List of all recipient addresses (envelope), in order of scanning
-$recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
-$recipientdomains array   ["example.com", ...]       List of all domain part of all recipient addresses (envelope)
-$messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
-$actionid         number  1                          ID; incremented per message action/recipient (Deliver, Quarantine, etc.)
-$serverid         string  "mailserver\:1"            ID of the mailserver profile
 $serverip         string  "10.0.0.1"                 IP address of the mailserver
+$serverid         string  "mailserver\:1"            ID of the mailserver profile
+$senderhelo       string  "mail.example.com"         HELO message of sender
+$saslusername     string  "mailuser"                 SASL username
+$saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
+$senderdomain     string  "example.org"              Domain part of sender's address (envelope)
+$sender           string  "test\@example.org"        E-mail address of sender (envelope)
+$recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
+$recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
+$recipientdomains array   ["example.com", ...]       List of all domain part of all recipient addresses (envelope)
+$recipients       array   ["test\@example.com", ...] List of all recipient addresses (envelope), in order of scanning
 $transportid      string  "mailtransport\:1"         ID of the transport profile to be used
+$actionid         number  1                          ID; incremented per message action/recipient (Deliver, Quarantine, etc.)
 ================= ======= ========================== ===========
 
 Functions

@@ -14,12 +14,12 @@ These are the read-only pre-defined variables available for each connection that
 Variable    Type    Example         Description
 =========== ======= =============== ===========
 $family     string  "ipv4"          IP family of connecting client ("ipv4" or "ipv6")
+$protocol   string  "tcp"           IP protocol of local server ("tcp" or "udp")
+$service    string  "mailserver\:1" Name of local service
 $senderip   string  "192.168.1.11"  IP address of connecting client
 $senderport number  41666           TCP port of connecting client
 $serverip   string  "10.0.0.1"      IP address of local server
 $serverport number  25              TCP/UDP port of local server
-$protocol   string  "tcp"           IP protocol of local server ("tcp" or "udp")
-$service    string  "mailserver\:1" Name of local service
 =========== ======= =============== ===========
 
 Functions

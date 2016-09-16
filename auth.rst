@@ -14,11 +14,11 @@ These are the read-only pre-defined variables available for each `AUTH` command.
 Variable      Type    Example         Description
 ============= ======= =============== ===========
 $senderip     string  "192.168.1.11"  IP address of the connected client
+$serverip     string  "10.0.0.1"      IP address of the mailserver
+$serverid     string  "mailserver\:1" ID of the mailserver profile
 $tlsstarted   boolean false           Whether or not the SMTP session is using TLS
 $saslusername string  "mailuser"      SASL username
 $saslpassword string  "secret"        SASL password
-$serverid     string  "mailserver\:1" ID of the mailserver profile
-$serverip     string  "10.0.0.1"      IP address of the mailserver
 ============= ======= =============== ===========
 
 Functions
