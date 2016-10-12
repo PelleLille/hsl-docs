@@ -221,7 +221,7 @@ Actions
   The following options are available in the options array.
 
    * **recipient** (string) set the recipient. The default is ``$recipient``.
-   * **transportid** (string) set the recipient. The default is ``$transportid``.
+   * **transportid** (string) set the transportid. The default is ``$transportid``.
    * **metadata** (array) add additional metadata to the message (KVP). same as :func:`SetMetaData`.
    * **delay** (number) same as :func:`SetDelayedDeliver`. The default is `0` seconds.
    * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is `true`.
@@ -264,7 +264,7 @@ Actions
   The following options are available in the options array.
 
    * **recipient** (string) set the recipient. The default is ``$recipient``.
-   * **transportid** (string) set the recipient. The default is ``$transportid``.
+   * **transportid** (string) set the transportid. The default is ``$transportid``.
    * **metadata** (array) add additional metadata to the message (KVP). same as :func:`SetMetaData`.
    * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is ``true``.
    * **reject** (boolean) if the function should return an 500 error. The default is ``true``.
