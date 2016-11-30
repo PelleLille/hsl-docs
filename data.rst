@@ -145,6 +145,7 @@ Headers
 
   :param string name: name of the header
   :param string value: value of the header
+  :param boolean refold: refold header to 80 characters per line
   :rtype: none
 
 .. function:: SetHeader(name, value, [refold = true])
