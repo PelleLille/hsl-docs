@@ -14,7 +14,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`rate` :func:`mail`
-* **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`dovecot_lookup_auth` :func:`ident_lookup` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author`
+* **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author`
 * **String** :func:`chr` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
 
 Array
@@ -1022,56 +1022,6 @@ Protocols
    * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
    * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv1``, ``SSLv2``, ``TLSv1``, ``TLSv1.1`` or ``TLSv1.2``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
    * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
-
-.. function:: dovecot_lookup_auth(options, username, password)
-
-  Try to authenticate the username against a dovecot server.
-
-  :param array options: options array
-  :param string username: username
-  :param string password: password
-  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
-  :rtype: number
-
-  The following options are available in the options array.
-
-   * **host** (string) IP-address or hostname of the dovecot server. **required**
-   * **port** (number) TCP port. **required**
-   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
-
-   There are also some protocol specific flags that may be configured.
-
-	   * **service** (string) Service name to identify this request. The default is ``smtp``.
-	   * **rip** (string) The IP-address of the client (remote IP).
-	   * **lip** (string) The IP-address of the Halon (local IP).
-	   * **secured** (boolean) Set to true if the client has tlsstarted. The default is ``false``.
-
-.. function:: ident_lookup(senderip, senderport, serverip, serverport, [options])
-
-  Try to lookup the username of the connecting client using the ident (rfc1413) protocol.
-
-  :param string senderip: the senderip
-  :param number senderport: the senderport
-  :param string serverip: the serverip 
-  :param number serverport: the serverport
-  :param array options: options array
-  :return: if request was made an array is returned, otherwise the type ``None`` is returned
-  :rtype: None or array
-
-  The following options are available in the options array.
-
-   * **port** (number) TCP port. The default is ``113``.
-   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
-
-  The array returned may containing index of either ``error`` or ``os`` and ``username``.
-
-  .. code-block:: hsl
-
-	["username" => $username, "error" => $error = "UNKNOWN-ERROR"] = ident_lookup($senderip, $senderport, $serverip, $serverport);
-	if (is_string($username))
-	    echo "Ident: $username";
-	else
-	    echo "Error: $error";
 
 .. function:: ldap_search(profile, lookup, [override])
 
