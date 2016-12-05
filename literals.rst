@@ -72,6 +72,36 @@ The number type is a double-precision 64-bit `IEEE 754 <http://en.wikipedia.org/
 
 	After some arithmetic operations on floating point numbers; the equality (`==`) of two floating point numbers may not be true even if they mathematically "should". This caveat is not unique to HSL, instead it is the result of how computers calculates and stores `floating point numbers <http://en.wikipedia.org/wiki/Floating_point>`_. Arithmetic operations on `numbers` without decimals are not affected.
 
+.. _hexadecimal:
+
+Hexadecimal
+^^^^^^^^^^^
+Numbers may be entrered as in hexadecimal form (also known as base 16) using the ``0x`` prefix; followed by ``[0-9a-f]+``.
+
+.. code-block:: hsl
+
+	echo 0xfa; // 250
+
+.. _octal:
+
+Octal
+^^^^^
+Numbers may be entrered in octal form (also known as base 8) using the ``0o`` prefix; followed by ``[0-7]+``.
+
+.. code-block:: hsl
+
+	echo 0o372; // 250
+
+.. _binary:
+
+Binary
+^^^^^^
+Numbers may be entrered in binary form (also known as base 2) using the ``0b`` prefix; followed by ``[0-1]+``.
+
+.. code-block:: hsl
+
+	echo 0b11111010; // 250
+
 .. _boolean:
 
 Boolean
