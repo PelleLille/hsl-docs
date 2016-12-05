@@ -197,14 +197,13 @@ If executing a statement and `break` is omitted the control flow will fall-throu
 include
 -------
 
-The `include` statement allows code to be structures in logical modules and shared between different scripts. The include path can be any of the supported `file` path formats (``file:X`` or ``file://path.hsl``). `include`'s file name argument do not support variable interpolation nor expression since the include needs to be resolved at compile time. The statements in the included file are included in-place (replacing the `include` statement itself)::
+The `include` statement allows code to be structures in logical modules and shared between different scripts. The include path can be any of the supported `file` path formats (``file:X``). `include`'s file name argument do not support variable interpolation nor expression since the include needs to be resolved at compile time. The statements in the included file are included in-place (replacing the `include` statement itself)::
 
 	include string ;
 
 .. code-block:: hsl
 
 	include "file:1";
-	include "file://api.hsl";
 
 .. note::
 	
