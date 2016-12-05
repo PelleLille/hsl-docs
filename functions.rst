@@ -16,6 +16,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`rate` :func:`mail`
 * **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author`
 * **String** :func:`chr` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
+* **Socket** :class:`Socket`
 
 Array
 -----
@@ -1271,3 +1272,104 @@ String
 	// "ucfirst()"
 	echo pcre_replace(''\b[a-z]'', function ($i) { return strtoupper($i[0]); }, "hello world");
 	// Hello World
+
+Socket
+------
+
+.. class:: Socket(family, type)
+
+  The Socket class allows POSIX like socket() code. Sockets are automatically closed, however it is good pratice to call close().
+
+  :param string family: address family either ``AF_INET`` or ``AF_INET6``
+  :param string type: socket type either ``SOCK_STREAM`` or ``SOCK_DGRAM``
+
+  .. code-block:: hsl
+
+	$socket = Socket("AF_INET", "SOCK_STREAM");
+	$socket->close();
+
+  .. note::
+
+    Some of the Socket object's member functions return `this`, allowing them to be called with method chaining.
+
+    .. code-block:: hsl
+
+       echo Socket("AF_INET", "SOCK_STREAM")->connect("127.0.0.1", 25)->close();
+
+  .. function:: Socket.bind(address, [port])
+
+	  Bind the socket to `address` and `port`. On error the value of `None` is returned.
+
+	  :param string address: address to bind
+	  :param number port: port to bind
+	  :return: this
+	  :rtype: Socket
+
+  .. function:: Socket.close()
+
+	  Close the socket. On error the value of `None` is returned.
+
+	  :param string address: address to bind
+	  :param number port: port to bind
+	  :return: this
+	  :rtype: Socket
+
+	  .. note::
+
+		Sockets are automatically closed.
+
+  .. function:: Socket.connect(address, port)
+
+	  Connect the socket to `address` and `port`. On error the value of `None` is returned.
+
+	  :param string address: address to connect to
+	  :param number port: port to connect to
+	  :return: this
+	  :rtype: Socket
+
+	  .. note::
+
+		The address family used to create the Socket object must match the address.
+
+  .. function:: Socket.errno()
+
+	  Get the latest errno returned from the underlying POSIX socket API.
+
+	  :return: errno
+	  :rtype: number
+
+  .. function:: Socket.recv(len)
+
+	  Receive data on socket. On error the value of `None` is returned.
+
+	  :param number len: bytes to recv
+	  :return: data
+	  :rtype: string
+
+  .. function:: Socket.send(data)
+
+	  Send data on socket. On error the value of `None` is returned.
+
+	  :param string data: data to send
+	  :return: bytes sent
+	  :rtype: number
+
+  .. function:: Socket.settimeout(timeout)
+
+	  Set the timeout for socket operations.
+
+	  :param number timeout: timeout in ms. The default is no timeout.
+	  :return: this
+	  :rtype: Socket
+
+  .. function:: Socket.shutdown(how)
+
+	  Shutdown the socket. On error the value of `None` is returned.
+
+	  :param string how: how to shutdown either ``SHUT_RD``, ``SHUT_WR`` or ``SHUT_RDWR``.
+	  :return: this
+	  :rtype: Socket
+
+	  .. note::
+
+		Sockets are automatically closed.
