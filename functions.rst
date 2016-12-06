@@ -243,7 +243,7 @@ Data types
 
 .. function:: number(x)
 
-  This function converts the input of x to the number type.
+  This function converts the input of x to the number type. Decimal and hexadecimal (`Ox`) numbers are supported.
 
   :param any x: the input
   :return: a number
