@@ -29,7 +29,7 @@ There are multiple contexts (extensions) to the language, which provides context
 	   |           |                     <-- Post-delivery context
 	   \__________/ \______ done
 
-The `mailqueued` process implements the :doc:`Pre- <predelivery>` and :doc:`Post-delivery <postdelivery>` contexts. These contexts operates on a message in queue. A message in queue is not directly bound to an inbound smtp connection, hence its delivery is not done inline.
+The `mailqueued` process implements the :doc:`Pre- <predelivery>` and :doc:`Post-delivery <postdelivery>` contexts. These contexts operates on a message in queue. A message in queue is not directly bound to an inbound SMTP connection, hence its delivery is not done inline.
 
 .. toctree::
 
