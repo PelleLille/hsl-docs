@@ -3,7 +3,7 @@
 CONNECT
 =======
 
-The CONNECT context acts as a SMTP firewall.
+The CONNECT context acts as a SMTP firewall. It is executed before the SMTP banner is sent.
 
 Pre-defined variables
 ---------------------
@@ -26,7 +26,7 @@ Functions
 
 .. function:: Accept()
 
-  Allow IP connection to be established.
+  Allow SMTP connection to be established.
 
   :return: doesn't return, script is terminated
 
