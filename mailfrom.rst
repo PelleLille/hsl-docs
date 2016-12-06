@@ -50,6 +50,18 @@ Functions
   :param string reason: the defer message
   :return: doesn't return, script is terminated
 
+.. function:: SetSender(sender)
+
+  Change the sender of the message.
+
+  :param string sender: an e-mail address
+  :rtype: none
+  :updates: ``$sender`` and ``$senderdomain``
+
+  .. warning::
+
+  	This function changes the sender for all recipients. To change sender per recipient use :func:`~predelivery.SetSender` in the :doc:`Pre-delivery <predelivery>` context.
+
 .. function:: GetMailQueueMetric(options)
 
   Return metric information about the mail queue, it can be used to enforce quotas.
