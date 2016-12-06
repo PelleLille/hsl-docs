@@ -1288,31 +1288,23 @@ Socket
 	$socket = Socket("AF_INET", "SOCK_STREAM");
 	$socket->close();
 
-  .. note::
-
-    Some of the Socket object's member functions return `this`, allowing them to be called with method chaining.
-
-    .. code-block:: hsl
-
-       echo Socket("AF_INET", "SOCK_STREAM")->connect("127.0.0.1", 25)->close();
-
   .. function:: Socket.bind(address, [port])
 
-	  Bind the socket to `address` and `port`. On error the value of `None` is returned.
+	  Bind the socket to `address` and `port`. The address must match the Sockets address family.
 
 	  :param string address: address to bind
 	  :param number port: port to bind
 	  :return: this
-	  :rtype: Socket
+	  :rtype: Socket or None
 
   .. function:: Socket.close()
 
-	  Close the socket. On error the value of `None` is returned.
+	  Close the socket and destroy the internal socket resource.
 
 	  :param string address: address to bind
 	  :param number port: port to bind
 	  :return: this
-	  :rtype: Socket
+	  :rtype: Socket or None
 
 	  .. note::
 
@@ -1320,16 +1312,12 @@ Socket
 
   .. function:: Socket.connect(address, port)
 
-	  Connect the socket to `address` and `port`. On error the value of `None` is returned.
+	  Connect the socket to `address` and `port`. The address must match the Sockets address family.
 
 	  :param string address: address to connect to
 	  :param number port: port to connect to
 	  :return: this
-	  :rtype: Socket
-
-	  .. note::
-
-		The address family used to create the Socket object must match the address.
+	  :rtype: Socket or None
 
   .. function:: Socket.errno()
 
@@ -1340,35 +1328,35 @@ Socket
 
   .. function:: Socket.recv(len)
 
-	  Receive data on socket. On error the value of `None` is returned.
+	  Receive data on socket.
 
 	  :param number len: bytes to recv
 	  :return: data
-	  :rtype: string
+	  :rtype: string or None
 
   .. function:: Socket.send(data)
 
-	  Send data on socket. On error the value of `None` is returned.
+	  Send data on socket.
 
 	  :param string data: data to send
 	  :return: bytes sent
-	  :rtype: number
+	  :rtype: number or None
 
   .. function:: Socket.settimeout(timeout)
 
 	  Set the timeout for socket operations.
 
-	  :param number timeout: timeout in ms. The default is no timeout.
+	  :param number timeout: timeout in seconds. The default is no timeout.
 	  :return: this
 	  :rtype: Socket
 
   .. function:: Socket.shutdown(how)
 
-	  Shutdown the socket. On error the value of `None` is returned.
+	  Shutdown the socket for receiving, sending or both.
 
 	  :param string how: how to shutdown either ``SHUT_RD``, ``SHUT_WR`` or ``SHUT_RDWR``.
 	  :return: this
-	  :rtype: Socket
+	  :rtype: Socket or None
 
 	  .. note::
 
