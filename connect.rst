@@ -3,7 +3,7 @@
 CONNECT
 =======
 
-The CONNECT context acts as a SMTP firewall. It is executed before the SMTP banner is sent.
+The CONNECT context is executed before the SMTP banner is sent.
 
 Pre-defined variables
 ---------------------
