@@ -32,14 +32,14 @@ Functions
 
 .. function:: Reject([reason])
 
-  Reject the connection with a permanent (554) error.
+  Reject the connection with a permanent (521) error.
 
   :param string reason: the reject connection
   :return: doesn't return, script is terminated
 
 .. function:: Defer([reason])
 
-  Defer the connection with a permanent (450) error.
+  Defer the connection with a permanent (421) error.
 
   :param string reason: the defer connection
   :return: doesn't return, script is terminated
