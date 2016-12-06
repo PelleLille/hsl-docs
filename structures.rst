@@ -483,16 +483,18 @@ The `builtin` statement allows you to explicitly call the builtin version of an 
 object
 ------
 
-The `object` statement can be used to create objects; a collection (:ref:`array <arraytype>`) of functions and data where the variable ``$this`` refers to the current object instance in first-level function objects. Objects are not copy on write and all copies reference the same object.
+The `object` statement can be used to create objects; a collection (:ref:`array <arraytype>`) of functions and data where the variable ``$this`` refers to the current object instance in function objects. Objects are not copy on write and all copies reference the same object.
 
 ::
 
-	object [ "self" => function() { return $this; } ]
+	object [ "func" => function() { return $this; }, "data" => 123 ]
 
 .. code-block:: hsl
 
-	$x = object [ "self" => function() { return $this; }];
-	echo $x->self()->self();
+	$x = object [ "get" => function() { return $this["var"]; }];
+	$y = $x;
+	$y["var"] = 123;
+	echo $x->get();
 
 cache
 -----
