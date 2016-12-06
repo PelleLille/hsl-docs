@@ -1278,7 +1278,7 @@ Socket
 
 .. class:: Socket(family, type)
 
-  The Socket class allows POSIX like socket() code. Sockets are automatically closed, however it is good pratice to call close().
+  The Socket class allows POSIX like socket(2) code. A socket resource is created for each Socket instance, this resource is automatically garbage collected (closed) once the object is destroyed.
 
   :param string family: address family either ``AF_INET`` or ``AF_INET6``
   :param string type: socket type either ``SOCK_STREAM`` or ``SOCK_DGRAM``
@@ -1316,7 +1316,7 @@ Socket
 
 	  .. note::
 
-		Sockets are automatically closed.
+		Sockets are automatically garbage collected (closed). However you may want to explicitly call close.
 
   .. function:: Socket.connect(address, port)
 
