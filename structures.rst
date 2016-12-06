@@ -8,7 +8,9 @@ A few language constructs are available in HSL in order to control program flow.
 echo
 ----
 
-The ``echo`` statement will convert the expression to a string and print its value::
+The ``echo`` statement will convert the expression to a string and print its value.
+
+::
 
 	echo expression ;
 
@@ -21,12 +23,16 @@ The ``echo`` statement will convert the expression to a string and print its val
 if
 --
 
-One of the most basic control structures in HSL is the `if` statement, it allows conditional control flow::
+One of the most basic control structures in HSL is the `if` statement, it allows conditional control flow.
+
+::
 
 	if (expression)
 		statement
 
-In addition to `if` there is also an `else` branch available; executed if the expression yields false::
+In addition to `if` there is also an `else` branch available; executed if the expression yields false
+
+::
 
 	if (expression)
 		statements
@@ -67,7 +73,9 @@ In addition to `if` there is also an `else` branch available; executed if the ex
 Ternary operator
 ^^^^^^^^^^^^^^^^
 
-The ternary operator is an expression and allows `expression branching`, if the `if_true_expression` is omitted (Elvis operator) then the value of `expression` is used if it tests positive for truthiness, also the expression is not re-evaluated::
+The ternary operator is an expression and allows `expression branching`, if the `if_true_expression` is omitted (Elvis operator) then the value of `expression` is used if it tests positive for truthiness, also the expression is not re-evaluated.
+
+::
 
 	expression ? if_true_expression : if_false_expression
 	expression ? : if_false_expression
@@ -81,7 +89,9 @@ The ternary operator is right-associative with makes them stackable like if-else
 Null coalescing operator
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-The null coalescing operator is an expression and allows `expression branching`, if the `variable` tests positive for :func:`isset` and is not a value of None (null) it is used. The expression which makes up the variable is not re-evaluated::
+The null coalescing operator is an expression and allows `expression branching`, if the `variable` tests positive for :func:`isset` and is not a value of None (null) it is used. The expression which makes up the variable is not re-evaluated.
+
+::
 
 	variable ?? if_false_expression
 
@@ -95,7 +105,9 @@ The null coalescing operator is right-associative with makes them stackable like
 foreach
 -------
 
-`foreach` loops allows iteration on array values to execute the same statements multiple times::
+`foreach` loops allows iteration on array values to execute the same statements multiple times.
+
+::
 
 	foreach (expression as $val)
 		statements
@@ -126,7 +138,9 @@ continue
 while
 -----
 
-`while` statements allows conditional loops::
+`while` statements allows conditional loops.
+
+::
 
 	while ( expression )
 		statements
@@ -152,7 +166,9 @@ continue
 forever
 -------
 
-`forever` statements allows indefinite loops::
+`forever` statements allows indefinite loops.
+
+::
 
 	forever
 		statements
@@ -178,7 +194,9 @@ continue
 switch
 ------
 
-`switch` statements are in many ways similar to nested if-else statements. `case` expressions are compared to the `switch` expression until a match is found. If no match is found, and a `default` label exists, it will be executed::
+`switch` statements are in many ways similar to nested if-else statements. `case` expressions are compared to the `switch` expression until a match is found. If no match is found, and a `default` label exists, it will be executed.
+
+::
 
 	switch (expression) {
 		case expression:
@@ -197,7 +215,9 @@ If executing a statement and `break` is omitted the control flow will fall-throu
 include
 -------
 
-The `include` statement allows code to be structures in logical modules and shared between different scripts. The include path can be any of the supported `file` path formats (``file:X``). `include`'s file name argument do not support variable interpolation nor expression since the include needs to be resolved at compile time. The statements in the included file are included in-place (replacing the `include` statement itself)::
+The `include` statement allows code to be structures in logical modules and shared between different scripts. The include path can be any of the supported `file` path formats (``file:X``). `include`'s file name argument do not support variable interpolation nor expression since the include needs to be resolved at compile time. The statements in the included file are included in-place (replacing the `include` statement itself).
+
+::
 
 	include string ;
 
@@ -212,7 +232,9 @@ The `include` statement allows code to be structures in logical modules and shar
 include_once
 ^^^^^^^^^^^^
 
-The `include_once` keyword will only include the file if it hasn't been included before::
+The `include_once` keyword will only include the file if it hasn't been included before.
+
+::
 
 	include_once string ;
 
@@ -222,7 +244,9 @@ The `include_once` keyword will only include the file if it hasn't been included
 function
 --------
 
-It's possible to write new functions in HSL, and also to override builtin :doc:`functions <functions>`. A function may take any number of arguments and return a value using the :ref:`return` statement. If non-variadic arguments are specified, the number of argument given by the caller must match the number of required arguments in the function definition::
+It's possible to write new functions in HSL, and also to override builtin :doc:`functions <functions>`. A function may take any number of arguments and return a value using the :ref:`return` statement. If non-variadic arguments are specified, the number of argument given by the caller must match the number of required arguments in the function definition.
+
+::
 
 	function funcname() {
 		return expression;
@@ -259,7 +283,9 @@ You *should* avoid using keywords available in other general purpose languages a
 Anonymous functions
 ^^^^^^^^^^^^^^^^^^^
 
-The syntax for :ref:`anonymous functions <anonymous_functions>` are the same as for named functions, with the exception that the function name is omitted. Hence they must be called by their value and not by name::
+The syntax for :ref:`anonymous functions <anonymous_functions>` are the same as for named functions, with the exception that the function name is omitted. Hence they must be called by their value and not by name.
+
+::
 
 	function (argument-list) {
 		return expression;
@@ -287,7 +313,9 @@ The syntax for :ref:`anonymous functions <anonymous_functions>` are the same as 
 Closure functions
 ^^^^^^^^^^^^^^^^^
 
-The difference between an anonymous function and a closure function is that a closure function may capture (close over) the environment in which it is created. An anonymous function can be converted to a closure by adding the `closure` keyword followed by a capture list after the function argument list. These variables are captured by reference from the parent scope (function or global) in which they are created::
+The difference between an anonymous function and a closure function is that a closure function may capture (close over) the environment in which it is created. An anonymous function can be converted to a closure by adding the `closure` keyword followed by a capture list after the function argument list. These variables are captured by reference from the parent scope (function or global) in which they are created.
+
+::
 
 	function (argument-list) closure (variable-list) {
 		return expression;
@@ -330,7 +358,9 @@ In order to capture by value, the following `immediately-invoked function expres
 return
 ^^^^^^
 
-The `return` statement return a value from a function. If the expression is omitted a value of `none` is returned::
+The `return` statement return a value from a function. If the expression is omitted a value of `none` is returned.
+
+::
 
 	function funcname() {
 		return [ expression ];
@@ -348,7 +378,9 @@ The `return` statement return a value from a function. If the expression is omit
 Default argument
 ^^^^^^^^^^^^^^^^
 
-Formal parameters may be initialized with a default value if not given by the caller. Default values may only defined as trailing parameters in the function definition. Constant expressions which can be evaluated during compile-time may be used as default values (e.g. ``$a = 10 * 1024`` and ``$a = []``)::
+Formal parameters may be initialized with a default value if not given by the caller. Default values may only defined as trailing parameters in the function definition. Constant expressions which can be evaluated during compile-time may be used as default values (e.g. ``$a = 10 * 1024`` and ``$a = []``).
+
+::
 	
 	function funcname($arg1 = constant_expressions) {
 		statements
@@ -367,7 +399,9 @@ Formal parameters may be initialized with a default value if not given by the ca
 Variadic function
 ^^^^^^^^^^^^^^^^^
 
-Arbitrary-length argument lists are supported using the ``...$argument`` syntax when declaring a function, the rest of the arguments which were not picked up by an other named argument will be added to the last variable as an array. This variable has to be defined at the end of the argument list::
+Arbitrary-length argument lists are supported using the ``...$argument`` syntax when declaring a function, the rest of the arguments which were not picked up by an other named argument will be added to the last variable as an array. This variable has to be defined at the end of the argument list.
+
+::
 	
 	function funcname($arg1, ...$argN) {
 		statements
@@ -389,7 +423,9 @@ Arbitrary-length argument lists are supported using the ``...$argument`` syntax 
 
 global
 ^^^^^^
-The `global` statement allows variables to be imported in to a local function scope (by reference). If the variable is not defined at the time of execution (of the global statement) it will simply be marked as "global" and if later assigned; written back to the global scope once the function returns. If the variable that is imported to the function scope already exists in the function scope an error will be raised. If an imported variable is read-only, it will be read-only in the function scope as well::
+The `global` statement allows variables to be imported in to a local function scope (by reference). If the variable is not defined at the time of execution (of the global statement) it will simply be marked as "global" and if later assigned; written back to the global scope once the function returns. If the variable that is imported to the function scope already exists in the function scope an error will be raised. If an imported variable is read-only, it will be read-only in the function scope as well.
+
+::
 
 	function funcname() {
 		global $variable[, $variable [, ...]];
@@ -414,7 +450,9 @@ Function calling
 Argument unpacking
 ******************
 
-Argument unpacking make it possible to call a function with the arguments unpacked from an array at runtime, using the `spread` or `splat` operator (``...``). The calling rules still apply, the argument count must match. This make it easy to override function::
+Argument unpacking make it possible to call a function with the arguments unpacked from an array at runtime, using the `spread` or `splat` operator (``...``). The calling rules still apply, the argument count must match. This make it easy to override function.
+
+::
 
 	funcname(...expression)
 	$variable(...expression)
@@ -424,7 +462,9 @@ Argument unpacking make it possible to call a function with the arguments unpack
 builtin
 *******
 
-The `builtin` statement allows you to explicitly call the builtin version of an overridden function::
+The `builtin` statement allows you to explicitly call the builtin version of an overridden function.
+
+::
 
 	builtin funcname()
 	builtin funcname
@@ -506,7 +546,9 @@ The following cache options are available.
 barrier
 -------
 
-A `barrier` is system-wide `named` mutually exclusive scope, only one execution is allowed to enter the same named scope (applies to all thread and processes). Waiters are queued for execution in random order. Optionally with every barrier comes a shared variable (`shared memory`) which data is shared among executions::
+A `barrier` is system-wide `named` mutually exclusive scope, only one execution is allowed to enter the same named scope (applies to all thread and processes). Waiters are queued for execution in random order. Optionally with every barrier comes a shared variable (`shared memory`) which data is shared among executions.
+
+::
 
 	barrier statement {
 		statements
