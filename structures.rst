@@ -457,7 +457,9 @@ The `object` statement can be used to create objects; a collection (:ref:`array 
 cache
 -----
 
-The `cache` statement can be prepended to any named function call. It will cache the function call in a process wide cache. If the same call is done and the result is already in its cache the function will not be executed again, instead the previous result will be used. The cache take the function name and argument values into account when caching.::
+The `cache` statement can be prepended to any named function call. It will cache the function call in a process wide cache. If the same call is done and the result is already in its cache the function will not be executed again, instead the previous result will be used. The cache take the function name and argument values into account when caching.
+
+::
 
 	cache [ cache-option [, cache-option [, ...]]] [builtin] funcname()
 

@@ -173,7 +173,9 @@ If assigning to a variable and the subscript operator is empty ``[]``, the item 
 	$var[] = "baz";
 	echo $var[0]; // "baz"
 
-Numeric indexes are zero based. If the indexing is sequential (starting from zero) the array allows for direct access (random access) where reads and stores are done in constant O(1) time.::
+Numeric indexes are zero based. If the indexing is sequential (starting from zero) the array allows for direct access (random access) where reads and stores are done in constant O(1) time.
+
+::
 
 	 +---+---+---+---+---+
 	 | H | a | l | o | n |
@@ -203,7 +205,9 @@ The following key casting rules apply.
 Slicing
 ^^^^^^^
 
-Slicing is done using the `[first:last]` operator. The indexes of each side of the : may be omitted, first index default to 0, and last index default to the length of the input, thus [:] will return a copy of the inputs values but the keys will re-indexed (numerically). The first index is inclusive and the last index is exclusive. Negative indexes are supported. If indexes causes out-of-bound, an empty type (array or string) is returned. The slicing operator works the same on arrays and strings. Indexes are counted as if the input was iterated; thus associative arrays have no special meaning.::
+Slicing is done using the `[first:last]` operator. The indexes of each side of the : may be omitted, first index default to 0, and last index default to the length of the input, thus [:] will return a copy of the inputs values but the keys will re-indexed (numerically). The first index is inclusive and the last index is exclusive. Negative indexes are supported. If indexes causes out-of-bound, an empty type (array or string) is returned. The slicing operator works the same on arrays and strings. Indexes are counted as if the input was iterated; thus associative arrays have no special meaning.
+
+::
 
 	 +---+---+---+---+---+
 	 | H | a | l | o | n |
