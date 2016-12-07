@@ -34,7 +34,7 @@ Functions
 
   Reject the connection with a permanent (521) error.
 
-  :param string reason: the reject message 
+  :param string reason: the reject message
   :return: doesn't return, script is terminated
 
 .. function:: Defer([reason])
