@@ -1,7 +1,11 @@
 Contexts
 ========
 
-There are multiple contexts (extensions) to the language, which provides context specific variables and functions. The `smtpd` process implements the :doc:`CONNECT <connect>`, :doc:`AUTH <auth>`, :doc:`MAIL FROM <mailfrom>`, :doc:`RCPT TO <rcptto>` and :doc:`DATA <data>` context. These contexts operates on a SMTP connection. The ``$messageid`` variable is set when connecting and may be regenerated upon the client sending a RSET command. There is also a ``$context`` variable which is bound to a connection and may be changed in any flow, this is useful for passing data between flows.
+<<<<<<< HEAD
+There are multiple contexts (extensions) to the language, which provides context specific variables and functions. The `smtpd` process implements the :doc:`CONNECT <connect>`, :doc:`AUTH <auth>`, :doc:`MAIL FROM <mailfrom>`, :doc:`RCPT TO <rcptto>` and :doc:`DATA <data>` context. These contexts operates on an SMTP connection. The ``$messageid`` variable is set when connecting and may be regenerated upon the client sending a RSET command. There is also a ``$context`` variable which is bound to a connection and may be changed in any flow, this is useful for passing data between flows.
+=======
+There are multiple contexts (extensions) to the language, which provides context specific variables and functions. Most of them are SMTP extensions and executed with an SMTP session or SMTP message, providing you with information about the session and message in order for you to either accept or reject the message::
+>>>>>>> 2ccadb9... spelling
 
 ::
 
