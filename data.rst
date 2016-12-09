@@ -3,7 +3,7 @@
 DATA
 ====
 
-The DATA context is executed when the message is fully received (but not yet accepted).
+The DATA context is executed once for every recipient when the message is fully received (but not yet accepted).
 
 Pre-defined variables
 ---------------------
