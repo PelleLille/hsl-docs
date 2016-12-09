@@ -1,7 +1,7 @@
 Contexts
 ========
 
-There are multiple contexts (extensions) to the language, which provides context specific variables and functions. Most of them are SMTP extensions and executed with a SMTP session or SMTP message, providing you with information about the session and message in order for you to either accept or reject the message::
+There are multiple contexts (extensions) to the language, which provides context specific variables and functions. Most of them are SMTP extensions and executed with an SMTP session or SMTP message, providing you with information about the session and message in order for you to either accept or reject the message::
 
 
 	  .--------------------------------. <-- IP context
