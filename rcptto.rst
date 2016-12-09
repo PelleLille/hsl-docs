@@ -28,6 +28,7 @@ $saslusername     string  "mailuser"                 SASL username
 $saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
 $senderdomain     string  "example.org"              Domain part of sender's address (envelope)
 $sender           string  "test\@example.org"        E-mail address of sender (envelope)
+$senderparams     array   ["SIZE" => "2048", ... ]   Sender parameters to the envelope address
 $recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
 $recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
 $recipientparams  array   ["NOTIFY" => "NEVER", .. ] Recipient parameters to the envelope address
