@@ -1262,7 +1262,7 @@ String
 
   :param string pattern: the regular expression
   :param string subject: the string to match against
-  :return: returns matches if no result is found, an empty array is returned.
+  :return: returns matches, if no result is found an empty array is returned.
   :rtype: array
 
   Perl compatible regular expression data matching and extraction, requires capture groups. All modifiers supported by ``=~`` operator are available.
