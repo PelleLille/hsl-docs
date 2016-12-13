@@ -19,6 +19,10 @@ Constant folding
 
 	As a step in the compilation progress, different optimizations are applied. Constant folding is one of them where constant mathematical expressions are simplified (evaluated) at compile time.
 
+Code pattern optimizations
+
+	HSL tries to detect certain code pattern and replace them with faster alternatives. Eg. `while (true)` is compiled to the equivalent of `forever`. 
+
 Dead code elimination
 
 	HSL tries to detect and remove dead code in the compilation stage.
