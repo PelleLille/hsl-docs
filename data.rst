@@ -115,7 +115,7 @@ Routing
 
   .. code-block:: hsl
 
-  	SetMetaData(["foo"=>"bar", "foo2" => json_encode(["array", 123.45, false]));
+  	SetMetaData(["foo" => "bar", "foo2" => json_encode(["array", 123.45, false]));
 
   .. note::
 
