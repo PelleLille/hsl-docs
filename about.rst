@@ -21,7 +21,7 @@ Constant folding
 
 Code pattern optimizations
 
-	HSL tries to detect certain code pattern and replace them with faster alternatives. Eg. `while (true)` is compiled to the equivalent of `forever`. 
+	HSL tries to detect certain code pattern and replace them with faster alternatives. Eg. `while (true)` is compiled to the equivalent of `forever`.
 
 Dead code elimination
 
