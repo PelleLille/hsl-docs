@@ -42,6 +42,19 @@ def make_xref(self, rolename, domain, target, innernode=nodes.emphasis, contnode
 from sphinx.util.docfields import Field
 Field.make_xref = make_xref
 
+# Disable 'refs' in function: :type:/:rtype: (eg. string is a type and not a function)
+# from docutils import nodes
+#from sphinx import addnodes
+#def make_xref(self, rolename, domain, target, innernode=nodes.emphasis, contnode=None):
+#	if not rolename:
+#		return contnode or innernode(target, target)
+#	refnode = addnodes.pending_xref('', refdomain='', refexplicit=False,
+#									reftype=rolename, reftarget=target)
+#	refnode += contnode or innernode(target, target)
+#	return refnode
+#from sphinx.domains.python import PyXrefMixin
+#PyXrefMixin.make_xref = make_xref
+
 from docutils.nodes import document, make_id
 def set_id(self, node, msgnode=None):
 	for id in node['ids']:
@@ -68,6 +81,7 @@ def set_id(self, node, msgnode=None):
 	return id
 document.set_id = set_id
 
+# from sphinx.domains.python import PythonDomain
 from sphinx.domains import PythonDomain
 PythonDomain.label = 'HSL'
 html_show_sourcelink = False
