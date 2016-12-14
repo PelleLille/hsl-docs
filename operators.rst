@@ -138,7 +138,7 @@ It's possible to use the ``.`` concatenation operator on any data type (except `
 
 	echo "Hello " . "World";
 	echo "A number " . 5.5;
-	echo 1.0 . 2.5; // 12.5
+	echo 1.0 . 2.5; // "12.5"
 
 Array
 -----
