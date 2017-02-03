@@ -3,7 +3,7 @@
 DATA
 ====
 
-The DATA context is executed once for every recipient when the message is fully received (but not yet accepted).
+The DATA context is executed once for every recipient when the message is fully received (but not yet accepted). If multiple types of actions are performed, the response message (sent back to the client) will be choosen in the order of Reject, Defer, Quarantine, Delete, Deliver.
 
 Pre-defined variables
 ---------------------
