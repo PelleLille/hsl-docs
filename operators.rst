@@ -290,6 +290,37 @@ The ``and`` and ``or`` operations are short-circuit. They will only evaluate the
 
 	if (foo() or bar()) echo "foo or bar";
 
+Bitwise
+-------
+
+Bitwise operators treat their operands as a 32 bits signed integer in `two's complement <https://en.wikipedia.org/wiki/Two's_complement>`_ format. The result of these operators are regular :ref:`numbers <number>`.
+
++------+----------+--------------------------------+
+| Test | Operator | Descriptions                   |
++======+==========+================================+
+| and  | &        | Bitwise AND operator           |
++------+----------+--------------------------------+
+| or   | \|       | Bitwise OR operator            |
++------+----------+--------------------------------+
+| xor  | ^        | Bitwise XOR operator           |
++------+----------+--------------------------------+
+| not  | ~        | Bitwise NOT operator           |
++------+----------+--------------------------------+
+| <<   | <<       | Shift left, padded with zeros  |
++------+----------+--------------------------------+
+| >>   | >>       | Shift right, sign-propagating  |
++------+----------+--------------------------------+
+
+.. code-block:: hsl
+
+	$flags = 5;
+
+	$flagA = 0b0001;
+	$flagB = 0b0010;
+	$flagC = 0b0100;
+	$flagD = 0b1000;
+	if ($flags & ($flagB | $flagC)) echo "match";
+
 Comparison
 ----------
 
