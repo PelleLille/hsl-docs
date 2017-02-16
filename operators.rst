@@ -293,7 +293,7 @@ The ``and`` and ``or`` operations are short-circuit. They will only evaluate the
 Bitwise
 -------
 
-Bitwise operators treat their operands as a 32 bits signed integer in `two's complement <https://en.wikipedia.org/wiki/Two's_complement>`_ format. The result of these operators are regular :ref:`numbers <number>`.
+Bitwise operators treat their operands as 32 bits signed integers in `two's complement <https://en.wikipedia.org/wiki/Two's_complement>`_ format. The result of these operators are regular :ref:`numbers <number>`.
 
 +------+----------+--------------------------------+
 | Test | Operator | Descriptions                   |
