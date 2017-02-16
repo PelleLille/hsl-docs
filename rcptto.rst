@@ -46,19 +46,29 @@ Functions
 
   :return: doesn't return, script is terminated
 
-.. function:: Reject([reason])
+.. function:: Reject([reason, [options]])
 
   Reject the `RCPT TO` command (recipient) with a permanent (554) error.
 
   :param string reason: the reject message
+  :param array options: an options array
   :return: doesn't return, script is terminated
 
-.. function:: Defer([reason])
+  The following options are available in the options array.
+
+   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+
+.. function:: Defer([reason, [options]])
 
   Defer the `RCPT TO` command (recipient) with a temporary (450) error.
 
   :param string reason: the defer message
+  :param array options: an options array
   :return: doesn't return, script is terminated
+
+  The following options are available in the options array.
+
+   * **disconnect** (boolean) disconnect the client. The default is ``false``.
 
 .. function:: SetSender(sender)
 

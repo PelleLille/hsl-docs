@@ -230,24 +230,35 @@ Actions
    * **delay** (number) same as :func:`SetDelayedDeliver`. The default is `0` seconds.
    * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is `true`.
    * **queue** (boolean) deliver the message using the delivery queue. The default is `true`.
+   * **disconnect** (boolean) disconnect the client. The default is ``false``.
 
-.. function:: Reject([reason])
+.. function:: Reject([reason, [options]])
 
   Reject (550) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
   :param reason: reject message with reason
   :type reason: string or array
+  :param array options: an options array
   :return: doesn't return, script is terminated
   :updates: ``$actionid``
 
-.. function:: Defer([reason])
+  The following options are available in the options array.
+
+   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+
+.. function:: Defer([reason, [options]])
 
   Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
   :param reason: reject message with reason
   :type reason: string or array
+  :param array options: an options array
   :return: doesn't return, script is terminated
   :updates: ``$actionid``
+
+  The following options are available in the options array.
+
+   * **disconnect** (boolean) disconnect the client. The default is ``false``.
 
 .. function:: Delete()
 
