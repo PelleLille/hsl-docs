@@ -39,7 +39,7 @@ Functions
 
 * **MIME and attachments** :class:`~data.MIME`
 * **Misc** :func:`GetAddressList` :func:`GetMailQueueMetric`
-* **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData`
+* **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData` :func:`SetSenderIP` :func:`SetSenderHELO`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
 * **Actions** :func:`Deliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`DiscardMailDataChanges` :func:`Done`
 * **Anti-spam and anti-virus** :func:`ScanRPD` :func:`ScanRPDAV` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM` :func:`ScanDLP`
@@ -120,6 +120,30 @@ Routing
   .. note::
 
     To work-around the data type limitation of the metadata; data can be encoded using :func:`json_encode`.
+
+.. function:: SetSenderIP(ip)
+
+  Change the senders IP of the message.
+
+  :param string ip: an IP address
+  :rtype: none
+  :updates: ``$senderip``
+
+  .. note::
+
+  	This function changes the `$senderip` for all recipients.
+
+.. function:: SetSenderHELO(hostname)
+
+  Change the senders HELO hostname of the message.
+
+  :param string hostname: a hostname
+  :rtype: none
+  :updates: ``$senderhelo``
+
+  .. note::
+
+  	This function changes the `$senderhelo` for all recipients.
 
 Headers
 ^^^^^^^
