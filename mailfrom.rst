@@ -66,7 +66,8 @@ Functions
   Change the sender of the message.
 
   :param string sender: an e-mail address
-  :rtype: none
+  :return: sender if successful
+  :rtype: string or none
   :updates: ``$sender`` and ``$senderdomain``
 
   .. warning::

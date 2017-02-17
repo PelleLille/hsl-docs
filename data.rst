@@ -76,7 +76,8 @@ Routing
   Change the sender of the message.
 
   :param string sender: an e-mail address
-  :rtype: none
+  :return: sender if successful
+  :rtype: string or none
   :updates: ``$sender`` and ``$senderdomain``
 
   .. warning::
@@ -88,7 +89,8 @@ Routing
   Changes the recipient.
 
   :param string recipient: an e-mail address
-  :rtype: none
+  :return: recipient if successful
+  :rtype: string or none
   :updates: ``$recipient`` and ``$recipientdomain``
 
 .. function:: SetMailTransport(transportid)
@@ -126,7 +128,8 @@ Routing
   Change the senders IP of the message.
 
   :param string ip: an IP address
-  :rtype: none
+  :return: ip if successful
+  :rtype: string or none
   :updates: ``$senderip``
 
   .. note::
@@ -138,7 +141,8 @@ Routing
   Change the senders HELO hostname of the message.
 
   :param string hostname: a hostname
-  :rtype: none
+  :return: hostname if successful
+  :rtype: string or none
   :updates: ``$senderhelo``
 
   .. note::
