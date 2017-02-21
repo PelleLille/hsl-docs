@@ -963,8 +963,7 @@ Misc
    * **recipient_name** (string) Friendly name of the recipient.
    * **serverid** (string) Helps the decision making of where we should send this email.
    * **transportid** (string) Set the transportid to be used with this message.
-   * **plaintext** (boolean) Send message as `plain/text` (default is `text/html`). The default is ``false``.
-   * **rawbody** (boolean) Instead of using a template, send body as raw text. The default is ``false``.
+   * **rawbody** (boolean) Instead of using a template, send body as raw text/plain. The default is ``false``.
    * **headers** (array) Add additional message headers (KVP).
    * **metadata** (array) Add additional metadata to the message (KVP).
 
