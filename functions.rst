@@ -715,7 +715,11 @@ MIME
 
   The MIME object "constructor" takes no function arguments, and returns a new MIME object.
 
-  The standard library's MIME object is a "string builder" to construct MIME parts. In the :doc:`DATA <data>` context there is an similar :class:`~data.MIME` object as well, which is useful to work with a message's MIME parts. To create a "string building" MIME object, call the :class:`MIME` function without any arguments.
+  The standard library's MIME object is a "string builder" to construct MIME parts. In the :doc:`DATA <data>` context there is an similar :class:`~data.MIME` object as well (however it has other member functions available), which is used to work with a message's MIME parts. To create a "string building" MIME object, call the :class:`MIME` function without any arguments.
+
+  .. note::
+
+    If you call the :class:`~data.MIME` function **with** an argument in the :doc:`DATA <data>` context then the :doc:`DATA <data>` context's :class:`~data.MIME` object will be created instead.
 
   .. code-block:: hsl
 

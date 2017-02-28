@@ -517,9 +517,9 @@ MIME and attachments
 
   Working with MIME parts is done using MIME objects. To instantiate a reference to the root MIME part object call the :class:`~data.MIME` function with the string literal `"0"` (zero) as the argument.
 
-  .. note::
+  .. warning::
 
-    If you call the :class:`MIME` function **without** arguments, the standard library's :class:`MIME` object will be created.
+    If you call the :class:`MIME` function **without** arguments (partid), the standard library's :class:`MIME` object will be created instead.
 
   .. code-block:: hsl
 
