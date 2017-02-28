@@ -163,8 +163,6 @@ An anonymous function is a unnamed :ref:`function <user_function>`, it can be pa
 	$multiply = function ($x, $y) { return $x * $y };
 	echo $multiply(3, 5); // 15
 
-	cache ["ttl_function" => function($v) { return 5; }] foo();
-
 Named function pointers
 ^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -173,6 +171,9 @@ A named function pointer is a reference to a named function. It can reference bo
 .. code-block:: hsl
 
 	function strlen($str) { return 42; }
+
+	$function = strlen;
+	echo $function("Hello"); // 42
 
 	$function = builtin strlen;
 	echo $function("Hello"); // 5
