@@ -121,18 +121,24 @@ The keywords ``true`` and ``false`` are aliases for `1` and `0`.
 Array
 ------
 
-An array is a very useful container; it can act as an array (automatically indexed at zero) or as an ordered map with any data type as key and value. The short array syntax for literal arrays ``[]`` is recommended.
+An array is a very useful container; it can act as an indexed array (automatically indexed at zero, or the highest current index + 1) or as an ordered map (associative array) with any and mixed data types as key and value. The short array syntax for literal arrays ``[]`` is recommended.
 
 .. code-block:: hsl
 
-	array("foo", "bar")
-	["foo", "bar"]
-	[0=>"foo", 1=>"bar"]
+	// indexed arrays
+	echo array("value", "value2");
+	echo ["value", "value2"];
+	echo [0 => "value", 1 => "value2"];
 
-.. code-block:: hsl
+	// associative arrays
+	echo array("key" => "value");
+	echo ["key" => "value"];
 
-	array("key" => "value")
-	["key" => "value"]
+	// multidimensional arrays
+	echo ["key" => ["key" => "value"]];
+
+	// automatic indexing
+	echo ["foo", 3=>"bar", "baz"]; // 0=>foo, 3=>bar, 4=>baz
 
 .. note::
 
