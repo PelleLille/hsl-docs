@@ -515,7 +515,7 @@ MIME and attachments
 
   :param string partid: the part id
 
-  Working with MIME parts is done using MIME objects. To instantiate a reference to the root MIME part object call the :class:`~data.MIME` function with the string literal `"0"` as the argument.
+  Working with MIME parts is done using MIME objects. To instantiate a reference to the root MIME part object call the :class:`~data.MIME` function with the string literal `"0"` (zero) as the argument.
 
   .. note::
 
