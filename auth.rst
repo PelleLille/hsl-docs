@@ -25,6 +25,14 @@ $saslusername     string  "mailuser"                 SASL username
 $saslpassword     string  "secret"                   SASL password
 ================= ======= ========================== ===========
 
+These are the writable pre-defined variables available.
+
+================= ======= ===========
+Variable          Type    Description
+================= ======= ===========
+$context          any     Connection-bound variable
+================= ======= ===========
+
 Functions
 ---------
 

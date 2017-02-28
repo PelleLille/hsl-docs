@@ -28,6 +28,14 @@ $sender           string  "test\@example.org"        E-mail address of sender (e
 $senderparams     array   ["SIZE" => "2048", ... ]   Sender parameters to the envelope address
 ================= ======= ========================== ===========
 
+These are the writable pre-defined variables available.
+
+================= ======= ===========
+Variable          Type    Description
+================= ======= ===========
+$context          any     Connection-bound variable
+================= ======= ===========
+
 Functions
 ---------
 
@@ -90,4 +98,4 @@ On script error ``Defer()`` is called.
 On implicit termination
 -----------------------
 
-If not explicitly terminated then ``Reject()`` is called (if not $error is set, then ``Defer()`` is called instead).
+If not explicitly terminated then ``Reject()`` is called.

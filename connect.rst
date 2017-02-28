@@ -21,6 +21,14 @@ $serverport       number  25                         TCP port of the mailserver
 $serverid         string  "mailserver\:1"            ID of the mailserver profile
 ================= ======= ========================== ===========
 
+These are the writable pre-defined variables available.
+
+================= ======= ===========
+Variable          Type    Description
+================= ======= ===========
+$context          any     Connection-bound variable
+================= ======= ===========
+
 Functions
 ---------
 

@@ -37,6 +37,14 @@ $recipients       array   ["test\@example.com", ...] List of all recipient addre
 $transportid      string  "mailtransport\:1"         ID of the transport profile to be used
 ================= ======= ========================== ===========
 
+These are the writable pre-defined variables available.
+
+================= ======= ===========
+Variable          Type    Description
+================= ======= ===========
+$context          any     Connection-bound variable
+================= ======= ===========
+
 Functions
 ---------
 

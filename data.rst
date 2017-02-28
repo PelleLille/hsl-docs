@@ -34,6 +34,14 @@ $transportid      string  "mailtransport\:1"         ID of the transport profile
 $actionid         number  1                          ID; incremented per message action/recipient (Deliver, Quarantine, etc.)
 ================= ======= ========================== ===========
 
+These are the writable pre-defined variables available.
+
+================= ======= ===========
+Variable          Type    Description
+================= ======= ===========
+$context          any     Connection-bound variable
+================= ======= ===========
+
 Functions
 ---------
 
