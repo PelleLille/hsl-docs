@@ -97,6 +97,13 @@ Functions
   :return: the data set by :func:`SetMetaData`
   :rtype: array
 
+.. function:: GetMailFile()
+
+  Return a :class:`File` class to the current mail file.
+
+  :return: A File class to the current mail file.
+  :rtype: File
+
 On script error
 ---------------
 
