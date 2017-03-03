@@ -9,7 +9,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_explode` :func:`json_encode` :func:`json_decode`
-* **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http`
+* **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http` :class:`File`
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME`
@@ -608,6 +608,62 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 		  echo $response;
 	  }
 
+.. class:: File()
+
+  A File class cannot be created at the moment, only retured by :func:`~data.GetMailFile`. This resource is automatically garbage collected (closed) once the object is destroyed.
+
+  .. code-block:: hsl
+
+	$file = GetMailFile();
+	while ($data = $file->read(8192))
+		echo $data;
+
+  .. function:: File.close()
+
+	  Close the file and destroy the internal file resource.
+
+	  :return: none
+	  :rtype: None
+
+	  .. note::
+
+		Files are automatically garbage collected (closed). However you may want to explicitly call close.
+
+  .. function:: File.read(len)
+
+	  Read data from file. On EOF an empty string is returned. On error ``None`` is returned.
+
+	  :param number len: bytes to read
+	  :return: data
+	  :rtype: string or None
+
+  .. function:: File.seek(offset, [whence = "SEEK_SET"])
+
+	  Seek to the offset in the file. On error ``None`` is returned.
+
+	  :param number offset: the offset
+	  :param string whence: the position specified by whence
+	  :return: position
+	  :rtype: number or None
+
+	  Whence may be any of
+
+	  +----------+------------------------------------------+
+	  | Name     | Position                                 |
+	  +==========+==========================================+
+	  | SEEK_CUR | relative offset to the current position  |
+	  +----------+------------------------------------------+
+	  | SEEK_SET | absolute offset from the beginning       |
+	  +----------+------------------------------------------+
+	  | SEEK_END | negative offset from the end of the file |
+	  +----------+------------------------------------------+
+
+  .. function:: File.tell()
+
+	  Get the current file position. On error ``None`` is returned.
+
+	  :return: position
+	  :rtype: number or None
 
 Mail
 ----

@@ -45,7 +45,7 @@ $context          any     Connection-bound variable
 Functions
 ---------
 
-* **MIME and attachments** :class:`~data.MIME`
+* **MIME and attachments** :class:`~data.MIME` :func:`GetMailFile`
 * **Misc** :func:`GetAddressList` :func:`GetMailQueueMetric`
 * **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData` :func:`SetSenderIP` :func:`SetSenderHELO`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
@@ -510,6 +510,13 @@ DKIM
 
 MIME and attachments
 ^^^^^^^^^^^^^^^^^^^^
+
+.. function:: GetMailFile()
+
+  Return a :class:`File` class to the current mail file.
+
+  :return: A File class to the current mail file.
+  :rtype: File
 
 .. class:: MIME(partid)
 
