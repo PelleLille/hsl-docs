@@ -184,6 +184,10 @@ Functions
   :return: A File class to the current mail file.
   :rtype: File
 
+  .. note::
+
+  	The file is returned in an unmodified state as received (only with a Recieived header applied).
+
 On script error
 ---------------
 
