@@ -12,6 +12,7 @@
   saslusername    $saslusername
   sender          $sender
   senderdomain    $senderdomain
+  recipient       $recipient
   recipientdomain $recipientdomain
   transportid     $transportid
   retry           1

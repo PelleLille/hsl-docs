@@ -72,6 +72,36 @@ The number type is a double-precision 64-bit `IEEE 754 <http://en.wikipedia.org/
 
 	After some arithmetic operations on floating point numbers; the equality (`==`) of two floating point numbers may not be true even if they mathematically "should". This caveat is not unique to HSL, instead it is the result of how computers calculates and stores `floating point numbers <http://en.wikipedia.org/wiki/Floating_point>`_. Arithmetic operations on `numbers` without decimals are not affected.
 
+.. _hexadecimal:
+
+Hexadecimal
+^^^^^^^^^^^
+Numbers may be entrered as in hexadecimal form (also known as base 16) using the ``0x`` prefix; followed by ``[0-9a-f]+``.
+
+.. code-block:: hsl
+
+	echo 0xfa; // 250
+
+.. _octal:
+
+Octal
+^^^^^
+Numbers may be entrered in octal form (also known as base 8) using the ``0o`` prefix; followed by ``[0-7]+``.
+
+.. code-block:: hsl
+
+	echo 0o372; // 250
+
+.. _binary:
+
+Binary
+^^^^^^
+Numbers may be entrered in binary form (also known as base 2) using the ``0b`` prefix; followed by ``[0-1]+``.
+
+.. code-block:: hsl
+
+	echo 0b11111010; // 250
+
 .. _boolean:
 
 Boolean
@@ -91,18 +121,24 @@ The keywords ``true`` and ``false`` are aliases for `1` and `0`.
 Array
 ------
 
-An array is a very useful container; it can act as an array (automatically indexed at zero) or as an ordered map with any data type as key and value. The short array syntax for literal arrays ``[]`` is recommended.
+An array is a very useful container; it can act as an indexed array (automatically indexed at zero, or the highest current index + 1) or as an ordered map (associative array) with any and mixed data types as key and value. The short array syntax for literal arrays ``[]`` is recommended.
 
 .. code-block:: hsl
 
-	array("foo", "bar")
-	["foo", "bar"]
-	[0=>"foo", 1=>"bar"]
+	// indexed arrays
+	echo array("value", "value2");
+	echo ["value", "value2"];
+	echo [0 => "value", 1 => "value2"];
 
-.. code-block:: hsl
+	// associative arrays
+	echo array("key" => "value");
+	echo ["key" => "value"];
 
-	array("key" => "value")
-	["key" => "value"]
+	// multidimensional arrays
+	echo ["key" => ["key" => "value"]];
+
+	// automatic indexing
+	echo ["foo", 3=>"bar", "baz"]; // 0=>foo, 3=>bar, 4=>baz
 
 .. note::
 
@@ -127,8 +163,6 @@ An anonymous function is a unnamed :ref:`function <user_function>`, it can be pa
 	$multiply = function ($x, $y) { return $x * $y };
 	echo $multiply(3, 5); // 15
 
-	cache ["ttl_function" => function($v) { return 5; }] foo();
-
 Named function pointers
 ^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -137,6 +171,9 @@ A named function pointer is a reference to a named function. It can reference bo
 .. code-block:: hsl
 
 	function strlen($str) { return 42; }
+
+	$function = strlen;
+	echo $function("Hello"); // 42
 
 	$function = builtin strlen;
 	echo $function("Hello"); // 5

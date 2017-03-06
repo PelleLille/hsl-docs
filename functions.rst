@@ -9,13 +9,14 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_explode` :func:`json_encode` :func:`json_decode`
-* **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http`
+* **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http` :class:`File`
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`rate` :func:`mail`
-* **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`dovecot_lookup_auth` :func:`ident_lookup` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author`
+* **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author`
 * **String** :func:`chr` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
+* **Socket** :class:`Socket`
 
 Array
 -----
@@ -242,7 +243,7 @@ Data types
 
 .. function:: number(x)
 
-  This function converts the input of x to the number type.
+  This function converts the input of x to the number type. Decimal and hexadecimal (`Ox`) numbers are supported.
 
   :param any x: the input
   :return: a number
@@ -586,6 +587,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
    * **extended_result** (boolean) Get a more extended result. The default is ``false``.
    * **connect_timeout** (number) Connection timeout (in seconds). The default is ``10`` seconds.
    * **timeout** (number) Timeout (in seconds) waiting for data once the connection is established. The default is to wait indefinitely.
+   * **sourceip** (string) Explicitly bind a ``netaddr:X`` or an IP address. The default is to be chosen by the system.
    * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
    * **headers** (array) An array of additional HTTP headers.
    * **response_headers** (boolean) Return the full request, including response headers (regardless of HTTP status). The default is ``false``.
@@ -606,6 +608,62 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 		  echo $response;
 	  }
 
+.. class:: File()
+
+  A File class cannot be created at the moment, only retured by :func:`~data.GetMailFile`. This resource is automatically garbage collected (closed) once the object is destroyed.
+
+  .. code-block:: hsl
+
+	$file = GetMailFile();
+	while ($data = $file->read(8192))
+		echo $data;
+
+  .. function:: File.close()
+
+	  Close the file and destroy the internal file resource.
+
+	  :return: none
+	  :rtype: None
+
+	  .. note::
+
+		Files are automatically garbage collected (closed). However you may want to explicitly call close.
+
+  .. function:: File.read(len)
+
+	  Read data from file. On EOF an empty string is returned. On error ``None`` is returned.
+
+	  :param number len: bytes to read
+	  :return: data
+	  :rtype: string or None
+
+  .. function:: File.seek(offset, [whence = "SEEK_SET"])
+
+	  Seek to the offset in the file. On error ``None`` is returned.
+
+	  :param number offset: the offset
+	  :param string whence: the position specified by whence
+	  :return: position
+	  :rtype: number or None
+
+	  Whence may be any of
+
+	  +----------+------------------------------------------+
+	  | Name     | Position                                 |
+	  +==========+==========================================+
+	  | SEEK_CUR | relative offset to the current position  |
+	  +----------+------------------------------------------+
+	  | SEEK_SET | absolute offset from the beginning       |
+	  +----------+------------------------------------------+
+	  | SEEK_END | negative offset from the end of the file |
+	  +----------+------------------------------------------+
+
+  .. function:: File.tell()
+
+	  Get the current file position. On error ``None`` is returned.
+
+	  :return: position
+	  :rtype: number or None
 
 Mail
 ----
@@ -713,7 +771,11 @@ MIME
 
   The MIME object "constructor" takes no function arguments, and returns a new MIME object.
 
-  The standard library's MIME object is a "string builder" to construct MIME parts. In the :doc:`DATA <data>` context there is an similar :class:`~data.MIME` object as well, which is useful to work with a message's MIME parts. To create a "string building" MIME object, call the :class:`MIME` function without any arguments.
+  The standard library's MIME object is a "string builder" to construct MIME parts. In the :doc:`DATA <data>` context there is an similar :class:`~data.MIME` object as well (however it has other member functions available), which is used to work with a message's MIME parts. To create a "string building" MIME object, call the :class:`MIME` function without any arguments.
+
+  .. note::
+
+    If you call the :class:`~data.MIME` function **with** an argument in the :doc:`DATA <data>` context then the :doc:`DATA <data>` context's :class:`~data.MIME` object will be created instead.
 
   .. code-block:: hsl
 
@@ -961,8 +1023,7 @@ Misc
    * **recipient_name** (string) Friendly name of the recipient.
    * **serverid** (string) Helps the decision making of where we should send this email.
    * **transportid** (string) Set the transportid to be used with this message.
-   * **plaintext** (boolean) Send message as `plain/text` (default is `text/html`). The default is ``false``.
-   * **rawbody** (boolean) Instead of using a template, send body as raw text. The default is ``false``.
+   * **rawbody** (boolean) Instead of using a template, send body as raw text/plain. The default is ``false``.
    * **headers** (array) Add additional message headers (KVP).
    * **metadata** (array) Add additional metadata to the message (KVP).
 
@@ -1022,56 +1083,6 @@ Protocols
    * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
    * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv1``, ``SSLv2``, ``TLSv1``, ``TLSv1.1`` or ``TLSv1.2``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
    * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
-
-.. function:: dovecot_lookup_auth(options, username, password)
-
-  Try to authenticate the username against a dovecot server.
-
-  :param array options: options array
-  :param string username: username
-  :param string password: password
-  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
-  :rtype: number
-
-  The following options are available in the options array.
-
-   * **host** (string) IP-address or hostname of the dovecot server. **required**
-   * **port** (number) TCP port. **required**
-   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
-
-   There are also some protocol specific flags that may be configured.
-
-	   * **service** (string) Service name to identify this request. The default is ``smtp``.
-	   * **rip** (string) The IP-address of the client (remote IP).
-	   * **lip** (string) The IP-address of the Halon (local IP).
-	   * **secured** (boolean) Set to true if the client has tlsstarted. The default is ``false``.
-
-.. function:: ident_lookup(senderip, senderport, serverip, serverport, [options])
-
-  Try to lookup the username of the connecting client using the ident (rfc1413) protocol.
-
-  :param string senderip: the senderip
-  :param number senderport: the senderport
-  :param string serverip: the serverip 
-  :param number serverport: the serverport
-  :param array options: options array
-  :return: if request was made an array is returned, otherwise the type ``None`` is returned
-  :rtype: None or array
-
-  The following options are available in the options array.
-
-   * **port** (number) TCP port. The default is ``113``.
-   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
-
-  The array returned may containing index of either ``error`` or ``os`` and ``username``.
-
-  .. code-block:: hsl
-
-	["username" => $username, "error" => $error = "UNKNOWN-ERROR"] = ident_lookup($senderip, $senderport, $serverip, $serverport);
-	if (is_string($username))
-	    echo "Ident: $username";
-	else
-	    echo "Error: $error";
 
 .. function:: ldap_search(profile, lookup, [override])
 
@@ -1320,3 +1331,92 @@ String
 	// "ucfirst()"
 	echo pcre_replace(''\b[a-z]'', function ($i) { return strtoupper($i[0]); }, "hello world");
 	// Hello World
+
+Socket
+------
+
+.. class:: Socket(family, type)
+
+  The Socket class allows POSIX like socket(2) code. A socket resource is created for each Socket instance, this resource is automatically garbage collected (closed) once the object is destroyed.
+
+  :param string family: address family either ``AF_INET`` or ``AF_INET6``
+  :param string type: socket type either ``SOCK_STREAM`` or ``SOCK_DGRAM``
+
+  .. code-block:: hsl
+
+	$socket = Socket("AF_INET", "SOCK_STREAM");
+	$socket->close();
+
+  .. function:: Socket.bind(address, [port])
+
+	  Bind the socket to `address` and `port`. The address must match the Sockets address family.
+
+	  :param string address: address to bind
+	  :param number port: port to bind
+	  :return: this
+	  :rtype: Socket or None
+
+  .. function:: Socket.close()
+
+	  Close the socket and destroy the internal socket resource.
+
+	  :param string address: address to bind
+	  :param number port: port to bind
+	  :return: this
+	  :rtype: Socket or None
+
+	  .. note::
+
+		Sockets are automatically garbage collected (closed). However you may want to explicitly call close.
+
+  .. function:: Socket.connect(address, port)
+
+	  Connect the socket to `address` and `port`. The address must match the Sockets address family.
+
+	  :param string address: address to connect to
+	  :param number port: port to connect to
+	  :return: this
+	  :rtype: Socket or None
+
+  .. function:: Socket.errno()
+
+	  Get the latest errno returned from the underlying POSIX socket API.
+
+	  :return: errno
+	  :rtype: number
+
+  .. function:: Socket.recv(len)
+
+	  Receive data on socket.
+
+	  :param number len: bytes to recv
+	  :return: data
+	  :rtype: string or None
+
+  .. function:: Socket.send(data)
+
+	  Send data on socket.
+
+	  :param string data: data to send
+	  :return: bytes sent
+	  :rtype: number or None
+
+  .. function:: Socket.settimeout(timeout)
+
+	  Set the timeout for socket operations.
+
+	  :param number timeout: timeout in seconds. The default is no timeout.
+	  :return: this
+	  :rtype: Socket
+
+  .. function:: Socket.shutdown(how)
+
+	  Shutdown the socket for receiving, sending or both.
+
+	  :param string how: how to shutdown either ``SHUT_RD``, ``SHUT_WR`` or ``SHUT_RDWR``.
+	  :return: this
+	  :rtype: Socket or None
+
+	  .. note::
+
+		Sockets are automatically closed.

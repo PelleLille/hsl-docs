@@ -1,9 +1,9 @@
-.. module:: ip
+.. module:: firewall
 
-IP
-==
+Firewall
+========
 
-The IP context acts as a firewall.
+The Firewall context acts as a firewall. It can be enabled for services sush as HTTP, FTP, SSH and SNMP.
 
 Pre-defined variables
 ---------------------
@@ -15,11 +15,11 @@ Variable    Type    Example         Description
 =========== ======= =============== ===========
 $family     string  "ipv4"          IP family of connecting client ("ipv4" or "ipv6")
 $protocol   string  "tcp"           IP protocol of local server ("tcp" or "udp")
-$service    string  "mailserver\:1" Name of local service
+$service    string  "ssh"           Name of local service
 $senderip   string  "192.168.1.11"  IP address of connecting client
 $senderport number  41666           TCP port of connecting client
 $serverip   string  "10.0.0.1"      IP address of local server
-$serverport number  25              TCP/UDP port of local server
+$serverport number  22              TCP/UDP port of local server
 =========== ======= =============== ===========
 
 Functions
@@ -31,40 +31,11 @@ Functions
 
   :return: doesn't return, script is terminated
 
-.. function:: Block([reason])
+.. function:: Block()
 
-  Block IP connection from being established. The reason is send back to the client in a TCP reply appended by CRLF (`\\r\\n`) and the connection is closed. If `reason` is an array of strings, each item in the array is sent appended by CRLF (`\\r\\n`).
+  Block IP connection from being established.
 
-  :param reason: message to send in block message
-  :type reason: array or string
   :return: doesn't return, script is terminated
-
-  .. code-block:: hsl
-
-	// Normal Quiet Block
-	Block();
-
-	// SMTP Block
-	Block("421 We think this is spam. If not contact us by phone.");
-
-	// HTTP Block
-	Block([
-	  "HTTP/1.0 200 OK",
-	  "Content-Type: text/html",
-	  "",
-	  "<html>",
-	  "<head>",
-	  "<title>Access Denied</title>",
-	  "</head>",
-	  "<body>",
-	  "<i>IP ($senderip) blocked</i>",
-	  "</body>",
-	  "</html>"
-	 ]);
-
-  .. note::
-
-	The message should be no longer than what fits in a single IP packet (at most 1k).
 
 On script error
 ---------------

@@ -3,7 +3,7 @@
 DATA
 ====
 
-The DATA context is executed when the message is fully received (but not yet accepted).
+The DATA context is executed once for every recipient when the message is fully received (but not yet accepted). If multiple types of actions are performed, the response message (sent back to the client) will be choosen in the order of Reject, Defer, Quarantine, Delete, Deliver.
 
 Pre-defined variables
 ---------------------
@@ -17,12 +17,15 @@ $messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
 $senderip         string  "192.168.1.11"             IP address of the connected client
 $senderport       number  41666                      TCP port of connected client
 $serverip         string  "10.0.0.1"                 IP address of the mailserver
+$serverport       number  25                         TCP port of the mailserver
 $serverid         string  "mailserver\:1"            ID of the mailserver profile
 $senderhelo       string  "mail.example.com"         HELO message of sender
+$tlsstarted       boolean false                      Whether or not the SMTP session is using TLS
 $saslusername     string  "mailuser"                 SASL username
 $saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
 $senderdomain     string  "example.org"              Domain part of sender's address (envelope)
 $sender           string  "test\@example.org"        E-mail address of sender (envelope)
+$senderparams     array   ["SIZE" => "2048", ... ]   Sender parameters to the envelope address
 $recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
 $recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
 $recipientdomains array   ["example.com", ...]       List of all domain part of all recipient addresses (envelope)
@@ -31,12 +34,20 @@ $transportid      string  "mailtransport\:1"         ID of the transport profile
 $actionid         number  1                          ID; incremented per message action/recipient (Deliver, Quarantine, etc.)
 ================= ======= ========================== ===========
 
+These are the writable pre-defined variables available.
+
+================= ======= ===========
+Variable          Type    Description
+================= ======= ===========
+$context          any     Connection-bound variable
+================= ======= ===========
+
 Functions
 ---------
 
-* **MIME and attachments** :class:`~data.MIME`
+* **MIME and attachments** :class:`~data.MIME` :func:`GetMailFile`
 * **Misc** :func:`GetAddressList` :func:`GetMailQueueMetric`
-* **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData`
+* **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData` :func:`SetSenderIP` :func:`SetSenderHELO`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
 * **Actions** :func:`Deliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`DiscardMailDataChanges` :func:`Done`
 * **Anti-spam and anti-virus** :func:`ScanRPD` :func:`ScanRPDAV` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM` :func:`ScanDLP`
@@ -73,7 +84,8 @@ Routing
   Change the sender of the message.
 
   :param string sender: an e-mail address
-  :rtype: none
+  :return: sender if successful
+  :rtype: string or none
   :updates: ``$sender`` and ``$senderdomain``
 
   .. warning::
@@ -85,7 +97,8 @@ Routing
   Changes the recipient.
 
   :param string recipient: an e-mail address
-  :rtype: none
+  :return: recipient if successful
+  :rtype: string or none
   :updates: ``$recipient`` and ``$recipientdomain``
 
 .. function:: SetMailTransport(transportid)
@@ -112,11 +125,37 @@ Routing
 
   .. code-block:: hsl
 
-  	SetMetaData(["foo"=>"bar", "foo2" => json_encode(["array", 123.45, false]));
+  	SetMetaData(["foo" => "bar", "foo2" => json_encode(["array", 123.45, false]));
 
   .. note::
 
     To work-around the data type limitation of the metadata; data can be encoded using :func:`json_encode`.
+
+.. function:: SetSenderIP(ip)
+
+  Change the senders IP of the message.
+
+  :param string ip: an IP address
+  :return: ip if successful
+  :rtype: string or none
+  :updates: ``$senderip``
+
+  .. note::
+
+  	This function changes the `$senderip` for all recipients.
+
+.. function:: SetSenderHELO(hostname)
+
+  Change the senders HELO hostname of the message.
+
+  :param string hostname: a hostname
+  :return: hostname if successful
+  :rtype: string or none
+  :updates: ``$senderhelo``
+
+  .. note::
+
+  	This function changes the `$senderhelo` for all recipients.
 
 Headers
 ^^^^^^^
@@ -227,24 +266,35 @@ Actions
    * **delay** (number) same as :func:`SetDelayedDeliver`. The default is `0` seconds.
    * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is `true`.
    * **queue** (boolean) deliver the message using the delivery queue. The default is `true`.
+   * **disconnect** (boolean) disconnect the client. The default is ``false``.
 
-.. function:: Reject([reason])
+.. function:: Reject([reason, [options]])
 
   Reject (550) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
   :param reason: reject message with reason
   :type reason: string or array
+  :param array options: an options array
   :return: doesn't return, script is terminated
   :updates: ``$actionid``
 
-.. function:: Defer([reason])
+  The following options are available in the options array.
+
+   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+
+.. function:: Defer([reason, [options]])
 
   Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
   :param reason: reject message with reason
   :type reason: string or array
+  :param array options: an options array
   :return: doesn't return, script is terminated
   :updates: ``$actionid``
+
+  The following options are available in the options array.
+
+   * **disconnect** (boolean) disconnect the client. The default is ``false``.
 
 .. function:: Delete()
 
@@ -461,15 +511,26 @@ DKIM
 MIME and attachments
 ^^^^^^^^^^^^^^^^^^^^
 
+.. function:: GetMailFile()
+
+  Return a :class:`File` class to the current mail file.
+
+  :return: A File class to the current mail file.
+  :rtype: File
+
+  .. note::
+
+  	The file is returned in an unmodified state as received (only with a Recieived header applied).
+
 .. class:: MIME(partid)
 
   :param string partid: the part id
 
-  Working with MIME parts is done using MIME objects. To instantiate a reference to the root MIME part object call the :class:`~data.MIME` function with the string literal `"0"` as the argument.
+  Working with MIME parts is done using MIME objects. To instantiate a reference to the root MIME part object call the :class:`~data.MIME` function with the string literal `"0"` (zero) as the argument.
 
-  .. note::
+  .. warning::
 
-    If you call the :class:`MIME` function **without** arguments, the standard library's :class:`MIME` object will be created.
+    If you call the :class:`MIME` function **without** arguments (partid), the standard library's :class:`MIME` object will be created instead.
 
   .. code-block:: hsl
 
@@ -495,7 +556,7 @@ MIME and attachments
 							->addHeader("Content-ID", "logo.png")
 							->setBody(
 								cache [ "ttl" => 3600 * 24 * 7 ]
-									http("http://pngimg.com/upload/small/cat_PNG92.png")
+									http("https://pbs.twimg.com/profile_images/656816032930119680/52m1eugJ.jpg")
 							)
 					)
 				)

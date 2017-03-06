@@ -1,14 +1,14 @@
-.. module:: auth
+.. module:: connect
 
-AUTH
-====
+CONNECT
+=======
 
-The AUTH context allows trusted SMTP clients.
+The CONNECT context is executed before the SMTP banner is sent.
 
 Pre-defined variables
 ---------------------
 
-These are the read-only pre-defined variables available for each `AUTH` command.
+These are the read-only pre-defined variables available for each connection that is established.
 
 ================= ======= ========================== ===========
 Variable          Type    Example                    Description
@@ -19,10 +19,6 @@ $senderport       number  41666                      TCP port of connected clien
 $serverip         string  "10.0.0.1"                 IP address of the mailserver
 $serverport       number  25                         TCP port of the mailserver
 $serverid         string  "mailserver\:1"            ID of the mailserver profile
-$senderhelo       string  "mail.example.com"         HELO message of sender
-$tlsstarted       boolean false                      Whether or not the SMTP session is using TLS
-$saslusername     string  "mailuser"                 SASL username
-$saslpassword     string  "secret"                   SASL password
 ================= ======= ========================== ===========
 
 These are the writable pre-defined variables available.
@@ -38,33 +34,23 @@ Functions
 
 .. function:: Accept()
 
-  Authorize the login request.
+  Allow SMTP connection to be established.
 
   :return: doesn't return, script is terminated
 
-.. function:: Reject([reason, [options]])
+.. function:: Reject([reason])
 
-  Reject the login request.
+  Reject the connection with a permanent (521) error.
 
   :param string reason: the reject message
-  :param array options: an options array
   :return: doesn't return, script is terminated
 
-  The following options are available in the options array.
+.. function:: Defer([reason])
 
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
-
-.. function:: Defer([reason, [options]])
-
-  Defer the login request with a temporary (454) error.
+  Defer the connection with a permanent (421) error.
 
   :param string reason: the defer message
-  :param array options: an options array
   :return: doesn't return, script is terminated
-
-  The following options are available in the options array.
-
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
 
 On script error
 ---------------
@@ -74,4 +60,4 @@ On script error ``Defer()`` is called.
 On implicit termination
 -----------------------
 
-If not explicitly terminated then ``Reject()`` is called.
+If not explicitly terminated then ``Accept()`` is called.

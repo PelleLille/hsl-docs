@@ -1,14 +1,14 @@
-.. module:: rcptto
+.. module:: mailfrom
 
-RCPT TO
-=======
+MAIL FROM
+=========
 
-The RCPT TO context allows verification of `RCPT TO` recipients.
+The MAIL FROM context allows verification of the `MAIL FROM` sender.
 
 Pre-defined variables
 ---------------------
 
-These are the read-only pre-defined variables available for `RCPT TO` command.
+These are the read-only pre-defined variables available for `MAIL FROM` command.
 
 ================= ======= ========================== ===========
 Variable          Type    Example                    Description
@@ -21,20 +21,11 @@ $serverport       number  25                         TCP port of the mailserver
 $serverid         string  "mailserver\:1"            ID of the mailserver profile
 $senderhelo       string  "mail.example.com"         HELO message of sender
 $tlsstarted       boolean false                      Whether or not the SMTP session is using TLS
-$tlsprotocol      string  "TLSv1.2"                  Negotiated TLS version
-$tlscipher        string  "DHE-RSA-AES256..."        Negotiated TLS cipher
-$tlskeysize       number  256                        Negotiated TLS key size
 $saslusername     string  "mailuser"                 SASL username
 $saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
 $senderdomain     string  "example.org"              Domain part of sender's address (envelope)
 $sender           string  "test\@example.org"        E-mail address of sender (envelope)
 $senderparams     array   ["SIZE" => "2048", ... ]   Sender parameters to the envelope address
-$recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
-$recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
-$recipientparams  array   ["NOTIFY" => "NEVER", .. ] Recipient parameters to the envelope address
-$recipientdomains array   ["example.com", ...]       List of all domain part of all recipient addresses (envelope)
-$recipients       array   ["test\@example.com", ...] List of all recipient addresses (envelope), in order of scanning
-$transportid      string  "mailtransport\:1"         ID of the transport profile to be used
 ================= ======= ========================== ===========
 
 These are the writable pre-defined variables available.
@@ -50,13 +41,13 @@ Functions
 
 .. function:: Accept()
 
-  Accept the `RCPT TO` command (recipient).
+  Accept the `MAIL FROM` command (sender).
 
   :return: doesn't return, script is terminated
 
 .. function:: Reject([reason, [options]])
 
-  Reject the `RCPT TO` command (recipient) with a permanent (554) error.
+  Reject the `MAIL FROM` command (sender) with a permanent (554) error.
 
   :param string reason: the reject message
   :param array options: an options array
@@ -68,7 +59,7 @@ Functions
 
 .. function:: Defer([reason, [options]])
 
-  Defer the `RCPT TO` command (recipient) with a temporary (450) error.
+  Defer the `MAIL FROM` command (sender) with a temporary (450) error.
 
   :param string reason: the defer message
   :param array options: an options array
@@ -91,15 +82,6 @@ Functions
 
   	This function changes the sender for all recipients. To change sender per recipient use :func:`~predelivery.SetSender` in the :doc:`Pre-delivery <predelivery>` context.
 
-.. function:: SetRecipient(recipient)
-
-  Changes the recipient.
-
-  :param string recipient: an e-mail address
-  :return: recipient if successful
-  :rtype: string or none
-  :updates: ``$recipient`` and ``$recipientdomain``
-
 .. function:: GetMailQueueMetric(options)
 
   Return metric information about the mail queue, it can be used to enforce quotas.
@@ -116,4 +98,4 @@ On script error ``Defer()`` is called.
 On implicit termination
 -----------------------
 
-If not explicitly terminated then ``Reject()`` is called (if not $error is set, then ``Defer()`` is called instead).
+If not explicitly terminated then ``Reject()`` is called.
