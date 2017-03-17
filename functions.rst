@@ -157,7 +157,7 @@ Array
 
 .. function:: in_array(needle, array)
 
-  Returns true if nedle is found in the array.
+  Returns true if needle is found in the array.
 
   :param any needle: the value to match or a callback function
   :param array array: the array
