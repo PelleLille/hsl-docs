@@ -511,7 +511,7 @@ The following cache options are available.
    * **ttl_override** (array) An associative array where the key is the `return value` and the value is the overridden `ttl` to be used.
    * **ttl_function** (function) A function taking one argument (the function's `return value`) and returning the `ttl` to be used.
    * **update_function** (function) A function called at cache updates; taking two arguments (the `old` and `new` value) and returning the value to be used and cached.
-   * **argv_filter** (array) A list of arguments (positions starting at 1) which should make this cache entry unique. The default is to use all arguments.
+   * **argv_filter** (array) A list of argument indexes (starting at 1) which should make this cache entry unique. The default is to use all arguments.
    * **force** (boolean) Force a cache-miss. The default is ``false``.
    * **size** (number) The size of the cache (a cache is namespace + function-name). The default is ``32``.
    * **namespace** (string) Custom namespace so that multiple caches can be created per function name. The default is an empty string.
