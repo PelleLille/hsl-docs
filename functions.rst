@@ -1205,7 +1205,7 @@ String
 
 .. function:: ord(character)
 
-  Return ASCII value of character. This function complements :func:`chr`.
+  Return ASCII value of a character. This function complements :func:`chr`.
 
   :param string character: the ASCII character
   :return: the ASCII value
