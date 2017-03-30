@@ -573,9 +573,9 @@ MIME and attachments
 	  :return: part id
 	  :rtype: string
 
-  .. function:: MIME.getSize()
+  .. function:: mime.getsize()
 
-	  Return the MIME part's size in bytes.
+	  return the mime part's size in bytes.
 
 	  :return: size in bytes
 	  :rtype: number
@@ -671,6 +671,21 @@ MIME and attachments
 	  Remove this MIME part.
 
 	  :rtype: none
+
+  .. function:: MIME.getBody()
+
+	  Get the body (content) of a MIME part. The content will be decoded according to the `Content-Transfer-Encoding` header. If the body size is bigger than 1 MiB, the type `none` is returned.
+
+	  :return: the body content
+	  :rtype: string (or none)
+
+  .. function:: MIME.setBody(data)
+
+	  Set the body (content) of a MIME part. If the body argument is bigger than 1 MiB (or an another error occured), the type `none` is returned. The MIME parts encoding (`Content-Transfer-Encoding`) will be changed to `base64` as the data will encoded as such.
+
+	  :param string data: the body content
+	  :return: this
+	  :rtype: MIME (or none)
 
   .. function:: MIME.prependPart(part)
 
