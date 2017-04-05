@@ -98,4 +98,4 @@ On script error ``Defer()`` is called.
 On implicit termination
 -----------------------
 
-If not explicitly terminated then ``Reject()`` is called.
+If not explicitly terminated then ``Accept()`` is called.
