@@ -42,7 +42,7 @@ Augmented assignment operators are documented in the arithmetic chapter.
 Destructuring assignment
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Destructuring assignment assigns variables with values taken from an `array` value. If the value is not an `array`, all variables will be assigned `null` or its default value.
+Destructuring assignment assigns variables with values taken from an `array` value. If the value is not an `array`, all variables will be assigned `none` or its default value.
 
   .. code-block:: hsl
 
@@ -418,7 +418,7 @@ Functions may be :ref:`called <function_calling>` using the ``()`` operator. It 
 Property
 ^^^^^^^^
 
-The property operator may be used to call functions on objects (:ref:`arrays <arraytype>`). It acts the same as the :ref:`subscript <subscript>` operator (``[]``) but only supports function :ref:`calling <callable>` ``()``.
+The property operator may be used to call functions on objects (:ref:`arrays <arraytype>`). It acts the same as the :ref:`subscript <subscript>` operator (``[]``).
 
 .. code-block:: hsl
 

@@ -181,7 +181,7 @@ A named function pointer is a reference to a named function. It can reference bo
 None
 ----
 
-This data type does not have a literal syntax (keyword), instead it may be return from :func:`json_decode` in case of a decode error or from a user-defined :ref:`user_function` with no :ref:`return` statement. This data type should **not** be used as it yields **undefined** behavior for the most part. The only functions safe to handle this data type is:
+This data type is represeneted by the keyword ``none``. It may be used to indicate error-result or no return value from functions such as. :func:`json_decode` (in case of a decode error) or from a user-defined :ref:`user_function` with no or an empty :ref:`return` statement. This data type should **not** be used as an argument to other built-in functions as it yields **undefined** behavior for the most part. The only functions safe to handle this data type is:
 
  * :func:`is_array`
  * :func:`is_function`
@@ -191,6 +191,6 @@ This data type does not have a literal syntax (keyword), instead it may be retur
 .. code-block:: hsl
 	
 	$obj = json_decode("...");
-	if (!is_array($obj)) {
-		echo "JSON data was not a serialized array [] nor object {}";
+	if ($obj == none)
+		echo "None";
 	}

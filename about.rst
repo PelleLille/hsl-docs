@@ -49,4 +49,4 @@ Type system
 
 Scoping
 
-	Variables are function scoped, in addition to the global scope. Functions are available in all scopes (and registered at compile time). Scoping may be changed with the `global` keyword.
+	Variables are function scoped, in addition to the global scope. Functions can be either globally scoped or function scoped (however they are always registered at compile time; hence they cannot be conditionally defined). Variable scoping may be changed with the `global` keyword.
