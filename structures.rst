@@ -15,7 +15,7 @@ The ``echo`` statement will convert the expression to a string and print its val
 	echo expression ;
 
 .. code-block:: hsl
-	
+
 	echo "hello world";
 
 .. _if:
@@ -122,7 +122,7 @@ foreach
 	}
 
 .. note::
-	
+
 	Use :func:`range` to loop `n` number of times (like in a for-loop).
 
 break
@@ -215,7 +215,7 @@ If executing a statement and `break` is omitted the control flow will fall-throu
 include
 -------
 
-The `include` statement allows code to be structures in logical modules and shared between different scripts. The include path can be any of the supported `file` path formats (``file:X``). `include`'s file name argument do not support variable interpolation nor expression since the include needs to be resolved at compile time. The statements in the included file are included in-place (replacing the `include` statement itself).
+The `include` statement allows code to be structured in logical modules and shared between different scripts. The include path can be any of the supported `file` path formats (``file:X``). `include`'s file name argument do not support variable interpolation nor expression since the include needs to be resolved at compile time. The statements in the included file are included in-place (replacing the `include` statement itself).
 
 ::
 
@@ -226,7 +226,7 @@ The `include` statement allows code to be structures in logical modules and shar
 	include "file:1";
 
 .. note::
-	
+
 	The same file may be included multiple times. However cyclic inclusion is not permitted.
 
 include_once
@@ -238,6 +238,41 @@ The `include_once` keyword will only include the file if it hasn't been included
 
 	include_once string ;
 
+import
+------
+
+The `import` statement allows code to be structured in logical modules and shared between different scripts very much like `include_once` with the main difference that all symbols which should be used in the calling script has to be imported explicitly. Also instead of running the included code directly it is executed in a seperate context (with its own function and variable symbol table) referred to as "the module`s global scope". If a file is imported multiple times (regardless of the symbols imported) its code will only be executed once (and could be used to initiate global state), very much like `include_once` would behave. All symbols in a module`s symbol table is exported (by default), that include symbols which the module itself has imported from another module (a.k.a forwarding imports). An import can not be conditionally and must be defined unconditionally in the script (that usually means at the top of a script).
+
+::
+
+	import { symbol [ as symbol ] [ , ... ] } from string;
+
+.. code-block:: hsl
+
+	import { foo, bar as baz, $x as $y } from "file:module";
+	import { $x as $y } from "file:module";
+
+.. note::
+
+	The same file may be imported multiple times. However cyclic inclusion is not permitted.
+
+variables
+^^^^^^^^^
+
+A variable in the module`s global scope may be imported into the global scope. An imported variables is imported by reference (and not by value), hence all changes to the variable in the module will be reflected by the imported variable. An import statement is not allowed to overwrite variables in the local scope (if a conflict occures, it should be imported under another name).
+
+.. code-block:: hsl
+
+	import { $x, $y as $z } from "file:module";
+
+functions
+^^^^^^^^^
+
+A function in the module`s global scope may be imported into the global scope. An imported function (when executed) is executed in the module`s global scope. Hence, the `global` keyword imports from the module`s global context.
+
+.. code-block:: hsl
+
+	import { v1, v2, v2 as vLatest } from "file:module";
 
 .. _user_function:
 
@@ -266,7 +301,7 @@ Named functions
 
 A function may be named (in order to be callable by its name) according to the regular expression pattern :regexp:`[a-zA-Z_]+[a-zA-Z_0-9]*` with the exception of reserved keywords. In order to prevent naming conflicts in the future with added reserved keywords; it may be a good idea to prefix the function name with a unique identifier like ``halon_func``.
 
-``and`` ``array`` ``as`` ``barrier`` ``break`` ``builtin`` ``cache`` ``case`` ``closure`` ``continue`` ``default`` ``echo`` ``else`` ``false`` ``foreach`` ``forever`` ``function`` ``global`` ``if`` ``include`` ``include_once`` ``isset`` ``not`` ``none`` ``object`` ``or`` ``return`` ``switch`` ``true`` ``unset`` ``while``
+``and`` ``array`` ``as`` ``barrier`` ``break`` ``builtin`` ``cache`` ``case`` ``closure`` ``continue`` ``default`` ``echo`` ``else`` ``false`` ``foreach`` ``forever`` ``from`` ``function`` ``global`` ``if`` ``import`` ``include`` ``include_once`` ``isset`` ``not`` ``none`` ``object`` ``or`` ``return`` ``switch`` ``true`` ``unset`` ``while``
 
 You *should* avoid using keywords available in other general purpose languages and they may be added in the future. That includes keywords such as `for`, `class`, `this`, `private`, `public` etc.
 
@@ -367,7 +402,7 @@ The `return` statement return a value from a function. If the expression is omit
 	function funcname() {
 		return [ expression ];
 	}
-	
+
 .. code-block:: hsl
 
 	function funcname() {
@@ -383,7 +418,7 @@ Default argument
 Formal parameters may be initialized with a default value if not given by the caller. Default values may only defined as trailing parameters in the function definition. Constant expressions which can be evaluated during compile-time may be used as default values (e.g. ``$a = 10 * 1024`` and ``$a = []``).
 
 ::
-	
+
 	function funcname($arg1 = constant_expressions) {
 		statements
 	}
@@ -404,7 +439,7 @@ Variadic function
 Arbitrary-length argument lists are supported using the ``...$argument`` syntax when declaring a function, the rest of the arguments which were not picked up by an other named argument will be added to the last variable as an array. This variable has to be defined at the end of the argument list.
 
 ::
-	
+
 	function funcname($arg1, ...$argN) {
 		statements
 	}
