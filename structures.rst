@@ -241,7 +241,7 @@ The `include_once` keyword will only include the file if it hasn't been included
 import
 ------
 
-The `import` statement allows code to be structured in logical modules and shared between different scripts very much like `include_once` with the main difference that all symbols which should be used in the calling script has to be imported explicitly. Also instead of running the included code directly it is executed in a seperate context (with its own function and variable symbol table) referred to as "the module`s global scope". If a file is imported multiple times (regardless of the symbols imported) its code will only be executed once (and could be used to initiate global state), very much like `include_once` would behave. All symbols in a module`s symbol table is exported (by default), that include symbols which the module itself has imported from another module (a.k.a forwarding imports). An import can not be conditionally and must be defined unconditionally in the script (that usually means at the top of a script).
+The `import` statement allows code to be structured in logical modules and shared between different scripts very much like `include_once` with the main difference that all symbols which should be used in the calling script has to be imported explicitly. Also instead of running the included code directly it is executed in a seperate context (with its own function and variable symbol table) referred to as "the module's global scope". If a file is imported multiple times (regardless of the symbols imported) its code will only be executed once (and could be used to initiate global state), very much like `include_once` would behave. All symbols in a module's symbol table is exported (by default), that include symbols which the module itself has imported from another module (a.k.a forwarding imports). An import can not be conditionally and must be defined unconditionally in the script (that usually means at the top of a script).
 
 ::
 
@@ -259,7 +259,7 @@ The `import` statement allows code to be structured in logical modules and share
 variables
 ^^^^^^^^^
 
-A variable in the module`s global scope may be imported into the global scope. An imported variables is imported by reference (and not by value), hence all changes to the variable in the module will be reflected by the imported variable. An import statement is not allowed to overwrite variables in the local scope (if a conflict occures, it should be imported under another name).
+A variable in the module's global scope may be imported into the global scope. An imported variables is imported by reference (and not by value), hence all changes to the variable in the module will be reflected by the imported variable. An import statement is not allowed to overwrite variables in the local scope (if a conflict occures, it should be imported under another name).
 
 .. code-block:: hsl
 
@@ -268,7 +268,7 @@ A variable in the module`s global scope may be imported into the global scope. A
 functions
 ^^^^^^^^^
 
-A function in the module`s global scope may be imported into the global scope. An imported function (when executed) is executed in the module`s global scope. Hence, the `global` keyword imports from the module`s global context.
+A function in the module's global scope may be imported into the global scope. An imported function (when executed) is executed in the module's global scope. Hence, the `global` keyword imports from the module's global context.
 
 .. code-block:: hsl
 
