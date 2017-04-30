@@ -274,6 +274,10 @@ A function in the module's global scope may be imported into the global scope. A
 
 	import { v1, v2, v2 as vLatest } from "file:module";
 
+.. note::
+
+	If a function is passed and execute inside a module. The `global` keyword binds the module's global context (late binding). You should not rely on this behaviour and instead use closures to capture global variables.
+
 .. _user_function:
 
 function
