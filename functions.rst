@@ -527,7 +527,7 @@ Encodings and JSON
 
 File and HTTP
 -------------
-The filename may point to a file in the configuration ``file:X`` or a file relative on the accessible filesystem ``file://filename.txt``.
+The filename may point to a file in the configuration ``file:X`` or a file relative on the accessible filesystem ``file://filename.txt``. If the URI scheme is missing, the default is to use ``file:``.
 
 .. function:: file(filename)
 
