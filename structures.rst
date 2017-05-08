@@ -224,6 +224,7 @@ The `include` statement allows code to be structured in logical modules and shar
 .. code-block:: hsl
 
 	include "file:1";
+	include "1";
 
 .. note::
 
