@@ -215,7 +215,7 @@ If executing a statement and `break` is omitted the control flow will fall-throu
 include
 -------
 
-The `include` statement allows code to be structured in logical modules and shared between different scripts. The include path can be any of the supported `file` path formats (``file:X``). `include`'s file name argument do not support variable interpolation nor expression since the include needs to be resolved at compile time. The statements in the included file are included in-place (replacing the `include` statement itself).
+The `include` statement allows code to be structured in logical modules and shared between different scripts. The include path can be any of the supported `file` path formats (``file:X`` where ``file:`` is implicit). `include`'s file name argument do not support variable interpolation nor expression since the include needs to be resolved at compile time. The statements in the included file are included in-place (replacing the `include` statement itself).
 
 ::
 
@@ -249,12 +249,12 @@ The `import` statement allows code to be structured in logical modules and share
 
 .. code-block:: hsl
 
-	import { foo, bar as baz, $x as $y } from "file:module";
-	import { $x as $y } from "file:module";
+	import { foo, bar as baz, $x as $y } from "module";
+	import { $x as $y } from "module";
 
 .. note::
 
-	The same file may be imported multiple times. However cyclic inclusion is not permitted.
+	The same file may be imported multiple times, but it will only be executed once. However cyclic inclusion is not permitted.
 
 variables
 ^^^^^^^^^
