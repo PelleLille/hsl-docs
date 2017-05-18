@@ -311,12 +311,15 @@ Function scope
 
 Named functions are scoped either in the global scope (if not defined inside another function) or function scoped (a nested scope, may access functions in the previous scope). They are unconditionally registered at compile-time (control flow is not taken into consideration). Hence it doesn't matter where in the scope it's defined (eg. before or after it's being called).
 
-	.. code-block:: hsl
+.. code-block:: hsl
 
-		funcname("World");
-		function funcname($name) {
-			echo "Hello $name";
-		}
+	funcname("World");
+	function funcname($name) {
+		echo "Hello $name";
+	}
+
+.. note::
+	Named functions are "hoisted".
 
 Anonymous functions
 ^^^^^^^^^^^^^^^^^^^
