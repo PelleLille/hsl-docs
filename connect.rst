@@ -47,7 +47,7 @@ Functions
 
 .. function:: Defer([reason])
 
-  Defer the connection with a permanent (421) error.
+  Defer the connection with a temporary (421) error.
 
   :param string reason: the defer message
   :return: doesn't return, script is terminated
