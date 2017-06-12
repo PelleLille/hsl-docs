@@ -548,7 +548,7 @@ The constructor (function) is a special function declared inside the class state
 
 	class Foo
 	{
-		constructor($a, $b) { $this->a = $a; }
+		constructor($a, $b = 5) { $this->a = $a; }
 	}
 	$x = Foo(5);
 
@@ -597,7 +597,7 @@ A static function or variable is not bound to a class instance instead they are 
 variables
 *********
 
-A static variable is declared within a class statement using the `static` keyword. A static variable is namespaced to the scope of the class name and it's initialized at compile time (but can be updated and used at runtime). A static variable can only be initialized to a constant value (eg. a number or a string).
+A static variable is declared within a class statement using the `static` keyword. A static variable is namespaced to the scope of the class name and it's initialized at compile time (but can be updated and used at runtime). A static variable can only be initialized to a constant expressions which can be evaluated during compile-time.
 
 .. code-block:: hsl
 
