@@ -1,7 +1,7 @@
 Data types and literals
 =======================
 
-HSL has multiple data types; `strings`, `numbers`, `arrays` (which also works as an ordered map to store key-value pairs, similar to PHP's `array <http://php.net/manual/en/language.types.array.php>`_) and `functions` (both anonymous functions and named function pointers). These data types may be represented as literals. There is also a `none` (or `null`) data type that is rarely encountered (e.g. a :ref:`return` statement without a value or a failed :func:`json_decode` both of which return `none`).
+HSL has multiple data types; `strings`, `numbers`, `arrays` (which also works as an ordered map to store key-value pairs, similar to PHP's `array <http://php.net/manual/en/language.types.array.php>`_), `objects` (created by :ref:`classes <class_statement>`) and `functions` (both anonymous functions and named function pointers). Some of these data types may be represented as literals. There is also a `none` (or `null`) data type that is rarely encountered (e.g. a :ref:`return` statement without a value or a failed :func:`json_decode` both of which return `none`).
 
 .. _string:
 
@@ -177,6 +177,11 @@ A named function pointer is a reference to a named function. It can reference bo
 
 	$function = builtin strlen;
 	echo $function("Hello"); // 5
+
+Object
+------
+
+An object is an instance type of a :ref:`class_statement` statement or of a builtin class (such as :class:`Socket` or :class:`File`).
 
 None
 ----

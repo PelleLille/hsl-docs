@@ -519,12 +519,111 @@ The `builtin` statement allows you to explicitly call the builtin version of an 
 
 	echo strlen("hello");
 
+.. _class_statement:
+
+class
+-----
+
+The `class` statement can be used to declare new types of classes. The `class-name` must be a valid function name.  In order to create a new instance of a class (object) call the class by name using the function calling convention. Class instances (objects) are not copy on write and all copies reference the same object.
+
+::
+
+	class class-name
+	{
+		constructor() {}
+		function function-name() {}
+		static function function-name() {}
+		static $variable = initial-value;
+	}
+
+constructor
+^^^^^^^^^^^
+
+The constructor (function) is a special function declared inside the class statement. This function (if it exist) is called when an object is created, all arguments from the class-name calling is passed to the constructor function. The constructor function supports all features of function calling (such as default arguments). The constructor is usually used to initialize object instance variables on the special ``$this`` variable.
+
+.. code-block:: hsl
+
+	class Foo
+	{
+		constructor($a, $b) { $this->a = $a; }
+	}
+	$x = Foo(5);
+
+.. note::
+
+	There is no destructor. Objects are destructed (garbage collected) when they aren't referenced by anyone.
+
+Instance
+^^^^^^^^
+
+An instance of a class is created by calling the name of the class (hence calling the constructor). This will create a special ``$this`` variable bound to the object. Property and method access is done with the :ref:`property access <propertyoperator>` operator (``->``) or :ref:`subscript <subscript>` operator (``[]``).
+
+variables
+*********
+
+An instance variable is usually created on the ``$this`` object (variable) in the constructor function. At any time, new properites may be added and removed on the ``$this`` object.
+
+.. code-block:: hsl
+
+	class Foo
+	{
+		constructor() { $this->x = 5; }
+	}
+	$x = Foo();
+	echo $x->x;
+
+functions
+*********
+
+A instance function is a function declared in a class statement and is only available on object instances. On execution it has access to the object's ``$this`` variable.
+
+.. code-block:: hsl
+
+	class Foo
+	{
+		function setX() { $this->x = 5; }
+	}
+	$x = Foo();
+	echo $x->setX();
+
+Static
+^^^^^^
+
+A static function or variable is not bound to a class instance instead they are only scoped by the class name using the :ref:`scope resolution <scopeoperator>` operator (``::``). Static members are not available on instance objects.
+
+variables
+*********
+
+A static variable is declared within a class statement using the `static` keyword. A static variable is namespaced to the scope of the class name and it's initialized at compile time (but can be updated and used at runtime). A static variable can only be initialized to a constant value (eg. a number or a string).
+
+.. code-block:: hsl
+
+	class Foo
+	{
+		static $x = 10;
+	}
+	echo Foo::$x;
+
+functions
+*********
+
+A static function is declared within a class statement using the `static` keyword. A static function is namespaced to the scope of the class name. On execution it does not has access to a ``$this`` variable. Instead to hold state, a static function usually use static class variables.
+
+.. code-block:: hsl
+
+	class Foo
+	{
+		static $x = 10;
+		static function getX() { return Foo::$x; }
+	}
+	echo Foo::getX();
+
 .. _object_keyword:
 
 object
 ------
 
-The `object` statement can be used to create objects; a collection (:ref:`array <arraytype>`) of functions and data where the variable ``$this`` refers to the current object instance in function objects. Objects are not copy on write and all copies reference the same object.
+The `object` statement can be used to create objects from arrays (these are like anonymous objects, not created from a class). Objects are not copy on write and all copies reference the same object.
 
 ::
 

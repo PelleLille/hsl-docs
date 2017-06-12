@@ -413,23 +413,48 @@ Functions may be :ref:`called <function_calling>` using the ``()`` operator. It 
 	$multiply = function ($x, $y) { return $x * $y };
 	echo $multiply(3, 5); // 5
 
+Class
+-----
+
 .. _propertyoperator:
 
 Property
 ^^^^^^^^
 
-The property operator may be used to call functions on objects (:ref:`arrays <arraytype>`). It acts the same as the :ref:`subscript <subscript>` operator (``[]``).
+The property operator (``->``) may be used to access (non-static) variables and functions on objects (class instances). It acts the same as the :ref:`subscript <subscript>` operator (``[]``).
 
 .. code-block:: hsl
 
-	function makeCounter() {
-		$n = 0;
-		return [
-			"inc" => function () closure ($n) { $n += 1; },
-			"get" => function () closure ($n) { return $n; },
-		];
+	class makeCounter
+	{
+		constructor() { $this->n = 0; }
+		function inc() { $this->n += 1; }
+		function get() { return $this->n; }
 	}
 	$counter1 = makeCounter();
 
-	$counter1["inc"](); // 2
 	$counter1->inc();   // 1
+	$counter1["inc"](); // 2
+	echo $counter1->get(); // prints 2
+
+.. _scopeoperator:
+
+Scope resolution
+^^^^^^^^^^^^^^^^
+
+The scope resolution operator (``::``) is used to access static variables and functions on :ref:`classes <class_statement>`.
+
+::
+
+	class-name :: function
+	class-name :: $variable
+
+.. code-block:: hsl
+
+	class MyClass
+	{
+		static $x = 5;
+		static function getX() { return MyClass::$x; }
+	}
+	echo MyClass::$x; // 5
+	echo MyClass::getX(); // 5

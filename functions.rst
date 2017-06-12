@@ -1365,12 +1365,15 @@ Socket
   The Socket class allows POSIX like socket(2) code. A socket resource is created for each Socket instance, this resource is automatically garbage collected (closed) once the object is destroyed.
 
   :param string family: address family either ``AF_INET`` or ``AF_INET6``
-  :param string type: socket type either ``SOCK_STREAM`` or ``SOCK_DGRAM``
+  :param string type: socket type either ``SOCK_STREAM`` (TCP) or ``SOCK_DGRAM`` (UDP)
 
   .. code-block:: hsl
 
 	$socket = Socket("AF_INET", "SOCK_STREAM");
 	$socket->close();
+
+	$socket2 = Socket(Socket::AF($address), "SOCK_STREAM");
+	$socket2->close();
 
   .. function:: Socket.bind(address, [port])
 
@@ -1445,3 +1448,11 @@ Socket
 	  .. note::
 
 		Sockets are automatically closed.
+
+  .. staticmethod:: AF(address)
+
+	  Return the AF family of an address (either ``AF_INET`` or ``AF_INET6``). A utility function helpful when constructing a :class:`Socket` class.
+
+	  :param string address: address
+	  :return: AF family
+	  :rtype: String or None
