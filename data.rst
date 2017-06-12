@@ -413,7 +413,7 @@ Anti-spam and anti-virus
 
   Scan a message using the builtin `DLP <http://wiki.halon.se/DLP>`_ engine.
 
-  :param array patterns: array of specific rules to look for
+  :param array patterns: array of pre-configured rules or an array of custom rules
   :param array options: options array
   :return: all patterns found (may include `ERR_` rules even if not explicitly given in the `patterns` argument)
   :rtype: array
@@ -424,6 +424,24 @@ Anti-spam and anti-virus
    * **timeout** (number) set an approximate timeout time in seconds. The default in no timeout.
    * **recursion_limit** (number) how deep to dig through MIME trees, archive files (such as ZIP), etc. The default is ``9``.
    * **partid** (boolean) return a data structure with the partid where the pattern is found. The default is ``false``.
+
+  The patterns array may either be an array of pre-configured rules by name.
+
+  .. code-block:: hsl
+
+	["RULE1", "RULE2", ...]
+
+  Or a custom rule with the patterns provided. A custom rule may contain multiple types (eg. `filename`, `sha1hash` etc.) with multiple patterns each. The available types may be extracted from the DLP configuration.
+
+  .. code-block:: hsl
+
+	["RULE1" => ["filename" => ["\\.exe$", "\\.zip$"], "sha1hash" => ["..."]], ...]
+
+  .. warning::
+
+	Do not all untrusted users add custom regular expression. Not all regular expressions are safe. All user data should be escaped using :func:`pcre_quote` before compiling the regular expression.
+
+  There are some builtin rules which may occur.
 
   ========================== ===========
   Builtin rules              Description
