@@ -524,7 +524,7 @@ The `builtin` statement allows you to explicitly call the builtin version of an 
 class
 -----
 
-The `class` statement can be used to declare new types of classes. The `class-name` must be a valid function name. In order to create a new instance of a class (object) call the class by name using the function calling convention. Class instances (objects) are not copy on write and all copies reference the same object.
+The `class` statement can be used to declare new types of classes. The `class-name` must be a valid function name. In order to create a new instance of a class (object) call the class by name using the function calling convention. Class instances (objects) are not copy on write and all copies reference the same object. The visibility of class members are public.
 
 ::
 
