@@ -439,7 +439,7 @@ Anti-spam and anti-virus
 
   .. warning::
 
-	Do not all untrusted users add custom regular expression. Not all regular expressions are safe. All user data should be escaped using :func:`pcre_quote` before compiling the regular expression.
+	Do not allow untrusted users to add custom regular expression, since not all regular expressions are safe. All user data should be escaped using :func:`pcre_quote` before compiled into a regular expression.
 
   There are some builtin rules which may occur.
 
