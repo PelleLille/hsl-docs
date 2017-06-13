@@ -5,7 +5,7 @@ Functions which are documented in this chapter are considered `core` functions h
 
 * **Array** :func:`array_keys` :func:`array_filter` :func:`array_map` :func:`array_reduce` :func:`array_reverse` :func:`array_sort` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
 * **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`md5` :func:`sha1` :func:`hash`
-* **Data types** :func:`array` :func:`number` :func:`string` :func:`is_array` :func:`is_function` :func:`is_number` :func:`is_string` :func:`isset` :func:`unset`
+* **Data types** :func:`array` :func:`number` :func:`string` :func:`is_array` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_explode` :func:`json_encode` :func:`json_decode`
@@ -278,6 +278,14 @@ Data types
   Returns true if the type of n is a number.
 
   :param any n: the input
+  :return: the result
+  :rtype: boolean
+
+.. function:: is_object(o)
+
+  Returns true if the type of o is an object.
+
+  :param any o: the input
   :return: the result
   :rtype: boolean
 
