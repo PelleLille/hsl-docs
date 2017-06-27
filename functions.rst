@@ -1288,7 +1288,7 @@ String
   Return the substring of s.
 
   :param string s: the input string
-  :param string start: the start position
+  :param number start: the start position
   :param number len: the length limit if given
   :return: the substring
   :rtype: string
