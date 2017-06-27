@@ -1397,8 +1397,6 @@ Socket
 
 	  Close the socket and destroy the internal socket resource.
 
-	  :param string address: address to bind
-	  :param number port: port to bind
 	  :return: this
 	  :rtype: Socket or None
 
