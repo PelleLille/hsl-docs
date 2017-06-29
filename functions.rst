@@ -1468,9 +1468,9 @@ Socket
 
 .. class:: TLSSocket(socket, options)
 
-  The TLSSocket class allows OpenSSL like SSL_* code. The TLSSocket class takes a conected SOCK_STREAM socket instance and encapuslates and read and writes in TLS.
+  The TLSSocket class allows OpenSSL like SSL_* code. The TLSSocket class takes a connected SOCK_STREAM Socket instance and encapuslates any read and writes in TLS.
 
-  :param socket socket: a socket
+  :param Socket socket: a socket
   :param array options: options array
 
   The following options are available in the options array.
@@ -1495,7 +1495,7 @@ Socket
 
   .. function:: TLSSocket.recv(len)
 
-	  Receive data on TLS/SSL socket. This function may perform a implicit handshake.
+	  Receive data on TLS/SSL socket. This function may perform an implicit handshake.
 
 	  :param number len: bytes to recv
 	  :return: data
@@ -1503,7 +1503,7 @@ Socket
 
   .. function:: TLSSocket.send(data)
 
-	  Send data on TLS/SSL socket. This function may perform a implicit handshake.
+	  Send data on TLS/SSL socket. This function may perform an implicit handshake.
 
 	  :param string data: data to send
 	  :return: bytes sent
