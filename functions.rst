@@ -1468,7 +1468,7 @@ Socket
 
 .. class:: TLSSocket(socket, options)
 
-  The TLSSocket class allows OpenSSL like SSL(3) code. The TLSSocket class takes a connected SOCK_STREAM Socket instance and encapuslates any read and writes in TLS.
+  The TLSSocket class allows OpenSSL like SSL(3) code. The TLSSocket class takes a connected :class:`Socket` instance (SOCK_STREAM) and encapsulates any read and writes in TLS/SSL.
 
   :param Socket socket: a socket
   :param array options: options array
