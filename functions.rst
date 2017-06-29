@@ -16,7 +16,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`rate` :func:`mail`
 * **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author`
 * **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
-* **Socket** :class:`Socket`
+* **Socket** :class:`Socket` :class:`TLSSocket`
 
 Array
 -----
@@ -1465,3 +1465,60 @@ Socket
 	  :param string address: address
 	  :return: AF family
 	  :rtype: String or None
+
+.. class:: TLSSocket(socket, options)
+
+  The TLSSocket class allows OpenSSL like SSL_* code. The TLSSocket class takes a conected SOCK_STREAM socket instance and encapuslates and read and writes in TLS.
+
+  :param socket socket: a socket
+  :param array options: options array
+
+  The following options are available in the options array.
+
+   * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv2``, ``SSLv3``, ``TLSv1``, ``TLSv1.1`` or ``TLSv1.2``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
+   * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
+   * **tls_verify_name** (array) Hostnames to verify against the certificate's CN and SAN.
+   * **tls_verify_ca** (boolean) Verify certificate against known CAs. The default is ``false``.
+   * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
+   * **tls_sni** (string) Request a certificate using the SNI extension. The default is not to use SNI.
+
+  .. note::
+
+	By default, no certificate nor hostname validation is done.
+
+  .. function:: TLSSocket.handshake()
+
+	  Perform the TLS/SSL handshake. If the handshake fails or the validation fails none is returned.
+
+	  :return: this
+	  :rtype: TLSSocket or None
+
+  .. function:: TLSSocket.recv(len)
+
+	  Receive data on TLS/SSL socket. This function may perform a implicit handshake.
+
+	  :param number len: bytes to recv
+	  :return: data
+	  :rtype: string or None
+
+  .. function:: TLSSocket.send(data)
+
+	  Send data on TLS/SSL socket. This function may perform a implicit handshake.
+
+	  :param string data: data to send
+	  :return: bytes sent
+	  :rtype: number or None
+
+  .. function:: TLSSocket.shutdown()
+
+	  Shut down the TLS/SSL connection. This function may need to be called multiple times. See SSL_shutdown(3) for details.
+
+	  :return: shutdown status
+	  :rtype: number or None
+
+  .. function:: TLSSocket.errno()
+
+	  Get the latest errno returned from the underlying OpenSSL SSL(3) socket API.
+
+	  :return: errno
+	  :rtype: number
