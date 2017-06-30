@@ -1095,7 +1095,6 @@ Protocols
   :type server: string or array
   :param string username: username
   :param string password: password
-  :param array options: options array
   :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
   :rtype: number
 
