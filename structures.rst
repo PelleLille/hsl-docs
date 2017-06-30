@@ -532,14 +532,14 @@ The `class` statement can be used to declare new types of classes. The `class-na
 	{
 		constructor() {}
 
-		$variable = "";
+		$variable = initial-value;
 		function function-name() {}
 
-		private $variable = "";
+		private $variable = initial-value;
 		private function-name() {};
 
-		static function function-name() {}
 		static $variable = initial-value;
+		static function function-name() {}
 	}
 
 .. note::
