@@ -524,14 +524,20 @@ The `builtin` statement allows you to explicitly call the builtin version of an 
 class
 -----
 
-The `class` statement can be used to declare new types of classes. The `class-name` must be a valid function name. In order to create a new instance of a class (object) call the class by name using the function calling convention. Class instances (objects) are not copy on write and all copies reference the same object. The visibility of class members are public.
+The `class` statement can be used to declare new types of classes. The `class-name` must be a valid function name. In order to create a new instance of a class (object) call the class by name using the function calling convention. Class instances (objects) are not copy on write and all copies reference the same object. The default visibility of class members are public.
 
 ::
 
 	class class-name
 	{
 		constructor() {}
+
+		$variable = "";
 		function function-name() {}
+
+		private $variable = "";
+		private function-name() {};
+
 		static function function-name() {}
 		static $variable = initial-value;
 	}
@@ -564,16 +570,18 @@ An instance of a class is created by calling the name of the class (hence callin
 variables
 *********
 
-An instance variable is usually created on the ``$this`` object (variable) in the constructor function. At any time, new properites may be added and removed on the ``$this`` object.
+An instance variable is either defined in the class body or created on the ``$this`` object (variable) in the constructor function. At any time, new properites may be added and removed on the ``$this`` object.
 
 .. code-block:: hsl
 
 	class Foo
 	{
+		$y = 5;
 		constructor() { $this->x = 5; }
 	}
 	$x = Foo();
 	echo $x->x;
+	echo $x->y;
 
 functions
 *********
@@ -588,6 +596,21 @@ A instance function is a function declared in a class statement and is only avai
 	}
 	$x = Foo();
 	echo $x->setX();
+
+private
+*******
+
+Instance variables and functions may be declared as private, in which case they can only be accessed from within other function on the same instance.
+
+.. code-block:: hsl
+
+	class Foo
+	{
+		function publicAPI() { $this->do(); }
+		private function do() { }
+	}
+	$x = Foo();
+	echo $x->publicAPI();
 
 Static
 ^^^^^^
