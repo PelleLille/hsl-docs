@@ -608,7 +608,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
    * **extended_result** (boolean) Get a more extended result. The default is ``false``.
    * **connect_timeout** (number) Connection timeout (in seconds). The default is ``10`` seconds.
    * **timeout** (number) Timeout (in seconds) waiting for data once the connection is established. The default is to wait indefinitely.
-   * **max_file_size** (number) Maximum file size (in bytes). The default is not limit.
+   * **max_file_size** (number) Maximum file size (in bytes). The default is no limit.
    * **sourceip** (string) Explicitly bind a ``netaddr:X`` or an IP address. The default is to be chosen by the system.
    * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
    * **headers** (array) An array of additional HTTP headers.
