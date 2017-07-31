@@ -38,19 +38,29 @@ Functions
 
   :return: doesn't return, script is terminated
 
-.. function:: Reject([reason])
+.. function:: Reject([reason, [options]])
 
   Reject the connection with a permanent (521) error.
 
   :param string reason: the reject message
+  :param array options: an options array
   :return: doesn't return, script is terminated
 
-.. function:: Defer([reason])
+  The following options are available in the options array.
+
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
+
+.. function:: Defer([reason, [options]])
 
   Defer the connection with a temporary (421) error.
 
   :param string reason: the defer message
+  :param array options: an options array
   :return: doesn't return, script is terminated
+
+  The following options are available in the options array.
+
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 On script error
 ---------------

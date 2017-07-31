@@ -65,6 +65,7 @@ Functions
   The following options are available in the options array.
 
    * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Defer([reason, [options]])
 
@@ -77,6 +78,7 @@ Functions
   The following options are available in the options array.
 
    * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: SetSender(sender)
 

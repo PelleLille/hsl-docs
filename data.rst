@@ -267,6 +267,7 @@ Actions
    * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is `true`.
    * **queue** (boolean) deliver the message using the delivery queue. The default is `true`.
    * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Reject([reason, [options]])
 
@@ -281,6 +282,7 @@ Actions
   The following options are available in the options array.
 
    * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Defer([reason, [options]])
 
@@ -295,6 +297,7 @@ Actions
   The following options are available in the options array.
 
    * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Delete()
 
@@ -320,6 +323,7 @@ Actions
    * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is ``true``.
    * **reject** (boolean) if the function should return an 500 error. The default is ``true``.
    * **reason** (string) the reason to report. The default is a system generated message.
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: DiscardMailDataChanges()
 
