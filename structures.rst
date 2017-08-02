@@ -649,6 +649,9 @@ A static function is declared within a class statement using the `static` keywor
 object
 ------
 
+.. warning::
+ The `object` statement has been deprecated. Use the :ref:`class <class_statement>` syntax instead.
+
 The `object` statement can be used to create objects from arrays (these are like anonymous objects, not created from a class). Objects are not copy on write and all copies reference the same object.
 
 ::
