@@ -610,7 +610,7 @@ Instance variables and functions may be declared as private, in which case they 
 		private function do() { }
 	}
 	$x = Foo();
-	echo $x->publicAPI();
+	$x->publicAPI();
 
 Static
 ^^^^^^
