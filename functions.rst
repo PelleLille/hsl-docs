@@ -561,22 +561,22 @@ Encodings and JSON
   :return: the packed data
   :rtype: string
 
-  The format may contain the following types. Some types may be preceeded by a `*` (an end-of-argument(s) repeater or a numeric repeater, eg. `"Z*N3"`).
+  The format may contain the following types. Some types may be followed by a `*` (an end-of-argument(s) repeater or a numeric repeater, eg. `"Z*C3"`).
 
   +------+-----------+-------------------------------+----------+
   | Code | Repeaters | Type                          | HSL type |
   +======+===========+===============================+==========+
-  |    a | \* N      | String                        | String   |
+  |    a | *n* \*    | String                        | String   |
   +------+-----------+-------------------------------+----------+
-  |    C | \* N      | Char                          | Number   |
+  |    C | *n* \*    | Char                          | Number   |
   +------+-----------+-------------------------------+----------+
-  |    n | \* N      | Unsigned short (16 bit, BE)   | Number   |
+  |    n | *n* \*    | Unsigned short (16 bit, BE)   | Number   |
   +------+-----------+-------------------------------+----------+
-  |    N | \* N      | Unsigned long (32 bit, BE)    | Number   |
+  |    N | *n* \*    | Unsigned long (32 bit, BE)    | Number   |
   +------+-----------+-------------------------------+----------+
-  |    x | N         | NULL                          |          |
+  |    x | *n*       | NULL                          |          |
   +------+-----------+-------------------------------+----------+
-  |    Z | \* N      | String (NULL terminated)      | String   |
+  |    Z | *n* \*    | String (NULL terminated)      | String   |
   +------+-----------+-------------------------------+----------+
 
 .. function:: unpack(format, data)
@@ -588,22 +588,22 @@ Encodings and JSON
   :return: the unpacked data
   :rtype: array
 
-  The format may contain the following types. Some types may be preceeded by a `*` (an end-of-argument(s) repeater or a numeric repeater, eg. `"Z*N3"`).
+  The format may contain the following types. Some types may be followed by a `*` (an end-of-argument(s) repeater or a numeric repeater, eg. `"Z*C3"`).
 
   +------+-----------+-------------------------------+----------+
   | Code | Repeaters | Type                          | HSL type |
   +======+===========+===============================+==========+
-  |    c | \* N      | Signed char                   | Number   |
+  |    c | *n* \*    | Signed char                   | Number   |
   +------+-----------+-------------------------------+----------+
-  |    C | \* N      | Char                          | Number   |
+  |    C | *n* \*    | Char                          | Number   |
   +------+-----------+-------------------------------+----------+
-  |    H | \* N      | HEX encoded                   | String   |
+  |    H | *n* \*    | HEX encoded                   | String   |
   +------+-----------+-------------------------------+----------+
-  |    n | \* N      | Unsigned short (16 bit, BE)   | Number   |
+  |    n | *n* \*    | Unsigned short (16 bit, BE)   | Number   |
   +------+-----------+-------------------------------+----------+
-  |    N | \* N      | Unsigned long (32 bit, BE)    | Number   |
+  |    N | *n* \*    | Unsigned long (32 bit, BE)    | Number   |
   +------+-----------+-------------------------------+----------+
-  |    Z | \* N      | String (excluding NULL)       | String   |
+  |    Z | *n* \*    | String (excluding NULL)       | String   |
   +------+-----------+-------------------------------+----------+
 
 
