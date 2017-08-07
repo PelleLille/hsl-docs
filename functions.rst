@@ -8,7 +8,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Data types** :func:`array` :func:`number` :func:`string` :func:`is_array` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
-* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_explode` :func:`json_encode` :func:`json_decode`
+* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_explode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
 * **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http` :class:`File`
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
@@ -551,6 +551,61 @@ Encodings and JSON
   * **true** to ``1`` (is_number)
   * **false** to ``0`` (is_number)
   * **null** to **none** (check for expected type instead)
+
+.. function:: pack(format, [args..])
+
+  Pack arguments into a binary string. On error ``None`` is returned.
+
+  :param string format: the pack format
+  :param any args: the arguments for the pack format
+  :return: the packed data
+  :rtype: string
+
+  The format may contain the following types. Some types may be preceeded by a `*` (an end-of-argument(s) repeater or a numeric repeater, eg. `"Z*N3"`).
+
+  +------+-----------+-------------------------------+----------+
+  | Code | Repeaters | Type                          | HSL type |
+  +======+===========+===============================+==========+
+  |    a | \* N      | String                        | String   |
+  +------+-----------+-------------------------------+----------+
+  |    C | \* N      | Char                          | Number   |
+  +------+-----------+-------------------------------+----------+
+  |    n | \* N      | Unsigned short (16 bit, BE)   | Number   |
+  +------+-----------+-------------------------------+----------+
+  |    N | \* N      | Unsigned long (32 bit, BE)    | Number   |
+  +------+-----------+-------------------------------+----------+
+  |    x | N         | NULL                          |          |
+  +------+-----------+-------------------------------+----------+
+  |    Z | \* N      | String (NULL terminated)      | String   |
+  +------+-----------+-------------------------------+----------+
+
+.. function:: unpack(format, data)
+
+  Unpack data from a binary string. On error ``None`` is returned.
+
+  :param string format: the unpack format
+  :param string data: the packed data
+  :return: the unpacked data
+  :rtype: array
+
+  The format may contain the following types. Some types may be preceeded by a `*` (an end-of-argument(s) repeater or a numeric repeater, eg. `"Z*N3"`).
+
+  +------+-----------+-------------------------------+----------+
+  | Code | Repeaters | Type                          | HSL type |
+  +======+===========+===============================+==========+
+  |    c | \* N      | Signed char                   | Number   |
+  +------+-----------+-------------------------------+----------+
+  |    C | \* N      | Char                          | Number   |
+  +------+-----------+-------------------------------+----------+
+  |    H | \* N      | HEX encoded                   | String   |
+  +------+-----------+-------------------------------+----------+
+  |    n | \* N      | Unsigned short (16 bit, BE)   | Number   |
+  +------+-----------+-------------------------------+----------+
+  |    N | \* N      | Unsigned long (32 bit, BE)    | Number   |
+  +------+-----------+-------------------------------+----------+
+  |    Z | \* N      | String (excluding NULL)       | String   |
+  +------+-----------+-------------------------------+----------+
+
 
 File and HTTP
 -------------
