@@ -1501,7 +1501,7 @@ Socket
 
 	  Receive data on socket.
 
-	  :param number len: bytes to recv
+	  :param number len: up to len bytes to recv
 	  :return: data
 	  :rtype: string or None
 
@@ -1572,7 +1572,7 @@ Socket
 
 	  Receive data on TLS/SSL socket. This function may perform an implicit handshake.
 
-	  :param number len: bytes to recv
+	  :param number len: up to len bytes to recv
 	  :return: data
 	  :rtype: string or None
 
