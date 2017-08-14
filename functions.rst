@@ -1497,13 +1497,26 @@ Socket
 	  :return: errno
 	  :rtype: number
 
-  .. function:: Socket.recv(len)
+  .. function:: Socket.recv(len, [flags])
 
 	  Receive data on socket.
 
-	  :param number len: up to len bytes to recv
+	  :param number len: up to len bytes to receive
+	  :param string flags: flags to control the behaviour
 	  :return: data
 	  :rtype: string or None
+
+	  Flags may be any of, the default is no posix recv(3) flag.
+
+	  +--------------+------------------------------------------+
+	  | Name         | Behaviour                                |
+	  +==============+==========================================+
+	  | MSG_PEEK     | peek at incoming message                 |
+	  +--------------+------------------------------------------+
+	  | MSG_WAITALL  | wait for full request or error           |
+	  +--------------+------------------------------------------+
+	  | MSG_DONTWAIT | do not block                             |
+	  +--------------+------------------------------------------+
 
   .. function:: Socket.send(data)
 
