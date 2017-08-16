@@ -589,7 +589,7 @@ Encodings and JSON
   | ``Z`` | *n*, ``*`` | String (NULL terminated)      | String   |
   +-------+------------+-------------------------------+----------+
 
-.. function:: unpack(format, data, offset)
+.. function:: unpack(format, data, [offset = 0])
 
   Unpack data from a binary string. On error ``None`` is returned.
 
