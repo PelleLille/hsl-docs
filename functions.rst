@@ -1209,7 +1209,7 @@ Protocols
   Query an LDAP server for lookup and return all LDAP entries found.
 
   :param string profile: ldap profile
-  :param string lookup: value which will be inserted into the ldap query replacing `%s` (ldapescaped)
+  :param string lookup: value which will be inserted into the ldap query replacing ``%s`` (ldapescaped) or ``%x`` (raw, dangerous)
   :param array override: options array
   :return: an array with LDAP entries or ``-1`` if an error occurred.
   :rtype: array or number
