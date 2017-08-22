@@ -1216,7 +1216,7 @@ Protocols
 
   The following overrides are available in the override array.
 
-   * **host** (string) IP-address or hostname.
+   * **host** (string) LDAP URI (ldap:// or ldaps://).
    * **username** (string) LDAP username.
    * **password** (string) LDAP password.
    * **base** (string) LDAP base.
@@ -1235,7 +1235,7 @@ Protocols
 
   The following overrides are available in the override array.
 
-   * **host** (string) IP-address or hostname.
+   * **host** (string) LDAP URI (ldap:// or ldaps://).
 
 .. function:: radius_authen(options, username, password, [vendorstrings])
 
