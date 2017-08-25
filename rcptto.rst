@@ -32,8 +32,8 @@ $senderparams     array   ["SIZE" => "2048", ... ]   Sender parameters to the en
 $recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
 $recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
 $recipientparams  array   ["NOTIFY" => "NEVER", .. ] Recipient parameters to the envelope address
-$recipientdomains array   ["example.com", ...]       List of all domain part of all recipient addresses (envelope)
-$recipients       array   ["test\@example.com", ...] List of all recipient addresses (envelope), in order of scanning
+$recipientdomains array   ["example.com", ...]       List of all accepted domain part of all recipient addresses (envelope)
+$recipients       array   ["test\@example.com", ...] List of all accepted recipient addresses (envelope), in order of scanning
 $transportid      string  "mailtransport\:1"         ID of the transport profile to be used
 ================= ======= ========================== ===========
 
