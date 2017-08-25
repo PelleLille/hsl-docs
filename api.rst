@@ -40,7 +40,7 @@ Functions
 
   Denies the API call.
 
-  :param string message: reason for denying. The default is `Unauthorized`.
+  :param string message: reason for denying. The default is ``Unauthorized``.
   :return: doesn't return, script is terminated
 
 On script error

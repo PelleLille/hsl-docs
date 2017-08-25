@@ -263,9 +263,9 @@ Actions
    * **recipient** (string) set the recipient. The default is ``$recipient``.
    * **transportid** (string) set the transportid. The default is ``$transportid``.
    * **metadata** (array) add additional metadata to the message (KVP). same as :func:`SetMetaData`.
-   * **delay** (number) same as :func:`SetDelayedDeliver`. The default is `0` seconds.
-   * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is `true`.
-   * **queue** (boolean) deliver the message using the delivery queue. The default is `true`.
+   * **delay** (number) same as :func:`SetDelayedDeliver`. The default is ``0`` seconds.
+   * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is ``true``.
+   * **queue** (boolean) deliver the message using the delivery queue. The default is ``true``.
    * **disconnect** (boolean) disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
