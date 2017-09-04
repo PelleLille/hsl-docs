@@ -1166,7 +1166,7 @@ Protocols
    * **host** (string) IP-address or hostname. **required**
    * **port** (number) TCP port. The default is ``25``.
    * **helo** (string) The default is to use the system hostname.
-   * **sourceip** (string) Explicitly bind a ``netaddr:X`` or an IP address. The default is ``auto``.
+   * **sourceip** (string) Explicitly bind a ``netaddr:X`` or an IP address. The default is to be chosen by the system.
    * **saslusername** (string) If specified issue a AUTH LOGIN before RCPT TO.
    * **saslpassword** (string) If specified issue a AUTH LOGIN before RCPT TO.
    * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
@@ -1196,7 +1196,7 @@ Protocols
    * **host** (string) IP-address or hostname. **required**
    * **port** (number) TCP port. The default is ``25``.
    * **helo** (string) The default is to use the system hostname.
-   * **sourceip** (string) Explicitly bind a ``netaddr:X`` or an IP address. The default is ``auto``.
+   * **sourceip** (string) Explicitly bind a ``netaddr:X`` or an IP address. The default is to be chosen by the system.
    * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
    * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv2``, ``SSLv3``, ``TLSv1``, ``TLSv1.1`` or ``TLSv1.2``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
    * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
