@@ -62,6 +62,28 @@ Functions
 
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
+.. function:: SetSenderIP(senderip)
+
+  Change the senderip for the current connection.
+
+  :param string senderip: an IP address
+  :return: senderip if successful
+  :rtype: string or none
+  :updates: ``$senderip``
+
+  .. note::
+
+	This can be useful for eg. decoding IPv4 addresses embedded in an IPv6 address (`RFC6052 <https://tools.ietf.org/html/rfc6052>`_).
+
+	.. code::
+
+		if ($senderip[0:9] == "64:ff9b::")
+		{
+			[$hi, $lo] = explode(":", $senderip[9:]);
+			$padded = ("0000".$hi)[-4:].("0000".$lo)[-4:];
+			SetSenderIP(implode(".", unpack("CCCC", pack("H8", $padded))));
+		}
+
 On script error
 ---------------
 
