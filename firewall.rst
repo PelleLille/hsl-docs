@@ -17,7 +17,7 @@ $family     string  "ipv4"          IP family of connecting client ("ipv4" or "i
 $protocol   string  "tcp"           IP protocol of local server ("tcp" or "udp")
 $service    string  "ssh"           Name of local service
 $senderip   string  "192.168.1.11"  IP address of connecting client
-$senderport number  41666           TCP port of connecting client
+$senderport number  41666           TCP/UDP port of connecting client
 $serverip   string  "10.0.0.1"      IP address of local server
 $serverport number  22              TCP/UDP port of local server
 =========== ======= =============== ===========
