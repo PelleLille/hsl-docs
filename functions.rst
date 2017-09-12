@@ -1086,9 +1086,9 @@ Misc
 
 .. function:: in_network(ip, network)
 
-  Returns true if ip is in the subnet of network.
+  Returns true if `ip` is in the subnet of `network`. Both IPv4 and IPv6 are supported.
 
-  :param string ip: IP or IPv6 address
+  :param string ip: ip address
   :param string network: address, subnet or range.
   :return: true if ip is in network
   :rtype: boolean
@@ -1098,6 +1098,8 @@ Misc
 	in_network("127.0.0.1", "127.0.0.1/8");
 	in_network("127.0.0.1", "127.0.0.0-127.255.255.255");
 	in_network("127.0.0.1", "127.0.0.1");
+	in_network("127.0.0.1", "127.0.0.1");
+	in_network("2001:4860:4860::8888", "2001:4860:4860::/48");
 
 .. function:: rate(namespace, entry, count, interval)
 
