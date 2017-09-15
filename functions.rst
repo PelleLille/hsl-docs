@@ -1223,6 +1223,7 @@ Protocols
    * **password** (string) LDAP password.
    * **base** (string) LDAP base.
    * **query** (string) LDAP query (unescaped).
+   * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``true``.
 
 .. function:: ldap_bind(profile, username, password, [override])
 
@@ -1238,6 +1239,7 @@ Protocols
   The following overrides are available in the override array.
 
    * **host** (string) LDAP URI (ldap:// or ldaps://).
+   * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``true``.
 
 .. function:: radius_authen(options, username, password, [vendorstrings])
 
