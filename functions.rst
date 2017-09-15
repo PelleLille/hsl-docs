@@ -1484,14 +1484,19 @@ Socket
 	$socket2 = Socket(Socket::AF($address), "SOCK_STREAM");
 	$socket2->close();
 
-  .. function:: Socket.bind(address, [port])
+  .. function:: Socket.bind(address, [port, [options]])
 
 	  Bind the socket to `address` and `port`. The address must match the Sockets address family.
 
 	  :param string address: address to bind
 	  :param number port: port to bind
+	  :param array options: options array
 	  :return: this
 	  :rtype: Socket or None
+
+	  The following options are available in the options array.
+
+	   * **nonlocal** (boolean) Allow binding of a nonlocal source address (BINDANY). The default is ``false``.
 
   .. function:: Socket.close()
 
