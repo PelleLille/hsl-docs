@@ -812,7 +812,7 @@ Mail
 
 .. function:: globalview(ip)
 
-  Check the Cyren Glovalview reputation for an IP.
+  Check the Cyren Globalview reputation for an IP.
 
   :param string ip: IP or IPv6 address to check
   :return: the recommended action to take for the ip ``accept``, ``tempfail`` or ``permfail``.
