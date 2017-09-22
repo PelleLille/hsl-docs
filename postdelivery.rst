@@ -38,9 +38,9 @@ $transportid      string  "mailtransport\:1"         ID of the transport profile
 Functions
 ---------
 
-.. function:: Delete()
+.. function:: Bounce()
 
-  Delete the message from the queue, without generating a DSN (bounce) to the sender.
+  Delete the message from the queue, and generating a DSN (bounce) to the sender.
 
   :return: doesn't return, script is terminated
 
@@ -48,9 +48,9 @@ Functions
 
      If the message was delivered (``$errorcode == 250``) this function will raise a runtime error.
 
-.. function:: GenerateDSN()
+.. function:: Delete()
 
-  Delete the message from the queue, and generating a DSN (bounce) to the sender.
+  Delete the message from the queue, without generating a DSN (bounce) to the sender.
 
   :return: doesn't return, script is terminated
 
