@@ -3,7 +3,7 @@
 Post-delivery
 =============
 
-The post-delivery script is executed after a delivery attempt.
+The post-delivery script is executed after a delivery attempt or when a message is deleted or bounced from the queue. If the message was deleted from the queue (either manually or by retention) the ``$context`` variable will not be defined.
 
 Pre-defined variables
 ---------------------
@@ -33,6 +33,8 @@ $messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
 $actionid         number  1                          Same as $actionid in DATA context
 $queueid          number  12345                      Queue ID of the message
 $transportid      string  "mailtransport\:1"         ID of the transport profile that was used
+$action           string  "DELETE"                   The default action of this execution ("DELETE", "BOUNCE", "RETRY" or "")
+$context          any     none                       This variable is only defined if the pre-delivery context has been executed
 ================= ======= ========================== ===========
 
 Functions
@@ -46,7 +48,7 @@ Functions
 
   .. warning::
 
-     If the message was delivered (``$errorcode == 250``) this function will raise a runtime error.
+     If the message was delivered (``$action == ""``) this function will raise a runtime error.
 
 .. function:: Delete()
 
@@ -56,29 +58,39 @@ Functions
 
   .. warning::
 
-     If the message was delivered (``$errorcode == 250``) this function will raise a runtime error.
+     If the message was delivered (``$action == ""``) this function will raise a runtime error.
 
-.. function:: Retry()
+.. function:: Retry([options])
 
   Retry the message again later. This is the default action for non-permanent (5XX) ``$errorcode``'s. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.
 
+  :param array options: options array
   :return: doesn't return, script is terminated
+
+  The following options are available in the options array.
+
+   * **delay** (number) the delay in seconds. The default is according to the current transports retry delay.
+   * **reason** (string) optional message to be logged with the message.
+   * **increment_retry** (boolean) if the retry count should be increased. The default is ``true``.
+   * **reset_retry** (boolean) if the retry count should be reset to zero. The default is ``false``.
+   * **transportid** (string) set the transportid. The default is ``$transportid``
 
   .. warning::
 
-     If the message was delivered (``$errorcode == 250``) this function will raise a runtime error.
+     If the message was delivered (``$action == ""``) this function will raise a runtime error.
 
-.. function:: Deliver(recipient, transportid)
+.. function:: SetDSN(options)
 
-  Deliver the message to a new recipient and/or transport. The retry count is reset and the message is queued for immediate delivery.
+  Set the DSN options for the current delivery attempt if a DSN were to be created (it is not remembered for the next retry).
 
-  :param string recipient: an e-mail address
-  :param string transportid: the transportid to be used
-  :return: doesn't return, script is terminated
+  :param array options: options array
+  :rtype: none
 
-  .. warning::
+  The following options are available in the options array.
 
-     If the message was delivered (``$errorcode == 250``) this function will raise a runtime error.
+   * **transportid** (string) Set the transportid. The default is either choosen by the transport or automatically assigned.
+   * **recipient** (string) Set the recipient. The default is ``$sender``.
+   * **metadata** (array) Add additional metadata to the DSN (KVP).
 
 .. function:: SetMetaData(metadata)
 
