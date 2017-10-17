@@ -368,15 +368,16 @@ Date and time
   :return: the time slept in seconds (with decimals)
   :rtype: number
 
-.. function:: strftime(format)
+.. function:: strftime(format, [time])
 
-  Format according to the `strftime <http://www.freebsd.org/cgi/man.cgi?query=strftime>`_ manual with the time without timezone.
+  Format according to the `strftime <http://www.freebsd.org/cgi/man.cgi?query=strftime>`_ manual.
 
   .. code-block:: hsl
 
 	 echo strftime("%H:%M:%S"); // prints current time eg "13:58:38"
 
   :param string format: the format string
+  :param number time: the default is current time without timezone
   :return: the time formatted (max length 100)
   :rtype: string
 
