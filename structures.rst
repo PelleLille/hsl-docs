@@ -597,21 +597,6 @@ A instance function is a function declared in a class statement and is only avai
 	$x = Foo();
 	echo $x->setX();
 
-private
-*******
-
-Instance variables and functions may be declared as private, in which case they can only be accessed from within other function on the same instance.
-
-.. code-block:: hsl
-
-	class Foo
-	{
-		function publicAPI() { $this->do(); }
-		private function do() { }
-	}
-	$x = Foo();
-	$x->publicAPI();
-
 Static
 ^^^^^^
 
@@ -643,6 +628,30 @@ A static function is declared within a class statement using the `static` keywor
 		static function getX() { return Foo::$x; }
 	}
 	echo Foo::getX();
+
+Visibility
+^^^^^^^^^^
+
+The default visibility of class members are public. However both instance- and static -variables and functions can be declared as private.
+
+private
+*******
+
+Variables and functions may be declared as private, in which case they can only be accessed from within other function on the same instance or class.
+
+.. code-block:: hsl
+
+	class Foo
+	{
+		function publicAPI() { $this->do(); }
+		private function do() { }
+
+		static function publicAPI2() { Foo::do2(); }
+		private static function do2() { }
+	}
+	$x = Foo();
+	$x->publicAPI();
+	Foo::publicAPI2();
 
 .. _object_keyword:
 
