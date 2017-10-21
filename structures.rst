@@ -540,6 +540,9 @@ The `class` statement can be used to declare new types of classes. The `class-na
 
 		static $variable = initial-value;
 		static function function-name() {}
+
+		private static $variable = initial-value;
+		private static function function-name() {}
 	}
 
 .. note::
