@@ -92,7 +92,6 @@ Functions
 				"reason" => "Too many concurrent connections for this domain",
 			 	"increment_retry" => false
 			]);
-	Try();
 
 .. function:: SetDestination(host, [port])
 
