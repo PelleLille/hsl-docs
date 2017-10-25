@@ -87,11 +87,12 @@ Functions
 
   .. code-block:: hsl
 
-    if (CurrentConnections("to-domain", $recipientdomain, 3) == false)
-		    Reschedule(rand(1, 30), [
-				"reason" => "Too many concurrent connections for this domain",
-			 	"increment_retry" => false
-			]);
+    if (CurrentConnections("to-domain", $recipientdomain, 3) == false) {
+            Reschedule(rand(1, 30), [
+                    "reason" => "Too many concurrent connections for this domain",
+                    "increment_retry" => false
+            ]);
+    }
 
 .. function:: SetDestination(host, [port])
 
