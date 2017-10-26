@@ -166,13 +166,27 @@ Functions
   :rtype: none
   :updates: ``$sender`` and ``$senderdomain``
 
+.. function:: SetSenderParams(params)
+
+  Set the sender `MAIL FROM` params for the current delivery attempt (it is not remembered for the next retry).
+
+  :param array params: key-value array of params
+  :rtype: none
+
 .. function:: SetRecipient(recipient)
 
-  Set the sender `RCPT TO` for the current delivery attempt (it is not remembered for the next retry).
+  Set the recipient `RCPT TO` for the current delivery attempt (it is not remembered for the next retry).
 
   :param string recipient: an e-mail address
   :rtype: none
   :updates: ``$recipient`` and ``$recipientdomain``
+
+.. function:: SetRecipientParams(params)
+
+  Set the recipient `RCPT TO` params for the current delivery attempt (it is not remembered for the next retry).
+
+  :param array params: key-value array of params
+  :rtype: none
 
 .. function:: SetDSN(options)
 
