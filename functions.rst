@@ -1219,7 +1219,7 @@ Protocols
 
   :param string profile: ldap profile
   :param string lookup: value which will be inserted into the ldap query replacing ``%s`` (ldapescaped) or ``%x`` (raw, dangerous)
-  :param array override: options array
+  :param array override: override array
   :return: an array with LDAP entries or ``-1`` if an error occurred.
   :rtype: array or number
 
@@ -1239,7 +1239,7 @@ Protocols
   :param string profile: ldap profile
   :param string username: LDAP username
   :param string password: LDAP password
-  :param array override: options array
+  :param array override: override array
   :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
   :rtype: number
 
