@@ -643,6 +643,10 @@ MIME and attachments
 	    if (is_string($contentid = $part->getHeader("Content-ID")))
 		  echo "Content-ID is $contentid";
 
+      .. note::
+
+	   The ``getHeader`` function family will return headers as a UTF-8 string with all MIME encoded-words decoded (`=?charset?encoding?data?=`). However even if headers must be in 7-bit ASCII, some senders do not conform to this and do send headers with different charset encodings. In those cases we (1) Use the MIME-parts "Content-Type" headers charset when converting to UTF-8. (2) If there is no charset information available we use a statistical charset detection function. (3) We just pretend it to be US-ASCII and covert it to UTF-8 anyway (guaranteeing the result will be valid UTF-8).
+
   .. function:: MIME.getHeaders(name)
 
 	  Return a list of header values. If no header is found, an empty list is returned. The name is not case sensitive.
@@ -709,6 +713,10 @@ MIME and attachments
 
 	  :return: the body content
 	  :rtype: string (or none)
+
+      .. note::
+
+	   The ``getBody`` function will decode using the "Content-Transfer-Encoding" header. It will not do any character set encoding, hence the data can be in any character set encoding.
 
   .. function:: MIME.setBody(data)
 
