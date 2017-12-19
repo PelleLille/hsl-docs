@@ -26,8 +26,8 @@ $tlsstarted       boolean false                      Whether or not the SMTP ses
 $tlsprotocol      string  "TLSv1.2"                  Negotiated TLS version
 $tlscipher        string  "DHE-RSA-AES256..."        Negotiated TLS cipher
 $tlskeysize       number  256                        Negotiated TLS key size
-$saslusername     string  "mailuser"                 SASL username
 $saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
+$saslusername     string  "mailuser"                 SASL username
 ================= ======= ========================== ===========
 
 These are the writable pre-defined variables available.

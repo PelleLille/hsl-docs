@@ -23,8 +23,8 @@ $serverport       number  25                         TCP port of the mailserver
 $serverid         string  "mailserver\:1"            ID of the mailserver profile
 $senderhelo       string  "mail.example.com"         HELO message of sender
 $tlsstarted       boolean false                      Whether or not the SMTP session is using TLS
-$saslusername     string  "mailuser"                 SASL username
 $saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
+$saslusername     string  "mailuser"                 SASL username
 ================= ======= ========================== ===========
 
 These are the writable pre-defined variables available.
