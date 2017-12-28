@@ -119,7 +119,7 @@ Functions
 
   .. note::
 
-  	The file is returned in an unmodified state as received (only with a Recieived header applied).
+  	The file is returned in an unmodified state as received (only with a Received header applied).
 
 On script error
 ---------------
