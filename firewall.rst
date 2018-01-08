@@ -40,7 +40,7 @@ Functions
 On script error
 ---------------
 
-On script error ``Allow()`` is called.
+On script error ``Block()`` is called.
 
 On implicit termination
 -----------------------
