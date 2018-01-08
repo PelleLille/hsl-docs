@@ -807,15 +807,20 @@ Mail
 
   This function works by reversing the IP addresses octets and appending to the hostname parameter.
 
-.. function:: spf(ip, helo, domain)
+.. function:: spf(ip, helo, domain, [options])
 
   Check the SPF status of the senderdomain.
 
   :param string ip: IP or IPv6 address to check
   :param string helo: HELO/EHLO host name
   :param string domain: domain too lookup
+  :param array options: options array
   :return: ``0`` if the addresses passed, ``20`` for softfail, ``50`` if the status is unknown and ``100`` if the spf failed.
   :rtype: number
+
+  The following options are available in the options array.
+
+   * **extended_result** (boolean) If ``true`` an associative array with ``result`` is returned with the string result as defined by libspf2 (eg. ``pass``). The default is ``false``.
 
 .. function:: globalview(ip)
 
