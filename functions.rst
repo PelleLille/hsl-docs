@@ -1088,6 +1088,12 @@ Misc
   | debug    | 7 |
   +----------+---+
 
+  It's possible to change the facility of a log message by adding a facility value (see rfc5424).
+
+  .. code-block:: hsl
+
+	syslog(3 + (4<<3), "This is sent as LOG_ERR to LOG_AUTH");
+
   .. note::
 
   	If you want your log message to appear when the message log is viewed (as it does with :func:`echo`, you should prefix the message parameter with ``"[$messageid] "``.
