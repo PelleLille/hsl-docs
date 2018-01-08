@@ -717,9 +717,9 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
    * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
    * **headers** (array) An array of additional HTTP headers.
    * **response_headers** (boolean) Return the full request, including response headers (regardless of HTTP status). The default is ``false``.
-   * **ssl_verify_peer** (boolean) Verify SSL peer. The default is ``true``.
-   * **ssl_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
-   * **ssl_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
+   * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
+   * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
+   * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
    * **background** (boolean) Perform request in the background. In which case this function returns ``None``. The default is ``false``.
    * **background_hash** (number) Assign this request to a specific queue. If this value is higher than the number of queues, it's chosen by modulus. The default is queue ``0``.
    * **background_retry_count** (number) Number of retry attempts made after the initial failure. The default is ``0``.
