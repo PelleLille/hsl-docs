@@ -7,7 +7,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash`
 * **Data types** :func:`array` :func:`number` :func:`string` :func:`is_array` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
-* **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
+* **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsns` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_explode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
 * **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http` :class:`File`
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
@@ -457,6 +457,12 @@ DNS
 .. function:: dnsmx(name, [options])
 
   Query the resolvers for the MX record of the hostname.
+
+  .. include:: func_dns.rst
+
+.. function:: dnsns(name, [options])
+
+  Query the resolvers for the NS record of the hostname.
 
   .. include:: func_dns.rst
 
