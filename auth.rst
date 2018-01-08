@@ -3,7 +3,7 @@
 AUTH
 ====
 
-The AUTH context allows trusted SMTP clients.
+The AUTH context allows trusted SMTP clients. The SASL mechanisms `LOGIN` and `PLAIN` are implemented in the SMTP engine and will populate the ``$saslusername`` and ``$saslpassword``. If you add support for custom authentication mechanisms you will need to use the ``$saslmechanism``, ``$saslstate`` and ``$saslresponse`` variables to do so.
 
 Pre-defined variables
 ---------------------
@@ -50,6 +50,9 @@ Variable          Type    Example                    Description
 ================= ======= ========================== ===========
 $saslusername     string  "mailuser"                 SASL username
 $saslpassword     string  "secret"                   SASL password
+$saslmechanism    string  "PLAIN"                    SASL mechanism
+$saslstate        number  0                          The SASL state (incremeted per Reply)
+$saslresponse     string  ""                         The SASL response (not used with LOGIN or PLAIN)
 ================= ======= ========================== ===========
 
 Functions
@@ -84,6 +87,19 @@ Functions
   Defer the login request with a temporary (454) error.
 
   :param string reason: the defer message
+  :param array options: an options array
+  :return: doesn't return, script is terminated
+
+  The following options are available in the options array.
+
+   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
+
+.. function:: Reply([reply, [options]])
+
+  Send a reply (334) message. The reply will be base64 encoded before sent to the client. This function is used to implement custom authentication mechanisms.
+
+  :param string reply: the reply message
   :param array options: an options array
   :return: doesn't return, script is terminated
 
