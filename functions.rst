@@ -1189,6 +1189,7 @@ Protocols
    * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
    * **tls_verify_name** (array) Hostnames to verify against the certificate's CN and SAN.
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
+   * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
 
   The following options are available in the options array.
 
@@ -1608,6 +1609,7 @@ Socket
    * **tls_verify_ca** (boolean) Verify certificate against known CAs. The default is ``false``.
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
    * **tls_sni** (string) Request a certificate using the SNI extension. The default is not to use SNI.
+   * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
 
   .. note::
 
