@@ -973,6 +973,25 @@ MIME
 	  :return: this
 	  :rtype: MIME
 
+  .. function:: MIME.signDKIM(selector, domain, key, [options])
+
+	  Sign the MIME structure (message) using `DKIM <http://wiki.halon.se/DKIM>`_.
+
+	  :param string selector: selector to use when signing
+	  :param string domain: domain to use when signing
+	  :param string key: private key to use, either ``pki:X`` or a private RSA key in PEM format.
+	  :param array options: options array
+	  :return: this
+	  :rtype: MIME
+
+	  The following options are available in the options array.
+
+	   * **canonicalization_header** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``simple``.
+	   * **canonicalization_body** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``simple``.
+	   * **algorithm** (string) algorithm to hash the message with (``sha1`` or ``sha256``). The default is ``sha256``.
+	   * **additional_headers** (array) additional headers to sign in addition to those recommended by the RFC.
+	   * **headers** (array) headers to sign. The default is to sign all headers recommended by the RFC.
+
   .. function:: MIME.toString()
 
 	  Return the created MIME as a string. This function useful for debugging.
