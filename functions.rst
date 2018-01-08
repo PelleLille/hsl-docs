@@ -1643,3 +1643,44 @@ Socket
 
 	  :return: errno
 	  :rtype: number
+
+  .. function:: TLSSocket.getpeercert([options])
+
+	  Get the peer certificate (X.509) given during the handshake as an associative array.
+
+	  :param array options: options array
+	  :return: X.509 certificate data
+	  :rtype: array
+
+	  The following options are available in the options array.
+
+	   * **fingerprint** (string) Generate the fingerprint of the certificate using one of the following hash function (``md5``, ``sha1``, ``sha256`` or ``sha512``). The default no hashing.
+
+	  .. note::
+
+		Example output (using :func:`json_encode` with pretty print)::
+
+			{
+				"subject": {
+					"C": "US",
+					"ST": "California",
+					"L": "Mountain View",
+					"O": "Google Inc",
+					"CN": "mail.google.com"
+				},
+				"issuer": {
+					"C": "US",
+					"O": "Google Trust Services",
+					"CN": "Google Internet Authority G3"
+				},
+				"subject_alt_name": {
+					"DNS": [
+						"mail.google.com",
+						"inbox.google.com"
+					]
+				},
+				"version": 2,
+				"serial_number": "5d8bca2821d49564",
+				"not_valid_before": 1511950612,
+				"not_valid_after": 1519205880
+			}
