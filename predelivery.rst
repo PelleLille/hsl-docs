@@ -125,6 +125,7 @@ Functions
    * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
    * **tls_verify_name** (array) Hostnames to verify against the certificate's CN and SAN.
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
+   * **tls_capture_peer_cert** (boolean) If set to true, the peer certificate will be available in the :func:`postdelivery.GetTLS` results. The default is ``false``.
 
 .. function:: SetSASL(username, password)
 
