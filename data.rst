@@ -512,7 +512,7 @@ DKIM
    * **canonicalization_body** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``simple``.
    * **algorithm** (string) algorithm to hash the message with (``sha1`` or ``sha256``). The default is ``sha256``.
    * **additional_headers** (array) additional headers to sign in addition to those recommended by the RFC.
-   * **headers** (array)  headers to sign. The default is to sign all headers recommended by the RFC.
+   * **headers** (array) headers to sign. The default is to sign all headers recommended by the RFC.
    * **discard_changes** (boolean) Discard any changes to the original message before signing. The default is ``false``.
    * **return_header** (boolean) Return the DKIM signature as a string, instead of adding it to the message. The default is ``false``.
 
