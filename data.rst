@@ -80,7 +80,7 @@ Misc
  Extract addresses from a header value, often used with `From`, `To` and `CC` headers.
 
  :param string value: value to extract e-mail addresses from
- :return: e-addresses
+ :return: e-mail addresses
  :rtype: array
 
  .. code-block:: hsl
