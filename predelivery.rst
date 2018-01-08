@@ -203,6 +203,7 @@ Functions
    * **recipient** (string) Set the recipient. The default is ``$sender``.
    * **metadata** (array) Add additional metadata to the DSN (KVP).
    * **from** (string) Set the From-header address of the DSN.
+   * **dkim** (array) Set the DKIM options of the DSN (``selector``, ``domain``, ``key`` including the options available in :func:`MIME.signDKIM`).
 
 .. function:: SetMetaData(metadata)
 
