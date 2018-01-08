@@ -55,11 +55,16 @@ $saslpassword     string  "secret"                   SASL password
 Functions
 ---------
 
-.. function:: Accept()
+.. function:: Accept([options])
 
   Authorize the login request.
 
+  :param array options: an options array
   :return: doesn't return, script is terminated
+
+  The following options are available in the options array.
+
+   * **username** (string) set the username. The default is ``$saslusername`` (if available).
 
 .. function:: Reject([reason, [options]])
 
