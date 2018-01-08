@@ -1238,6 +1238,7 @@ Protocols
    * **base** (string) LDAP base.
    * **query** (string) LDAP query (unescaped).
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``true``.
+   * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
 
 .. function:: ldap_bind(profile, username, password, [override])
 
@@ -1254,6 +1255,7 @@ Protocols
 
    * **host** (string) LDAP URI (ldap:// or ldaps://).
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``true``.
+   * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
 
 .. function:: radius_authen(options, username, password, [vendorstrings])
 
