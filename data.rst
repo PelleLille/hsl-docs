@@ -65,7 +65,7 @@ Functions
 ---------
 
 * **MIME and attachments** :class:`~data.MIME` :func:`GetMailFile`
-* **Misc** :func:`GetAddressList` :func:`GetMailQueueMetric`
+* **Misc** :func:`GetAddressList` :func:`GetMailQueueMetric` :func:`GetTLS`
 * **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData` :func:`SetSenderIP` :func:`SetSenderHELO`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
 * **Actions** :func:`Deliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`DiscardMailDataChanges` :func:`Done`
@@ -94,6 +94,8 @@ Misc
   :param array options: options array
 
 .. include:: func_getmailqueuemetric.rst
+
+.. include:: func_gettls.rst
 
 Routing
 ^^^^^^^

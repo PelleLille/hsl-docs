@@ -87,6 +87,8 @@ Functions
    * **disconnect** (boolean) disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
+.. include:: func_gettls.rst
+
 On script error
 ---------------
 

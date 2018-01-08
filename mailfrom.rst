@@ -111,6 +111,8 @@ Functions
 
 .. include:: func_getmailqueuemetric.rst
 
+.. include:: func_gettls.rst
+
 On script error
 ---------------
 
