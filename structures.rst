@@ -656,27 +656,6 @@ Variables and functions may be declared as private, in which case they can only 
 	$x->publicAPI();
 	Foo::publicAPI2();
 
-.. _object_keyword:
-
-object
-------
-
-.. warning::
- The `object` statement has been deprecated. Use the :ref:`class <class_statement>` syntax instead.
-
-The `object` statement can be used to create objects from arrays (these are like anonymous objects, not created from a class). Objects are not copy on write and all copies reference the same object.
-
-::
-
-	object [ "func" => function() { return $this; }, "data" => 123 ]
-
-.. code-block:: hsl
-
-	$x = object [ "get" => function() { return $this["var"]; }];
-	$y = $x;
-	$y["var"] = 123;
-	echo $x->get();
-
 cache
 -----
 
