@@ -91,6 +91,7 @@ Functions
    * **transportid** (string) Set the transportid. The default is either choosen by the transport or automatically assigned.
    * **recipient** (string) Set the recipient. The default is ``$sender``.
    * **metadata** (array) Add additional metadata to the DSN (KVP).
+   * **from** (string) Set the From-header address of the DSN.
 
 .. function:: SetMetaData(metadata)
 
