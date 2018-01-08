@@ -1195,7 +1195,7 @@ Protocols
   :param string sender: the sender (MAIL FROM)
   :param string recipient: the recipient (RCPT TO)
   :param array options: options array
-  :return: ``1`` if the command succeeded, ``0`` if the command failed and ``-1`` if an error occurred. The ``error_code`` option may change this behavior.
+  :return: ``1`` if the command succeeded, ``0`` if the command failed and ``-1`` if an error occurred. The ``extended_result`` option may change this behavior.
   :rtype: number or array
 
   The following server settings are available in the server array.
@@ -1214,10 +1214,11 @@ Protocols
    * **tls_verify_name** (array) Hostnames to verify against the certificate's CN and SAN.
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
    * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
+   * **tls_capture_peer_cert** (boolean) If set to true, the peer certificate will be available in the extended results. The default is ``false``.
 
   The following options are available in the options array.
 
-   * **error_code** (boolean) If error_code is true and associative array with "error_code" and "error_message" is returned. The default is ``false``.
+   * **extended_result** (boolean) If ``true`` an associative array with ``error_code``, ``error_message``, ``on_rcptto`` and ``tls`` is returned. The default is ``false``.
 
 .. function:: smtp_lookup_auth(server, username, password)
 
