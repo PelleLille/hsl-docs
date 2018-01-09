@@ -119,3 +119,36 @@ On implicit termination
 -----------------------
 
 If not explicitly terminated then ``Reject()`` is called.
+
+Authentication Diagram 
+----------------------
+
+A flow chart diagram of how custom authentication is implemented::
+
+	          +--------------+
+	          | AUTH request |
+	          +--------------+
+	                 |
+	                 |
+	                 v
+	+------------------------------------+
+	|   $saslstate = 0                   |
+	|   $saslusername = none             |
+	|   $saslpassword = none             |
+	+------------------------------------+      Accept()      +-------------------+
+	| > AUTH $saslmethod [$saslresponse] | ---- Reject() ---> | Script terminated |
+	+------------------------------------+      Defer()       +-------------------+
+	                 |                             ^
+	                 |                             |
+	               Reply() <------------------+    |
+	                 |                        |    |
+	                 |                        |    |
+	                 v                        |    |
+	+------------------------------------+    |    |
+	|   $saslstate += 1                  |    |    |
+	+------------------------------------+ ---+----+
+	| > $saslresponse                    |    |
+	+------------------------------------+    |
+	                 |                        |
+	                 |                        |
+	                 +------------------------+
