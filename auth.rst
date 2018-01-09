@@ -102,6 +102,7 @@ Functions
   :param string reply: the reply message
   :param array options: an options array
   :return: doesn't return, script is terminated
+  :updates: ``$saslstate``
 
   The following options are available in the options array.
 
@@ -120,7 +121,7 @@ On implicit termination
 
 If not explicitly terminated then ``Reject()`` is called.
 
-Authentication Diagram 
+Authentication diagram 
 ----------------------
 
 A flow chart diagram of how custom authentication is implemented::
@@ -133,8 +134,6 @@ A flow chart diagram of how custom authentication is implemented::
 	                 v
 	+------------------------------------+
 	|   $saslstate = 0                   |
-	|   $saslusername = none             |
-	|   $saslpassword = none             |
 	+------------------------------------+      Accept()      +-------------------+
 	| > AUTH $saslmethod [$saslresponse] | ---- Reject() ---> | Script terminated |
 	+------------------------------------+      Defer()       +-------------------+
@@ -146,8 +145,8 @@ A flow chart diagram of how custom authentication is implemented::
 	                 v                        |    |
 	+------------------------------------+    |    |
 	|   $saslstate += 1                  |    |    |
-	+------------------------------------+ ---+----+
-	| > $saslresponse                    |    |
+	+------------------------------------+    |    |
+	| > $saslresponse                    | ---+----+
 	+------------------------------------+    |
 	                 |                        |
 	                 |                        |

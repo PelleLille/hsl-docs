@@ -1704,8 +1704,8 @@ Socket
 	   * **subject_alt_name** (array) The subject alt names ``DNS`` items
 	   * **version** (number) The version of the X.509 certificate
 	   * **serial_number** (string) The serial number in HEX
-	   * **not_valid_before** (number) The start date of the certificate (in unix timestamp)
-	   * **not_valid_after** (number) The end date of the certificate (in unix timestamp)
+	   * **not_valid_before** (number) The start date of the certificate (in unix time)
+	   * **not_valid_after** (number) The end date of the certificate (in unix time)
 	   * **fingerprint** (string) The certificate fingerprint (if requested)
 
 	  .. note::
