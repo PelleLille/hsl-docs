@@ -52,7 +52,7 @@ $saslusername     string  "mailuser"                 SASL username
 $saslpassword     string  "secret"                   SASL password
 $saslmechanism    string  "PLAIN"                    SASL mechanism (always in uppercase)
 $saslstate        number  0                          SASL state (incremeted per Reply)
-$saslresponse     string  ""                         SASL response (not used with LOGIN or PLAIN)
+$saslresponse     string  none                       SASL response (not used with LOGIN or PLAIN)
 ================= ======= ========================== ===========
 
 Functions
