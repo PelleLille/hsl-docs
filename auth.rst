@@ -50,9 +50,9 @@ Variable          Type    Example                    Description
 ================= ======= ========================== ===========
 $saslusername     string  "mailuser"                 SASL username
 $saslpassword     string  "secret"                   SASL password
-$saslmechanism    string  "PLAIN"                    SASL mechanism
-$saslstate        number  0                          The SASL state (incremeted per Reply)
-$saslresponse     string  ""                         The SASL response (not used with LOGIN or PLAIN)
+$saslmechanism    string  "PLAIN"                    SASL mechanism (always in uppercase)
+$saslstate        number  0                          SASL state (incremeted per Reply)
+$saslresponse     string  ""                         SASL response (not used with LOGIN or PLAIN)
 ================= ======= ========================== ===========
 
 Functions
@@ -126,28 +126,28 @@ Authentication diagram
 
 A flow chart diagram of how custom authentication is implemented::
 
-	          +--------------+
-	          | AUTH request |
-	          +--------------+
-	                 |
-	                 |
-	                 v
-	+------------------------------------+
-	|   $saslstate = 0                   |
-	+------------------------------------+      Accept()      +-------------------+
-	| > AUTH $saslmethod [$saslresponse] | ---- Reject() ---> | Script terminated |
-	+------------------------------------+      Defer()       +-------------------+
-	                 |                             ^
-	                 |                             |
-	               Reply() <------------------+    |
-	                 |                        |    |
-	                 |                        |    |
-	                 v                        |    |
-	+------------------------------------+    |    |
-	|   $saslstate += 1                  |    |    |
-	+------------------------------------+    |    |
-	| > $saslresponse                    | ---+----+
-	+------------------------------------+    |
-	                 |                        |
-	                 |                        |
-	                 +------------------------+
+	             +--------------+
+	             | AUTH request |
+	             +--------------+
+	                    |
+	                    |
+	                    v
+	+---------------------------------------+
+	|   $saslstate = 0                      |
+	+---------------------------------------+      Accept()      +-------------------+
+	| > AUTH $saslmechanism [$saslresponse] | ---- Reject() ---> | Script terminated |
+	+---------------------------------------+      Defer()       +-------------------+
+	                    |                             ^
+	                    |                             |
+	                  Reply() <------------------+    |
+	                    |                        |    |
+	                    |                        |    |
+	                    v                        |    |
+	+---------------------------------------+    |    |
+	|   $saslstate += 1                     |    |    |
+	+---------------------------------------+    |    |
+	| > $saslresponse                       | ---+----+
+	+---------------------------------------+    |
+	                    |                        |
+	                    |                        |
+	                    +------------------------+
