@@ -135,7 +135,7 @@ A flow chart diagram of how custom authentication is implemented::
 	+---------------------------------------+
 	|   $saslstate = 0                      |
 	+---------------------------------------+      Accept()      +-------------------+
-	| > AUTH $saslmechanism [$saslresponse] | ---- Reject() ---> | Script terminated |
+	| > AUTH $saslmechanism [$saslresponse] | ---- Reject() ---> | AUTH request done |
 	+---------------------------------------+      Defer()       +-------------------+
 	                    |                             ^
 	                    |                             |
