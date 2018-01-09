@@ -1697,6 +1697,17 @@ Socket
 
 	   * **fingerprint** (string) Generate the fingerprint of the certificate using one of the following hash function (``md5``, ``sha1``, ``sha256`` or ``sha512``). The default no hashing.
 
+	  The following items are available in the result.
+
+	   * **subject** (array) The subject, if there are duplicate RDN (eg. C or CN) the value will be an array instead
+	   * **issuer** (array) The issuer, if there are duplicate RDN (eg. C or CN) the value will be an array instead
+	   * **subject_alt_name** (array) The subject alt names ``DNS`` items
+	   * **version** (number) The version of the X.509 certificate
+	   * **serial_number** (string) The serial number in HEX
+	   * **not_valid_before** (number) The start date of the certificate (in unix timestamp)
+	   * **not_valid_after** (number) The end date of the certificate (in unix timestamp)
+	   * **fingerprint** (string) The certificate fingerprint (if requested)
+
 	  .. note::
 
 		Example output (using :func:`json_encode` with pretty print)::
