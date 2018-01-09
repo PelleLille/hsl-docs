@@ -1699,8 +1699,8 @@ Socket
 
 	  The following items are available in the result.
 
-	   * **subject** (array) The subject, if there are duplicate RDN (eg. C or CN) the value will be an array instead
-	   * **issuer** (array) The issuer, if there are duplicate RDN (eg. C or CN) the value will be an array instead
+	   * **subject** (array) The subject, if there are duplicate attribute types (eg. C or CN) the attribute value will be an array instead
+	   * **issuer** (array) The issuer, if there are duplicate attribute types (eg. C or CN) the attribute value will be an array instead
 	   * **subject_alt_name** (array) The subject alt names ``DNS`` items
 	   * **version** (number) The version of the X.509 certificate
 	   * **serial_number** (string) The serial number in HEX
