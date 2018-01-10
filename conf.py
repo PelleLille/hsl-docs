@@ -117,7 +117,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Halon Scripting Language'
-copyright = u'2017, Halon Security'
+copyright = u'2018, Halon Security'
 author = u'Halon Security'
 
 # The version info for the project you're documenting, acts as replacement for
