@@ -13,7 +13,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME`
-* **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`rate` :func:`mail`
+* **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`inet_ntop` :func:`inet_pton` :func:`rate` :func:`mail`
 * **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`radius_authen` :func:`tacplus_authen` :func:`tacplus_author`
 * **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
 * **Socket** :class:`Socket` :class:`TLSSocket`
@@ -1141,6 +1141,22 @@ Misc
 	in_network("127.0.0.1", "127.0.0.1");
 	in_network("127.0.0.1", "127.0.0.1");
 	in_network("2001:4860:4860::8888", "2001:4860:4860::/48");
+
+.. function:: inet_ntop(ip)
+
+	Converts an IP from a binary string format (4 char for IPv4 and 16 char for IPv6) to a printable string format (eg `10.0.0.1`). On error `None` is returned.
+
+	:param string ip: the ip in binary string format
+	:return: an ip in printable string format
+	:rtype: string
+
+.. function:: inet_pton(ip)
+
+	Converts an IP from printable string format (eg `10.0.0.1`) to a binary string format (4 char for IPv4 and 16 char for IPv6). On error `None` is returned.
+
+	:param string ip: the ip in printable format
+	:return: an ip in binary string format
+	:rtype: string
 
 .. function:: rate(namespace, entry, count, interval)
 
