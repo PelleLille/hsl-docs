@@ -136,6 +136,13 @@ Functions
   :param string password: password
   :rtype: none
 
+.. function:: SetXCLIENT(attributes)
+
+  Send the following XCLIENT xclient attributes.
+
+  :param array attributes: associative array of XCLIENT attributes to send.
+  :rtype: none
+
 .. function:: SetHELO(hostname)
 
   Set the `HELO` hostname for the current delivery attempt (it is not remembered for the next retry).

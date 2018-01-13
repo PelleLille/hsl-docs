@@ -1247,6 +1247,7 @@ Protocols
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
    * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
    * **tls_capture_peer_cert** (boolean) If set to true, the peer certificate will be available in the extended results. The default is ``false``.
+   * **xclient** (array) Associative array of XCLIENT attributes to send.
 
   The following options are available in the options array.
 
