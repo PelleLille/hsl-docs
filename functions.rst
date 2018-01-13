@@ -1182,7 +1182,7 @@ Misc
   .. code-block:: hsl
 
 	  if (rate("outbound", $saslusername, 3, 60) == false) {
-			  Reject("User is only allowed to send 3 messages per minute");
+	        Reject("User is only allowed to send 3 messages per minute");
 	  }
 
   .. note::
