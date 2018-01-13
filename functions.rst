@@ -1158,6 +1158,16 @@ Misc
 	:return: an ip in binary string format
 	:rtype: string
 
+  .. code-block:: hsl
+
+	$x = unpack("N*", inet_pton($ip));
+	if (count($x) == 1)
+		$x[0] = $x[0] & 0xffffff00; // mask ipv4 to /24
+	if (count($x) == 4) {
+		$x[3] = 0; // mask ipv6 to /96
+	}
+	echo inet_ntop(pack("N*", ...$x));
+
 .. function:: rate(namespace, entry, count, interval)
 
   Check or account for the rate of entry in namespace during the last interval.
