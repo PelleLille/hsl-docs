@@ -73,7 +73,7 @@ Functions
 
   Reject the login request.
 
-  :param string reason: the reject message
+  :param string reason: the reject message (multiline if an array)
   :param array options: an options array
   :return: doesn't return, script is terminated
 
@@ -86,7 +86,7 @@ Functions
 
   Defer the login request with a temporary (454) error.
 
-  :param string reason: the defer message
+  :param string reason: the defer message (multiline if an array)
   :param array options: an options array
   :return: doesn't return, script is terminated
 
