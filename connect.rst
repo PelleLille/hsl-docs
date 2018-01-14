@@ -56,7 +56,8 @@ Functions
 
   Reject the connection with a permanent (521) error.
 
-  :param string reason: the reject message
+  :param reason: reject message with reason
+  :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated
 
@@ -68,7 +69,8 @@ Functions
 
   Defer the connection with a temporary (421) error.
 
-  :param string reason: the defer message
+  :param reason: defer message with reason
+  :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated
 
