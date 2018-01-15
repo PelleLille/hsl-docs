@@ -1001,7 +1001,7 @@ MIME
 
   .. function:: MIME.send(sender, recipient, transportid, [options])
 
-	  Send the MIME as an email to the recipient.
+	  Put the MIME message (email) into the queue.
 
 	  :param string sender: the sender
 	  :param string recipient: the recipient
@@ -1191,7 +1191,7 @@ Misc
 
 .. function:: mail(sender, recipient, subject, body, [options])
 
-  Send an email to recipient.
+  Put a message (email) into the queue.
 
   :param string sender: the sender
   :param string recipient: the recipient
