@@ -460,7 +460,7 @@ Anti-spam and anti-virus
 
   .. code-block:: hsl
 
-	["RULE1" => ["filename" => ["\\.exe$", "\\.zip$"], "sha1hash" => ["..."]], ...]
+	["RULE1" => ["filename" => ["/\\.exe$/i", "/\\.zip$/i"], "sha1hash" => ["..."]], ...]
 
   .. warning::
 
