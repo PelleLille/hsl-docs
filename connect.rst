@@ -93,12 +93,9 @@ Functions
 
 	.. code::
 
-		if ($senderip[0:9] == "64:ff9b::")
-		{
-			[$hi, $lo] = explode(":", $senderip[9:]);
-			$padded = ("0000".$hi)[-4:].("0000".$lo)[-4:];
-			SetSenderIP(implode(".", unpack("CCCC", pack("H8", $padded))));
-		}
+		$x = unpack("N*", inet_pton($senderip));
+		if (count($x) == 4 and $x[0:3] == [6619035, 0, 0]) // 64:ff9b::[IPv4]
+			SetSenderIP(inet_ntop(pack("N", $x[3])));
 
 On script error
 ---------------
