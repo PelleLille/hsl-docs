@@ -699,7 +699,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 
 .. function:: http(url, [options, [get, [post]]])
 
-  Make HTTP/HTTPS request to a URL and return the content
+  Make HTTP/HTTPS request to a URL and return the content.
 
   :param string url: URL to request
   :param array options: options array
