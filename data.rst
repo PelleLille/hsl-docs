@@ -137,7 +137,7 @@ Routing
   :param number delay: delay in seconds
   :rtype: none
 
-.. function:: SetMetaData(array)
+.. function:: SetMetaData(metadata)
 
   Set the metadata for the next recipient(s). The metadata must be an array with both string keys and values.
 
