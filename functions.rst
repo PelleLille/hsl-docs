@@ -695,7 +695,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 						return $v["ip"] == $senderip;
 					}, "file:1", ["type" => "text/csv"]);
 
-.. function:: http(url, [options, [get, [post]]]])
+.. function:: http(url, [options, [get, [post]]])
 
   Make HTTP/HTTPS request to a URL and return the content
 
