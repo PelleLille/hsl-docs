@@ -1,4 +1,4 @@
-:param string query: the query
+:param string host: the host
 :param array options: options array
 :return: list of items or an extended result
 :rtype: array

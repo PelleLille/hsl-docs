@@ -420,7 +420,7 @@ Date and time
 DNS
 ---
 
-.. function:: dns(name, [options])
+.. function:: dns(host, [options])
 
   Query for the A and AAAA record of a hostname.
 
@@ -438,43 +438,43 @@ DNS
 	echo dns("halon.se", ["extended_result" => true]);
 	// ["result"=>[0=>"54.152.237.238"],"dnssec"=>0]
 
-.. function:: dns4(name, [options])
+.. function:: dns4(host, [options])
 
   Query the resolvers for the A record of the hostname.
 
   .. include:: func_dns.rst
 
-.. function:: dns6(name, [options])
+.. function:: dns6(host, [options])
 
   Query the resolvers for the AAAA record of the hostname.
 
   .. include:: func_dns.rst
 
-.. function:: dnscname(name, [options])
+.. function:: dnscname(host, [options])
 
   Query the resolvers for the CNAME record of the hostname.
 
   .. include:: func_dns.rst
 
-.. function:: dnsmx(name, [options])
+.. function:: dnsmx(host, [options])
 
   Query the resolvers for the MX record of the hostname.
 
   .. include:: func_dns.rst
 
-.. function:: dnsns(name, [options])
+.. function:: dnsns(host, [options])
 
   Query the resolvers for the NS record of the hostname.
 
   .. include:: func_dns.rst
 
-.. function:: dnsptr(name, [options])
+.. function:: dnsptr(host, [options])
 
   Query the resolvers for the PTR record of the address.
 
   .. include:: func_dns.rst
 
-.. function:: dnstxt(name, [options])
+.. function:: dnstxt(host, [options])
 
   Query the resolvers for the TXT record of the hostname.
 
