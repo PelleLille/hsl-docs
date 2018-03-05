@@ -250,11 +250,11 @@ Cryptographic
 Data types
 ----------
 
-.. function:: array([...])
+.. function:: array([...args])
 
   This function creates an array.
 
-  :param any any: the input
+  :param any ....args: the input
   :return: an array
   :rtype: array
 
@@ -561,12 +561,12 @@ Encodings and JSON
   * **false** to ``0`` (is_number)
   * **null** to **none** (check for expected type instead)
 
-.. function:: pack(format, [args..])
+.. function:: pack(format, [...args])
 
   Pack arguments into a binary string. On error ``None`` is returned.
 
   :param string format: the pack format
-  :param any args: the arguments for the pack format
+  :param any ....args: the arguments for the pack format
   :return: the packed data
   :rtype: string
 
