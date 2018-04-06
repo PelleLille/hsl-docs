@@ -91,7 +91,11 @@ These are the arithmetic operators supported, most of which operates on :ref:`nu
 +===============+==========+======================+================================+
 | Addition      | \+       | +=                   | x = x + y                      |
 +---------------+----------+----------------------+--------------------------------+
+| Increment     | \++      |                      | x++ and ++x                    |
++---------------+----------+----------------------+--------------------------------+
 | Subtraction   | \-       | -=                   | x = x - y                      |
++---------------+----------+----------------------+--------------------------------+
+| Decrement     | ``--``   |                      | ``x--`` and ``--x``            |
 +---------------+----------+----------------------+--------------------------------+
 | Multiplication| \*       | \*=                  | x = x \* y                     |
 +---------------+----------+----------------------+--------------------------------+
@@ -458,3 +462,16 @@ The scope resolution operator (``::``) is used to access static variables and fu
 	}
 	echo MyClass::$x; // 5
 	echo MyClass::getX(); // 5
+
+Static
+######
+
+The scope resolution operator can use the ``static`` keyword in the same class as a shorthand for the class name itself.
+
+.. code-block:: hsl
+
+	class MyClass
+	{
+		static $x = 5;
+		static function getX() { return static::$x; }
+	}

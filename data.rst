@@ -66,7 +66,7 @@ Functions
 
 * **MIME and attachments** :class:`~data.MIME` :func:`GetMailFile`
 * **Misc** :func:`GetAddressList` :func:`GetMailQueueMetric` :func:`GetTLS`
-* **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData` :func:`SetSenderIP` :func:`SetSenderHELO`
+* **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData` :func:`GetMetaData` :func:`SetSenderIP` :func:`SetSenderHELO`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
 * **Actions** :func:`Deliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`DiscardMailDataChanges` :func:`Done`
 * **Anti-spam and anti-virus** :func:`ScanRPD` :func:`ScanRPDAV` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM` :func:`ScanDLP`
@@ -151,6 +151,13 @@ Routing
   .. note::
 
     To work-around the data type limitation of the metadata; data can be encoded using :func:`json_encode`.
+
+.. function:: GetMetaData()
+
+  Get the metadata set by :func:`SetMetaData`. If no data was set, an empty array is returned.
+
+  :return: the data set by :func:`SetMetaData`
+  :rtype: array
 
 .. function:: SetSenderIP(ip)
 
@@ -368,21 +375,48 @@ Anti-spam and anti-virus
 
   :param array options: options array
   :return: score or refid
-  :rtype: number or string
+  :rtype: number, string or array
 
   The following options are available in the options array.
 
    * **refid** (boolean) Return RefID (used to report FN and FP). The default is ``false``.
+   * **outbound** (boolean) Use RPD in outbound mode. The default is ``false``.
+   * **extended_result** (boolean) Return extended results. The default is ``false``.
 
-  ===== ===========
-  Score Description
-  ===== ===========
-  0     Unknown
-  10    Suspect
-  40    Valid bulk
-  50    Bulk
-  100   Spam
-  ===== ===========
+  The following results are available in the extended results array.
+
+	   * **refid** (string) The refid
+	   * **rules** (array) The LocalView spam rules matched
+	   * **spam_score** (number) The spam score
+	   * **spam_class** (string) The spam class
+	   * **virus_score** (number) The virus score
+	   * **virus_class** (string) The virus class
+
+	   On error the following items are available.
+
+	   * **error** (boolean) Indicates if there was an error during the scanning
+
+  RPD’s anti-spam classification scores and class names
+
+  ===== ================= ===========
+  Score Class             Description
+  ===== ================= ===========
+  0     non-spam, unknown Unknown
+  10    suspect           Suspect
+  40    valid-bulk        Valid bulk
+  50    bulk              Bulk
+  100   spam              Spam
+  ===== ================= ===========
+
+  RPD’s anti-virus classification scores and class names
+
+  ===== ================= ===========
+  Score Class             Description
+  ===== ================= ===========
+  0     non-virus, unkown Unknown
+  50    medium            Medium probability
+  100   virus, high       High probability
+  ===== ================= ===========
 
 .. function:: ScanRPDAV()
 
@@ -391,13 +425,13 @@ Anti-spam and anti-virus
   :return: score
   :rtype: number
 
-  ===== ===========
-  Score Description
-  ===== ===========
-  0     Unknown
-  50    Medium probability
-  100   High probability
-  ===== ===========
+  ===== ================= ===========
+  Score Class             Description
+  ===== ================= ===========
+  0     non-virus, unkown Unknown
+  50    medium            Medium probability
+  100   virus, high       High probability
+  ===== ================= ===========
 
 .. function:: ScanSA([options])
 
@@ -410,6 +444,15 @@ Anti-spam and anti-virus
   The following options are available in the options array.
 
    * **rules** (boolean) Return rules in an associative array with scores. The default is ``false``.
+   * **extended_result** (boolean) Return extended results. The default is ``false``.
+
+  The following results are available in the extended results array.
+
+	   * **rules** (array) The rules matched
+
+	   On error the following items are available.
+
+	   * **error** (boolean) Indicates if there was an error during the scanning
 
   ========================== ===== ===========
   Builtin rules              Score Description
@@ -420,19 +463,45 @@ Anti-spam and anti-virus
 
   A score of `5` or higher is what most people accept to be considered spam.
 
-.. function:: ScanKAV()
+.. function:: ScanKAV([options])
 
   Scan the message using the commercial anti-virus.
 
+  :param array options: options array
   :return: any viruses found
   :rtype: array
 
-.. function:: ScanCLAM()
+  The following options are available in the options array.
+
+   * **extended_result** (boolean) Return extended results. The default is ``false``.
+
+  The following results are available in the extended results array.
+
+	   * **rules** (array) The rules matched
+
+	   On error the following items are available.
+
+	   * **error** (boolean) Indicates if there was an error during the scanning
+
+.. function:: ScanCLAM([options])
 
   Scan the message using CLAM anti-virus.
 
+  :param array options: options array
   :return: any viruses found
   :rtype: array
+
+  The following options are available in the options array.
+
+   * **extended_result** (boolean) Return extended results. The default is ``false``.
+
+  The following results are available in the extended results array.
+
+	   * **rules** (array) The rules matched
+
+	   On error the following items are available.
+
+	   * **error** (boolean) Indicates if there was an error during the scanning
 
 .. function:: ScanDLP([patterns, [options]])
 
@@ -449,6 +518,15 @@ Anti-spam and anti-virus
    * **timeout** (number) set an approximate timeout time in seconds. The default in no timeout.
    * **recursion_limit** (number) how deep to dig through MIME trees, archive files (such as ZIP), etc. The default is ``9``.
    * **partid** (boolean) return a data structure with the partid where the pattern is found. The default is ``false``.
+   * **extended_result** (boolean) Return extended results. The default is ``false``.
+
+  The following results are available in the extended results array.
+
+	   * **rules** (array) The rules matched
+
+	   On error the following items are available.
+
+	   * **error** (boolean) Indicates if there was an error during the scanning
 
   The patterns array may either be an array of pre-configured rules by name.
 
@@ -508,8 +586,8 @@ DKIM
 
   The following options are available in the options array.
 
-   * **canonicalization_header** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``simple``.
-   * **canonicalization_body** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``simple``.
+   * **canonicalization_header** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``relaxed``.
+   * **canonicalization_body** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``relaxed``.
    * **algorithm** (string) algorithm to hash the message with (``sha1`` or ``sha256``). The default is ``sha256``.
    * **additional_headers** (array) additional headers to sign in addition to those recommended by the RFC.
    * **headers** (array) headers to sign. The default is to sign all headers recommended by the RFC.

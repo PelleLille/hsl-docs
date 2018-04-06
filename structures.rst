@@ -102,6 +102,32 @@ The null coalescing operator is right-associative with makes them stackable like
 	$data = json_decode(...);
 	$var = $data["settings"] ?? "default value";
 
+for
+---
+
+`for` statements allows conditional loops.
+
+::
+
+	for ( [initialization] ; [condition] ; [final-expression] )
+		statements
+
+.. code-block:: hsl
+
+	for ($i = 0; $i < 10; $i++) {
+		echo $i;
+	}
+
+break
+^^^^^
+
+`break` will abort the loop iteration of a `for`, `foreach`, `while` and `forever` loop and also the execution of `switch` statements.
+
+continue
+^^^^^^^^
+
+`continue` will abort the current loop iteration of a `for`, `foreach`, `while` and `forever` loop, and restart on the next iteration.
+
 foreach
 -------
 
@@ -128,12 +154,12 @@ foreach
 break
 ^^^^^
 
-`break` will abort the loop iteration of a `foreach`, `while` and `forever` loop and also the execution of `switch` statements.
+`break` will abort the loop iteration of a `for`, `foreach`, `while` and `forever` loop and also the execution of `switch` statements.
 
 continue
 ^^^^^^^^
 
-`continue` will abort the current loop iteration of a `foreach`, `while` and `forever` loop, and restart on the next iteration.
+`continue` will abort the current loop iteration of a `for`, `foreach`, `while` and `forever` loop, and restart on the next iteration.
 
 while
 -----
@@ -156,12 +182,12 @@ while
 break
 ^^^^^
 
-`break` will abort the loop iteration of a `foreach`, `while` and `forever` loop and also the execution of `switch` statements.
+`break` will abort the loop iteration of a `for`, `foreach`, `while` and `forever` loop and also the execution of `switch` statements.
 
 continue
 ^^^^^^^^
 
-`continue` will abort the current loop iteration of a `foreach`, `while` and `forever` loop, and restart on the next iteration.
+`continue` will abort the current loop iteration of a `for`, `foreach`, `while` and `forever` loop, and restart on the next iteration.
 
 forever
 -------
@@ -184,12 +210,12 @@ forever
 break
 ^^^^^
 
-`break` will abort the loop iteration of a `foreach`, `while` and `forever` loop and also the execution of `switch` statements.
+`break` will abort the loop iteration of a `for`, `foreach`, `while` and `forever` loop and also the execution of `switch` statements.
 
 continue
 ^^^^^^^^
 
-`continue` will abort the current loop iteration of a `foreach`, `while` and `forever` loop, and restart on the next iteration.
+`continue` will abort the current loop iteration of a `for`, `foreach`, `while` and `forever` loop, and restart on the next iteration.
 
 switch
 ------
@@ -302,7 +328,7 @@ Named functions
 
 A function may be named (in order to be callable by its name) according to the regular expression pattern :regexp:`[a-zA-Z_]+[a-zA-Z_0-9]*` with the exception of reserved keywords. In order to prevent naming conflicts in the future with added reserved keywords; it may be a good idea to prefix the function name with a unique identifier like ``halon_func``.
 
-``and`` ``array`` ``as`` ``barrier`` ``break`` ``builtin`` ``cache`` ``case`` ``class`` ``closure`` ``constructor`` ``continue`` ``default`` ``echo`` ``else`` ``false`` ``foreach`` ``forever`` ``from`` ``function`` ``global`` ``if`` ``import`` ``include`` ``include_once`` ``isset`` ``not`` ``none`` ``object`` ``or`` ``private`` ``return`` ``switch`` ``true`` ``unset`` ``while``
+``and`` ``array`` ``as`` ``barrier`` ``break`` ``builtin`` ``cache`` ``case`` ``class`` ``closure`` ``constructor`` ``continue`` ``default`` ``echo`` ``else`` ``false`` ``for`` ``foreach`` ``forever`` ``from`` ``function`` ``global`` ``if`` ``import`` ``include`` ``include_once`` ``isset`` ``not`` ``none`` ``object`` ``or`` ``private`` ``return`` ``switch`` ``true`` ``unset`` ``while``
 
 You *should* avoid using keywords available in other general purpose languages and they may be added in the future. That includes keywords such as `for`, `this`, `protected`, `public` etc.
 

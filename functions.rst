@@ -722,7 +722,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
    * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
    * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
-   * **background** (boolean) Perform request in the background. In which case this function returns ``None``. The default is ``false``.
+   * **background** (boolean) Perform request in the background. In which case this function returns ``true`` if the queueing was successful, otherwise ``None`` on errors. The default is ``false``.
    * **background_hash** (number) Assign this request to a specific queue. If this value is higher than the number of queues, it's chosen by modulus. The default is queue ``0``.
    * **background_retry_count** (number) Number of retry attempts made after the initial failure. The default is ``0``.
    * **background_retry_delay** (number) The delay, in seconds, before each retry attempt. The default is ``0`` seconds.
@@ -1170,7 +1170,7 @@ Misc
 		}
 		echo inet_ntop(pack("N*", ...$x));
 
-.. function:: rate(namespace, entry, count, interval)
+.. function:: rate(namespace, entry, count, interval, [options])
 
   Check or account for the rate of entry in namespace during the last interval.
 
@@ -1178,8 +1178,13 @@ Misc
   :param string entry: an entry
   :param number count: the count
   :param number interval: the interval in seconds
+  :param array options: options array
   :return: if count is greater than zero, it will increase the rate and return ``true``, or return ``false`` if the limit is exceeded. If count is zero ``0``, it will return the number of items during the last ``interval``.
   :rtype: number
+
+  The following options are available in the options array.
+
+   * **local** (boolean) Do not synchronize the rate in between nodes in the cluster. The default is ``false``.
 
   .. code-block:: hsl
 
@@ -1242,6 +1247,7 @@ Protocols
    * **saslusername** (string) If specified issue a AUTH LOGIN before MAIL FROM.
    * **saslpassword** (string) If specified issue a AUTH LOGIN before MAIL FROM.
    * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
+   * **tls_sni** (string or boolean) Request a certificate using the SNI extension. If ``true`` the connected hostname will be used. The default is not to use SNI (``false``).
    * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv2``, ``SSLv3``, ``TLSv1``, ``TLSv1.1`` or ``TLSv1.2``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
    * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
    * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
@@ -1274,6 +1280,7 @@ Protocols
    * **sourceip** (string) Explicitly bind a ``netaddr:X`` or an IP address. The default is to be chosen by the system.
    * **nonlocal_source** (boolean) Allow binding of non-local addresses (BINDANY). The default is ``false``.
    * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
+   * **tls_sni** (string or boolean) Request a certificate using the SNI extension. If ``true`` the connected hostname will be used. The default is not to use SNI (``false``).
    * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv2``, ``SSLv3``, ``TLSv1``, ``TLSv1.1`` or ``TLSv1.2``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
    * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
    * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
