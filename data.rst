@@ -69,7 +69,7 @@ Functions
 * **Routing** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData` :func:`GetMetaData` :func:`SetSenderIP` :func:`SetSenderHELO`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
 * **Actions** :func:`Deliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`DiscardMailDataChanges` :func:`Done`
-* **Anti-spam and anti-virus** :func:`ScanRPD` :func:`ScanRPDAV` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM` :func:`ScanDLP`
+* **Anti-spam and anti-virus** :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM` :func:`ScanDLP`
 * **DKIM** :func:`ScanDMARC` :func:`DKIMSign` :func:`DKIMSDID` :func:`DKIMADSP`
 
 Misc
@@ -371,7 +371,7 @@ Anti-spam and anti-virus
 
 .. function:: ScanRPD([options])
 
-  Scan the message using `CYREN <http://wiki.halon.se/CYREN>`_ RPD.
+  Scan the message using `CYREN <http://wiki.halon.se/CYREN>`_; anti-spam (RPD and LocalView) and zero-hour malware detection (VOD). It runs in either inbound or outbound mode, and it's important to configure this correctly with the `outbound` option.
 
   :param array options: options array
   :return: score or refid
@@ -409,21 +409,6 @@ Anti-spam and anti-virus
   ===== ================= ===========
 
   RPD’s anti-virus classification scores and class names
-
-  ===== ================= ===========
-  Score Class             Description
-  ===== ================= ===========
-  0     non-virus, unkown Unknown
-  50    medium            Medium probability
-  100   virus, high       High probability
-  ===== ================= ===========
-
-.. function:: ScanRPDAV()
-
-  Scan the message using `CYREN <http://wiki.halon.se/CYREN>`_ RPD's outbreak anti-virus.
-
-  :return: score
-  :rtype: number
 
   ===== ================= ===========
   Score Class             Description
