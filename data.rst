@@ -92,6 +92,7 @@ Misc
   Return metric information about the mail queue, it can be used to enforce quotas.
 
   :param array options: options array
+  :rtype: number
 
 .. include:: func_getmailqueuemetric.rst
 
