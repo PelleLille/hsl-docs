@@ -290,7 +290,7 @@ A variable in the module's global scope may be imported into the global scope. A
 
 .. code-block:: hsl
 
-	import { $x, $y as $z } from "file:module";
+	import { $x, $y as $z } from "module";
 
 functions
 ^^^^^^^^^
@@ -299,7 +299,7 @@ A function in the module's global scope may be imported into the global scope. A
 
 .. code-block:: hsl
 
-	import { v1, v2, v2 as vLatest } from "file:module";
+	import { v1, v2, v2 as vLatest } from "module";
 
 .. _user_function:
 
