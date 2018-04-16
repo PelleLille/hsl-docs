@@ -699,7 +699,7 @@ MIME and attachments
 	  :return: part id
 	  :rtype: string
 
-  .. function:: mime.getsize()
+  .. function:: mime.getSize()
 
 	  return the mime part's size in bytes.
 
