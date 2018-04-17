@@ -147,10 +147,6 @@ foreach
 		echo $fruit;
 	}
 
-.. note::
-
-	Use :func:`range` to loop `n` number of times (like in a for-loop).
-
 break
 ^^^^^
 
