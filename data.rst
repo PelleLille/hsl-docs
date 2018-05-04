@@ -735,8 +735,8 @@ MIME and attachments
 
 	  .. code-block:: hsl
 
-	    if (is_string($contentid = $part->getHeader("Content-ID")))
-		  echo "Content-ID is $contentid";
+		if (is_string($contentid = $part->getHeader("Content-ID")))
+			echo "Content-ID is $contentid";
 
       .. note::
 
