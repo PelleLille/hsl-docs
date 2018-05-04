@@ -681,7 +681,7 @@ MIME and attachments
 							->setType("image/png")
 							->addHeader("Content-ID", "logo.png")
 							->setBody(
-								cache [ "ttl" => 3600 * 24 * 7 ]
+								cache [ "ttl" => 3600 * 24 * 7 ]
 									http("https://pbs.twimg.com/profile_images/656816032930119680/52m1eugJ.jpg")
 							)
 					)
