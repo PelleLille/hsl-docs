@@ -554,6 +554,7 @@ DKIM
   "permerror"                        An unknown error occurred (more details may be available in the log)
   ["example.com" => "temperror"]     A temporary error occurred (but the domain was known)
   ["example.com" => "policy_absent"] No DMARC policy for domain
+  ["example.com" => "pass"]          The DMARC passed
   ["example.com" => "none"]          The policy resulted in none
   ["example.com" => "reject"]        The policy resulted in reject
   ["example.com" => "quarantine"]    The policy resulted in quarantine
