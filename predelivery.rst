@@ -52,7 +52,7 @@ Functions
 
 .. function:: Bounce()
 
-  Delete the message from the queue, and generating a DSN (bounce) to the sender.
+  Delete the message from the queue, and generate a DSN (bounce) to the sender.
 
   :return: doesn't return, script is terminated
 
