@@ -6,7 +6,7 @@ Standard library
 Functions which are documented in this chapter are considered `core` functions hence are available in all `contexts`. Functions in the standard library may be recognized by the fact that they are all in lowercase.
 
 * **Array** :func:`array_keys` :func:`array_filter` :func:`array_map` :func:`array_reduce` :func:`array_reverse` :func:`array_sort` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
-* **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash`
+* **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`ed25519_sign` :func:`ed25519_verify`
 * **Data types** :func:`array` :func:`number` :func:`string` :func:`is_array` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsns` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
@@ -246,6 +246,25 @@ Cryptographic
   :param string string: string to be hashed
   :return: a hash value
   :rtype: number
+
+.. function:: ed25519_sign(message, privatekey)
+
+  ED25519 sign a message.
+
+  :param string message: the message to sign
+  :param string privatekey: the private key as raw bytes
+  :return: the message signature
+  :rtype: string or none (on error)
+
+.. function:: ed25519_verify(message, signature, publickey)
+
+  ED25519 verify a message.
+
+  :param string message: the message to sign
+  :param string signature: the signature as raw bytes
+  :param string publickey: the private key as raw bytes
+  :return: if the signature verifies
+  :rtype: boolean or none (on error)
 
 Data types
 ----------
