@@ -594,19 +594,21 @@ DKIM
 
 .. function:: DKIMVerify(headerfield, [options]])
 
-  DKIM verify a DKIM-Signature or ARC-Message-Signature.
+  DKIM verify a `DKIM-Signature` or `ARC-Message-Signature` header. The header should include both the header name and value (unmodified).
 
   :param string headerfield: the header to verify
   :param array options: options array
   :return: associative array containing the result.
-  :rtype: array or none (on error)
+  :rtype: array
 
   The following options are available in the options array.
 
    * **timeout** (number) the timeout (per DNS query). The default is ``5``.
    * **dns_function** (function) a custom DNS function. The default is to use the built in.
 
-  The DNS function will be called with the hostname (eg. 2018._domainkeys.example.com) for which a DKIM record should be returned. The result must be an array contaning either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
+  The DNS function will be called with the hostname (eg. `2018._domainkeys.example.com`) for which a DKIM record should be returned. The result must be an array contaning either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
+
+  The resulting array always contains a ``result`` field of either ``pass``, ``permerror`` or ``temperror``. In case of an error the reason is included in an ``error`` field. If the header was successfully parsed (regardless of the result) a ``tags`` field will be included. 
 
 .. function:: DKIMSDID([explicitdomains, [options]])
 
@@ -623,7 +625,7 @@ DKIM
    * **timeout** (number) the timeout (per DNS query). The default is ``5``.
    * **dns_function** (function) a custom DNS function. The default is to use the built in.
 
-  The DNS function will be called with the hostname (eg. 2018._domainkeys.example.com) for which a DKIM record should be returned. The result must be an array contaning either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
+  The DNS function will be called with the hostname (eg. `2018._domainkeys.example.com`) for which a DKIM record should be returned. The result must be an array contaning either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
 
   ========= ===========
   Result    Description
