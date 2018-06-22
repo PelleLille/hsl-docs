@@ -1182,7 +1182,7 @@ Misc
 
   The following options are available in the options array.
 
-   * **local** (boolean) Do not synchronize the rate in between nodes in the cluster. The default is ``false``.
+   * **sync** (boolean) Do not synchronize the rate in between nodes in the cluster. The default is ``true``.
 
   .. code-block:: hsl
 
