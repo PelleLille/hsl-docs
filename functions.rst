@@ -6,7 +6,7 @@ Standard library
 Functions which are documented in this chapter are considered `core` functions hence are available in all `contexts`. Functions in the standard library may be recognized by the fact that they are all in lowercase.
 
 * **Array** :func:`array_keys` :func:`array_filter` :func:`array_map` :func:`array_reduce` :func:`array_reverse` :func:`array_sort` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
-* **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`ed25519_sign` :func:`ed25519_verify`
+* **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify`
 * **Data types** :func:`array` :func:`number` :func:`string` :func:`is_array` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsns` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
@@ -246,6 +246,41 @@ Cryptographic
   :param string string: string to be hashed
   :return: a hash value
   :rtype: number
+
+.. function:: rsa_sign(message, privatekey, [options])
+
+  RSA sign a message digest using a hash function.
+
+  :param string message: the message to sign
+  :param string privatekey: the private key
+  :param array options: options array
+  :return: the message signature
+  :rtype: string or none (on error)
+
+  The following options are available in the options array.
+
+   * **hash** (string) The hash method to use (``md5``, ``sha1``, ``sha256`` or ``sha512``). The default is ``sha256``.
+   * **format** (string) The private key format to use ``PrivateKeyInfo`` (PKCS#8) or ``RSAPrivateKey``. The default is ``RSAPrivateKey``.
+   * **pem** (boolean) If the private key is in PEM format or raw bytes. The default is ``false``.
+   * **id** (boolean) If the private key is in configuration "pki:X" format. The default is ``false``.
+
+.. function:: rsa_verify(message, signature, publickey, [options])
+
+  RSA verify a message digest using a hash function. On error the function return none.
+
+  :param string message: the message to verify
+  :param string signature: the signature for the message as raw bytes
+  :param string publickey: the public key
+  :param array options: options array
+  :return: if the signature verifies
+  :rtype: boolean or none (on error)
+
+  The following options are available in the options array.
+
+   * **hash** (string) The hash method to use (``md5``, ``sha1``, ``sha256`` or ``sha512``). The default is ``sha256``.
+   * **format** (string) The public key format to use ``SubjectPublicKeyInfo`` or ``RSAPublicKey``. The default is ``RSAPublicKey``.
+   * **pem** (boolean) If the public key is in PEM format or raw bytes. The default is ``false``.
+   * **id** (boolean) If the public key is in configuration "pki:X" format. The default is ``false``.
 
 .. function:: ed25519_sign(message, privatekey)
 
