@@ -634,28 +634,6 @@ DKIM
   permerror A later attempt is unlikely to produce a final result.
   ========= ===========
 
-.. function:: DKIMADSP()
-
-  Returns the ADSP (Author Domain Signing Practices) policy from the `DKIM <http://wiki.halon.se/DKIM>`_ header of the message.
-
-  :return: associative array containing the domain and result.
-  :rtype: array
-
-  ========= ===========
-  Result    Description
-  ========= ===========
-  none      No DKIM Author Domain Signing Practices (ADSP) record was published.
-  pass      This message had an Author Domain Signature that was validated. (An ADSP check is not strictly required to be performed for this result since a valid Author Domain Signature satisfies all possible ADSP policies.)
-  unknown   No valid Author Domain Signature was found on the message and the published ADSP was "unknown".
-  fail      No valid Author Domain Signature was found on the message and the published ADSP was "all".
-  discard 	No valid Author Domain Signature was found on the message and the published ADSP was "discardable".
-  nxdomain  Evaluating the ADSP for the Author's DNS domain indicated that the Author's DNS domain does not exist.
-  temperror An ADSP record could not be retrieved due to some error that is likely transient in nature, such as a temporary DNS error. A later attempt may produce a final result.
-  permerror An ADSP record could not be retrieved due to some error that is likely not transient in nature, such as a permanent DNS error. A later attempt is unlikely to produce a final result.
-  ========= ===========
-
-  As defined in `RFC5617 <http://tools.ietf.org/search/rfc5617>`_.
-
 MIME and attachments
 ^^^^^^^^^^^^^^^^^^^^
 
