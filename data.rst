@@ -602,6 +602,10 @@ DKIM
   The following options are available in the options array.
 
    * **signature_limit** (number) signatures to verify. The default is ``5``.
+   * **timeout** (number) the timeout (per DNS query). The default is ``5``.
+   * **dns_function** (function) a custom DNS function. The default is to use the built in.
+
+  The DNS function will be called with the hostname (eg. 2018._domainkeys.example.com) for which a DKIM record should be returned. The result must be an array contaning either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
 
   ========= ===========
   Result    Description
