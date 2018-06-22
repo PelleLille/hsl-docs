@@ -781,14 +781,20 @@ MIME and attachments
 	  The following options are available in the options array.
 
 	   * **index** (number) The index of the header, from the top, starting at zero.
+	   * **encode** (number) Refold and encode the header. The default is ``true``.
 
-  .. function:: MIME.addHeader(name, value)
+  .. function:: MIME.addHeader(name, value, [options])
 
 	  Add a new header (at the top of the message).
 
 	  :param string name: name of the header
 	  :param string value: value of the header
+	  :param array options: an options array
 	  :rtype: none
+
+	  The following options are available in the options array.
+
+	   * **encode** (number) Refold and encode the header. The default is ``true``.
 
   .. function:: MIME.delHeader(name, [options])
 
