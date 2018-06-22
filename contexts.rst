@@ -1,11 +1,14 @@
 Contexts
 ========
 
-There are multiple contexts (extensions) to the language, which provides context specific variables and functions. The `smtpd` process implements the :doc:`CONNECT <connect>`, :doc:`AUTH <auth>`, :doc:`MAIL FROM <mailfrom>`, :doc:`RCPT TO <rcptto>` and :doc:`DATA <data>` context. These contexts operates on an SMTP connection. The ``$messageid`` variable is set when connecting and may be regenerated upon the client sending a RSET command. There is also a ``$context`` variable which is bound to a connection and may be changed in any flow, this is useful for passing data between flows.
+There are multiple contexts (extensions) to the language, which provides context specific variables and functions. The `smtpd` process implements the :doc:`CONNECT <connect>`, :doc:`HELO <helo>`, :doc:`AUTH <auth>`, :doc:`MAIL FROM <mailfrom>`, :doc:`RCPT TO <rcptto>` and :doc:`DATA <data>` context. These contexts operates on an SMTP connection. The ``$messageid`` variable is set when connecting and may be regenerated upon the client sending a RSET command. There is also a ``$context`` variable which is bound to a connection and may be changed in any flow, this is useful for passing data between flows.
 
 ::
 
 	  .--------------------------------. <-- CONNECT context
+	< | 220 example.org ESMTP          |
+	> | HELO example.com               | <-- HELO context
+	< | 250 OK                         |
 	  | ...                            |
 	> | AUTH LOGIN                     | <-- AUTH context
 	  | ...                            |
@@ -34,6 +37,7 @@ The `mailqueued` process implements the :doc:`Pre- <predelivery>` and :doc:`Post
 .. toctree::
 
 	connect
+	helo
 	auth
 	mailfrom
 	rcptto
