@@ -581,6 +581,7 @@ DKIM
    * **headers** (array) headers to sign. The default is to sign all headers recommended by the RFC.
    * **discard_changes** (boolean) Discard any changes to the original message before signing. The default is ``false``.
    * **return_header** (boolean) Return the DKIM signature as a string, instead of adding it to the message. The default is ``false``.
+   * **arc** (boolean) Create an ARC-Message-Signature header. The default is ``false``.
 
   .. note::
 
