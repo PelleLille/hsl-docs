@@ -732,7 +732,8 @@ MIME and attachments
 
 	  The following options are available in the options array.
 
-	   * **index** (number) The index of the header, from the top, starting at zero.
+	   * **index** (number) The index of the header, from the top, starting at zero. The default is ``0``.
+	   * **field** (boolean) Get the header field as is (including the name). The default is ``false``.
 
 	  .. code-block:: hsl
 
@@ -743,13 +744,18 @@ MIME and attachments
 
 		The ``getHeader`` function family will return headers as a UTF-8 string with all MIME encoded-words decoded (`=?charset?encoding?data?=`). However even if headers must be in 7-bit ASCII, some senders do not conform to this and do send headers with different charset encodings. In those cases we (1) Use the MIME-parts "Content-Type" headers charset when converting to UTF-8. (2) If there is no charset information available we use a statistical charset detection function. (3) We just pretend it to be US-ASCII and covert it to UTF-8 anyway (guaranteeing the result will be valid UTF-8).
 
-  .. function:: MIME.getHeaders(name)
+  .. function:: MIME.getHeaders(name, [options])
 
 	  Return a list of header values. If no header is found, an empty list is returned. The name is not case sensitive.
 
 	  :param string name: name of the header
+	  :param array options: an options array
 	  :return: header values
 	  :rtype: array of string
+
+	  The following options are available in the options array.
+
+	   * **field** (boolean) Get the header field as is (including the name). The default is ``false``.
 
 	  .. code-block:: hsl
 
