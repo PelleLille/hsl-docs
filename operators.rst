@@ -77,6 +77,17 @@ It's however not possible to mix keyed with unkeyed assignments.
 
 		[$a, $b = 1, $c = 2] = [0];
 
+Slice assignment
+^^^^^^^^^^^^^^^^
+
+Slice assignments uses the :ref:`slicing <slicing>` syntax to add, remove or replace items in an `array` by using the slice operator on the left side of an assigment. The slice referred to will be removed while the items on the right side of the assigment operator will be inserted in place right after the removed items.
+
+.. code-block:: hsl
+
+	$var = [1, 2, 7, 5];
+	$var[2:3] = [3, 4]; // 1, 2, 3, 4, 5
+
+
 Arithmetic
 ----------
 
@@ -253,7 +264,7 @@ When adding two arrays together, associative keys will be merged (the first arra
 Removing
 ^^^^^^^^
 
-In order to remove specific value(s) from an array (and if push and pop is not appropriate) use the subtraction (``-``) operator to remove based on value (all value matched will be removed) and :func:`unset` to remove based on a specific key (index). The subtraction operator supports both single items and arrays (where all values will be removed). The array will not be re-indexed (for that use the slice operator (``$var = $var[:]``).
+In order to remove specific value(s) from an array (and if push and pop is not appropriate) use the subtraction (``-``) operator to remove based on value (all value matched will be removed) and :func:`unset` to remove based on a specific key (index) or slice. The subtraction operator supports both single items and arrays (where all values will be removed). The array will not be re-indexed (for that use the slice operator (``$var = $var[:]``).
 
 .. code-block:: hsl
 
@@ -263,7 +274,7 @@ In order to remove specific value(s) from an array (and if push and pop is not a
 
 .. note::
 
-	Use the :func:`unset` function to unset values based on the key (index).
+	Use the :func:`unset` function to unset values based on the key (index) or slice.
 
 Logic (boolean)
 ---------------
