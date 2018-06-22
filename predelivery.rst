@@ -124,7 +124,7 @@ Functions
    * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv2``, ``SSLv3``, ``TLSv1``, ``TLSv1.1`` or ``TLSv1.2``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
    * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each SSL/TLS protocol.
    * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
-   * **tls_verify_name** (array) Hostnames to verify against the certificate's CN and SAN.
+   * **tls_verify_name** (array) Hostnames to verify against the certificate's CN and SAN (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
    * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
    * **tls_capture_peer_cert** (boolean) If set to true, the peer certificate will be available in the :func:`postdelivery.GetTLS` results. The default is ``false``.
