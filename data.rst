@@ -70,7 +70,7 @@ Functions
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
 * **Actions** :func:`Deliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`DiscardMailDataChanges` :func:`Done`
 * **Anti-spam and anti-virus** :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM` :func:`ScanDLP`
-* **DKIM** :func:`ScanDMARC` :func:`DKIMSign` :func:`DKIMSDID` :func:`DKIMADSP`
+* **DKIM** :func:`ScanDMARC` :func:`DKIMSign` :func:`DKIMVerify` :func:`DKIMSDID`
 
 Misc
 ^^^^
@@ -589,6 +589,22 @@ DKIM
 
 		$dkimsig = DKIMSign("selector", "example.com", $key, ["return_header" => true]);
 		AddHeader("DKIM-Signature", $dkimsig, false); // without refolding
+
+.. function:: DKIMVerify(headerfield, [options]])
+
+  DKIM verify a DKIM-Signature or ARC-Message-Signature.
+
+  :param string headerfield: the header to verify
+  :param array options: options array
+  :return: associative array containing the result.
+  :rtype: array or none (on error)
+
+  The following options are available in the options array.
+
+   * **timeout** (number) the timeout (per DNS query). The default is ``5``.
+   * **dns_function** (function) a custom DNS function. The default is to use the built in.
+
+  The DNS function will be called with the hostname (eg. 2018._domainkeys.example.com) for which a DKIM record should be returned. The result must be an array contaning either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
 
 .. function:: DKIMSDID([explicitdomains, [options]])
 
