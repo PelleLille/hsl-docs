@@ -1180,7 +1180,7 @@ Misc
 
   .. note::
 
-	You can only use "a-z0-9.-" in the name and "a-z0-9-" in the legends (legends longer than 19 characters will be truncated on the graph page) when using the stat function. For example, uppercase letters are not allowed.
+	You can only use "a-z0-9.-" in the name and "a-zA-Z0-9-_" in the legends (legends longer than 19 characters will be truncated on the graph page) when using the stat function.
 
 .. function:: in_network(ip, network)
 
