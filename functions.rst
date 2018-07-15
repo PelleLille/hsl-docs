@@ -1517,12 +1517,12 @@ String
   :return: the string uppercased
   :rtype: string
 
-.. function:: substr(s, start, [lenn])
+.. function:: substr(s, offset, [len])
 
   Return the substring of s.
 
   :param string s: the input string
-  :param number start: the start position
+  :param number offset: the start position
   :param number len: the length limit if given
   :return: the substring
   :rtype: string
