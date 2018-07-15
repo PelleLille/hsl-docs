@@ -201,6 +201,7 @@ It's possible to chain the index operator with the [:] :ref:`slicing <slicing>` 
 
 The following key casting rules apply.
 
+	* Booleans are casted to numbers (0 and 1).
 	* Strings ("1") containing integers are casted to numbers (1).
 	* Numbers (1.10) are casted to integers (1) ignoring the decimal part (x.10). 32bit signed integers are used.
 	* All other values are matched as-is.
