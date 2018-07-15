@@ -1529,7 +1529,7 @@ String
 
 .. function:: trim(s)
 
-  Returns s with whitespace characters (`\s\t\r\n`) removed from the start and end of the string.
+  Returns s with whitespace characters (`\\s\\t\\r\\n`) removed from the start and end of the string.
 
   :param string s: the input string
   :return: the trimmed string
