@@ -1517,7 +1517,7 @@ String
   :return: the string uppercased
   :rtype: string
 
-.. function:: substr(s, [[start = 0], len])
+.. function:: substr(s, start, [lenn])
 
   Return the substring of s.
 
