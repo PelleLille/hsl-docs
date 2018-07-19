@@ -45,7 +45,15 @@ Garbage collection
 
 Type system
 
-	HSL is a "dynamically-typed programming language". Featuring numbers, strings, associative arrays and functions.
+	HSL is a "dynamically-typed programming language". Featuring boolean, numbers, strings, associative arrays, functions and objects.
+
+Modules
+
+	HSL allows you to structure you code into reusable modules.
+
+Classes
+
+	HSL supports classes to encapsulate and structure data.
 
 Scoping
 
