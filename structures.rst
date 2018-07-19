@@ -23,37 +23,21 @@ The ``echo`` statement will convert the expression to a string and print its val
 if
 --
 
-One of the most basic control structures in HSL is the `if` statement, it allows conditional control flow.
+One of the most basic control structures in HSL is the `if` statement, it allows conditional control flow. `if` statements check the expression for :ref:`truthiness <truthtable>`.
 
 ::
 
-	if (expression)
+	if (condition)
 		statement
 
 In addition to `if` there is also an `else` branch available; executed if the expression yields false
 
 ::
 
-	if (expression)
+	if (condition)
 		statements
 	else
 		statements
-
-.. _truthtable:
-
-`if` statements check the expression for truthiness. It does so by checking if the expression is not false; and everything that is not false is by definition true.
-
-+-----------+------------+
-| data type | truthiness |
-+===========+============+
-| number    | != 0       |
-+-----------+------------+
-| string    | not empty  |
-+-----------+------------+
-| array     | not empty  |
-+-----------+------------+
-| none      | never true |
-+-----------+------------+
 
 .. code-block:: hsl
 

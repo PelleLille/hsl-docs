@@ -1,7 +1,67 @@
 Data types and literals
 =======================
 
-HSL has multiple data types; `strings`, `numbers`, `arrays` (which also works as an ordered map to store key-value pairs, similar to PHP's `array <http://php.net/manual/en/language.types.array.php>`_), `objects` (created by :ref:`classes <class_statement>`) and `functions` (both anonymous functions and named function pointers). Some of these data types may be represented as literals. There is also a `none` (or `null`) data type that is rarely encountered (e.g. a :ref:`return` statement without a value or a failed :func:`json_decode` both of which return `none`).
+HSL has multiple data types; `strings`, `booleans`, `numbers`, `arrays` (which also works as an ordered map to store key-value pairs, similar to PHP's `array <http://php.net/manual/en/language.types.array.php>`_), `objects` (created by :ref:`classes <class_statement>`) and `functions` (both anonymous functions and named function pointers). Some of these data types may be represented as literals. There is also a `none` (or `null`) data type that is rarely encountered (e.g. a :ref:`return` statement without a value or a failed :func:`json_decode` both of which return `none`).
+
+.. _boolean:
+
+Boolean
+-------
+The keywords ``true`` and ``false`` represent boolean true and boolean false, they are treated as `1` and `0` in arithmetics operations.
+
+.. warning::
+	Boolean ``true`` and ``false`` should not always be used in if statement, if you are not fully aware of the :ref:`truthiness <truthtable>` and loose comparison. 
+
+	.. code-block:: hsl
+
+		if (5 == true) { } // false: 5 is not equal to 1
+		if (5) { } // true: 5 is not false, hence true
+
+
+.. _number:
+
+Number
+-------
+
+The number type is a double-precision 64-bit `IEEE 754 <http://en.wikipedia.org/wiki/Double-precision_floating-point_format>`_ value. If converted to a string it will be presented in the most accurate way possible without trailing decimal zeros.
+
+.. code-block:: hsl
+
+	echo 1.0; // 1
+
+.. warning::
+
+	After some arithmetic operations on floating point numbers; the equality (`==`) of two floating point numbers may not be true even if they mathematically "should". This caveat is not unique to HSL, instead it is the result of how computers calculates and stores `floating point numbers <http://en.wikipedia.org/wiki/Floating_point>`_. Arithmetic operations on `numbers` without decimals are not affected.
+
+.. _hexadecimal:
+
+Hexadecimal
+^^^^^^^^^^^
+Numbers may be entrered as in hexadecimal form (also known as base 16) using the ``0x`` prefix; followed by ``[0-9a-f]+``.
+
+.. code-block:: hsl
+
+	echo 0xfa; // 250
+
+.. _octal:
+
+Octal
+^^^^^
+Numbers may be entrered in octal form (also known as base 8) using the ``0o`` prefix; followed by ``[0-7]+``.
+
+.. code-block:: hsl
+
+	echo 0o372; // 250
+
+.. _binary:
+
+Binary
+^^^^^^
+Numbers may be entrered in binary form (also known as base 2) using the ``0b`` prefix; followed by ``[0-1]+``.
+
+.. code-block:: hsl
+
+	echo 0b11111010; // 250
 
 .. _string:
 
@@ -54,67 +114,8 @@ Raw strings do not support variable interpolation nor escape sequences. This mak
 	'#'raw string'#'
 
 .. note::
-	
+
 	There is no performance difference between double-quoted and raw strings containing the same value. However if special characters needs to be escaped then raw string are recommended for clarity.
-
-.. _number:
-
-Number
--------
-
-The number type is a double-precision 64-bit `IEEE 754 <http://en.wikipedia.org/wiki/Double-precision_floating-point_format>`_ value. If converted to a string it will be presented in the most accurate way possible without trailing decimal zeros.
-
-.. code-block:: hsl
-
-	echo 1.0; // 1
-
-.. warning::
-
-	After some arithmetic operations on floating point numbers; the equality (`==`) of two floating point numbers may not be true even if they mathematically "should". This caveat is not unique to HSL, instead it is the result of how computers calculates and stores `floating point numbers <http://en.wikipedia.org/wiki/Floating_point>`_. Arithmetic operations on `numbers` without decimals are not affected.
-
-.. _hexadecimal:
-
-Hexadecimal
-^^^^^^^^^^^
-Numbers may be entrered as in hexadecimal form (also known as base 16) using the ``0x`` prefix; followed by ``[0-9a-f]+``.
-
-.. code-block:: hsl
-
-	echo 0xfa; // 250
-
-.. _octal:
-
-Octal
-^^^^^
-Numbers may be entrered in octal form (also known as base 8) using the ``0o`` prefix; followed by ``[0-7]+``.
-
-.. code-block:: hsl
-
-	echo 0o372; // 250
-
-.. _binary:
-
-Binary
-^^^^^^
-Numbers may be entrered in binary form (also known as base 2) using the ``0b`` prefix; followed by ``[0-1]+``.
-
-.. code-block:: hsl
-
-	echo 0b11111010; // 250
-
-.. _boolean:
-
-Boolean
-^^^^^^^
-The keywords ``true`` and ``false`` are aliases for `1` and `0`.
-
-.. warning::
-	Boolean ``true`` and ``false`` should not be used to test for :ref:`truthiness <truthtable>` e.g. in :ref:`if` statements. :ref:`if` statements checks for values which are `not false`, which isn't the same as numeric 1 (``true``).
-
-	.. code-block:: hsl
-
-		if (5 == true) { } // false: 5 is not equal to 1
-		if (5) { } // true: 5 is not false, hence true
 
 .. _arraytype:
 
@@ -194,7 +195,7 @@ This data type is represeneted by the keyword ``none``. It may be used to indica
  * :func:`is_string`
 
 .. code-block:: hsl
-	
+
 	$obj = json_decode("...");
 	if ($obj == none)
 		echo "None";

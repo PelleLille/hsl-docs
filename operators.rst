@@ -362,29 +362,81 @@ Comparison
 
 These operators compare the expressions (operands) on both sides of the operator with one another, and the expression return either true or false if they matched.
 
-+-------------------------------+----+--------------------------------------------------+----------------+
-| Test                          |    | Description                                      | Works on types |
-+===============================+====+==================================================+================+
-| equality                      | == | Matches for equality                             | Any            |
-+-------------------------------+----+--------------------------------------------------+----------------+
-| inequality                    | != | Matches for inequality                           | Any            |
-+-------------------------------+----+--------------------------------------------------+----------------+
-| less than                     | <  | Matches for less than                            | Numbers        |
-+-------------------------------+----+--------------------------------------------------+----------------+
-| greater than                  | >  | Matches for greater than                         | Numbers        |
-+-------------------------------+----+--------------------------------------------------+----------------+
-| less or equal than            | <= | Matches for less than                            | Numbers        |
-+-------------------------------+----+--------------------------------------------------+----------------+
-| greater or equal than         | >= | Matches for greater than                         | Numbers        |
-+-------------------------------+----+--------------------------------------------------+----------------+
-| regular expression            | =~ | Matches for equality using regular expressions   | Strings        |
-+-------------------------------+----+--------------------------------------------------+----------------+
-| inequality regular expression | !~ | Matches for inequality using regular expressions | Strings        |
-+-------------------------------+----+--------------------------------------------------+----------------+
++-------------------------------+-----+--------------------------------------------------+----------------+
+| Test                          |     | Description                                      | Works on types |
++===============================+=====+==================================================+================+
+| loose equality                | ==  | Matches for equality                             | Any            |
++-------------------------------+-----+--------------------------------------------------+----------------+
+| loose inequality              | !=  | Matches for inequality                           | Any            |
++-------------------------------+-----+--------------------------------------------------+----------------+
+| strictly typed equality       | === | Matches for strict equality                      | Any            |
++-------------------------------+-----+--------------------------------------------------+----------------+
+| strictly typed inequality     | !== | Matches for strict inequality                    | Any            |
++-------------------------------+-----+--------------------------------------------------+----------------+
+| less than                     | <   | Matches for less than                            | Numbers        |
++-------------------------------+-----+--------------------------------------------------+----------------+
+| greater than                  | >   | Matches for greater than                         | Numbers        |
++-------------------------------+-----+--------------------------------------------------+----------------+
+| less or equal than            | <=  | Matches for less than                            | Numbers        |
++-------------------------------+-----+--------------------------------------------------+----------------+
+| greater or equal than         | >=  | Matches for greater than                         | Numbers        |
++-------------------------------+-----+--------------------------------------------------+----------------+
+| regular expression            | =~  | Matches for equality using regular expressions   | Strings        |
++-------------------------------+-----+--------------------------------------------------+----------------+
+| inequality regular expression | !~  | Matches for inequality using regular expressions | Strings        |
++-------------------------------+-----+--------------------------------------------------+----------------+
 
-.. note::
+Loose equality table
+^^^^^^^^^^^^^^^^^^^^
 
-	If comparing two operands of different data type, the result may be "unexpected", therefore always explicitly convert them if needed using functions like :func:`number` and :func:`string`.
+If comparing two operands of different data type using the ``==`` operator, the result may be "unexpected", therefore you should preferable always explicitly convert them using functions like :func:`number` and :func:`string`.
+
++--------------+-------+------------------+-----------------+------------------+------------------+------------------+------------------+------------------+
+| A \\ B       | None  | Boolean          | Numbers         | String           | Vector           | Function         | Object           | Resource         |
++==============+=======+==================+=================+==================+==================+==================+==================+==================+
+| **None**     | true  | false            | false           | false            | false            | false            | false            | false            |
++--------------+-------+------------------+-----------------+------------------+------------------+------------------+------------------+------------------+
+| **Boolean**  | false | A === B          | number(A) === B | A === boolean(B) | A === boolean(B) | A === boolean(B) | A === boolean(B) | A === boolean(B) |
++--------------+-------+------------------+-----------------+------------------+------------------+------------------+------------------+------------------+
+| **Numbers**  | false | A === number(B)  | A === B         | A === number(B)  | A == boolean(B)  | A == boolean(B)  | A == boolean(B)  | A == boolean(B)  |
++--------------+-------+------------------+-----------------+------------------+------------------+------------------+------------------+------------------+
+| **String**   | false | boolean(A) === B | number(A) === B | A === B          | false            | false            | false            | false            |
++--------------+-------+------------------+-----------------+------------------+------------------+------------------+------------------+------------------+
+| **Vector**   | false | boolean(A) === B | boolean(A) == B | false            | A === B          | false            | false            | false            |
++--------------+-------+------------------+-----------------+------------------+------------------+------------------+------------------+------------------+
+| **Function** | false | boolean(A) === B | boolean(A) == B | false            | false            | A === B          | false            | false            |
++--------------+-------+------------------+-----------------+------------------+------------------+------------------+------------------+------------------+
+| **Object**   | false | boolean(A) === B | boolean(A) == B | false            | false            | false            | A === B          | false            |
++--------------+-------+------------------+-----------------+------------------+------------------+------------------+------------------+------------------+
+| **Resource** | false | boolean(A) === B | boolean(A) == B | false            | false            | false            | false            | A === B          |
++--------------+-------+------------------+-----------------+------------------+------------------+------------------+------------------+------------------+
+
+.. _truthtable:
+
+Truthiness
+^^^^^^^^^^
+
+Truthiness of a value tells if the value is considered ``true`` eg. when using them as conditions in :ref:`if statements <if>`.
+
++--------------+------------+
+| Type         | Truthiness |
++==============+============+
+| **None**     | false      |
++--------------+------------+
+| **Boolean**  | x          |
++--------------+------------+
+| **Numbers**  | x != 0     |
++--------------+------------+
+| **String**   | ! empty(x) |
++--------------+------------+
+| **Vector**   | ! empty(x) |
++--------------+------------+
+| **Function** | true       |
++--------------+------------+
+| **Object**   | true       |
++--------------+------------+
+| **Resource** | true       |
++--------------+------------+
 
 .. _regex:
 
