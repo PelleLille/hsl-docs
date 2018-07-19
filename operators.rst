@@ -155,6 +155,16 @@ It's possible to use the ``.`` concatenation operator on any data type (except `
 	echo "A number " . 5.5;
 	echo 1.0 . 2.5; // "12.5"
 
+Repeat
+^^^^^^
+
+Strings may be repeated mutiple times using the ``*`` multiplication operator. It doesn't matter on which side of the operator the multiplier is.
+
+.. code-block:: hsl
+
+	echo "x" * 8; // xxxxxxxx
+	echo 8 * "x"; // xxxxxxxx
+
 Array
 -----
 
@@ -276,6 +286,16 @@ In order to remove specific value(s) from an array (and if push and pop is not a
 .. note::
 
 	Use the :func:`unset` function to unset values based on the key (index) or slice.
+
+Repeat
+^^^^^^
+
+Arrays may be repeated mutiple times using the ``*`` multiplication operator. It doesn't matter on which side of the operator the multiplier is.
+
+.. code-block:: hsl
+
+	echo ["x", "y"] * 2; // [x, y, x, y]
+	echo 8 * ["x", "y"]; // [x, y, x, y]
 
 Logic (boolean)
 ---------------
