@@ -189,10 +189,11 @@ None
 
 This data type is represeneted by the keyword ``none``. It may be used to indicate error-result or no return value from functions such as. :func:`json_decode` (in case of a decode error) or from a user-defined :ref:`user_function` with no or an empty :ref:`return` statement. This data type should **not** be used as an argument to other built-in functions as it yields **undefined** behavior for the most part. The only functions safe to handle this data type is:
 
+ * :func:`is_number`
+ * :func:`is_boolean`
+ * :func:`is_string`
  * :func:`is_array`
  * :func:`is_function`
- * :func:`is_number`
- * :func:`is_string`
 
 .. code-block:: hsl
 
