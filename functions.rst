@@ -7,7 +7,7 @@ Functions which are documented in this chapter are considered `core` functions h
 
 * **Array** :func:`array_keys` :func:`array_filter` :func:`array_map` :func:`array_reduce` :func:`array_reverse` :func:`array_sort` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
 * **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify`
-* **Data types** :func:`array` :func:`number` :func:`string` :func:`is_array` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
+* **Data types** :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsns` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_explode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
@@ -316,9 +316,17 @@ Data types
 
 	`array` is not a function, it's a language construct to create an :ref:`array <arraytype>` type. It's an alias for the short array syntax ``[]``.
 
+.. function:: boolean(x)
+
+  This function converts the input of x to the boolean type (according to the :ref:`truthiness <truthtable>`) table.
+
+  :param any x: the input
+  :return: a boolean
+  :rtype: boolean
+
 .. function:: number(x)
 
-  This function converts the input of x to the number type. Decimal and hexadecimal (`Ox`) numbers are supported.
+  This function converts the input of x to the number type. Decimal and hexadecimal (`Ox`) numbers are supported. If the input contains an invalid number as string or type ``0`` is returned.
 
   :param any x: the input
   :return: a number
@@ -335,6 +343,14 @@ Data types
 .. function:: is_array(a)
 
   Returns true if the type of a is an array.
+
+  :param any a: the input
+  :return: the result
+  :rtype: boolean
+
+.. function:: is_boolean(a)
+
+  Returns true if the type of a is a boolean.
 
   :param any a: the input
   :return: the result
