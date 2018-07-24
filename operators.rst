@@ -155,6 +155,35 @@ It's possible to use the ``.`` concatenation operator on any data type (except `
 	echo "A number " . 5.5;
 	echo 1.0 . 2.5; // "12.5"
 
+Format
+^^^^^^
+
+The string format operator ``%``, allows you to interpolate values into a string using different format specifiers. On the left side of the operator is the template string and on the right side of the operator there must be an array with values.
+
+::
+
+	%[argument][[fill]align][width][.precision][type]
+
++-----------+-----------------------------------------+
+| argument  | "[" integer "]"                         |
++-----------+-----------------------------------------+
+| fill      | <any character>                         |
++-----------+-----------------------------------------+
+| align     | "<" (left) | ">" (right) | "^" (center) |
++-----------+-----------------------------------------+
+| width     | integer                                 |
++-----------+-----------------------------------------+
+| precision | integer                                 |
++-----------+-----------------------------------------+
+| type      | "s" (string) | "f" (number)             |
++-----------+-----------------------------------------+
+
+The default *argument* is the next value in the array. If an argument is specified (indexed at zero), the next implicit argument is ``n + 1``. The default *fill* character is a space, but that can be changed to any characters (except `%`). The default *alignment* is left with the exception for numbers which has right. For strings the *precision* acts as a cut-off point (max length). Unsupported options for a specific type is simply ignored. To print a literal ``%`` in a format string replace it with ``%%``.
+
+.. code-block:: hsl
+
+	echo "Hello %s!" % [ "World" ];
+
 Repeat
 ^^^^^^
 
