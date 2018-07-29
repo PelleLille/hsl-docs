@@ -16,6 +16,7 @@
   recipientdomain $recipientdomain
   transportid     $transportid
   retry           1
+  metadata.x      any metadata
   =============== =======
 
   .. code-block:: hsl
