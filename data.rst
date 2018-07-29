@@ -3,7 +3,7 @@
 DATA
 ====
 
-The DATA context is executed once for every recipient when the message is fully received (but not yet accepted). If multiple types of actions are performed, the response message (sent back to the client) will be choosen in the order of Reject, Defer, Quarantine, Delete, Deliver.
+The DATA context is executed once for every recipient when the message is fully received (but not yet accepted). If multiple types of actions are performed, the response message (sent back to the client) will be chosen in the order of Reject, Defer, Quarantine, Delete, Deliver.
 
 Pre-defined variables
 ---------------------
@@ -411,13 +411,13 @@ Anti-spam and anti-virus
 
   RPD’s anti-virus classification scores and class names
 
-  ===== ================= ===========
-  Score Class             Description
-  ===== ================= ===========
-  0     non-virus, unkown Unknown
-  50    medium            Medium probability
-  100   virus, high       High probability
-  ===== ================= ===========
+  ===== ================== ===========
+  Score Class              Description
+  ===== ================== ===========
+  0     non-virus, unknown Unknown
+  50    medium             Medium probability
+  100   virus, high        High probability
+  ===== ================== ===========
 
 .. function:: ScanSA([options])
 
@@ -606,7 +606,7 @@ DKIM
    * **timeout** (number) the timeout (per DNS query). The default is ``5``.
    * **dns_function** (function) a custom DNS function. The default is to use the built in.
 
-  The DNS function will be called with the hostname (eg. `2018._domainkeys.example.com`) for which a DKIM record should be returned. The result must be an array contaning either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
+  The DNS function will be called with the hostname (eg. `2018._domainkeys.example.com`) for which a DKIM record should be returned. The result must be an array containing either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
 
   The resulting array always contains a ``result`` field of either ``pass``, ``permerror`` or ``temperror``. In case of an error the reason is included in an ``error`` field. If the header was successfully parsed (regardless of the result) a ``tags`` field will be included. 
 
@@ -625,7 +625,7 @@ DKIM
    * **timeout** (number) the timeout (per DNS query). The default is ``5``.
    * **dns_function** (function) a custom DNS function. The default is to use the built in.
 
-  The DNS function will be called with the hostname (eg. `2018._domainkeys.example.com`) for which a DKIM record should be returned. The result must be an array contaning either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
+  The DNS function will be called with the hostname (eg. `2018._domainkeys.example.com`) for which a DKIM record should be returned. The result must be an array containing either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
 
   ========= ===========
   Result    Description
@@ -830,7 +830,7 @@ MIME and attachments
 
   .. function:: MIME.setBody(data)
 
-	  Set the body (content) of a MIME part. If the body argument is bigger than 1 MiB (or an another error occured), the type `none` is returned. The MIME parts encoding (`Content-Transfer-Encoding`) will be changed to `base64` as the data will encoded as such.
+	  Set the body (content) of a MIME part. If the body argument is bigger than 1 MiB (or an another error occurred), the type `none` is returned. The MIME parts encoding (`Content-Transfer-Encoding`) will be changed to `base64` as the data will encoded as such.
 
 	  :param string data: the body content
 	  :return: this
