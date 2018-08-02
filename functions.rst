@@ -1253,7 +1253,7 @@ Misc
 
   The following options are available in the options array.
 
-   * **sync** (boolean) Do not synchronize the rate in between nodes in the cluster. The default is ``true``.
+   * **sync** (boolean) Synchronize the rate in between nodes in the cluster. The default is ``true``.
 
   .. code-block:: hsl
 
