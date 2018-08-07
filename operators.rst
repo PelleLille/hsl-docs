@@ -260,7 +260,7 @@ The following key casting rules apply.
 Slicing
 ^^^^^^^
 
-Slicing is done using the `[first:last]` operator. The indexes of each side of the : may be omitted, first index default to 0, and last index default to the length of the input, thus [:] will return a copy of the inputs values but the keys will re-indexed (numerically). The first index is inclusive and the last index is exclusive. Negative indexes are supported. If indexes causes out-of-bound, an empty type (array or string) is returned. The slicing operator works the same on arrays and strings. Indexes are counted as if the input was iterated; thus associative arrays have no special meaning.
+Slicing is done using the `[first:last:step]` operator. The indexes of each side of the : may be omitted, first index default to 0, and last index default to the length of the input, thus [:] will return a copy of the inputs values but the keys will re-indexed (numerically). The first index is inclusive and the last index is exclusive. Negative indexes are supported. If indexes causes out-of-bound, an empty type (array or string) is returned. The slicing operator works the same on arrays and strings. Indexes are counted as if the input was iterated; thus associative arrays have no special meaning. The step argument is default 1 thus returning all elements in the sequence, but it can be used to eg. every even (2) item. If the step is negative (eg -1) the sequence will be iterated backwards, causing the elements to be returned in reverse order.
 
 ::
 
@@ -279,6 +279,7 @@ Slicing is done using the `[first:last]` operator. The indexes of each side of t
 	echo $test[-3:]; // lon
 	echo $test[-5:-2]; // Hal
 	echo $test[:2] . $test[2:]; // Halon
+	echo "Halon"[::-1]; // "nolaH"
 
 Push and pop
 ^^^^^^^^^^^^
