@@ -132,16 +132,17 @@ Functions
   :return: the data set by :func:`SetMetaData`
   :rtype: array
 
-.. function:: GetMailFile()
+.. function:: GetMailFile([options])
 
   Return a :class:`File` class to the current mail file.
 
+  :param array options: an options array
   :return: A File class to the current mail file.
   :rtype: File
 
-  .. note::
+  The following options are available in the options array.
 
-  	The file is returned in an unmodified state as received (only with a Received header applied).
+   * **changes** (boolean) Include changes done to the original message. The default is ``false``.
 
 On script error
 ---------------
