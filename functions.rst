@@ -9,7 +9,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify`
 * **Data types** :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
-* **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsns` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain`
+* **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsns` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain` :func:`idna_encode` :func:`idna_decode`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_explode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
 * **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http` :class:`File`
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
@@ -565,6 +565,30 @@ DNS
   :param string domain: the domain
   :return: if d is a subdomain of domain
   :rtype: boolean
+
+.. function:: idna_encode(domain)
+
+  IDNA encode a domain (to punycode). On error ``None`` is returned.
+
+  :param string domain: a unicode domain
+  :return: the punycode (ASCII) domain
+  :rtype: string
+
+  .. code-block:: hsl
+
+	echo idna_encode("fußball.example"); // xn--fuball-cta.example
+
+.. function:: idna_decode(domain)
+
+  IDNA decode a domain (to unicode). On error ``None`` is returned.
+
+  :param string domain: a punycode (ASCII) domain
+  :return: the unicode domain
+  :rtype: string
+
+  .. code-block:: hsl
+
+	echo idna_decode("xn--fuball-cta.example"); // fußball.example
 
 Encodings and JSON
 ------------------
