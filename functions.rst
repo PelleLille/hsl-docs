@@ -1430,7 +1430,7 @@ Protocols
 
   The following options are available in the options array.
 
-   * **host** (string) IP-address or hostname of the RADISU server. **required**
+   * **host** (string) IP-address or hostname of the RADIUS server. **required**
    * **secret** (string) The secret. **required**
    * **port** (number) TCP port. The default is ``1812``.
    * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
