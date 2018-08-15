@@ -1570,6 +1570,9 @@ String
   :return: the substring
   :rtype: string
 
+.. seealso::
+	It's significantly faster to use the slice [:] operator since it's an operator and not a function.
+
 .. function:: trim(s)
 
   Returns s with whitespace characters (`\\s\\t\\r\\n`) removed from the start and end of the string.
