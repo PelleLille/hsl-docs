@@ -575,7 +575,7 @@ DKIM
 
    * **canonicalization_header** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``relaxed``.
    * **canonicalization_body** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``relaxed``.
-   * **algorithm** (string) algorithm to hash the message with (``rsa-sha1``,``rsa-sha256`` or ``ed25519-sha256``). The default is ``rsa-sha256``.
+   * **algorithm** (string) algorithm to hash the message with (``rsa-sha1``, ``rsa-sha256`` or ``ed25519-sha256``). The default is ``rsa-sha256``.
    * **additional_headers** (array) additional headers to sign in addition to those recommended by the RFC.
    * **oversign_headers** (array) headers to oversign. The default is ``from``.
    * **headers** (array) headers to sign. The default is to sign all headers recommended by the RFC.
