@@ -651,9 +651,9 @@ Encodings and JSON
   * **array** to **array** (is_array)
   * **string** to **string** (is_string)
   * **number** to **number** (is_number)
-  * **true** to ``1`` (is_number)
-  * **false** to ``0`` (is_number)
-  * **null** to **none** (check for expected type instead)
+  * **true** to ``true`` (is_boolean)
+  * **false** to ``false`` (is_boolean)
+  * **null** to **none**
 
 .. function:: pack(format, [...args])
 
