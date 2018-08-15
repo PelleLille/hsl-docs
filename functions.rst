@@ -1503,6 +1503,9 @@ String
   :return: s repeated n times
   :rtype: string
 
+.. seealso::
+	It's significantly faster to use the string repeat * operator since it's an operator and not a function.
+
 .. function:: str_replace(search, replace, subject)
 
   Returns the string subject with the string search replace with replace.
