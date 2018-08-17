@@ -8,12 +8,12 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Array** :func:`array_keys` :func:`array_filter` :func:`array_map` :func:`array_reduce` :func:`array_reverse` :func:`array_sort` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
 * **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify`
 * **Data types** :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
-* **Date and time** :func:`executiontime` :func:`rand` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
+* **Date and time** :func:`executiontime` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsns` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain` :func:`idna_encode` :func:`idna_decode`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_explode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
 * **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http` :class:`File`
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
-* **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
+* **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt` :func:`rand` 
 * **MIME** :class:`MIME`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`inet_ntop` :func:`inet_pton` :func:`rate` :func:`mail`
 * **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`tacplus_authen` :func:`tacplus_author`
@@ -421,15 +421,6 @@ Date and time
   Return the elapsed time since the beginning of the code execution.
 
   :return: the time in seconds (with decimals)
-  :rtype: number
-
-.. function:: rand(x, y)
-
-  Return a random integer between x and y (inclusive).
-
-  :param number x: first possible number
-  :param number y: last possible number
-  :return: the random number
   :rtype: number
 
 .. function:: sleep(x)
@@ -989,6 +980,15 @@ Mathematical
 
   :param number x: the numeric value to process
   :return: the square root of x
+  :rtype: number
+
+.. function:: rand(x, y)
+
+  Return a random integer between x and y (inclusive).
+
+  :param number x: first possible number
+  :param number y: last possible number
+  :return: the random number
   :rtype: number
 
 MIME
