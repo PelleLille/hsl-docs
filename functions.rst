@@ -16,7 +16,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt` :func:`rand` 
 * **MIME** :class:`MIME`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`inet_ntop` :func:`inet_pton` :func:`rate` :func:`mail`
-* **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :func:`tacplus_authen` :func:`tacplus_author`
+* **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind`
 * **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
 * **Socket** :class:`Socket` :class:`TLSSocket`
 
@@ -1416,42 +1416,6 @@ Protocols
    * **host** (string) LDAP URI (ldap:// or ldaps://).
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``true``.
    * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
-
-.. function:: tacplus_authen(options, username, password)
-
-  Authenticate against a TACACS+ server (e.g. Cisco Secure ACS).
-
-  :param array options: options array
-  :param string username: username
-  :param string password: password
-  :return: ``1`` if the authentication succeeded, ``0`` if the authentication failed and ``-1`` if an error occurred.
-  :rtype: number
-
-  The following options are available in the options array.
-
-   * **host** (string) IP-address or hostname of the TACACS+ server. **required**
-   * **secret** (string) The secret. **required**
-   * **port** (number) TCP port. The default is ``49``.
-   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
-   * **clientip** (string) The IP-address of the client (remote IP).
-
-.. function:: tacplus_author(options, username, avpair)
-
-  Send an authorization request to a TACACS+ server.
-
-  :param array options: options array
-  :param string username: username
-  :param array avpair: an array of avpairs
-  :return: an array with avpairs entries if the authorization succeeded, ``0`` if the authorization failed and ``-1`` if an error occurred.
-  :rtype: array or number
-
-  The following options are available in the options array.
-
-   * **host** (string) IP-address or hostname of the TACACS+ server. **required**
-   * **secret** (string) The secret. **required**
-   * **port** (number) TCP port. The default is ``49``.
-   * **timeout** (number) Timeout in seconds. The default is ``5`` seconds.
-   * **clientip** (string) The IP-address of the client (remote IP).
 
 String
 ------
