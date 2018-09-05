@@ -200,4 +200,3 @@ This data type is represeneted by the keyword ``none``. It may be used to indica
 	$obj = json_decode("...");
 	if ($obj == none)
 		echo "None";
-	}
