@@ -296,6 +296,7 @@ Actions
    * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is ``true``.
    * **queue** (boolean) deliver the message using the delivery queue. The default is ``true``.
    * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **reason** (string) the reason to report. The default is a system generated message.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Reject([reason, [options]])
