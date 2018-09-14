@@ -6,7 +6,7 @@ Standard library
 Functions which are documented in this chapter are considered `core` functions hence are available in all `contexts`. Functions in the standard library may be recognized by the fact that they are all in lowercase.
 
 * **Array** :func:`array_keys` :func:`array_filter` :func:`array_map` :func:`array_reduce` :func:`array_reverse` :func:`array_sort` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
-* **Cryptographic** :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify` :func:`random_bytes`
+* **Cryptographic** :func:`aes_decrypt` :func:`aes_encrypt` :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify` :func:`random_bytes`
 * **Data types** :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsns` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain` :func:`idna_encode` :func:`idna_decode`
@@ -185,6 +185,38 @@ Array
 
 Cryptographic
 -------------
+
+.. function:: aes_decrypt(message, key, iv, [options])
+
+  Decrypt a message using AES.
+
+  :param string message: the message to decrypt
+  :param string key: the key as raw bytes
+  :param string iv: the iv as raw bytes
+  :param array options: options array
+  :return: the message decrypted
+  :rtype: string or none (on error)
+
+  The following options are available in the options array.
+
+   * **padding** (boolean) Use PKCS7 padding. The default is ``true``.
+   * **type** (string) The cipher to use (``aes-(128|192|256)-(cbc|ecb)``). The default is ``aes-256-cbc``.
+
+.. function:: aes_encrypt(message, key, iv, [options])
+
+  Encrypt a message using AES.
+
+  :param string message: the message to encrypt
+  :param string key: the key as raw bytes
+  :param string iv: the iv as raw bytes
+  :param array options: options array
+  :return: the message encrypted
+  :rtype: string or none (on error)
+
+  The following options are available in the options array.
+
+   * **padding** (boolean) Use PKCS7 padding. The default is ``true``.
+   * **type** (string) The cipher to use (``aes-(128|192|256)-(cbc|ecb)``). The default is ``aes-256-cbc``.
 
 .. function:: hmac_md5(key, s)
 
