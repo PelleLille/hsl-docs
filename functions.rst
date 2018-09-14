@@ -199,7 +199,7 @@ Cryptographic
 
   The following options are available in the options array.
 
-   * **iv** (string) The initialisation vector as bytes (16 bytes for ``cbc``).
+   * **iv** (string) The initialization vector as bytes (16 bytes for ``cbc``).
    * **padding** (boolean) Use PKCS7 padding. The default is ``true``.
 
   .. note::
@@ -228,7 +228,7 @@ Cryptographic
 
   The following options are available in the options array.
 
-   * **iv** (string) The initialisation vector as bytes (16 bytes for ``cbc``).
+   * **iv** (string) The initialization vector as bytes (16 bytes for ``cbc``).
    * **padding** (boolean) Use PKCS7 padding. The default is ``true``.
 
   .. note::
