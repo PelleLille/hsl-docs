@@ -208,8 +208,8 @@ Cryptographic
 
 	.. code-block:: hsl
 
-		$decrypted = aes_decrypt(
-					$message,
+		$message = aes_decrypt(
+					$encrypted,
 					pack("a32", "short aes-256 key"),
 					"cbc",
 					["iv" => pack("x16")]
