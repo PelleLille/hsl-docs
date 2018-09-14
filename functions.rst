@@ -186,39 +186,63 @@ Array
 Cryptographic
 -------------
 
-.. function:: aes_decrypt(message, key, iv, [options])
+.. function:: aes_decrypt(message, key, mode, [options])
 
   Decrypt a message using AES.
 
   :param string message: the message to decrypt
-  :param string key: the key as raw bytes
-  :param string iv: the iv as raw bytes
+  :param string key: the key as raw bytes (no padding is done)
+  :param string mode: the block cipher mode of operation (``ecb`` or ``cbc``)
   :param array options: options array
   :return: the message decrypted
   :rtype: string or none (on error)
 
   The following options are available in the options array.
 
-   * **keysize** (number) The keysize to use (128, 192 or 256). The default is ``256``.
-   * **mode** (string) The block cipher mode of operation (``ecb`` or ``cbc``). The default is ``cbc``.
+   * **iv** (string) The initialisation vector as bytes (16 bytes for ``cbc``). The default is None.
    * **padding** (boolean) Use PKCS7 padding. The default is ``true``.
 
-.. function:: aes_encrypt(message, key, iv, [options])
+  .. note::
+
+	The key length must be either 16 bytes for AES-128, 24 bytes for AES-192 or 32 bytes for AES-256. No NUL bytes padding nor truncation is done on either the key or iv. The example below shows how to do manual padding.
+
+	.. code-block:: hsl
+
+		$decrypted = aes_decrypt(
+					$message,
+					pack("a32", "short aes-256 key"),
+					"cbc",
+					["iv" => pack("x16")]
+				);
+
+.. function:: aes_encrypt(message, key, mode, [options])
 
   Encrypt a message using AES.
 
   :param string message: the message to encrypt
-  :param string key: the key as raw bytes
-  :param string iv: the iv as raw bytes
+  :param string key: the key as raw bytes (no padding is done)
+  :param string mode: the block cipher mode of operation (``ecb`` or ``cbc``)
   :param array options: options array
   :return: the message encrypted
   :rtype: string or none (on error)
 
   The following options are available in the options array.
 
-   * **keysize** (number) The keysize to use (128, 192 or 256). The default is ``256``.
-   * **mode** (string) The block cipher mode of operation (``ecb`` or ``cbc``). The default is ``cbc``.
+   * **iv** (string) The initialisation vector as bytes (16 bytes for ``cbc``). The default is None.
    * **padding** (boolean) Use PKCS7 padding. The default is ``true``.
+
+  .. note::
+
+	The key length must be either 16 bytes for AES-128, 24 bytes for AES-192 or 32 bytes for AES-256. No NUL bytes padding nor truncation is done on either the key or iv. The example below shows how to do manual padding.
+
+	.. code-block:: hsl
+
+		$encrypted = aes_encrypt(
+					$message,
+					pack("a32", "short aes-256 key"),
+					"cbc",
+					["iv" => pack("x16")]
+				);
 
 .. function:: hmac_md5(key, s)
 
