@@ -199,9 +199,9 @@ Cryptographic
 
   The following options are available in the options array.
 
-   * **padding** (boolean) Use PKCS7 padding. The default is ``true``.
    * **keysize** (number) The keysize to use (128, 192 or 256). The default is ``256``.
    * **mode** (string) The block cipher mode of operation (``ecb`` or ``cbc``). The default is ``cbc``.
+   * **padding** (boolean) Use PKCS7 padding. The default is ``true``.
 
 .. function:: aes_encrypt(message, key, iv, [options])
 
@@ -216,9 +216,9 @@ Cryptographic
 
   The following options are available in the options array.
 
-   * **padding** (boolean) Use PKCS7 padding. The default is ``true``.
    * **keysize** (number) The keysize to use (128, 192 or 256). The default is ``256``.
    * **mode** (string) The block cipher mode of operation (``ecb`` or ``cbc``). The default is ``cbc``.
+   * **padding** (boolean) Use PKCS7 padding. The default is ``true``.
 
 .. function:: hmac_md5(key, s)
 
