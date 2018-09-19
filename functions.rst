@@ -1355,7 +1355,7 @@ Misc
 
   	Rates are shared between all contexts, and may also be synchronized in clusters.
 
-.. function:: mail(sender, recipient, subject, body, [options])
+.. function:: mail(sender, recipient, subject, body, transportid, [options])
 
   Put a message (email) into the queue.
 
@@ -1363,6 +1363,7 @@ Misc
   :param string recipient: the recipient
   :param string subject: the subject
   :param string body: the body
+  :param string transportid: the transportid
   :param array options: options array
   :return: the message id
   :rtype: string
@@ -1371,15 +1372,22 @@ Misc
 
    * **sender_name** (string) Friendly name of the sender.
    * **recipient_name** (string) Friendly name of the recipient.
-   * **serverid** (string) Helps the decision making of where we should send this email.
-   * **transportid** (string) Set the transportid to be used with this message.
-   * **rawbody** (boolean) Instead of using a template, send body as raw text/plain. The default is ``false``.
    * **headers** (array) Add additional message headers (KVP).
    * **metadata** (array) Add additional metadata to the message (KVP).
 
   .. code-block:: hsl
 
-	  mail("postmaster@example.com", "support@halon.se", "Lunch", "How about lunch on Friday?");
+	  mail(
+			"postmaster@example.com",
+			"support@halon.se",
+			"Lunch",
+			"How about lunch on Friday?",
+			"mailtransport:1"
+		);
+
+  .. note::
+
+	If you want to build more complex emails use the :class:`MIME` class.
 
 Protocols
 ---------
