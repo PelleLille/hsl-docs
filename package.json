@@ -1,5 +1,9 @@
 {
     "name": "halon-hsl-docs",
     "version": "1.0.0",
-    "private": true
+    "private": true,
+    "scripts": {
+        "sphinx-build": "sphinx-build -b xml . ./dist/xml",
+        "json": "npm run -s sphinx-build && php ./tools/json.php variables && php ./tools/json.php functions && php ./tools/json.php classes"
+    }
 }
