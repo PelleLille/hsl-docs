@@ -10,10 +10,11 @@ if (!isset($argv[1]))
 if (isset($argv[1]) and $argv[1] === 'variables') {
 	$inputPath = dirname(__FILE__).'/../dist/xml/';
 	$outputPath = dirname(__FILE__).'/../dist/json/';
-	$outputFile = $outputPath.'hsl-variables.json';
+	$outputFile = $outputPath.'variables.json';
 	$files = ['connect', 'helo', 'auth', 'mailfrom', 'rcptto', 'data', 'predelivery', 'postdelivery', 'api', 'firewall'];
-	$result = [];
+	$result = ['core' => []];
 	foreach ($files as $file) {
+		$result[$file] = [];
 		if (file_exists($inputPath.$file.'.xml')) {
 			$xml = simplexml_load_file($inputPath.$file.'.xml');
 			$variables = $xml->xpath('//*[@ids="pre-defined-variables"]')[0];
@@ -51,13 +52,14 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 	$inputPath = dirname(__FILE__).'/../dist/xml/';
 	$outputPath = dirname(__FILE__).'/../dist/json/';
 	if ($argv[1] === 'functions') {
-		$outputFile = $outputPath.'hsl-functions.json';
+		$outputFile = $outputPath.'functions.json';
 	} else if ($argv[1] === 'classes') {
-		$outputFile = $outputPath.'hsl-classes.json';
+		$outputFile = $outputPath.'classes.json';
 	}
 	$files = ['functions', 'connect', 'helo', 'auth', 'mailfrom', 'rcptto', 'data', 'predelivery', 'postdelivery', 'api', 'firewall'];
 	$result = [];
 	foreach ($files as $file) {
+		$result[$file === 'functions' ? 'core': $file] = [];
 		if (file_exists($inputPath.$file.'.xml')) {
 			$xml = simplexml_load_file($inputPath.$file.'.xml');
 			if ($argv[1] === 'functions') {
@@ -183,13 +185,13 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 				$documentation = strip_tags($documentation);
 
 				// Store result
-				$result[$file][$i]['name'] = $name;
-				if ($parameters) $result[$file][$i]['parameters'] = $parameters;
-				if ($returnType) $result[$file][$i]['returnType'] = $returnType;
-				$result[$file][$i]['detail'] = $detail;
-				$result[$file][$i]['value'] = $value;
-				if ($documentation) $result[$file][$i]['documentation'] = $documentation;
-				$result[$file][$i]['link'] = '[Full documentation]({{ docsurl }}'.$file.'.html#'.$name.')';
+				$result[$file === 'functions' ? 'core': $file][$i]['name'] = $name;
+				if ($parameters) $result[$file === 'functions' ? 'core': $file][$i]['parameters'] = $parameters;
+				if ($returnType) $result[$file === 'functions' ? 'core': $file][$i]['returnType'] = $returnType;
+				$result[$file === 'functions' ? 'core': $file][$i]['detail'] = $detail;
+				$result[$file === 'functions' ? 'core': $file][$i]['value'] = $value;
+				if ($documentation) $result[$file === 'functions' ? 'core': $file][$i]['documentation'] = $documentation;
+				$result[$file === 'functions' ? 'core': $file][$i]['link'] = '[Full documentation]({{ docsurl }}'.$file.'.html#'.$name.')';
 
 				$i += 1;
 			}
