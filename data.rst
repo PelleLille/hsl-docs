@@ -1,7 +1,7 @@
 .. module:: data
 
-DATA
-====
+Per recipient
+=============
 
 The DATA context is executed once for every recipient when the message is fully received (but not yet accepted). If multiple types of actions are performed, the response message (sent back to the client) will be chosen in the order of Reject, Defer, Quarantine, Delete, Deliver.
 
@@ -38,16 +38,7 @@ $context          any     Connection-bound variable
 Transaction
 ^^^^^^^^^^^
 
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
-$senderdomain     string  "example.org"              Domain part of sender's address (envelope)
-$sender           string  "test\@example.org"        E-mail address of sender (envelope)
-$senderparams     array   ["SIZE" => "2048", ... ]   Sender parameters to the envelope address
-$recipientdomains array   ["example.com", ...]       List of all domain part of all recipient addresses (envelope)
-$recipients       array   ["test\@example.com", ...] List of all recipient addresses (envelope), in order of scanning
-================= ======= ========================== ===========
+.. include:: var_transaction.rst
 
 Arguments
 ^^^^^^^^^

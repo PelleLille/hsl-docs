@@ -11,7 +11,7 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 	$inputPath = dirname(__FILE__).'/../dist/xml/';
 	$outputPath = dirname(__FILE__).'/../dist/json/';
 	$outputFile = $outputPath.'variables.json';
-	$files = ['connect', 'helo', 'auth', 'mailfrom', 'rcptto', 'data', 'predelivery', 'postdelivery', 'api', 'firewall'];
+	$files = ['connect', 'helo', 'auth', 'mailfrom', 'rcptto', 'eod', 'eodonce', 'data', 'predelivery', 'postdelivery', 'api', 'firewall'];
 	$result = ['core' => []];
 	foreach ($files as $file) {
 		$result[$file] = [];

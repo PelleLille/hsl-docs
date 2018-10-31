@@ -1,14 +1,15 @@
-.. module:: mailfrom
+.. module:: eodonce
 
-MAIL FROM
-=========
+Per message
+===========
 
-The MAIL FROM context allows verification of the `MAIL FROM` sender.
+The DATA context is executed once for every end-of-DATA (the dot ``.``), when the message is fully received (but not yet accepted).
+To relay the message for all recipients, call :func:`Queue` for each ``$transaction["recipients"]`` and then :func:`Accept`.
 
 Pre-defined variables
 ---------------------
 
-These are the read-only pre-defined variables available for `MAIL FROM` command.
+These are the read-only pre-defined variables available for each recipient (on a message).
 
 Connection
 ^^^^^^^^^^
@@ -38,35 +39,30 @@ $context          any     Connection-bound variable
 Transaction
 ^^^^^^^^^^^
 
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$transaction      array   ["id" => "18c190a3-93f..." Contains the transaction ID
-================= ======= ========================== ===========
+.. include:: var_transaction.rst
 
 Arguments
 ^^^^^^^^^
-
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$senderdomain     string  "example.org"              Domain part of sender's address (envelope)
-$sender           string  "test\@example.org"        E-mail address of sender (envelope)
-$senderparams     array   ["SIZE" => "2048", ... ]   Sender parameters to the envelope address
-================= ======= ========================== ===========
+The are no arguments to the per-message end-of-DATA script. The mail data file is however available via several functions.
 
 Functions
 ---------
 
+* **Actions** :func:`Reject` :func:`Defer` :func:`Accept`
+* **Queueing** :func:`Queue`
+
+Actions
+^^^^^^^
+
 .. function:: Accept()
 
-  Accept the `MAIL FROM` command (sender).
+  Accept the `DATA` command (mail data).
 
   :return: doesn't return, script is terminated
 
 .. function:: Reject([reason, [options]])
 
-  Reject the `MAIL FROM` command (sender) with a permanent (554) error.
+  Reject (550) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
   :param reason: reject message with reason
   :type reason: string or array
@@ -80,9 +76,9 @@ Functions
 
 .. function:: Defer([reason, [options]])
 
-  Defer the `MAIL FROM` command (sender) with a temporary (450) error.
+  Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
-  :param reason: defer message with reason
+  :param reason: reject message with reason
   :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -92,36 +88,30 @@ Functions
    * **disconnect** (boolean) disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
-.. function:: SetSender(sender)
+Queueing
+^^^^^^^^
 
-  Change the sender of the message.
+.. function:: Queue(recipient, transportid, [options])
 
-  :param string sender: an e-mail address
-  :return: sender if successful
-  :rtype: string or none
-  :updates: ``$sender`` and ``$senderdomain``
+  Queue the message.
 
-  .. warning::
+  :param string recipient: the recipient address
+  :param string transportid: the transport profile ID
+  :param array options: an options array
+  :return: true (or none)
+  :rtype: boolean or none
 
-  	This function changes the sender for all recipients. To change sender per recipient use :func:`~predelivery.SetSender` in the :doc:`Pre-delivery <predelivery>` context.
+  The following options are available in the options array.
 
-.. function:: GetMailQueueMetric(options)
-
-  Return metric information about the mail queue, it can be used to enforce quotas.
-
-  :param array options: options array
-  :rtype: number
-
-.. include:: func_getmailqueuemetric.rst
-
-.. include:: func_gettls.rst
+   * **sender** (string) Set the sender address. The default is ``$transaction["sender"]``.
+   * **metadata** (array) Add metadata to the message (KVP).
 
 On script error
 ---------------
 
-On script error ``Defer()`` is called.
+On script error :func:`Defer` is called.
 
 On implicit termination
 -----------------------
 
-If not explicitly terminated then ``Accept()`` is called.
+If not explicitly terminated then :func:`Defer` is called.

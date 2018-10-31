@@ -1,7 +1,7 @@
 Contexts
 ========
 
-There are multiple contexts (extensions) to the language, which provides context specific variables and functions. The `smtpd` process implements the :doc:`CONNECT <connect>`, :doc:`HELO <helo>`, :doc:`AUTH <auth>`, :doc:`MAIL FROM <mailfrom>`, :doc:`RCPT TO <rcptto>` and :doc:`DATA <data>` context. These contexts operates on an SMTP connection. The ``$messageid`` variable is set when connecting and may be regenerated upon the client sending a RSET command. There is also a ``$context`` variable which is bound to a connection and may be changed in any flow, this is useful for passing data between flows.
+There are multiple contexts (extensions) to the language, which provides context specific variables and functions. The `smtpd` process implements the :doc:`CONNECT <connect>`, :doc:`HELO <helo>`, :doc:`AUTH <auth>`, :doc:`MAIL FROM <mailfrom>`, :doc:`RCPT TO <rcptto>` and :doc:`end-of-DATA <eod>` context. These contexts operates on an SMTP connection. The ``$transaction["id"]`` variable is set when connecting and may be regenerated upon the client sending a RSET command. There is also a ``$context`` variable which is bound to a connection and may be changed in any flow, this is useful for passing data between flows.
 
 ::
 
@@ -22,7 +22,7 @@ There are multiple contexts (extensions) to the language, which provides context
 	> | Subject: Lunch                 |
 	> |                                |
 	> | Lunch on friday?               |
-	> | .                              | <-- DATA context
+	> | .                              | <-- end-of-DATA context
 	< | 250 Accepted                   |
 	  `--------------------------------´
 	               |
@@ -41,7 +41,7 @@ The `mailqueued` process implements the :doc:`Pre- <predelivery>` and :doc:`Post
 	auth
 	mailfrom
 	rcptto
-	data
+	eod
 	predelivery
 	postdelivery
 	api

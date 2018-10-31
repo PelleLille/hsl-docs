@@ -40,7 +40,7 @@ Transaction
 ================= ======= ========================== ===========
 Variable          Type    Example                    Description
 ================= ======= ========================== ===========
-$messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
+$transaction      array   ["id" => "18c190a3-93f..." Contains the transaction ID
 ================= ======= ========================== ===========
 
 Arguments
