@@ -7,4 +7,4 @@ There are two sub-contexts for EOD; one which is executed once per message (comm
 .. toctree::
 
     eodonce
-    data
+    eodrcpt
