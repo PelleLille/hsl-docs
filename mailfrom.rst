@@ -50,8 +50,9 @@ Arguments
 ================= ======= ========================== ===========
 Variable          Type    Example                    Description
 ================= ======= ========================== ===========
-$senderdomain     string  "example.org"              Domain part of sender's address (envelope)
 $sender           string  "test\@example.org"        E-mail address of sender (envelope)
+$senderlocalpart  string  "test"                     Local part of sender's address (envelope)
+$senderdomain     string  "example.org"              Domain part of sender's address (envelope)
 $senderparams     array   ["SIZE" => "2048", ... ]   Sender parameters to the envelope address
 ================= ======= ========================== ===========
 

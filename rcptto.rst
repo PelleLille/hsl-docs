@@ -43,14 +43,15 @@ Transaction
 Arguments
 ^^^^^^^^^
 
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
-$recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
-$recipientparams  array   ["NOTIFY" => "NEVER", .. ] Recipient parameters to the envelope address
-$transportid      string  "mailtransport\:1"         ID of the transport profile to be used
-================= ======= ========================== ===========
+=================== ======= ========================== ===========
+Variable            Type    Example                    Description
+=================== ======= ========================== ===========
+$recipient          string  "test\@example.com"        E-mail address of recipient (envelope)
+$recipientlocalpart string  "test"                     Local part of recipient's address (envelope)
+$recipientdomain    string  "example.com"              Domain part of recipient's address (envelope)
+$recipientparams    array   ["NOTIFY" => "NEVER", .. ] Recipient parameters to the envelope address
+$transportid        string  "mailtransport\:1"         ID of the transport profile to be used
+=================== ======= ========================== ===========
 
 Functions
 ---------

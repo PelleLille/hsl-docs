@@ -43,14 +43,15 @@ Transaction
 Arguments
 ^^^^^^^^^
 
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
-$recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
-$transportid      string  "mailtransport\:1"         ID of the transport profile to be used
-$actionid         number  1                          ID; incremented per message action/recipient (Deliver, Quarantine, etc.)
-================= ======= ========================== ===========
+=================== ======= ========================== ===========
+Variable            Type    Example                    Description
+=================== ======= ========================== ===========
+$recipient          string  "test\@example.com"        E-mail address of recipient (envelope)
+$recipientlocalpart string  "test"                     Local part of recipient's address (envelope)
+$recipientdomain    string  "example.com"              Domain part of recipient's address (envelope)
+$transportid        string  "mailtransport\:1"         ID of the transport profile to be used
+$actionid           number  1                          ID; incremented per message action/recipient (Deliver, Quarantine, etc.)
+=================== ======= ========================== ===========
 
 Functions
 ---------
