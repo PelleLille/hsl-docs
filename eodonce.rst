@@ -3,7 +3,7 @@
 Per message
 ===========
 
-The DATA context is executed once for every end-of-DATA (the dot ``.``), when the message is fully received (but not yet accepted).
+The per-message end-of-DATA context is executed once on EOD (the dot ``.``), when the message is fully received (but not yet accepted).
 To relay the message for all recipients, call :func:`Queue` for each ``$transaction["recipients"]`` and then :func:`Accept`.
 
 Pre-defined variables
@@ -48,8 +48,12 @@ The are no arguments to the per-message end-of-DATA script. The mail data file i
 Functions
 ---------
 
-* **Actions** :func:`Reject` :func:`Defer` :func:`Accept`
+* **Actions** :func:`Accept` :func:`Defer` :func:`Reject`
 * **Queueing** :func:`Queue`
+* **MIME and attachments** :func:`GetMailFile` :class:`~data.MIME`
+* **DKIM** :func:`ScanDMARC` :func:`DKIMSign` :func:`DKIMVerify` :func:`DKIMSDID`
+* **Embedded content scanning** :func:`ScanDLP` :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM`
+* **Miscellaneous** :func:`GetAddressList` :func:`GetMailQueueMetric` :func:`GetTLS`
 
 Actions
 ^^^^^^^
@@ -60,9 +64,9 @@ Actions
 
   :return: doesn't return, script is terminated
 
-.. function:: Reject([reason, [options]])
+.. function:: Defer([reason, [options]])
 
-  Reject (550) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
+  Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
   :param reason: reject message with reason
   :type reason: string or array
@@ -74,9 +78,9 @@ Actions
    * **disconnect** (boolean) disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
-.. function:: Defer([reason, [options]])
+.. function:: Reject([reason, [options]])
 
-  Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
+  Reject (550) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
   :param reason: reject message with reason
   :type reason: string or array
@@ -105,6 +109,8 @@ Queueing
 
    * **sender** (string) Set the sender address. The default is ``$transaction["sender"]``.
    * **metadata** (array) Add metadata to the message (KVP).
+
+.. include:: func_eod.rst
 
 On script error
 ---------------
