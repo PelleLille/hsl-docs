@@ -3,7 +3,7 @@
 HELO
 ====
 
-The HELO context allows verification of the `HELO` and `EHLO` domain.
+This script is executed on ``HELO`` and ``EHLO``. It allows verification of identification.
 
 Pre-defined variables
 ---------------------
@@ -59,6 +59,7 @@ Functions
 .. function:: Accept([options])
 
   Accept the `HELO` or `EHLO` command.
+  Optionally change the ``$senderhelo`` of the sending client, which is written back to the connection context.
 
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -66,6 +67,7 @@ Functions
   The following options are available in the options array.
 
    * **extensions** (array) SMTP service extensions to announce.
+   * **senderhelo** (string) Set the HELO hostname for the current connection. The default is ``$senderhelo``.
 
 .. function:: Reject([reason, [options]])
 
@@ -78,7 +80,7 @@ Functions
 
   The following options are available in the options array.
 
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Defer([reason, [options]])
@@ -92,17 +94,8 @@ Functions
 
   The following options are available in the options array.
 
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
-
-.. function:: SetHELO(senderhelo)
-
-  Change the HELO hostname for the current connection.
-
-  :param string senderhelo: an hostname
-  :return: senderhelo if successful
-  :rtype: string or none
-  :updates: ``$senderhelo``
 
 .. function:: GetExtensions()
 

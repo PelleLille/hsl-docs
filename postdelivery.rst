@@ -10,32 +10,34 @@ Pre-defined variables
 
 These are the read-only pre-defined variables available each time after a delivery attempt is made.
 
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$receivedtime     number  1445937340                 The unix time (in UTC) when the message was received
-$sourceip         string  "10.0.0.1"                 The delivery source IP
-$serverip         string  "172.16.1.25"              IP which we tried to connect to (empty on DNS problems)
-$serverport       number  25                         Port which we tried to connect to
-$senderip         string  "192.168.1.11"             IP address of the sender
-$saslusername     string  "mailuser"                 SASL username
-$sender           string  "test\@example.org"        E-mail address of sender (envelope)
-$senderdomain     string  "example.org"              Domain part of sender's address (envelope)
-$recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
-$recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
-$retry            number  3                          The current retry count
-$retries          number  30                         The maximum number of retries for that message
-$errormsg         string  "5.7.1... we do not relay" The error message from the server
-$errorcode        number  550                        The error code from the server (A value 0 of indicates network problems)
-$errorndr         string  "5.7.1"                    The NDR code from the server (if available)
-$transfertime     number  0.512                      The transfer time for this delivery attempt (seconds)
-$messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
-$actionid         number  1                          Same as $actionid in DATA context
-$queueid          number  12345                      Queue ID of the message
-$transportid      string  "mailtransport\:1"         ID of the transport profile that was used
-$action           string  "DELETE"                   The default action of this execution ("DELETE", "BOUNCE", "RETRY" or "")
-$context          any     none                       This variable is only defined if the pre-delivery context has been executed
-================= ======= ========================== ===========
+=================== ======= ========================== ===========
+Variable            Type    Example                    Description
+=================== ======= ========================== ===========
+$receivedtime       number  1445937340                 The unix time (in UTC) when the message was received
+$sourceip           string  "10.0.0.1"                 The delivery source IP
+$serverip           string  "172.16.1.25"              IP which we tried to connect to (empty on DNS problems)
+$serverport         number  25                         Port which we tried to connect to
+$senderip           string  "192.168.1.11"             IP address of the sender
+$saslusername       string  "mailuser"                 SASL username
+$sender             string  "test\@example.org"        Email address of sender (envelope), lowercase
+$senderlocalpart    string  "test"                     Local part of sender's address (envelope)
+$senderdomain       string  "example.org"              Domain part of sender's address (envelope)
+$recipient          string  "test\@example.com"        Email address of recipient (envelope), lowercase
+$recipientlocalpart string  "test"                     Local part of recipient's address (envelope)
+$recipientdomain    string  "example.com"              Domain part of recipient's address (envelope)
+$retry              number  3                          The current retry count
+$retries            number  30                         The maximum number of retries for that message
+$errormsg           string  "5.7.1... we do not relay" The error message from the server
+$errorcode          number  550                        The error code from the server (A value 0 of indicates network problems)
+$errorndr           string  "5.7.1"                    The NDR code from the server (if available)
+$transfertime       number  0.512                      The transfer time for this delivery attempt (seconds)
+$messageid          string  "18c190a3-93f-47d7-bd..."  ID of the message
+$actionid           number  1                          Same as $actionid in DATA context
+$queueid            number  12345                      Queue ID of the message
+$transportid        string  "mailtransport\:1"         ID of the transport profile that was used
+$action             string  "DELETE"                   The default action of this execution ("DELETE", "BOUNCE", "RETRY" or "")
+$context            any     none                       This variable is only defined if the pre-delivery context has been executed
+=================== ======= ========================== ===========
 
 Functions
 ---------
@@ -73,7 +75,7 @@ Functions
    * **reason** (string) optional message to be logged with the message.
    * **increment_retry** (boolean) if the retry count should be increased. The default is ``true``.
    * **reset_retry** (boolean) if the retry count should be reset to zero. The default is ``false``.
-   * **transportid** (string) set the transportid. The default is ``$transportid``
+   * **transportid** (string) set the transport ID. The default is ``$transportid``.
 
   .. warning::
 
@@ -81,22 +83,23 @@ Functions
 
 .. function:: SetDSN(options)
 
-  Set the DSN options for the current delivery attempt if a DSN were to be created (it is not remembered for the next retry).
+  Set the DSN options for the current delivery attempt if a DSN were to be created. It is not remembered for the next retry.
 
   :param array options: options array
   :rtype: none
 
   The following options are available in the options array.
 
-   * **transportid** (string) Set the transportid. The default is either choosen by the transport or automatically assigned.
-   * **recipient** (string) Set the recipient. The default is ``$sender``.
-   * **metadata** (array) Add additional metadata to the DSN (KVP).
+   * **transportid** (string) Set the transport ID. The default is either choosen by the transport or automatically assigned.
+   * **recipient** (string) Set the recipient. The default is ``$recipientlocalpart`` at ``$recipientdomain``.
+   * **metadata** (array) Add additional metadata (KVP) to the DSN.
    * **from** (string) Set the From-header address of the DSN.
    * **dkim** (array) Set the DKIM options of the DSN (``selector``, ``domain``, ``key`` including the options available in :func:`MIME.signDKIM`).
 
 .. function:: SetMetaData(metadata)
 
-  This function sets the metadata for the current message. The metadata must be an array with both string keys and values.
+  This function updates the queued message's metadata in the database. It is consequentially remembered for the next retry.
+  The metadata must be an array with both string keys and values.
 
   :param array metadata: metadata to set
   :rtype: none

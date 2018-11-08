@@ -3,7 +3,7 @@
 AUTH
 ====
 
-The AUTH context allows trusted SMTP clients. The SASL mechanisms `LOGIN` and `PLAIN` are implemented in the SMTP engine and will populate the ``$saslusername`` and ``$saslpassword``. If you add support for custom authentication mechanisms you will need to use the ``$saslmechanism``, ``$saslstate`` and ``$saslresponse`` variables to do so.
+The AUTH script allows trusted SMTP clients. The SASL mechanisms `LOGIN` and `PLAIN` are implemented in the SMTP engine and will populate the ``$saslusername`` and ``$saslpassword``. If you add support for custom authentication mechanisms you will need to use the ``$saslmechanism``, ``$saslstate`` and ``$saslresponse`` variables to do so.
 
 Pre-defined variables
 ---------------------
@@ -67,21 +67,7 @@ Functions
 
   The following options are available in the options array.
 
-   * **username** (string) set the username. The default is ``$saslusername`` (if available).
-
-.. function:: Reject([reason, [options]])
-
-  Reject the login request.
-
-  :param reason: reject message with reason
-  :type reason: string or array
-  :param array options: an options array
-  :return: doesn't return, script is terminated
-
-  The following options are available in the options array.
-
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
-   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
+   * **saslusername** (string) Set the username. The default is ``$saslusername`` (if available).
 
 .. function:: Defer([reason, [options]])
 
@@ -94,7 +80,21 @@ Functions
 
   The following options are available in the options array.
 
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **disconnect** (boolean) Disconnect the client. The default is ``false``.
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
+
+.. function:: Reject([reason, [options]])
+
+  Reject the login request.
+
+  :param reason: reject message with reason
+  :type reason: string or array
+  :param array options: an options array
+  :return: doesn't return, script is terminated
+
+  The following options are available in the options array.
+
+   * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Reply([reply, [options]])
@@ -108,7 +108,7 @@ Functions
 
   The following options are available in the options array.
 
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. include:: func_gettls.rst

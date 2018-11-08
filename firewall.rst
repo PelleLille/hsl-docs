@@ -3,7 +3,7 @@
 Firewall
 ========
 
-The Firewall context acts as a firewall. It can be enabled for services sush as HTTP, FTP, SSH and SNMP.
+The firewall script acts as a firewall. It can be enabled for services sush as HTTP, FTP, SSH and SNMP.
 
 Pre-defined variables
 ---------------------

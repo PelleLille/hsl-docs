@@ -10,28 +10,30 @@ Pre-defined variables
 
 These are the read-only pre-defined variables available. Some of them can be changed using the functions below.
 
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$receivedtime     number  1445937340                 The unix time (in UTC) when the message was received
-$sourceip         string  "10.0.0.1"                 The delivery source IP (initially defined by the transport profile)
-$destination      string  "172.16.1.25"              The destination host (initially defined by the transport profile)
-$destinationport  number  25                         The destination port (initially defined by the transport profile)
-$senderip         string  "192.168.1.11"             IP address of the sender
-$senderhelo       string  "mail.example.com"         HELO message of sender
-$saslusername     string  "mailuser"                 SASL username
-$sender           string  "test\@example.org"        E-mail address of sender (envelope)
-$senderdomain     string  "example.org"              Domain part of sender's address (envelope)
-$recipient        string  "test\@example.com"        E-mail address of recipient (envelope)
-$recipientdomain  string  "example.com"              Domain part of recipient's address (envelope)
-$retry            number  3                          The current retry count
-$retries          number  30                         The maximum number of retries for that message
-$messageid        string  "18c190a3-93f-47d7-bd..."  ID of the message
-$actionid         number  1                          Same as $actionid in DATA context
-$queueid          number  12345                      Queue ID of the message
-$serverid         string  "mailserver\:1"            ID of the mailserver profile
-$transportid      string  "mailtransport\:1"         ID of the transport profile that is used
-================= ======= ========================== ===========
+=================== ======= ========================== ===========
+Variable            Type    Example                    Description
+=================== ======= ========================== ===========
+$receivedtime       number  1445937340                 The unix time (in UTC) when the message was received
+$sourceip           string  "10.0.0.1"                 The delivery source IP (initially defined by the transport profile)
+$destination        string  "172.16.1.25"              The destination host (initially defined by the transport profile)
+$destinationport    number  25                         The destination port (initially defined by the transport profile)
+$senderip           string  "192.168.1.11"             IP address of the sender
+$senderhelo         string  "mail.example.com"         HELO message of sender
+$saslusername       string  "mailuser"                 SASL username
+$sender             string  "test\@example.org"        Email address of sender (envelope), lowercase
+$senderlocalpart    string  "test"                     Local part of sender's address (envelope)
+$senderdomain       string  "example.org"              Domain part of sender's address (envelope)
+$recipient          string  "test\@example.com"        Email address of recipient (envelope), lowercase
+$recipientlocalpart string  "test"                     Local part of recipient's address (envelope)
+$recipientdomain    string  "example.com"              Domain part of recipient's address (envelope)
+$retry              number  3                          The current retry count
+$retries            number  30                         The maximum number of retries for that message
+$messageid          string  "18c190a3-93f-47d7-bd..."  ID of the message
+$actionid           number  1                          Same as $actionid in DATA context
+$queueid            number  12345                      Queue ID of the message
+$serverid           string  "mailserver\:1"            ID of the mailserver profile
+$transportid        string  "mailtransport\:1"         ID of the transport profile that is used
+=================== ======= ========================== ===========
 
 These are the writable pre-defined variables available.
 
@@ -72,10 +74,10 @@ Functions
 
   The following options are available in the options array.
 
-   * **reason** (string) optional message to be logged with the message.
-   * **increment_retry** (boolean) if the retry count should be increased. The default is ``true``.
-   * **reset_retry** (boolean) if the retry count should be reset to zero. The default is ``false``.
-   * **transportid** (string) set the transportid. The default is ``$transportid``
+   * **reason** (string) Optional message to be logged with the message.
+   * **increment_retry** (boolean) If the retry count should be increased. The default is ``true``.
+   * **reset_retry** (boolean) If the retry count should be reset to zero. The default is ``false``.
+   * **transportid** (string) Set the transport ID. The default is ``$transportid``.
 
 .. function:: CurrentConnections(namespace, entry, max)
 
@@ -96,23 +98,23 @@ Functions
 
 .. function:: SetDestination(host, [port])
 
-  Set the host and port for the current delivery attempt (it is not remembered for the next retry).
+  Set the host and port for the current delivery attempt. It is not remembered for the next retry.
 
-  :param string host: a hostname or IP-address
-  :param number port: the TCP port to use
+  :param string host: hostname or IP address
+  :param number port: the TCP destination port
   :rtype: none
   :updates: ``$destination`` and ``$destinationport``
 
 .. function:: SetProtocol(protocol)
 
-  Set the protocol for the current delivery attempt (it is not remembered for the next retry).
+  Set the protocol for the current delivery attempt. It is not remembered for the next retry.
 
   :param string protocol: ``smtp`` or ``lmtp``
   :rtype: none
 
 .. function:: SetTLS(options)
 
-  Set the TLS options for the current delivery attempt (it is not remembered for the next retry).
+  Set the TLS options for the current delivery attempt. It is not remembered for the next retry.
 
   :param array options: options array
   :rtype: none
@@ -131,7 +133,7 @@ Functions
 
 .. function:: SetSASL(username, password)
 
-  Set the SASL `AUTH` username and password for the current delivery attempt (it is not remembered for the next retry).
+  Set the SASL `AUTH` username and password for the current delivery attempt. It is not remembered for the next retry.
 
   :param string username: username
   :param string password: password
@@ -141,19 +143,19 @@ Functions
 
   Send the following XCLIENT xclient attributes.
 
-  :param array attributes: associative array of XCLIENT attributes to send.
+  :param array attributes: associative array of XCLIENT attributes to send
   :rtype: none
 
 .. function:: SetHELO(hostname)
 
-  Set the `HELO` hostname for the current delivery attempt (it is not remembered for the next retry).
+  Set the `HELO` hostname for the current delivery attempt. It is not remembered for the next retry.
 
   :param string hostname: a hostname
   :rtype: none
 
 .. function:: SetSourceIP(netaddr, [options])
 
-  This function changes the source IP of the current delivery attempt (it is not remembered for the next retry).
+  This function changes the source IP of the current delivery attempt. It is not remembered for the next retry.
 
   :param netaddr: the ``netaddr:X`` to use
   :type netaddr: string or array
@@ -163,59 +165,62 @@ Functions
 
   The following options are available in the options array.
 
-   * **nonlocal_source** (boolean) if the system setting 'system_nonlocal_source' is enabled, `netaddr` may be an IP. The default is ``false``.
+   * **nonlocal_source** (boolean) If the system setting 'system_nonlocal_source' is enabled, `netaddr` may be an IP. The default is ``false``.
 
   .. note::
   	If `netaddr` is given as an array only one ``netaddr:X`` for each IP family may be given.
 
 .. function:: SetSender(sender)
 
-  Set the sender `MAIL FROM` for the current delivery attempt (it is not remembered for the next retry).
+  Set the sender `MAIL FROM` for the current delivery attempt. It is not remembered for the next retry.
 
-  :param string sender: an e-mail address
+  :param sender: an email address, either as a string or a tuple with localpart and domain
+  :type sender: string or array
   :rtype: none
-  :updates: ``$sender`` and ``$senderdomain``
+  :updates: ``$sender``, ``$senderlocalpart`` and ``$senderdomain``
 
 .. function:: SetSenderParams(params)
 
-  Set the sender `MAIL FROM` params for the current delivery attempt (it is not remembered for the next retry).
+  Set the sender `MAIL FROM` params for the current delivery attempt. It is not remembered for the next retry.
 
   :param array params: key-value array of params
   :rtype: none
 
 .. function:: SetRecipient(recipient)
 
-  Set the recipient `RCPT TO` for the current delivery attempt (it is not remembered for the next retry).
+  Set the recipient `RCPT TO` for the current delivery attempt. It is not remembered for the next retry.
 
-  :param string recipient: an e-mail address
+  :param recipient: an email address, either as a string or a tuple with localpart and domain
+  :type recipient: string or array
   :rtype: none
-  :updates: ``$recipient`` and ``$recipientdomain``
+  :updates: ``$recipient``, ``$recipientlocalpart`` and ``$recipientdomain``
 
 .. function:: SetRecipientParams(params)
 
-  Set the recipient `RCPT TO` params for the current delivery attempt (it is not remembered for the next retry).
+  Set the recipient `RCPT TO` params for the current delivery attempt. It is not remembered for the next retry.
 
   :param array params: key-value array of params
   :rtype: none
 
 .. function:: SetDSN(options)
 
-  Set the DSN options for the current delivery attempt if a DSN were to be created (it is not remembered for the next retry).
+  Set the DSN options for the current delivery attempt if a DSN were to be created. It is not remembered for the next retry.
 
   :param array options: options array
   :rtype: none
 
   The following options are available in the options array.
 
-   * **transportid** (string) Set the transportid. The default is either choosen by the transport or automatically assigned.
-   * **recipient** (string) Set the recipient. The default is ``$sender``.
-   * **metadata** (array) Add additional metadata to the DSN (KVP).
+   * **transportid** (string) Set the transport ID. The default is either choosen by the transport or automatically assigned.
+   * **recipient** (string) Set the recipient. The default is ``$recipientlocalpart`` at ``$recipientdomain``.
+   * **metadata** (array) Add additional metadata (KVP) to the DSN.
    * **from** (string) Set the From-header address of the DSN.
    * **dkim** (array) Set the DKIM options of the DSN (``selector``, ``domain``, ``key`` including the options available in :func:`MIME.signDKIM`).
 
 .. function:: SetMetaData(metadata)
 
-  This function sets the metadata for the current message. The metadata must be an array with both string keys and values.
+  This function updates the queued message's metadata in the database. It is consequentially remembered for the next retry.
+  The metadata must be an array with both string keys and values.
 
   :param array metadata: metadata to set
   :rtype: none

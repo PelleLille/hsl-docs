@@ -1,11 +1,11 @@
-Contexts
-========
+SMTP server
+===========
 
-There are multiple contexts (extensions) to the language, which provides context specific variables and functions. The `smtpd` process implements the :doc:`CONNECT <connect>`, :doc:`HELO <helo>`, :doc:`AUTH <auth>`, :doc:`MAIL FROM <mailfrom>`, :doc:`RCPT TO <rcptto>` and :doc:`end-of-DATA <eod>` context. These contexts operates on an SMTP connection. The ``$transaction["id"]`` variable is set when connecting and may be regenerated upon the client sending a RSET command. There is also a ``$context`` variable which is bound to a connection and may be changed in any flow, this is useful for passing data between flows.
+There are multiple extensions to the language, which provides context specific variables and functions. The `smtpd` process implements the :doc:`connect <connect>`, :doc:`HELO <helo>`, :doc:`AUTH <auth>`, :doc:`MAIL FROM <mailfrom>`, :doc:`RCPT TO <rcptto>` and :doc:`end-of-DATA <eod>` context. These scripts operates on an SMTP connection. The ``$transaction["id"]`` variable is set when connecting and may be regenerated upon the client sending a RSET command. There is also a ``$context`` variable which is bound to a connection and may be used in any script, which is useful for passing data between phases.
 
 ::
 
-	  .--------------------------------. <-- CONNECT context
+	  .--------------------------------. <-- connect context
 	< | 220 example.org ESMTP          |
 	> | HELO example.com               | <-- HELO context
 	< | 250 OK                         |
@@ -32,7 +32,7 @@ There are multiple contexts (extensions) to the language, which provides context
 	   |           |                     <-- Post-delivery context
 	   \__________/ \______ done
 
-The `mailqueued` process implements the :doc:`Pre- <predelivery>` and :doc:`Post-delivery <postdelivery>` contexts. These contexts operates on a message in queue. A message in queue is not directly bound to an inbound SMTP connection, hence its delivery is not done inline.
+The `queued` process implements the :doc:`pre- <predelivery>` and :doc:`post-delivery <postdelivery>` contexts. These contexts operates on a message in queue. A message in queue is not directly bound to an inbound SMTP connection, hence its delivery is not done inline.
 
 .. toctree::
 
@@ -44,5 +44,3 @@ The `mailqueued` process implements the :doc:`Pre- <predelivery>` and :doc:`Post
 	eod
 	predelivery
 	postdelivery
-	api
-	firewall

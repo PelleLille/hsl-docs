@@ -3,8 +3,8 @@
 Per recipient
 =============
 
-The per-recipient end-of-DATA context is executed once for every recipient when the message is fully received (but not yet accepted).
-If multiple types of actions are performed, the response message (sent back to the client) will be chosen in the order of Reject, Defer, Quarantine, Delete, Deliver.
+The per-recipient end-of-DATA script is executed once for every recipient when the message is fully received (but not yet accepted).
+If multiple types of actions are performed, the response message (sent back to the client) will be chosen in the order of reject, defer, quarantine, delete and deliver.
 
 Pre-defined variables
 ---------------------
@@ -47,7 +47,7 @@ Arguments
 =================== ======= ========================== ===========
 Variable            Type    Example                    Description
 =================== ======= ========================== ===========
-$recipient          string  "test\@example.com"        E-mail address of recipient (envelope)
+$recipient          string  "test\@example.com"        Email address of recipient (envelope), lowercase
 $recipientlocalpart string  "test"                     Local part of recipient's address (envelope)
 $recipientdomain    string  "example.com"              Domain part of recipient's address (envelope)
 $transportid        string  "mailtransport\:1"         ID of the transport profile to be used
@@ -57,12 +57,12 @@ $actionid           number  1                          ID; incremented per messa
 Functions
 ---------
 
-* **Actions** :func:`Deliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`Done`
+* **Actions** :func:`Deliver` :func:`Defer` :func:`Reject` :func:`Delete` :func:`Quarantine` :func:`Done`
 * **MIME and attachments** :func:`GetMailFile` :class:`~data.MIME`
 * **DKIM** :func:`ScanDMARC` :func:`DKIMSign` :func:`DKIMVerify` :func:`DKIMSDID`
 * **Embedded content scanning** :func:`ScanDLP` :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM`
 * **Miscellaneous** :func:`GetAddressList` :func:`GetMailQueueMetric` :func:`GetTLS`
-* **Context** :func:`SetSender` :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData` :func:`GetMetaData` :func:`SetSenderIP` :func:`SetSenderHELO`
+* **Arguments** :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData` :func:`GetMetaData` :func:`SetSender` :func:`SetSenderIP` :func:`SetSenderHELO`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
 
 
@@ -79,14 +79,29 @@ Actions
 
   The following options are available in the options array.
 
-   * **recipient** (string) set the recipient. The default is ``$recipient``.
-   * **transportid** (string) set the transportid. The default is ``$transportid``.
-   * **metadata** (array) add additional metadata to the message (KVP). same as :func:`SetMetaData`.
-   * **delay** (number) same as :func:`SetDelayedDeliver`. The default is ``0`` seconds.
-   * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is ``true``.
-   * **queue** (boolean) deliver the message using the delivery queue. The default is ``true``.
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
-   * **reason** (string) the reason to report. The default is a system generated message.
+   * **recipient** (string or array) Set the recipient email address, either as a string or a tuple with localpart and domain. The default is ``$recipientlocalpart`` at ``$recipientdomain``.
+   * **transportid** (string) Set the transport ID. The default is ``$transportid``.
+   * **metadata** (array) Add additional metadata (KVP). Same as :func:`SetMetaData`.
+   * **delay** (number) Same as :func:`SetDelayedDeliver`. The default is ``0`` seconds.
+   * **done** (boolean) If the function should terminate the script. Same as calling :func:`Done`. The default is ``true``.
+   * **queue** (boolean) Deliver the message using the queue. The default is ``true``.
+   * **disconnect** (boolean) Disconnect the client. The default is ``false``.
+   * **reason** (string) The reason to report. The default is a system generated message.
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
+
+.. function:: Defer([reason, [options]])
+
+  Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
+
+  :param reason: defer message with reason
+  :type reason: string or array
+  :param array options: an options array
+  :return: doesn't return, script is terminated
+  :updates: ``$actionid``
+
+  The following options are available in the options array.
+
+   * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Reject([reason, [options]])
@@ -101,22 +116,7 @@ Actions
 
   The following options are available in the options array.
 
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
-   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
-
-.. function:: Defer([reason, [options]])
-
-  Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
-
-  :param reason: reject message with reason
-  :type reason: string or array
-  :param array options: an options array
-  :return: doesn't return, script is terminated
-  :updates: ``$actionid``
-
-  The following options are available in the options array.
-
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Delete()
@@ -130,19 +130,19 @@ Actions
 
   Quarantine or `archive <http://wiki.halon.se/Archiving>`_ a message.
 
-  :param string quarantineid: the quarantine profile
+  :param string quarantineid: the quarantine profile ID
   :param array options: an options array
   :return: doesn't return, script is terminated
   :updates: ``$actionid``
 
   The following options are available in the options array.
 
-   * **recipient** (string) set the recipient. The default is ``$recipient``.
-   * **transportid** (string) set the transportid. The default is ``$transportid``.
-   * **metadata** (array) add additional metadata to the message (KVP). same as :func:`SetMetaData`.
-   * **done** (boolean) if the function should terminate the script. Same as calling :func:`Done`. The default is ``true``.
-   * **reject** (boolean) if the function should return an 500 error. The default is ``true``.
-   * **reason** (string) the reason to report. The default is a system generated message.
+   * **recipient** (string or array) Set the recipient email address, either as a string or a tuple with localpart and domain. The default is ``$recipientlocalpart`` at ``$recipientdomain``.
+   * **transportid** (string) Set the transport ID. The default is ``$transportid``.
+   * **metadata** (array) Add additional metadata to the message (KVP). same as :func:`SetMetaData`.
+   * **done** (boolean) If the function should terminate the script. Same as calling :func:`Done`. The default is ``true``.
+   * **reject** (boolean) If the function should return an 500 error. The default is ``true``.
+   * **reason** (string) The reason to report. The default is a system generated message.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Done()
@@ -153,31 +153,19 @@ Actions
 
 .. include:: func_eod.rst
 
-Context
-^^^^^^^
-Those functions update the connection and transaction data, which is used by action functions such as :func:`Deliver` and the embedded content filtering functions.
-
-.. function:: SetSender(sender)
-
-  Change the sender of the message.
-
-  :param string sender: an e-mail address
-  :return: sender if successful
-  :rtype: string or none
-  :updates: ``$sender`` and ``$senderdomain``
-
-  .. warning::
-
-  	This function changes the sender for all recipients. To change sender per recipient use :func:`~predelivery.SetSender` in the :doc:`Pre-delivery <predelivery>` context.
+Arguments
+^^^^^^^^^
+Those functions update the current recipient execution (``$actionid``) arguments, which is used by action functions such as :func:`Deliver`.
 
 .. function:: SetRecipient(recipient)
 
   Changes the recipient.
 
-  :param string recipient: an e-mail address
+  :param recipient: an email address, either as a string or a tuple with localpart and domain
+  :type recipient: string or array
   :return: recipient if successful
   :rtype: string or none
-  :updates: ``$recipient`` and ``$recipientdomain``
+  :updates: ``$recipient``, ``$recipientlocalpart`` and ``$recipientdomain``
 
 .. function:: SetMailTransport(transportid)
 
@@ -196,7 +184,7 @@ Those functions update the connection and transaction data, which is used by act
 
 .. function:: SetMetaData(metadata)
 
-  Set the metadata for the next recipient(s). The metadata must be an array with both string keys and values.
+  Set the metadata for the the current, and subsequent, recipient(s). The metadata must be an array with both string keys and values.
 
   :param array metadata: metadata to set
   :rtype: none
@@ -216,31 +204,33 @@ Those functions update the connection and transaction data, which is used by act
   :return: the data set by :func:`SetMetaData`
   :rtype: array
 
+.. function:: SetSender(sender)
+
+  Change the sender.
+
+  :param sender: an email address, either as a string or a tuple with localpart and domain
+  :type sender: string or array
+  :return: sender if successful
+  :rtype: string or none
+  :updates: ``$sender``, ``$senderlocalpart`` and ``$senderdomain``
+
 .. function:: SetSenderIP(ip)
 
-  Change the senders IP of the message.
+  Change the connecting client's IP.
 
   :param string ip: an IP address
   :return: ip if successful
   :rtype: string or none
   :updates: ``$senderip``
 
-  .. note::
-
-  	This function changes the `$senderip` for all recipients.
-
 .. function:: SetSenderHELO(hostname)
 
-  Change the senders HELO hostname of the message.
+  Change the connecting client's HELO hostname.
 
   :param string hostname: a hostname
   :return: hostname if successful
   :rtype: string or none
   :updates: ``$senderhelo``
-
-  .. note::
-
-  	This function changes the `$senderhelo` for all recipients.
 
 Headers
 ^^^^^^^

@@ -1,9 +1,9 @@
 .. module:: connect
 
-CONNECT
+Connect
 =======
 
-The CONNECT context is executed before the SMTP banner is sent.
+This script is executed before the SMTP banner is sent.
 
 Pre-defined variables
 ---------------------
@@ -46,24 +46,29 @@ $serverid         string  "mailserver\:1"            ID of the mailserver profil
 Functions
 ---------
 
-.. function:: Accept()
+.. function:: Accept([options])
 
   Allow SMTP connection to be established.
+  Optionally change the ``$senderip`` and PTR of the accepted client connection, which is written back to the connection context.
 
-  :return: doesn't return, script is terminated
-
-.. function:: Reject([reason, [options]])
-
-  Reject the connection with a permanent (521) error.
-
-  :param reason: reject message with reason
-  :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated
 
   The following options are available in the options array.
 
-   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
+   * **reason** (string) The HELO banner response.
+   * **senderip** (string) Set the IP address of the accepted client connection. The default is ``$senderip``.
+   * **senderptr** (string) Set the reverse DNS pointer (PTR) for the IP address.
+
+  .. note::
+
+	This can be useful for eg. decoding IPv4 addresses embedded in an IPv6 address (`RFC6052 <https://tools.ietf.org/html/rfc6052>`_).
+
+	.. code::
+
+		$x = unpack("N*", inet_pton($senderip));
+		if (count($x) == 4 and $x[0:3] == [6619035, 0, 0]) // 64:ff9b::[IPv4]
+			$ip = inet_ntop(pack("N", $x[3]));
 
 .. function:: Defer([reason, [options]])
 
@@ -78,24 +83,18 @@ Functions
 
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
-.. function:: SetSenderIP(senderip)
+.. function:: Reject([reason, [options]])
 
-  Change the senderip for the current connection.
+  Reject the connection with a permanent (521) error.
 
-  :param string senderip: an IP address
-  :return: senderip if successful
-  :rtype: string or none
-  :updates: ``$senderip``
+  :param reason: reject message with reason
+  :type reason: string or array
+  :param array options: an options array
+  :return: doesn't return, script is terminated
 
-  .. note::
+  The following options are available in the options array.
 
-	This can be useful for eg. decoding IPv4 addresses embedded in an IPv6 address (`RFC6052 <https://tools.ietf.org/html/rfc6052>`_).
-
-	.. code::
-
-		$x = unpack("N*", inet_pton($senderip));
-		if (count($x) == 4 and $x[0:3] == [6619035, 0, 0]) // 64:ff9b::[IPv4]
-			SetSenderIP(inet_ntop(pack("N", $x[3])));
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 On script error
 ---------------

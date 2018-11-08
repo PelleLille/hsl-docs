@@ -991,7 +991,9 @@ Mail
 
 .. function:: globalview(ip)
 
-  Check the Cyren Globalview reputation for an IP.
+  Query the embedded Cyren IP reputation, ``ctipd``.
+  This function is only available in the full system distribution (virtual machine) package.
+  All connectors are available in the `script library <https://github.com/halon/hsl-examples/>`_.
 
   :param string ip: IP or IPv6 address to check
   :return: the recommended action to take for the ip ``accept``, ``tempfail`` or ``permfail``.
@@ -1180,8 +1182,10 @@ MIME
 
 	  Put the MIME message (email) into the queue.
 
-	  :param string sender: the sender
-	  :param string recipient: the recipient
+	  :param sender: the sender email address, either as a string or a tuple with localpart and domain
+	  :type sender: string or array
+	  :param recipient: the recipient email address, either as a string or a tuple with localpart and domain
+	  :type recipient: string or array
 	  :param string transportid: the transportid
 	  :param array options: options array
 	  :return: the message id
@@ -1203,7 +1207,8 @@ Misc
 
 .. function:: serial()
 
-  The serial number of the installation, this can be used to identify a software instance.
+  The serial number of the installation. It can be used to identify a software instance.
+  This function is only available in the full system distribution (virtual machine) package.
 
   :return: the serial number
   :rtype: string
@@ -1277,7 +1282,12 @@ Misc
 
 .. function:: stat(name, legends)
 
-  Collect statistics based on one or more legend (value). The `name` is the name of the graph (the collection of `legends`). A legend is a value for which the system should collect statistics.
+  Collect statistics based on one or more legend (value).
+  This function is only available in the full system distribution (virtual machine) package.
+  Connectors for external time-series databases such as Graphite or InfluxDB
+  are available in the `script library <https://github.com/halon/hsl-examples/>`_.
+
+  The `name` is the name of the graph (the collection of `legends`). A legend is a value for which the system should collect statistics.
 
   :param string name: name of the graph
   :param array legends: key value pair of legends
@@ -1371,15 +1381,17 @@ Misc
 
 .. function:: mail(sender, recipient, subject, body, transportid, [options])
 
-  Put a message (email) into the queue.
+  Put an email message into the queue.
 
-  :param string sender: the sender
-  :param string recipient: the recipient
+  :param sender: the sender email address, either as a string or a tuple with localpart and domain
+  :type sender: string or array
+  :param recipient: the recipient email address, either as a string or a tuple with localpart and domain
+  :type recipient: string or array
   :param string subject: the subject
   :param string body: the body
-  :param string transportid: the transportid
+  :param string transportid: the transport ID
   :param array options: options array
-  :return: the message id
+  :return: the queued message ID
   :rtype: string
 
   The following options are available in the options array.
@@ -1412,8 +1424,10 @@ Protocols
 
   :param server: array with server settings or mailtransport profile
   :type server: string or array
-  :param string sender: the sender (MAIL FROM)
-  :param string recipient: the recipient (RCPT TO)
+  :param sender: the sender (MAIL FROM), either as a string or a tuple with localpart and domain
+  :type sender: string or array
+  :param recipient: the recipient (RCPT TO), either as a string or a tuple with localpart and domain
+  :type recipient: string or array
   :param array options: options array
   :return: ``1`` if the command succeeded, ``0`` if the command failed and ``-1`` if an error occurred. The ``extended_result`` option may change this behavior.
   :rtype: number or array

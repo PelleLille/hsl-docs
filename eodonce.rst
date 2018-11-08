@@ -3,7 +3,7 @@
 Per message
 ===========
 
-The per-message end-of-DATA context is executed once on EOD (the dot ``.``), when the message is fully received (but not yet accepted).
+The per-message end-of-DATA script is executed once, when the message is fully received (but not yet accepted).
 To relay the message for all recipients, call :func:`Queue` for each ``$transaction["recipients"]`` and then :func:`Accept`.
 
 Pre-defined variables
@@ -49,7 +49,7 @@ Functions
 ---------
 
 * **Actions** :func:`Accept` :func:`Defer` :func:`Reject`
-* **Queueing** :func:`Queue`
+* **Queueing** :func:`Queue` :func:`History`
 * **MIME and attachments** :func:`GetMailFile` :class:`~data.MIME`
 * **DKIM** :func:`ScanDMARC` :func:`DKIMSign` :func:`DKIMVerify` :func:`DKIMSDID`
 * **Embedded content scanning** :func:`ScanDLP` :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM`
@@ -68,14 +68,14 @@ Actions
 
   Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
-  :param reason: reject message with reason
+  :param reason: defer message with reason
   :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated
 
   The following options are available in the options array.
 
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Reject([reason, [options]])
@@ -89,7 +89,7 @@ Actions
 
   The following options are available in the options array.
 
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 Queueing
@@ -99,7 +99,8 @@ Queueing
 
   Queue the message.
 
-  :param string recipient: the recipient address
+  :param recipient: the recipient email address, either as a string or a tuple with localpart and domain
+  :type recipient: string or array
   :param string transportid: the transport profile ID
   :param array options: an options array
   :return: true (or none)
@@ -107,8 +108,30 @@ Queueing
 
   The following options are available in the options array.
 
-   * **sender** (string) Set the sender address. The default is ``$transaction["sender"]``.
-   * **metadata** (array) Add metadata to the message (KVP).
+   * **sender** (string) The sender email address, either as a string or a tuple with localpart and domain. The default is ``$transaction["senderlocalpart"]`` at ``$transaction["senderdomain"]``.
+   * **metadata** (array) Add metadata to the queued message, as a key-value pair array of strings.
+   * **hold** (boolean) Put the message in the hold (inactive) queue.
+   * **delay** (number) Delay the first delivery attempt, in seconds. The default is ``0``.
+
+.. function:: History(action, recipient, [options])
+
+  Add an entry to the history database table.
+  This function is only available in the full system distribution (virtual machine) package.
+  For long-term logging in high volume systems, remote logging to an external database such as Elasticsearch is recommended.
+
+  :param string action: the logged action; either of `REJECT`, `DELETE`, `DELIVER`, `DEFER` or `ERROR`
+  :param recipient: the recipient email address, either as a string or a tuple with localpart and domain
+  :type recipient: string or array
+  :param array options: an options array
+  :return: true (or none)
+  :rtype: boolean or none
+
+  The following options are available in the options array.
+
+   * **sender** (string) the sender email address, either as a string or a tuple with localpart and domain. The default is ``$transaction["senderlocalpart"]`` at ``$transaction["senderdomain"]``.
+   * **metadata** (array) add metadata to the history entry, as a key-value pair array of strings
+   * **transportid** (string) the transport profile ID
+   * **reason** (string) reason message
 
 .. include:: func_eod.rst
 

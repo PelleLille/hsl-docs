@@ -356,8 +356,8 @@ These are DKIM-related functions, including DMARC. Other modules, such as ARC, i
 Embedded content scanning
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 These functions scan the message file using various engines.
-While the DLP engine ``dlpd`` is included in all software packages, the embedded anti-spam and anti-virus engines are only available in the virtual machine image.
-All connectors are available in the `script library <https://github.com/halon/hsl-examples/tree/master/antispam>`_.
+While the DLP engine ``dlpd`` is included in all software packages, the embedded anti-spam and anti-virus engines are only available in the full system distribution (virtual machine) package.
+All connectors are available in the `script library <https://github.com/halon/hsl-examples/>`_.
 
 .. function:: ScanDLP([patterns, [options]])
 
@@ -412,7 +412,7 @@ All connectors are available in the `script library <https://github.com/halon/hs
 
 .. function:: ScanRPD([options])
 
-  Scan the message using `Cyren <http://wiki.halon.se/CYREN>`_; anti-spam (RPD and LocalView) and zero-hour malware detection (VOD). It runs in either inbound or outbound mode, and it's important to configure this correctly with the `outbound` option.
+  Scan the message using `Cyren <http://wiki.halon.se/CYREN>`_; anti-spam ``ctasd`` (RPD and LocalView) and zero-hour malware detection (VOD). It runs in either inbound or outbound mode, and it's important to configure this correctly with the `outbound` option.
 
   :param array options: options array
   :return: score or refid
@@ -536,13 +536,13 @@ Miscellaneous
 
  Extract addresses from a header value, often used with `From`, `To` and `CC` headers.
 
- :param string value: value to extract e-mail addresses from
- :return: e-mail addresses
+ :param string value: value to extract email addresses from
+ :return: email addresses
  :rtype: array
 
  .. code-block:: hsl
 
- 	$headerSender = GetAddressList(GetHeader("From"))[0]; // first e-mail address in From header
+ 	$headerSender = GetAddressList(GetHeader("From"))[0]; // first email address in From header
 
 .. function:: GetMailQueueMetric(options)
 

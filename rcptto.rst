@@ -3,7 +3,7 @@
 RCPT TO
 =======
 
-The RCPT TO context allows verification of `RCPT TO` recipients.
+The ``RCPT TO`` script allows verification of recipients.
 
 Pre-defined variables
 ---------------------
@@ -46,7 +46,7 @@ Arguments
 =================== ======= ========================== ===========
 Variable            Type    Example                    Description
 =================== ======= ========================== ===========
-$recipient          string  "test\@example.com"        E-mail address of recipient (envelope)
+$recipient          string  "test\@example.com"        Email address of recipient (envelope), lowercase
 $recipientlocalpart string  "test"                     Local part of recipient's address (envelope)
 $recipientdomain    string  "example.com"              Domain part of recipient's address (envelope)
 $recipientparams    array   ["NOTIFY" => "NEVER", .. ] Recipient parameters to the envelope address
@@ -56,11 +56,17 @@ $transportid        string  "mailtransport\:1"         ID of the transport profi
 Functions
 ---------
 
-.. function:: Accept()
+.. function:: Accept([options])
 
   Accept the `RCPT TO` command (recipient).
+  Optionally change the recipient accepted, which is written back to ``$transaction`` for subsequent executions.
 
+  :param array options: an options array
   :return: doesn't return, script is terminated
+
+  The following options are available in the options array.
+
+   * **recipient** (string or array) an email address, either as a string or a tuple with localpart and domain
 
 .. function:: Reject([reason, [options]])
 
@@ -73,7 +79,7 @@ Functions
 
   The following options are available in the options array.
 
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Defer([reason, [options]])
@@ -87,30 +93,8 @@ Functions
 
   The following options are available in the options array.
 
-   * **disconnect** (boolean) disconnect the client. The default is ``false``.
+   * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
-
-.. function:: SetSender(sender)
-
-  Change the sender of the message.
-
-  :param string sender: an e-mail address
-  :return: sender if successful
-  :rtype: string or none
-  :updates: ``$sender`` and ``$senderdomain``
-
-  .. warning::
-
-  	This function changes the sender for all recipients. To change sender per recipient use :func:`~predelivery.SetSender` in the :doc:`Pre-delivery <predelivery>` context.
-
-.. function:: SetRecipient(recipient)
-
-  Changes the recipient.
-
-  :param string recipient: an e-mail address
-  :return: recipient if successful
-  :rtype: string or none
-  :updates: ``$recipient`` and ``$recipientdomain``
 
 .. function:: GetMailQueueMetric(options)
 
