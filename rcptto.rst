@@ -59,14 +59,15 @@ Functions
 .. function:: Accept([options])
 
   Accept the `RCPT TO` command (recipient).
-  Optionally change the recipient accepted, which is written back to ``$transaction`` for subsequent executions.
+  Optionally change the recipient accepted and its transport, which is written back to ``$transaction`` for subsequent executions.
 
   :param array options: an options array
   :return: doesn't return, script is terminated
 
   The following options are available in the options array.
 
-   * **recipient** (string or array) an email address, either as a string or a tuple with localpart and domain
+   * **recipient** (string or array) Set the recipient email address, either as a string or a tuple with localpart and domain. The default is ``$recipientlocalpart`` at ``$recipientdomain``.
+   * **transportid** (string) Set the transport ID. The default is ``$transportid``.
 
 .. function:: Reject([reason, [options]])
 

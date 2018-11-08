@@ -62,14 +62,14 @@ Functions
 .. function:: Accept([options])
 
   Accept the `MAIL FROM` command (sender).
-  Optionally change the sender accepted, which is written back to ``$transaction`` for subsequent executions.
+  Optionally change the sender accepted, which is written back to ``$transaction``.
 
   :param array options: an options array
   :return: doesn't return, script is terminated
 
   The following options are available in the options array.
 
-   * **sender** (string or array) Set the sender email address, either as a string or a tuple with localpart and domain.
+   * **sender** (string or array) Set the sender email address, either as a string or a tuple with localpart and domain. The default is ``$senderlocalpart`` at ``$senderdomain``.
 
   .. note::
 
