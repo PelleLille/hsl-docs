@@ -16,7 +16,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt` :func:`rand` 
 * **MIME** :class:`MIME`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`inet_ntop` :func:`inet_pton` :func:`rate` :func:`mail`
-* **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind`
+* **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :class:`LDAP`
 * **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
 * **Socket** :class:`Socket` :class:`TLSSocket`
 
@@ -1518,6 +1518,138 @@ Protocols
    * **host** (string) LDAP URI (ldap:// or ldaps://).
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``true``.
    * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
+
+.. class:: LDAP(uri)
+
+  The LDAP class is a OpenLDAP wrapper class. The URI should be in the format of ldap:// or ldaps://. Multiple hosts may be given seperated by space.
+
+  :param string uri: The LDAP URI
+
+  .. function:: LDAP.setoption(name, value)
+
+	  Set LDAP connection options.
+
+	  :param string name: the option name
+	  :param number value: the option value
+	  :return: this
+	  :rtype: LDAP or None
+
+	  .. code-block:: hsl
+
+		  if (!$ldap->setoption("network_timeout", 5))
+		      echo LDAP::err2string($ldap->errno());
+
+    The following options is available
+
+    +------------------+---------+---------+-------------------------------------------------+
+    | Name             | Type    | Default | Description                                     |
+    +==================+=========+=========+=================================================+
+    | protocol_version | number  | 3       |                                                 |
+    +------------------+---------+---------+-------------------------------------------------+
+    | referrals        | boolean | false   |                                                 |
+    +------------------+---------+---------+-------------------------------------------------+
+    | network_timeout  | number  | 0       | No timeout                                      |
+    +------------------+---------+---------+-------------------------------------------------+
+    | timeout          | number  | 0       | No timeout (in seconds)                         |
+    +------------------+---------+---------+-------------------------------------------------+
+    | timelimit        | number  | 0       | No timelimit (in seconds)                       |
+    +------------------+---------+---------+-------------------------------------------------+
+    | tls_verify_peer  | boolean | true    | Verify peer certificate                         |
+    +------------------+---------+---------+-------------------------------------------------+
+    | tls_default_ca   | boolean | false   | Load additional TLS certificates (ca_root_nss)  |
+    +------------------+---------+---------+-------------------------------------------------+
+
+  .. function:: LDAP.starttls()
+
+	  Issue STARTTLS on LDAP connection.
+
+	  :return: this
+	  :rtype: LDAP or None
+
+  .. function:: LDAP.bind([dn, [cred]])
+
+	  Bind the LDAP connection. For anonymous bind, do not specify the credentials.
+
+	  :param string dn: The username DN
+	  :param string cred: The password credentials
+	  :return: this
+	  :rtype: LDAP or None
+
+  .. function:: LDAP.search(basedn, [filter, [attributes]]])
+
+	  Search LDAP connection in the current base and subtree.
+
+	  :param string basedn: Base DN
+	  :param string filter: Filter
+	  :param array attributes: List of attributes
+	  :return: A LDAP result class
+	  :rtype: :class:`LDAPResult` or None
+
+  .. function:: LDAP.list(basedn, [filter, [attributes]]])
+
+	  Search LDAP connection in the current base.
+
+	  :param string basedn: Base DN
+	  :param string filter: Filter
+	  :param array attributes: List of attributes
+	  :return: A LDAP result class
+	  :rtype: :class:`LDAPResult` or None
+
+  .. function:: LDAP.unbind()
+
+	  Unbind the LDAP connection.
+
+	  :return: this
+	  :rtype: LDAP or None
+
+  .. function:: LDAP.errno()
+
+	  Get the latest errno returned from the underlying OpenLDAP API.
+
+	  :return: errno
+	  :rtype: number
+
+  .. staticmethod:: str2error(errno)
+
+	  Get a descriptive error message, uses OpenLDAP's ldap_err2string().
+
+	  :param number errno: A errno (obtained from LDAP's errno())
+	  :return: An error string
+	  :rtype: String
+
+	  .. code-block:: hsl
+
+		  if (!$ldap->bind())
+		      echo LDAP::err2string($ldap->errno());
+
+  .. staticmethod:: escape(value)
+
+	  LDAP escape values to be used in LDAP filters.
+
+	  :param string value: An unescaped string
+	  :return: An escaped string
+	  :rtype: String
+
+	  .. code-block:: hsl
+
+		  $result = $ldap->search("dc=example,dc=com", "cn=" . LDAP::escape("firstname.lastname"));
+
+.. class:: LDAPResult()
+
+  The LDAP result class holds the result from an LDAP search or list result.
+
+  .. function:: LDAP.entry()
+
+	  A LDAP result entry.
+
+	  :return: entry data
+	  :rtype: array or None
+
+	  .. code-block:: hsl
+
+		  $result = $ldap->search("dc=example,dc=com");
+		  while ($result and $entry = $result->entry())
+		      echo $entry;
 
 String
 ------
