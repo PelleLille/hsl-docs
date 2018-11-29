@@ -1523,21 +1523,29 @@ Protocols
 
   The LDAP class is a OpenLDAP wrapper class. The URI should be in the format of ldap:// or ldaps://. Multiple hosts may be given seperated by space.
 
-  :param string uri: The LDAP URI
+  :param string uri: The LDAP 
+  
+  .. code-block:: hsl
+  
+    $ldap = LDAP("ldap://ldap.forumsys.com");
+    $ldap->bind("uid=tesla,dc=example,dc=com", "password");
+    $x = $ldap->search("dc=example,dc=com");
+    while ($x and $entry = $x->entry())
+        echo $entry;
 
   .. function:: LDAP.setoption(name, value)
 
-	  Set LDAP connection options.
+    Set LDAP connection options.
 
-	  :param string name: the option name
-	  :param number value: the option value
-	  :return: this
-	  :rtype: LDAP or None
+    :param string name: the option name
+    :param number value: the option value
+    :return: this
+    :rtype: LDAP or None
 
-	  .. code-block:: hsl
+    .. code-block:: hsl
 
-		  if (!$ldap->setoption("network_timeout", 5))
-		      echo LDAP::err2string($ldap->errno());
+      if (!$ldap->setoption("network_timeout", 5))
+          echo LDAP::err2string($ldap->errno());
 
     The following options is available
 
