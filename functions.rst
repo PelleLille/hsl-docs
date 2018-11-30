@@ -1622,7 +1622,7 @@ Protocols
 
   .. staticmethod:: str2error(errno)
 
-	  Get a descriptive error message, uses OpenLDAP's ldap_err2string().
+	  Get a descriptive error message, uses OpenLDAP's `ldap_err2string()`.
 
 	  :param number errno: A errno (obtained from LDAP's errno())
 	  :return: An error string
@@ -1633,7 +1633,7 @@ Protocols
 		  if (!$ldap->bind())
 		      echo LDAP::err2string($ldap->errno());
 
-  .. staticmethod:: escape(value)
+  .. staticmethod:: escape_filter(value)
 
 	  LDAP escape values to be used in LDAP filters.
 
@@ -1643,7 +1643,28 @@ Protocols
 
 	  .. code-block:: hsl
 
-		  $result = $ldap->search("dc=example,dc=com", "cn=" . LDAP::escape("firstname.lastname"));
+		  $result = $ldap->search("dc=example,dc=com", "cn=" . LDAP::escape_filter("firstname.lastname"));
+
+  .. staticmethod:: str2dn(str)
+
+    Parses the string representation of a distinguished name `str` into its components, returning an array of tupels.
+
+    :param string value: String representation of a DN
+    :return: Array of tupels
+    :rtype: Array
+
+    .. code-block:: hsl
+
+      echo LDAP::str2dn("cn=admin,dc=example,dc=org");
+      // [0=>[0=>"cn",1=>"admin"],1=>[0=>"dc",1=>"example"],2=>[0=>"dc",1=>"org"]]
+
+  .. staticmethod:: dn2str(dn)
+
+	  Performs the inverse operation of :func:`LDAP.str2dn`, returning a string representation of `dn` with the necessary escaping.
+
+	  :param array value: Array of tupels
+	  :return: String representation of the DN
+	  :rtype: String
 
 .. class:: LDAPResult()
 
