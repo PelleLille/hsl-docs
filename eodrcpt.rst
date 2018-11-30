@@ -19,9 +19,9 @@ Variable          Type    Example                    Description
 ================= ======= ========================== ===========
 $senderip         string  "192.168.1.11"             IP address of the connected client
 $senderport       number  41666                      TCP port of connected client
-$serverip         string  "10.0.0.1"                 IP address of the mailserver
-$serverport       number  25                         TCP port of the mailserver
-$serverid         string  "mailserver\:1"            ID of the mailserver profile
+$serverip         string  "10.0.0.1"                 IP address of the server
+$serverport       number  25                         TCP port of the server
+$serverid         string  "mailserver\:1"            ID of the server
 $senderhelo       string  "mail.example.com"         HELO message of sender
 $tlsstarted       boolean false                      Whether or not the SMTP session is using TLS
 $saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
@@ -167,11 +167,11 @@ Those functions update the current recipient execution (``$actionid``) arguments
   :rtype: string or none
   :updates: ``$recipient``, ``$recipientlocalpart`` and ``$recipientdomain``
 
-.. function:: SetMailTransport(transportid)
+.. function:: SetMailTransport(id)
 
   Changes the transport profile.
 
-  :param string transportid: the transportid to be used
+  :param string id: the transport ID to be used
   :rtype: none
   :updates: ``$transportid``
 

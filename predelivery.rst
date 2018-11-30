@@ -31,8 +31,8 @@ $retries            number  30                         The maximum number of ret
 $messageid          string  "18c190a3-93f-47d7-bd..."  ID of the message
 $actionid           number  1                          Same as $actionid in DATA context
 $queueid            number  12345                      Queue ID of the message
-$serverid           string  "mailserver\:1"            ID of the mailserver profile
-$transportid        string  "mailtransport\:1"         ID of the transport profile that is used
+$serverid           string  "mailserver\:1"            ID of the server the message was recevied on
+$transportid        string  "mailtransport\:1"         ID of the transport profile assigned
 =================== ======= ========================== ===========
 
 These are the writable pre-defined variables available.

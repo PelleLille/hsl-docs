@@ -18,9 +18,9 @@ Variable          Type    Example                    Description
 ================= ======= ========================== ===========
 $senderip         string  "192.168.1.11"             IP address of the connected client
 $senderport       number  41666                      TCP port of connected client
-$serverip         string  "10.0.0.1"                 IP address of the mailserver
-$serverport       number  25                         TCP port of the mailserver
-$serverid         string  "mailserver\:1"            ID of the mailserver profile
+$serverip         string  "10.0.0.1"                 IP address of the server
+$serverport       number  25                         TCP port of the server
+$serverid         string  "mailserver\:1"            ID of the server
 $senderhelo       string  "mail.example.com"         HELO message of sender
 $tlsstarted       boolean false                      Whether or not the SMTP session is using TLS
 ================= ======= ========================== ===========

@@ -1423,7 +1423,7 @@ Protocols
 
   Check if sender is allowed to send mail to recipient.
 
-  :param server: array with server settings or mailtransport profile
+  :param server: array with server settings or transport profile ID
   :type server: string or array
   :param sender: the sender (MAIL FROM), either as a string or a tuple with localpart and domain
   :type sender: string or array
@@ -1462,7 +1462,7 @@ Protocols
 
   Try to authenticate the username against a SMTP server.
 
-  :param server: array with server settings or mailtransport profile
+  :param server: array with server settings or transport profile ID
   :type server: string or array
   :param string username: username
   :param string password: password
