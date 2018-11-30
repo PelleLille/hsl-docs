@@ -1586,25 +1586,20 @@ Protocols
 	  :return: this
 	  :rtype: LDAP or None
 
-  .. function:: LDAP.search(basedn, [filter, [attributes]]])
+  .. function:: LDAP.search(basedn, [options]]])
 
 	  Search LDAP connection in the current base and subtree.
 
-	  :param string basedn: Base DN
-	  :param string filter: Filter
-	  :param array attributes: List of attributes
-	  :return: A LDAP result class
-	  :rtype: :class:`LDAPResult` or None
+    :param string basedn: Base DN
+    :param array options: an options array
+    :return: A LDAP result class
+    :rtype: :class:`LDAPResult` or None
 
-  .. function:: LDAP.list(basedn, [filter, [attributes]]])
+    The following options are available in the options array.
 
-	  Search LDAP connection in the current base.
-
-	  :param string basedn: Base DN
-	  :param string filter: Filter
-	  :param array attributes: List of attributes
-	  :return: A LDAP result class
-	  :rtype: :class:`LDAPResult` or None
+    * **scope** (string) The search scope, available scopes are ``sub`` (subtree), ``one`` (onelevel) and ``base``. The default is ``sub``.
+    * **filter** (string) The search filter. The default is ``(objectclass=*)``.
+    * **attributes** (array) Array of attributes to fetch. The default is to fetch all.
 
   .. function:: LDAP.unbind()
 
@@ -1643,7 +1638,7 @@ Protocols
 
 	  .. code-block:: hsl
 
-		  $result = $ldap->search("dc=example,dc=com", "cn=" . LDAP::escape_filter("firstname.lastname"));
+		  $result = $ldap->search("dc=example,dc=com", ["filter" => "(cn=" . LDAP::escape_filter("firstname.lastname"] . ")"));
 
   .. staticmethod:: str2dn(str)
 
