@@ -880,7 +880,8 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
    * **connect_timeout** (number) Connection timeout (in seconds). The default is ``10`` seconds.
    * **timeout** (number) Timeout (in seconds) waiting for data once the connection is established. The default is to wait indefinitely.
    * **max_file_size** (number) Maximum file size (in bytes). The default is no limit.
-   * **sourceip** (string) Explicitly bind a ``netaddr:X`` or an IP address. The default is to be chosen by the system.
+   * **sourceip** (string) Explicitly bind an IP address. The default is to be chosen by the system.
+   * **sourceipid** (string) Explicitly bind an IP address ID. The default is to be chosen by the system.
    * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
    * **headers** (array) An array of additional HTTP headers.
    * **response_headers** (boolean) Return the full request, including response headers (regardless of HTTP status). The default is ``false``.
@@ -1437,7 +1438,8 @@ Protocols
    * **host** (string) IP-address or hostname. **required**
    * **port** (number) TCP port. The default is ``25``.
    * **helo** (string) The default is to use the system hostname.
-   * **sourceip** (string) Explicitly bind a ``netaddr:X`` or an IP address. The default is to be chosen by the system.
+   * **sourceip** (string) Explicitly bind an IP address. The default is to be chosen by the system.
+   * **sourceipid** (string) Explicitly bind an IP address ID. The default is to be chosen by the system.
    * **nonlocal_source** (boolean) Allow binding of non-local addresses (BINDANY). The default is ``false``.
    * **saslusername** (string) If specified issue a AUTH LOGIN before MAIL FROM.
    * **saslpassword** (string) If specified issue a AUTH LOGIN before MAIL FROM.
@@ -1472,7 +1474,8 @@ Protocols
    * **host** (string) IP-address or hostname. **required**
    * **port** (number) TCP port. The default is ``25``.
    * **helo** (string) The default is to use the system hostname.
-   * **sourceip** (string) Explicitly bind a ``netaddr:X`` or an IP address. The default is to be chosen by the system.
+   * **sourceip** (string) Explicitly bind an IP address. The default is to be chosen by the system.
+   * **sourceipid** (string) Explicitly bind an IP address ID. The default is to be chosen by the system.
    * **nonlocal_source** (boolean) Allow binding of non-local addresses (BINDANY). The default is ``false``.
    * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
    * **tls_sni** (string or boolean) Request a certificate using the SNI extension. If ``true`` the connected hostname will be used. The default is not to use SNI (``false``).
