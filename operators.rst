@@ -327,6 +327,17 @@ Arrays may be repeated mutiple times using the ``*`` multiplication operator. It
 	echo ["x", "y"] * 2; // [x, y, x, y]
 	echo 8 * ["x", "y"]; // [x, y, x, y]
 
+Spread
+^^^^^^
+
+The spread operator allows arrays to be expanded in place of multiple arguments in function calls and in array literals.
+
+.. code-block:: hsl
+
+  $parts = ["second", "second to last"];
+  echo ["first", ...$parts, "last"];
+  // [0=>"first",1=>"second",2=>"second to last",3=>"last"]
+
 Logic (boolean)
 ---------------
 
