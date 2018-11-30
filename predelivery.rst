@@ -153,22 +153,22 @@ Functions
   :param string hostname: a hostname
   :rtype: none
 
-.. function:: SetSourceIP(netaddr, [options])
+.. function:: SetSourceIP(id, [options])
 
   This function changes the source IP of the current delivery attempt. It is not remembered for the next retry.
 
-  :param netaddr: the ``netaddr:X`` to use
-  :type netaddr: string or array
+  :param id: the IP address ID to use
+  :type id: string or array
   :param array options: options array
   :rtype: none
-  :updates: ``$sourceip`` to the actual IP address of ``netaddr:X``
+  :updates: ``$sourceip`` to the actual IP address of ``id``
 
   The following options are available in the options array.
 
-   * **nonlocal_source** (boolean) If the system setting 'system_nonlocal_source' is enabled, `netaddr` may be an IP. The default is ``false``.
+   * **nonlocal_source** (boolean) If the system setting 'system_nonlocal_source' is enabled, `id` may be an IP. The default is ``false``.
 
   .. note::
-  	If `netaddr` is given as an array only one ``netaddr:X`` for each IP family may be given.
+  	If `id` is given as an array, only one item for each IP family may be given.
 
 .. function:: SetSender(sender)
 
