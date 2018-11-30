@@ -141,7 +141,7 @@ Functions
 
 .. function:: SetXCLIENT(attributes)
 
-  Send the following XCLIENT xclient attributes.
+  Send the following XCLIENT xclient attributes. It is not remembered for the next retry.
 
   :param array attributes: associative array of XCLIENT attributes to send
   :rtype: none
