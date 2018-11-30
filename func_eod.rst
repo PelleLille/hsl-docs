@@ -68,6 +68,29 @@ MIME and attachments
 
 		MIME("0")->reset();
 
+  .. function:: MIME.snapshot()
+
+    Take a snapshot of the current state of the MIME object (to be used with :func:`MIME.restore`). Only works on the root.
+
+    :return: snapshot id
+    :rtype: number
+
+    .. code-block:: hsl
+
+      $id = MIME("0")->snapshot();
+
+  .. function:: MIME.restore(id)
+
+    Restore to a snapshot (to be used with :func:`MIME.snapshot`). Only works on the root.
+
+    :param number id: snapshot id
+    :return: success
+    :rtype: boolean
+
+    .. code-block:: hsl
+
+      MIME("0")->restore($id);
+
   .. function:: MIME.getID()
 
 	  Return the MIME part's ID. This ID can be used to instantiate a new :class:`~data.MIME` object.
