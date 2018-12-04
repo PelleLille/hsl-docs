@@ -1628,7 +1628,7 @@ Protocols
 		  if (!$ldap->bind())
 		      echo LDAP::err2string($ldap->errno());
 
-  .. staticmethod:: escape_filter(value)
+  .. staticmethod:: filter_escape(value)
 
 	  LDAP escape values to be used in LDAP filters.
 
@@ -1638,7 +1638,7 @@ Protocols
 
 	  .. code-block:: hsl
 
-		  $result = $ldap->search("dc=example,dc=com", ["filter" => "(cn=" . LDAP::escape_filter("firstname.lastname"] . ")"));
+		  $result = $ldap->search("dc=example,dc=com", ["filter" => "(cn=" . LDAP::filter_escape("firstname.lastname"] . ")"));
 
   .. staticmethod:: str2dn(str)
 
@@ -1663,11 +1663,11 @@ Protocols
 
 .. class:: LDAPResult()
 
-  The LDAP result class holds the result from an LDAP search or list result.
+  A LDAP result iterable object which holds the result from an LDAP search.
 
-  .. function:: LDAP.entry()
+  .. function:: LDAPResult.next()
 
-	  A LDAP result entry.
+	  Return the next result.
 
 	  :return: entry data
 	  :rtype: array or None
@@ -1675,8 +1675,9 @@ Protocols
 	  .. code-block:: hsl
 
 		  $result = $ldap->search("dc=example,dc=com");
-		  while ($result and $entry = $result->entry())
-		      echo $entry;
+      if ($result)
+		    while ($entry = $result->next())
+		        echo $entry;
 
 String
 ------
