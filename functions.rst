@@ -708,13 +708,18 @@ Encodings and JSON
 
 	  Since object keys are converted to strings (even numeric once) a :func:`json_encode` followed by a :func:`json_decode` does not always yield the same result.
 
-.. function:: json_decode(string)
+.. function:: json_decode(string, [options])
 
   Decodes a JSON string into a HSL data type.
 
   :param string string: JSON serialized data
+  :param array options: options array
   :return: the decoded string as the correct type, and on errors ``None`` is returned
   :rtype: any
+
+  The following options are available in the options array.
+
+   * **allow_comments** (boolean) Allow and ignore comments. The default is ``false``.
 
   The following translations are done (JSON to HSL).
 
