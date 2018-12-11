@@ -33,12 +33,12 @@ Array
   :return: array of filtered values, keys are preserved
   :rtype: array
 
-  The function should take one argument (value) and return a boolean value.
+  The callback function should take one argument (value) and return a boolean value.
 
-.. code-block:: hsl
+  .. code-block:: hsl
 
-	array_filter(function ($x) { return $x % 2 == 0; }, [0, 1, 2, 3]); // even values
-	array_filter(is_number, [0, "Hello World", 2]);
+	  array_filter(function ($x) { return $x % 2 == 0; }, [0, 1, 2, 3]); // even values
+	  array_filter(is_number, [0, "Hello World", 2]);
 
 .. function:: array_includes(needle, array)
 
@@ -49,19 +49,24 @@ Array
   :return: true if needle is found
   :rtype: boolean
 
-  The needle function should take one argument (the current item) and return a boolean value. If the needle is a value, it will be matched strict (``===``).
+  The callback function should take one argument (value) and return a boolean value. If the needle is not a function, it will be matched using the strict comparison operator (``===``).
+
+  .. code-block:: hsl
+
+	  array_includes(function ($x) { return $x === 2; }, [0, 1, 2, 3]); // true
+	  array_includes(false, [0, none, ""]); // false
 
 .. function:: array_join(array, [separator])
 
-  Joins the array with a separator.
+  Join the elements in the array with a separator returning a string
 
   :param array array: the array
   :param string separator: the separator
   :return: a string from an array
   :rtype: string
 
-.. seealso::
-	To split a string to an array, see :func:`str_split`.
+  .. seealso::
+	  To split a string to an array, see :func:`str_split`.
 
 .. function:: array_keys(array)
 
@@ -82,9 +87,9 @@ Array
 
   The function should take one argument (value) and return a value.
 
-.. code-block:: hsl
+  .. code-block:: hsl
 
-	array_map(function ($x) { return $x * 2; }, [0, 1, 2, 3]); // double values
+	  array_map(function ($x) { return $x * 2; }, [0, 1, 2, 3]); // double values
 
 .. function:: array_range(start, stop, [step = 1])
 
@@ -99,7 +104,7 @@ Array
   .. code-block:: hsl
 
 	  foreach (range(0, 9) as $i) // 0,1,2,..,8
-		echo $i;
+		  echo $i;
   
 .. function:: array_reduce(callback, array, [initial])
 
@@ -118,9 +123,9 @@ Array
 	* the array is empty, an error will be raised.
 	* the array contains one value, that value will be returned.
 
-.. code-block:: hsl
+  .. code-block:: hsl
 
-	array_reduce(function ($carry, $x) { return $carry + $x; }, [0, 1, 2, 3]); // sum values
+	  array_reduce(function ($carry, $x) { return $carry + $x; }, [0, 1, 2, 3]); // sum values
 
 .. function:: array_reverse(array)
 
@@ -146,23 +151,23 @@ Array
 
   The callback function should take two arguments (a and b) and return true if a is less-than b.
 
-.. code-block:: hsl
+  .. code-block:: hsl
 
-	array_sort(function ($a, $b) { return $a < $b; }, [2, 3, 1]); // sort
-	array_sort(function ($a, $b) { return $a > $b; }, [2, 3, 1]); // reverse-sort
+	  array_sort(function ($a, $b) { return $a < $b; }, [2, 3, 1]); // sort
+	  array_sort(function ($a, $b) { return $a > $b; }, [2, 3, 1]); // reverse-sort
 
-.. note::
+  .. note::
 
-  Some other languages (eg. javascript and PHP) use a trivalue function (-1, 0, 1) in a similar way in order to determine the order. HSL does not since if needed, a trivalue function may be simulated internally using the provided less-than function. Further some sorting implementation may only need the less-than result hence the greater-than and equality result may be superfluous to establish.
+    Some other languages (eg. javascript and PHP) use a trivalue function (-1, 0, 1) in a similar way in order to determine the order. HSL does not since if needed, a trivalue function may be simulated internally using the provided less-than function. Further some sorting implementation may only need the less-than result hence the greater-than and equality result may be superfluous to establish.
 
-	.. code-block:: hsl
+	  .. code-block:: hsl
 
-		function trivalue($a, $b, $lessthan)
-		{
-			if ($lessthan($a, $b)) return -1;
-			if ($lessthan($b, $a)) return 1;
-			return 0;
-		}
+		  function trivalue($a, $b, $lessthan)
+		  {
+		  	if ($lessthan($a, $b)) return -1;
+		  	if ($lessthan($b, $a)) return 1;
+		  	return 0;
+		  }
 
 Cryptographic
 -------------
@@ -225,65 +230,65 @@ Cryptographic
 					["iv" => pack("x16")]
 				);
 
-.. function:: hmac_md5(key, s)
+.. function:: hmac_md5(key, message)
 
-  Return the HMAC MD5 hash of s with the key.
+  Return the HMAC MD5 hash of message with the key.
 
   :param string key: the HMAC key
-  :param string s: the value to hash
+  :param string message: the value to hash
   :return: the hash value hex encoded
   :rtype: string
 
-.. function:: hmac_sha1(key, s)
+.. function:: hmac_sha1(key, message)
 
-  Return the HMAC SHA1 hash of s with the key.
+  Return the HMAC SHA1 hash of message with the key.
 
   :param string key: the HMAC key
-  :param string s: the value to hash
+  :param string message: the value to hash
   :return: the hash value hex encoded
   :rtype: string
 
-.. function:: hmac_sha2(key, s, hashsize)
+.. function:: hmac_sha2(key, message, hashsize)
 
-  Return the HMAC SHA2 hash of s with the key.
+  Return the HMAC SHA2 hash of message with the key.
 
   :param string key: the HMAC key
-  :param string s: the value to hash
+  :param string message: the value to hash
   :param number hashsize: the hash size (must be 256 or 512)
   :return: the hash value hex encoded
   :rtype: string
 
-.. function:: md5(s)
+.. function:: md5(message)
 
-  Return the MD5 hash of s.
+  Return the MD5 hash of message.
 
-  :param string s: the value to hash
+  :param string message: the value to hash
   :return: the hash value hex encoded
   :rtype: string
 
-.. function:: sha1(s)
+.. function:: sha1(message)
 
-  Return the SHA1 hash of s.
+  Return the SHA1 hash of message.
 
-  :param string s: the value to hash
+  :param string message: the value to hash
   :return: the hash value hex encoded
   :rtype: string
 
-.. function:: sha2(s, hashsize)
+.. function:: sha2(message, hashsize)
 
-  Return the SHA2 hash of s.
+  Return the SHA2 hash of message.
 
-  :param string s: the value to hash
+  :param string message: the value to hash
   :param number hashsize: the hash size (must be 256 or 512)
   :return: the hash value hex encoded
   :rtype: string
 
-.. function:: hash(string)
+.. function:: hash(message)
 
-  Return the numeric hash value of the input string. The hash value is same for equal strings.
+  Return the numeric hash value of the message. The hash value is same for equal messages.
 
-  :param string string: string to be hashed
-  :return: a hash value
+  :param string message: the value to hash
+  :return: the hash value
   :rtype: number
 
 .. function:: rsa_sign(message, privatekey, [options])
@@ -348,12 +353,12 @@ Cryptographic
   :return: random bytes
   :rtype: string
 
-.. function:: random_number([x, y])
+.. function:: random_number([first, last])
 
-  Return a random integer between x and y (inclusive) or a random double between 0 and 1 (inclusive).
+  Return a random integer between first and last (inclusive) or a random double (decimal) between 0 and 1 (inclusive).
 
-  :param number x: first possible number
-  :param number y: last possible number
+  :param number first: first possible number
+  :param number last: last possible number
   :return: the random number
   :rtype: number
 
@@ -374,11 +379,11 @@ Cryptographic
 Data types
 ----------
 
-.. function:: length(x)
+.. function:: length(value)
 
   Return the length of an array (items) or a string (characters). For all other datatypes `none` is returned.
 
-  :param any x: the value
+  :param any value: the value
   :return: the length
   :rtype: number or none
 
@@ -394,75 +399,75 @@ Data types
 
 	`array` is not a function, it's a language construct to create an :ref:`array <arraytype>` type. It's an alias for the short array syntax ``[]``.
 
-.. function:: boolean(x)
+.. function:: boolean(value)
 
-  This function converts the input of x to the boolean type (according to the :ref:`truthiness <truthtable>`) table.
+  This function converts the input of value to the boolean type (according to the :ref:`truthiness <truthtable>`) table.
 
-  :param any x: the input
+  :param any value: the input
   :return: a boolean
   :rtype: boolean
 
-.. function:: number(x)
+.. function:: number(value)
 
-  This function converts the input of x to the number type. Decimal and hexadecimal (`Ox`) numbers are supported. If the input contains an invalid number as string or type ``0`` is returned.
+  This function converts the input of value to the number type. Decimal and hexadecimal (`Ox`) numbers are supported. If the input contains an invalid number as string or type ``0`` is returned.
 
-  :param any x: the input
+  :param any value: the input
   :return: a number
   :rtype: number
 
-.. function:: string(x)
+.. function:: string(value)
 
-  This function converts the input of s to the string type, hence converting it to its string representation.
+  This function converts the input of value to the string type, hence converting it to its string representation.
 
-  :param any x: the input
+  :param any value: the input
   :return: a string
   :rtype: string
 
-.. function:: is_array(a)
+.. function:: is_array(value)
 
-  Returns true if the type of a is an array.
+  Returns true if the type of value is an array.
 
-  :param any a: the input
+  :param any value: the input
   :return: the result
   :rtype: boolean
 
-.. function:: is_boolean(a)
+.. function:: is_boolean(value)
 
-  Returns true if the type of a is a boolean.
+  Returns true if the type of value is a boolean.
 
-  :param any a: the input
+  :param any value: the input
   :return: the result
   :rtype: boolean
 
-.. function:: is_function(f)
+.. function:: is_function(value)
 
-  Returns true if the type of f is a function.
+  Returns true if the type of value is a function.
 
-  :param any f: the input
+  :param any value: the input
   :return: the result
   :rtype: boolean
 
-.. function:: is_number(n)
+.. function:: is_number(value)
 
-  Returns true if the type of n is a number.
+  Returns true if the type of value is a number.
 
-  :param any n: the input
+  :param any value: the input
   :return: the result
   :rtype: boolean
 
-.. function:: is_object(o)
+.. function:: is_object(value)
 
-  Returns true if the type of o is an object.
+  Returns true if the type of value is an object.
 
-  :param any o: the input
+  :param any value: the input
   :return: the result
   :rtype: boolean
 
-.. function:: is_string(s)
+.. function:: is_string(value)
 
-  Returns true if the type of s is a string.
+  Returns true if the type of value is a string.
 
-  :param any s: the input
+  :param any value: the input
   :return: the result
   :rtype: boolean
 
@@ -501,11 +506,11 @@ Date and time
   :return: the time in seconds (with decimals)
   :rtype: number
 
-.. function:: sleep(x)
+.. function:: sleep(seconds)
 
   Pause the code execution for x seconds.
 
-  :param number x: the number of seconds to sleep
+  :param number seconds: the number of seconds to sleep
   :return: the time slept in seconds (with decimals)
   :rtype: number
 
@@ -589,9 +594,9 @@ DNS
 	echo dns("halon.se", ["extended_result" => true, "type" => "a"]);
 	// ["result"=>[0=>"54.152.237.238"],"dnssec"=>0]
 
-.. function:: is_subdomain(d, domain)
+.. function:: is_subdomain(subdomain, domain)
 
-  Test if d is subdomain of domain. If the domain starts with a dot ``.`` it must be a subdomain of domain, hence it will **not** even if `d == domain`.
+  Test if subdomain is a subdomain of domain. If the domain starts with a dot ``.`` it must be a subdomain of domain, hence it will **not** even if `subdomain == domain`.
 
   .. code-block:: hsl
 
@@ -600,9 +605,9 @@ DNS
 	is_subdomain("www.halon.io", ".halon.io"); // true
 	is_subdomain("halon.io", ".halon.io"); // false
 
-  :param string d: the subdomain
+  :param string subdomain: the subdomain
   :param string domain: the domain
-  :return: if d is a subdomain of domain
+  :return: if subdomain is a subdomain of domain
   :rtype: boolean
 
 .. function:: idna_encode(domain)
@@ -896,11 +901,11 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 
 		Files are automatically garbage collected (closed). However you may want to explicitly call close.
 
-  .. function:: File.read(len)
+  .. function:: File.read(length)
 
 	  Read data from file. On EOF an empty string is returned. On error ``None`` is returned.
 
-	  :param number len: bytes to read
+	  :param number length: bytes to read
 	  :return: data
 	  :rtype: string or None
 
@@ -976,66 +981,66 @@ Mail
 Mathematical
 ------------
 
-.. function:: abs(x)
+.. function:: abs(number)
 
   Return the absolute value of a number.
 
-  :param number x: the numeric value to process
-  :return: the absolute value of x
+  :param number number: the numeric value to process
+  :return: the absolute value
   :rtype: number
 
-.. function:: ceil(x)
+.. function:: ceil(number)
 
   Return the integer value of a number by rounding up if necessary.
 
-  :param number x: the numeric value to process
-  :return: the integer value of x
+  :param number number: the numeric value to process
+  :return: the integer value
   :rtype: number
 
-.. function:: floor(x)
+.. function:: floor(number)
 
   Return the integer value of a number by rounding down if necessary.
 
-  :param number x: the numeric value to process
-  :return: the integer value of x
+  :param number number: the numeric value to process
+  :return: the integer value
   :rtype: number
 
-.. function:: log(x, [y = e])
+.. function:: log(number, [base = e])
 
-  Return the logarithm of base x and exponent y.
+  Return the logarithm of number to base.
 
-  :param number x: the numeric value to process
-  :param number y: the base
-  :return: the logarithm value of x to base y
+  :param number number: the numeric value to process
+  :param number base: the base
+  :return: the logarithm value
   :rtype: number
 
-.. function:: pow(x, y)
+.. function:: pow(base, exponent)
 
-  Return base x raised to the power of the exponent y.
+  Return base raised to the power of the exponent.
 
-  :param number x: the numeric value to process
-  :param number y: the exponent
-  :return: the x to power of y
+  :param number base: the base
+  :param number exponent: the exponent
+  :return: the power of
   :rtype: number
 
 .. seealso::
 	It's significantly faster to use the ** operator since it's an operator and not a function.
 
-.. function:: round(x, [y = 0])
+.. function:: round(number, [decimals = 0])
 
-  Return x rounded to precision of y decimals.
+  Return number rounded to precision of decimals.
 
-  :param number x: the numeric value to process
-  :param number y: the number of decimals
-  :return: the value x rounded to y
+  :param number number: the numeric value to process
+  :param number decimals: the number of decimals
+  :return: the rounded value
   :rtype: number
 
-.. function:: sqrt(x)
+.. function:: sqrt(number)
 
-  Return the square root of x.
+  Return the square root of number.
 
-  :param number x: the numeric value to process
-  :return: the square root of x
+  :param number number: the numeric value to process
+  :return: the square root
   :rtype: number
 
 MIME
@@ -1092,11 +1097,11 @@ MIME
 
 		The `Content-Type` is not automatically set to `multipart/\*`, this has to be done using :func:`MIME.setType`. The MIME boundary is however automatically created.
 
-  .. function:: MIME.setBody(data)
+  .. function:: MIME.setBody(body)
 
-	  Set the MIME part body content. In case the MIME part has children (multipart) this will be the MIME parts preamble. The data will be Base64 encoded if no `Content-Transfer-Encoding` header is added.
+	  Set the MIME part body content. In case the MIME part has children (multipart) this will be the MIME parts preamble. The body will be Base64 encoded if no `Content-Transfer-Encoding` header is added.
 
-	  :param string data: the data
+	  :param string body: the body
 	  :return: this
 	  :rtype: MIME
 
@@ -1662,17 +1667,17 @@ String
   :return: the ASCII value
   :rtype: number
 
-.. function:: str_repeat(s, n)
+.. function:: str_repeat(string, multiplier)
 
-  Returns the string s repeated n times.
+  Returns the string repeated multiplier times.
 
-  :param string s: the input string
-  :param number n: the string multiplier
-  :return: s repeated n times
+  :param string string: the input string
+  :param number multiplier: the string multiplier
+  :return: the repeated string
   :rtype: string
 
-.. seealso::
-	It's significantly faster to use the string repeat * operator since it's an operator and not a function.
+  .. seealso::
+	  It's significantly faster to use the string repeat * operator since it's an operator and not a function.
 
 .. function:: str_replace(search, replace, subject)
 
@@ -1684,11 +1689,11 @@ String
   :return: subject with searched replaced with replace
   :rtype: string
 
-.. function:: str_split(s, delimiter, [limit = 0])
+.. function:: str_split(string, delimiter, [limit = 0])
 
   Splits the string into an array on the delimiter.
 
-  :param string s: the string
+  :param string string: the string
   :param string delimiter: the delimiter
   :param number limit: the maximum number of parts returned
   :return: an array of strings
@@ -1699,63 +1704,63 @@ String
 	str_split("how are you", " ",  2) // ["how","are you"]
 	str_split("how are you", " ", -2) // ["how are","you"]
 
-.. seealso::
-	To join an array to a string, see :func:`array_join`.
+  .. seealso::
+	  To join an array to a string, see :func:`array_join`.
 
-.. function:: str_find(s, find, [offset = 0])
+.. function:: str_find(string, substring, [offset = 0])
 
-  Return the position (starting from zero) of the first occurrence of find in s (starting from the offset). If the find is **not** found -1 is returned.
+  Return the position (starting from zero) of the first occurrence of substring in the string (starting from the offset). If the substring is **not** found -1 is returned.
 
-  :param string s: the input string
-  :param string find: the string to look for
+  :param string string: the input string
+  :param string substring: the string to look for
   :param number offset: the offset from the start
-  :return: the position where find is found
+  :return: the position where substring is found
   :rtype: number
 
-.. function:: str_rfind(s, find, [offset = 0])
+.. function:: str_rfind(string, find, [offset = 0])
 
-  Return the position (starting from zero) of the last occurrence of find in s searching backward (starting from the offset relative to the end). If the find is **not** found -1 is returned.
+  Return the position (starting from zero) of the last occurrence of substring in the string searching backward (starting from the offset relative to the end). If the substring is **not** found -1 is returned.
 
-  :param string s: the input string
-  :param string find: the string to look for
+  :param string string: the input string
+  :param string substring: the string to look for
   :param number offset: the offset from the end
-  :return: the position where find is found
+  :return: the position where substring is found
   :rtype: number
 
-.. function:: str_lower(s)
+.. function:: str_lower(string)
 
-  Returns s with all US-ASCII character to lowercased.
+  Returns string with all US-ASCII character to lowercased.
 
-  :param string s: the input string
+  :param string string: the input string
   :return: the string lowercased
   :rtype: string
 
-.. function:: str_upper(s)
+.. function:: str_upper(string)
 
-  Returns s with all US-ASCII character uppercased.
+  Returns string with all US-ASCII character uppercased.
 
-  :param string s: the input string
+  :param string string: the input string
   :return: the string uppercased
   :rtype: string
 
-.. function:: str_slice(s, offset, [len])
+.. function:: str_slice(string, offset, [length])
 
-  Return the substring of s.
+  Return the substring of string.
 
-  :param string s: the input string
+  :param string string: the input string
   :param number offset: the start position
-  :param number len: the length limit if given
+  :param number length: the length limit if given
   :return: the substring
   :rtype: string
 
-.. seealso::
-	It's significantly faster to use the slice [:] operator since it's an operator and not a function.
+  .. seealso::
+	  It's significantly faster to use the slice [:] operator since it's an operator and not a function.
 
-.. function:: str_strip(s)
+.. function:: str_strip(string)
 
-  Returns s with whitespace characters (`\\s\\t\\r\\n`) removed from the start and end of the string.
+  Returns string with whitespace characters (`\\s\\t\\r\\n`) removed from the start and end of the string.
 
-  :param string s: the input string
+  :param string string: the input string
   :return: the trimmed string
   :rtype: string
 
@@ -1886,11 +1891,11 @@ Socket
 	  :return: errno
 	  :rtype: number
 
-  .. function:: Socket.recv(len, [flags])
+  .. function:: Socket.recv(length, [flags])
 
 	  Receive data on socket.
 
-	  :param number len: up to len bytes to receive
+	  :param number length: up to length bytes to receive
 	  :param string flags: flags to control the behaviour
 	  :return: data
 	  :rtype: string or None
@@ -1971,11 +1976,11 @@ Socket
 	  :return: this
 	  :rtype: TLSSocket or None
 
-  .. function:: TLSSocket.recv(len)
+  .. function:: TLSSocket.recv(length)
 
 	  Receive data on TLS/SSL socket. This function may perform an implicit handshake.
 
-	  :param number len: up to len bytes to recv
+	  :param number length: up to length bytes to recv
 	  :return: data
 	  :rtype: string or None
 
