@@ -5,31 +5,24 @@ Standard library
 
 Functions which are documented in this chapter are considered `core` functions hence are available in all `contexts`. Functions in the standard library may be recognized by the fact that they are all in lowercase.
 
-* **Array** :func:`array_keys` :func:`array_filter` :func:`array_map` :func:`array_reduce` :func:`array_reverse` :func:`array_sort` :func:`count` :func:`explode` :func:`implode` :func:`in_array` :func:`range`
-* **Cryptographic** :func:`aes_decrypt` :func:`aes_encrypt` :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify` :func:`random_bytes` :func:`crypt`
-* **Data types** :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
+* **Array** :func:`array_filter` :func:`array_includes` :func:`array_join` :func:`array_keys` :func:`array_map` :func:`array_range` :func:`array_reduce` :func:`array_reverse` :func:`array_sort`
+* **Cryptographic** :func:`aes_decrypt` :func:`aes_encrypt` :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify` :func:`random_bytes` :func:`random_number` :func:`crypt`
+* **Data types** :func:`length` :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
-* **DNS** :func:`dns` :func:`dns4` :func:`dns6` :func:`dnscname` :func:`dnsmx` :func:`dnsns` :func:`dnsptr` :func:`dnstxt` :func:`is_subdomain` :func:`idna_encode` :func:`idna_decode`
+* **DNS** :func:`dns` :func:`is_subdomain` :func:`idna_encode` :func:`idna_decode`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_explode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
 * **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http` :class:`File`
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
-* **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt` :func:`rand` 
+* **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`inet_ntop` :func:`inet_pton` :func:`rate` :func:`mail`
 * **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :class:`LDAP`
-* **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`strlen` :func:`strpos` :func:`strrpos` :func:`strtolower` :func:`strtoupper` :func:`substr` :func:`trim` :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
+* **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`str_split` :func:`str_find` :func:`str_rfind` :func:`str_lower` :func:`str_upper` :func:`str_slice` :func:`str_split`
+* **Regular expression** :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
 * **Socket** :class:`Socket` :class:`TLSSocket`
 
 Array
 -----
-
-.. function:: array_keys(array)
-
-  Returns the keys in the array.
-
-  :param array array: the array
-  :return: array's keys
-  :rtype: array
 
 .. function:: array_filter(callback, array)
 
@@ -47,6 +40,37 @@ Array
 	array_filter(function ($x) { return $x % 2 == 0; }, [0, 1, 2, 3]); // even values
 	array_filter(is_number, [0, "Hello World", 2]);
 
+.. function:: array_includes(needle, array)
+
+  Returns true if needle is found in the array.
+
+  :param any needle: the value to match or a callback function
+  :param array array: the array
+  :return: true if needle is found
+  :rtype: boolean
+
+  The needle function should take one argument (the current item) and return a boolean value. If the needle is a value, it will be matched strict (``===``).
+
+.. function:: array_join(array, [separator])
+
+  Joins the array with a separator.
+
+  :param array array: the array
+  :param string separator: the separator
+  :return: a string from an array
+  :rtype: string
+
+.. seealso::
+	To split a string to an array, see :func:`str_split`.
+
+.. function:: array_keys(array)
+
+  Returns the keys in the array.
+
+  :param array array: the array
+  :return: array's keys
+  :rtype: array
+
 .. function:: array_map(callback, array)
 
   Returns values from the array with the callback applied.
@@ -62,6 +86,21 @@ Array
 
 	array_map(function ($x) { return $x * 2; }, [0, 1, 2, 3]); // double values
 
+.. function:: array_range(start, stop, [step = 1])
+
+  Returns an array from a numeric range (half-open) with the given steps.
+
+  :param number start: the first number
+  :param number stop: the last number (not included)
+  :param number step: the step between numbers
+  :return: an array with numbers
+  :rtype: array
+
+  .. code-block:: hsl
+
+	  foreach (range(0, 9) as $i) // 0,1,2,..,8
+		echo $i;
+  
 .. function:: array_reduce(callback, array, [initial])
 
   Reduces the values in the array using the callback from left-to-right, optionally starting with a initial value.
@@ -124,64 +163,6 @@ Array
 			if ($lessthan($b, $a)) return 1;
 			return 0;
 		}
-
-.. function:: count(array)
-
-  Counts items in an array.
-
-  :param array array: the array
-  :return: the number of items in array
-  :rtype: number
-
-.. function:: explode(delimiter, string, [limit = 0])
-
-  Splits the string into an array on the delimiter.
-
-  :param string delimiter: the delimiter
-  :param string string: the string
-  :param number limit: the maximum number of parts returned
-  :return: an array of strings
-  :rtype: array
-
-  .. code-block:: hsl
-
-	explode(" ", "how are you",  2) // ["how","are you"]
-	explode(" ", "how are you", -2) // ["how are","you"]
-
-.. function:: implode(glue, array)
-
-  Joins the array with the glue.
-
-  :param string glue: the glue
-  :param array array: the array
-  :return: a string from an array
-  :rtype: string
-
-.. function:: in_array(needle, array)
-
-  Returns true if needle is found in the array.
-
-  :param any needle: the value to match or a callback function
-  :param array array: the array
-  :return: true if needle is found
-  :rtype: boolean
-
-  The needle function should take one argument (the current item) and return a boolean value.
-
-.. function:: range(start, stop, [step = 1])
-
-  Returns an array from a numeric range (inclusive) with the given steps.
-
-  :param number start: the first number
-  :param number stop: the last number (that will occur)
-  :param number step: the step between numbers
-  :return: an array with numbers
-  :rtype: array
-
-  .. code-block:: hsl
-
-	  foreach (range(0, 9) as $i) // 0,1,2,..,9
-		echo $i;
 
 Cryptographic
 -------------
@@ -367,6 +348,15 @@ Cryptographic
   :return: random bytes
   :rtype: string
 
+.. function:: random_number([x, y])
+
+  Return a random integer between x and y (inclusive) or a random double between 0 and 1 (inclusive).
+
+  :param number x: first possible number
+  :param number y: last possible number
+  :return: the random number
+  :rtype: number
+
 .. function:: crypt(key, salt)
 
   Uses the underlying operating system's ``crypt()`` function.
@@ -383,6 +373,14 @@ Cryptographic
 
 Data types
 ----------
+
+.. function:: length(x)
+
+  Return the length of an array (items) or a string (characters). For all other datatypes `none` is returned.
+
+  :param any x: the value
+  :return: the length
+  :rtype: number or none
 
 .. function:: array([...args])
 
@@ -563,9 +561,21 @@ DNS
 
 .. function:: dns(host, [options])
 
-  Query for the A and AAAA record of a hostname.
+  Query for DNS records of a hostname.
 
-  .. include:: func_dns.rst
+  :param string host: the host
+  :param array options: options array
+  :return: list of items or an extended result
+  :rtype: array
+
+  The following options are available in the options array.
+
+  * **type** (string) Query type (one of ``a``, ``aaaa``, ``mx``, ``txt``, ``cname``, ``ns`` or ``ptr``). The default is to query for both ``a`` and ``aaaa``.
+  * **timeout** (number) Query timeout in seconds. The default is ``5``.
+  * **extended_result** (boolean) Get a more extended result. The default is ``false``.
+  * **servers** (array) List of resolvers. The default is the system wide.
+
+  In the ``extended_result`` mode, either ``result`` or ``error`` in set in an associative array. ``dnssec`` is always included. ``result`` is the list of results and ``error`` is the string representation of `rcode` or `h_errno`.
 
   .. code-block:: hsl
 
@@ -576,50 +586,8 @@ DNS
 
 	echo dns("halon.se");
 	// [0=>"54.152.237.238"]
-	echo dns("halon.se", ["extended_result" => true]);
+	echo dns("halon.se", ["extended_result" => true, "type" => "a"]);
 	// ["result"=>[0=>"54.152.237.238"],"dnssec"=>0]
-
-.. function:: dns4(host, [options])
-
-  Query the resolvers for the A record of the hostname.
-
-  .. include:: func_dns.rst
-
-.. function:: dns6(host, [options])
-
-  Query the resolvers for the AAAA record of the hostname.
-
-  .. include:: func_dns.rst
-
-.. function:: dnscname(host, [options])
-
-  Query the resolvers for the CNAME record of the hostname.
-
-  .. include:: func_dns.rst
-
-.. function:: dnsmx(host, [options])
-
-  Query the resolvers for the MX record of the hostname.
-
-  .. include:: func_dns.rst
-
-.. function:: dnsns(host, [options])
-
-  Query the resolvers for the NS record of the hostname.
-
-  .. include:: func_dns.rst
-
-.. function:: dnsptr(host, [options])
-
-  Query the resolvers for the PTR record of the address.
-
-  .. include:: func_dns.rst
-
-.. function:: dnstxt(host, [options])
-
-  Query the resolvers for the TXT record of the hostname.
-
-  .. include:: func_dns.rst
 
 .. function:: is_subdomain(d, domain)
 
@@ -1068,15 +1036,6 @@ Mathematical
 
   :param number x: the numeric value to process
   :return: the square root of x
-  :rtype: number
-
-.. function:: rand(x, y)
-
-  Return a random integer between x and y (inclusive).
-
-  :param number x: first possible number
-  :param number y: last possible number
-  :return: the random number
   :rtype: number
 
 MIME
@@ -1677,12 +1636,12 @@ Protocols
 	  :return: entry data
 	  :rtype: array or None
 
-	  .. code-block:: hsl
+    .. code-block:: hsl
 
-		  $result = $ldap->search("dc=example,dc=com");
+      $result = $ldap->search("dc=example,dc=com");
       if ($result)
-		    while ($entry = $result->next())
-		        echo $entry;
+        while ($entry = $result->next())
+          echo $entry;
 
 String
 ------
@@ -1725,15 +1684,25 @@ String
   :return: subject with searched replaced with replace
   :rtype: string
 
-.. function:: strlen(s)
+.. function:: str_split(s, delimiter, [limit = 0])
 
-  Returns the length of the string s.
+  Splits the string into an array on the delimiter.
 
-  :param string s: the input string
-  :return: the length of s
-  :rtype: number
+  :param string s: the string
+  :param string delimiter: the delimiter
+  :param number limit: the maximum number of parts returned
+  :return: an array of strings
+  :rtype: array
 
-.. function:: strpos(s, find, [offset = 0])
+  .. code-block:: hsl
+
+	str_split("how are you", " ",  2) // ["how","are you"]
+	str_split("how are you", " ", -2) // ["how are","you"]
+
+.. seealso::
+	To join an array to a string, see :func:`array_join`.
+
+.. function:: str_find(s, find, [offset = 0])
 
   Return the position (starting from zero) of the first occurrence of find in s (starting from the offset). If the find is **not** found -1 is returned.
 
@@ -1743,7 +1712,7 @@ String
   :return: the position where find is found
   :rtype: number
 
-.. function:: strrpos(s, find, [offset = 0])
+.. function:: str_rfind(s, find, [offset = 0])
 
   Return the position (starting from zero) of the last occurrence of find in s searching backward (starting from the offset relative to the end). If the find is **not** found -1 is returned.
 
@@ -1753,7 +1722,7 @@ String
   :return: the position where find is found
   :rtype: number
 
-.. function:: strtolower(s)
+.. function:: str_lower(s)
 
   Returns s with all US-ASCII character to lowercased.
 
@@ -1761,7 +1730,7 @@ String
   :return: the string lowercased
   :rtype: string
 
-.. function:: strtoupper(s)
+.. function:: str_upper(s)
 
   Returns s with all US-ASCII character uppercased.
 
@@ -1769,7 +1738,7 @@ String
   :return: the string uppercased
   :rtype: string
 
-.. function:: substr(s, offset, [len])
+.. function:: str_slice(s, offset, [len])
 
   Return the substring of s.
 
@@ -1782,13 +1751,16 @@ String
 .. seealso::
 	It's significantly faster to use the slice [:] operator since it's an operator and not a function.
 
-.. function:: trim(s)
+.. function:: str_strip(s)
 
   Returns s with whitespace characters (`\\s\\t\\r\\n`) removed from the start and end of the string.
 
   :param string s: the input string
   :return: the trimmed string
   :rtype: string
+
+Regular expression
+------------------
 
 .. function:: pcre_match(pattern, subject)
 
