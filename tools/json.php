@@ -25,18 +25,20 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 				foreach ($rows as $row) {
 					$name = (string) $row->entry[0]->paragraph;
 					$type = (string) $row->entry[1]->paragraph;
-					$result[$file][$i]['name'] = $name;
-					$result[$file][$i]['type'] = $type;
-					if ($name === '$context') {
-						$result[$file][$i]['detail'] = $type.' '.$name;
-						$result[$file][$i]['documentation'] = (string) $row->entry[2]->paragraph;
+					if ($name[0] === '$') {
+						$result[$file][$i]['name'] = $name;
+						$result[$file][$i]['type'] = $type;
+						if ($name === '$context') {
+							$result[$file][$i]['detail'] = $type.' '.$name;
+							$result[$file][$i]['documentation'] = (string) $row->entry[2]->paragraph;
+						}
+						else {
+							$result[$file][$i]['detail'] = $type.' readonly '.$name;
+							$result[$file][$i]['documentation'] = (string) $row->entry[3]->paragraph;
+							$result[$file][$i]['example'] = (string) $row->entry[2]->paragraph;
+						}
+						$i += 1;	
 					}
-					else {
-						$result[$file][$i]['detail'] = $type.' readonly '.$name;
-						$result[$file][$i]['documentation'] = (string) $row->entry[3]->paragraph;
-						$result[$file][$i]['example'] = (string) $row->entry[2]->paragraph;
-					}
-					$i += 1;
 				}
 			}
 		} else {
