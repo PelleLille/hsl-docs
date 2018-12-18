@@ -5,12 +5,12 @@ Standard library
 
 Functions which are documented in this chapter are considered `core` functions hence are available in all `contexts`. Functions in the standard library may be recognized by the fact that they are all in lowercase.
 
-* **Array** :func:`array_filter` :func:`array_includes` :func:`array_join` :func:`array_keys` :func:`array_map` :func:`array_range` :func:`array_reduce` :func:`array_reverse` :func:`array_sort`
+* **Array** :func:`array_filter` :func:`array_find` :func:`array_includes` :func:`array_join` :func:`array_keys` :func:`array_map` :func:`array_range` :func:`array_reduce` :func:`array_reverse` :func:`array_sort`
 * **Cryptographic** :func:`aes_decrypt` :func:`aes_encrypt` :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify` :func:`random_bytes` :func:`random_number` :func:`crypt`
 * **Data types** :func:`length` :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`is_subdomain` :func:`idna_encode` :func:`idna_decode`
-* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_explode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
+* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_decode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
 * **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http` :class:`File`
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
@@ -39,6 +39,21 @@ Array
 
 	  array_filter(function ($x) { return $x % 2 == 0; }, [0, 1, 2, 3]); // even values
 	  array_filter(is_number, [0, "Hello World", 2]);
+
+.. function:: array_find(callback, array)
+
+  Return the first element that matches in the array.
+
+  :param any needle: the callback
+  :param array array: the array
+  :return: the value if found
+  :rtype: boolean or none
+
+  The callback function should take one argument (value) and return a boolean value.
+
+  .. code-block:: hsl
+
+	  array_find(function ($x) { return $x["id"] === 2; }, [["id" => 1, "name" => "a"], ["id" => 2, "name" => "b"]]); // ["id"=>2,"name"=>"b"]
 
 .. function:: array_includes(needle, array)
 
@@ -653,13 +668,19 @@ Encodings and JSON
   :return: the string representation
   :rtype: string
 
-.. function:: csv_explode(string)
+.. function:: csv_decode(string, [options])
 
-  CSV explode the string.
+  Parse CSV data as string.
 
   :param string string: CSV formated string
-  :return: an array of strings
+  :param array options: options array
+  :return: an array of data
   :rtype: array
+
+  The following options are available in the options array.
+
+   * **delimiter** (string) The format separator. The default is ``,``.
+   * **header** (boolean) If the CSV data includes a header. The default is ``true``.
 
 .. function:: json_encode(value, [options])
 
@@ -1493,7 +1514,7 @@ Protocols
 
 .. class:: LDAP(uri)
 
-  The LDAP class is a OpenLDAP wrapper class. The URI should be in the format of ldap:// or ldaps://. Multiple hosts may be given seperated by space.
+  The LDAP class is a OpenLDAP wrapper class. The URI should be in the format of ldap:// or ldaps://. Multiple hosts may be given separated by space.
 
   :param string uri: The LDAP 
   

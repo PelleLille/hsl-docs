@@ -253,6 +253,7 @@ The `import` statement allows code to be structured in logical modules and share
 ::
 
 	import { symbol [ as symbol ] [ , ... ] } from string;
+	import $data from string;
 
 .. code-block:: hsl
 
@@ -282,6 +283,29 @@ A function in the module's global scope may be imported into the global scope. A
 	import { v1, v2, v2 as vLatest } from "module";
 
 .. _user_function:
+
+data
+^^^^
+
+All content in a module/file can be imported as a variable using different import methods at compile time (chosen by file extensions), this has the benefit of doing the data import once and the data shared across all executions.
+
+.. code-block:: hsl
+
+	import $config from "config.json";
+	import $lookup from "lookup.csv";
+	import $data from "data.txt";
+
+Currently there are imports for
+
++-----------+--------------+--------------------------------------+
+| Extension | Function     | Options                              |
++===========+==============+======================================+
+| .json     | json_decode  | "allow_comments" => true             |
++-----------+--------------+--------------------------------------+
+| .csv      | csv_decode   | "delimiter" => ",", "header" => true |
++-----------+--------------+--------------------------------------+
+| .txt      | *n/a*        | *n/a*                                |
++-----------+--------------+--------------------------------------+
 
 function
 --------
