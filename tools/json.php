@@ -81,6 +81,10 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 				// Skip File class since it cannot be created
 				if ($argv[1] === 'classes' && $name === 'File')
 					continue;
+			
+				// Skip LDAPResult class since it cannot be created
+				if ($argv[1] === 'classes' && $name === 'LDAPResult')
+					continue;
 
 				// Skip echo since it's not a function
 				if ($argv[1] === 'functions' && $name === 'echo')
