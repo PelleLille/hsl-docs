@@ -282,7 +282,7 @@ A function in the module's global scope may be imported into the global scope. A
 
 	import { v1, v2, v2 as vLatest } from "module";
 
-.. _user_function:
+.. _data_import:
 
 data
 ^^^^
@@ -306,6 +306,8 @@ Currently there are imports for
 +-----------+--------------+--------------------------------------+
 | .txt      | *n/a*        | *n/a*                                |
 +-----------+--------------+--------------------------------------+
+
+.. _user_function:
 
 function
 --------

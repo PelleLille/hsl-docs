@@ -682,6 +682,10 @@ Encodings and JSON
    * **delimiter** (string) The format separator. The default is ``,``.
    * **header** (boolean) If the CSV data includes a header. The default is ``true``.
 
+  .. note::
+
+	  It's possible to import CSV data at compile time to a variable using the :ref:`import <data_import>` statement.
+
 .. function:: json_encode(value, [options])
 
   JSON encode a HSL data type.
@@ -724,6 +728,10 @@ Encodings and JSON
   * **true** to ``true`` (is_boolean)
   * **false** to ``false`` (is_boolean)
   * **null** to **none**
+
+.. note::
+
+  It's possible to import JSON data at compile time to a variable using the :ref:`import <data_import>` statement.
 
 .. function:: pack(format, [...args])
 
