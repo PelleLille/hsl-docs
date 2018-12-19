@@ -253,7 +253,8 @@ The `import` statement allows code to be structured in logical modules and share
 ::
 
 	import { symbol [ as symbol ] [ , ... ] } from string;
-	import $data from string;
+	import * as symbol from string;
+	import variable from string;
 
 .. code-block:: hsl
 
@@ -306,6 +307,17 @@ Currently there are imports for
 +-----------+--------------+--------------------------------------+
 | .txt      | *n/a*        | *n/a*                                |
 +-----------+--------------+--------------------------------------+
+
+wildcard
+^^^^^^^^
+
+Wildcard imports (``*``) allows you to import all variables and functions from a module to a namespace (static class).
+
+.. code-block:: hsl
+
+	import * as foo from "foo";
+	foo::bar();
+	echo foo::$x;
 
 .. _user_function:
 
