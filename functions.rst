@@ -681,6 +681,29 @@ Encodings and JSON
 
    * **delimiter** (string) The format separator. The default is ``,``.
    * **header** (boolean) If the CSV data includes a header. The default is ``true``.
+   * **schema** (array) Use a schema to convert columns to types.
+
+  The schema should be of the format of being an array keyed on the column name.
+
+  ::
+
+    [
+      "columnname" => [
+          "type" => "string|boolean|number",
+          "true" => [ "True", ... ],
+          "false" => [ "False", ... ],
+      ],
+      ...
+    ]
+
+  The boolean type has a ``true`` and ``false`` array for `true` and `false` values. The default is ``["true"]`` and ``["false"]`` (all lowercase).
+
+  .. code-block:: hsl
+
+    echo csv_decode("enabled\nyes\nno", ["schema" => [
+                    "enabled" => ["type" => "boolean", "true" => ["yes"], "false" => ["no"]]
+                ]]);
+    // [0=>["enabled"=>true],1=>["enabled"=>false]]
 
   .. note::
 

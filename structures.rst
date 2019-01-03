@@ -254,7 +254,7 @@ The `import` statement allows code to be structured in logical modules and share
 
 	import { symbol [ as symbol ] [ , ... ] } from string;
 	import * as symbol from string;
-	import variable from string;
+	import variable from string [ with [ options ] ];
 
 .. code-block:: hsl
 
@@ -294,19 +294,31 @@ All content in a module/file can be imported as a variable using different impor
 
 	import $config from "config.json";
 	import $lookup from "lookup.csv";
-	import $data from "data.txt";
+	import $data from "data.txt" with [ "array" => true ];
 
-Currently there are imports for
+Currently there are data imports for the following file extensions.
 
-+-----------+--------------+--------------------------------------+
-| Extension | Function     | Options                              |
-+===========+==============+======================================+
-| .json     | json_decode  | "allow_comments" => true             |
-+-----------+--------------+--------------------------------------+
-| .csv      | csv_decode   | "delimiter" => ",", "header" => true |
-+-----------+--------------+--------------------------------------+
-| .txt      | *n/a*        | *n/a*                                |
-+-----------+--------------+--------------------------------------+
++-----------+--------------+-------------+
+| Extension | Function     | Import type |
++===========+==============+=============+
+| .json     | json_decode  | any         |
++-----------+--------------+-------------+
+| .csv      | csv_decode   | array       |
++-----------+--------------+-------------+
+| .txt      | *n/a*        | string      |
++-----------+--------------+-------------+
+
+The .json import behaviour can not be changed but default is to allow comments.
+
+The .csv import behaviour can be changed with the following options.
+
+   * **delimiter** (string) The format separator. The default is ``,``.
+   * **header** (boolean) If the CSV data includes a header. The default is ``true``.
+   * **schema** (array) A :func:`core.csv_decode` compatible CSV schema.
+
+The .txt import behaviour can be changed with the following options.
+
+   * **array** (boolean) Import the file line by line as an array (without the CRLF or LF delimiter). The default is ``false``.
 
 wildcard
 ^^^^^^^^
@@ -346,7 +358,7 @@ Named functions
 
 A function may be named (in order to be callable by its name) according to the regular expression pattern :regexp:`[a-zA-Z_]+[a-zA-Z_0-9]*` with the exception of reserved keywords. In order to prevent naming conflicts in the future with added reserved keywords; it may be a good idea to prefix the function name with a unique identifier like ``halon_func``.
 
-``and`` ``array`` ``as`` ``barrier`` ``break`` ``builtin`` ``cache`` ``case`` ``class`` ``closure`` ``constructor`` ``continue`` ``default`` ``echo`` ``else`` ``false`` ``for`` ``foreach`` ``forever`` ``from`` ``function`` ``global`` ``if`` ``import`` ``include`` ``include_once`` ``isset`` ``not`` ``none`` ``object`` ``or`` ``private`` ``return`` ``switch`` ``true`` ``unset`` ``while``
+``and`` ``array`` ``as`` ``barrier`` ``break`` ``builtin`` ``cache`` ``case`` ``class`` ``closure`` ``constructor`` ``continue`` ``default`` ``echo`` ``else`` ``false`` ``for`` ``foreach`` ``forever`` ``from`` ``function`` ``global`` ``if`` ``import`` ``include`` ``include_once`` ``isset`` ``not`` ``none`` ``object`` ``or`` ``private`` ``return`` ``switch`` ``true`` ``unset`` ``while`` ``with``
 
 You *should* avoid using keywords available in other general purpose languages and they may be added in the future. That includes keywords such as `for`, `this`, `protected`, `public` etc.
 
