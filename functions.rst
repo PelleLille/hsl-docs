@@ -690,13 +690,14 @@ Encodings and JSON
     [
       "columnname" => [
           "type" => "string|boolean|number",
+          "null" => boolean or [ "", "NULL", ... ],
           "true" => [ "True", ... ],
           "false" => [ "False", ... ],
       ],
       ...
     ]
 
-  The boolean type has a ``true`` and ``false`` array for `true` and `false` values. The default is ``["true"]`` and ``["false"]`` (all lowercase).
+  If the column is nullable either set ``null`` to ``true`` (to treat empty strings as null) or set ``null`` to an array of values to treat as null (eg. ``["NULL"]``). Likewise the boolean type has a ``true`` and ``false`` property for `true` and `false` values. The default is ``["true"]`` and ``["false"]`` (all lowercase).
 
   .. code-block:: hsl
 
