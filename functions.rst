@@ -954,13 +954,15 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 
 		Files are automatically garbage collected (closed). However you may want to explicitly call close.
 
-  .. function:: File.read(length)
+  .. function:: File.read([length])
 
 	  Read data from file. On EOF an empty string is returned. On error ``None`` is returned.
 
 	  :param number length: bytes to read
 	  :return: data
 	  :rtype: string or None
+
+    If no length is given, all the remaning data until EOF will be read in one operation.
 
   .. function:: File.seek(offset, [whence = "SEEK_SET"])
 
