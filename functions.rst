@@ -933,11 +933,17 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 		  echo $response;
 	  }
 
-.. class:: File()
+.. class:: File(filename)
 
-  A File class cannot be created at the moment, only retured by :func:`~data.GetMailFile`. This resource is automatically garbage collected (closed) once the object is destroyed.
+  The File class allows low level file access. A file resource is created for each File instance, this resource is automatically garbage collected (closed) once the object is destroyed.
+
+  :param string filename: the file name
 
   .. code-block:: hsl
+
+	$file = File("myfile.txt");
+	while ($data = $file->read(8192))
+		echo $data;
 
 	$file = GetMailFile();
 	while ($data = $file->read(8192))
@@ -991,6 +997,21 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 
 	  :return: position
 	  :rtype: number or None
+
+  .. function:: File.getPath()
+
+	  Get the path of a file. If no path information is available ``None`` is returned.
+
+	  :return: path
+	  :rtype: string or None
+
+  .. staticmethod:: String(data)
+
+	  Return a File resource containing the data.
+
+	  :param string data: the content
+	  :return: A file resource
+	  :rtype: File or None
 
 Mail
 ----
