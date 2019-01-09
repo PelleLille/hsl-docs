@@ -914,7 +914,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
    * **sourceip** (string) Explicitly bind an IP address. The default is to be chosen by the system.
    * **sourceipid** (string) Explicitly bind an IP address ID. The default is to be chosen by the system.
    * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
-   * **headers** (array) An array of additional HTTP headers.
+   * **headers** (array) An array of additional HTTP headers as strings. 
    * **response_headers** (boolean) Return the full request, including response headers (regardless of HTTP status). The default is ``false``.
    * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
    * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
@@ -928,7 +928,10 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 
 	.. code-block:: hsl
 
-	  $response = http("http://halon.io/", ["extended_result" => true]);
+	  $response = http("http://halon.io/", [
+              "extended_result" => true,
+              "headers" => ["Host: example.com", "Accept: application/json"]
+              ]);
 	  if ($response) {
 		  echo $response;
 	  }
