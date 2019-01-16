@@ -923,6 +923,7 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
    * **background_hash** (number) Assign this request to a specific queue. If this value is higher than the number of queues, it's chosen by modulus. The default is queue ``0``.
    * **background_retry_count** (number) Number of retry attempts made after the initial failure. The default is ``0``.
    * **background_retry_delay** (number) The delay, in seconds, before each retry attempt. The default is ``0`` seconds.
+   * **proxy** (string) Use a HTTP proxy. See CURL_PROXY manual. The default is to inherit proxy settings from the system.
 
   If the option ``extended_result`` result is ``true``. This function will return an array containing the ``status`` code and ``content``. If no valid HTTP response is receivied `None` is return.
 
