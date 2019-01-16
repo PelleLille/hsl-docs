@@ -17,7 +17,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **MIME** :class:`MIME`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`inet_ntop` :func:`inet_pton` :func:`rate` :func:`mail`
 * **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :class:`LDAP`
-* **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`str_split` :func:`str_find` :func:`str_rfind` :func:`str_lower` :func:`str_upper` :func:`str_slice` :func:`str_split`
+* **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`str_find` :func:`str_rfind` :func:`str_lower` :func:`str_upper` :func:`str_slice` :func:`str_split`
 * **Regular expression** :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
 * **Socket** :class:`Socket` :class:`TLSSocket`
 
