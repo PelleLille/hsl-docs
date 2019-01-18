@@ -974,6 +974,13 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 
     If no length is given, all the remaning data until EOF will be read in one operation.
 
+  .. function:: File.readline()
+
+	  Read a line from file (without the CRLF or LF). On EOF or error ``None`` is returned.
+
+	  :return: data
+	  :rtype: string or None
+
   .. function:: File.seek(offset, [whence = "SEEK_SET"])
 
 	  Seek to the offset in the file. On error ``None`` is returned.
@@ -1016,6 +1023,12 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 	  :param string data: the content
 	  :return: A file resource
 	  :rtype: File or None
+
+  .. code-block:: hsl
+
+	$file = File::String("Hello\nWorld");
+	echo $file->readline(); // "Hello"
+
 
 Mail
 ----
@@ -1637,7 +1650,7 @@ Protocols
 
   .. function:: LDAP.search(basedn, [options]]])
 
-	  Search LDAP connection in the current base and subtree.
+    Search LDAP connection in the current base and subtree.
 
     :param string basedn: Base DN
     :param array options: an options array
@@ -1704,11 +1717,11 @@ Protocols
 
   .. staticmethod:: dn2str(dn)
 
-	  Performs the inverse operation of :func:`LDAP.str2dn`, returning a string representation of `dn` with the necessary escaping.
+    Performs the inverse operation of :func:`LDAP.str2dn`, returning a string representation of `dn` with the necessary escaping.
 
-	  :param array value: Array of tupels
-	  :return: String representation of the DN
-	  :rtype: String
+    :param array value: Array of tupels
+    :return: String representation of the DN
+    :rtype: String
 
 .. class:: LDAPResult()
 
@@ -1716,10 +1729,10 @@ Protocols
 
   .. function:: LDAPResult.next()
 
-	  Return the next result.
+    Return the next result.
 
-	  :return: entry data
-	  :rtype: array or None
+    :return: entry data
+    :rtype: array or None
 
     .. code-block:: hsl
 
