@@ -1677,7 +1677,7 @@ Protocols
 	  :return: errno
 	  :rtype: number
 
-  .. staticmethod:: str2error(errno)
+  .. staticmethod:: err2string(errno)
 
 	  Get a descriptive error message, uses OpenLDAP's `ldap_err2string()`.
 
