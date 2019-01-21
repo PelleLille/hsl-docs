@@ -15,7 +15,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME`
-* **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`inet_includes` :func:`inet_ntop` :func:`inet_pton` :func:`rate` :func:`mail`
+* **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`inet_includes` :func:`inet_rdns` :func:`inet_ntop` :func:`inet_pton` :func:`rate` :func:`mail`
 * **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :class:`LDAP`
 * **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`str_find` :func:`str_rfind` :func:`str_lower` :func:`str_upper` :func:`str_slice` :func:`str_split`
 * **Regular expression** :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
@@ -608,6 +608,12 @@ DNS
 	// [0=>"54.152.237.238"]
 	echo dns("halon.se", ["extended_result" => true, "type" => "a"]);
 	// ["result"=>[0=>"54.152.237.238"],"dnssec"=>0]
+
+	echo dns(inet_rdns("8.8.8.8"), ["type" => "ptr"]);
+	// [0=>"google-public-dns-a.google.com"]
+
+	echo dns(inet_rdns("12.34.56.78", "dnsbl.example.com"), ["type" => "a"]);
+	// [0=>"127.0.0.1"]
 
 .. function:: domain_includes(subdomain, domain)
 
@@ -1334,6 +1340,20 @@ Misc
 	inet_includes("127.0.0.1", "127.0.0.0-127.255.255.255");
 	inet_includes("127.0.0.1", "127.0.0.1");
 	inet_includes("2001:4860:4860::8888", "2001:4860:4860::/48");
+
+.. function:: inet_rdns(ip, [zone])
+
+	Converts an IP to a reverse DNS compatible format (to be used with PTR lookups or DNSxL lookups). By default the zone correspons to the ARPA address for each IP family. On error `None` is returned.
+
+  :param string ip: the ip in printable format
+  :param string zone: the zone to append
+  :return: an reverse DNS hostname
+  :rtype: string
+
+  .. code-block:: hsl
+
+	echo inet_rdns("8.8.8.8"); // 8.8.8.8.in-addr.arpa
+	echo inet_rdns("81.12.12.22", "example.com"); // 22.12.12.81.example.com
 
 .. function:: inet_ntop(ip)
 
