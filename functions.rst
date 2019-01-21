@@ -11,7 +11,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Date and time** :func:`executiontime` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`domain_includes` :func:`idna_encode` :func:`idna_decode`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_decode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
-* **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http` :class:`File`
+* **File and HTTP** :class:`File` :func:`http`
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME`
@@ -837,105 +837,6 @@ Encodings and JSON
 
 File and HTTP
 -------------
-The filename may point to a file in the configuration ``file:X`` or a file relative on the accessible filesystem ``file://filename.txt``. If the URI scheme is missing, the default is to use ``file:``.
-
-.. function:: file(filename)
-
-  Return the content of the filename as an array line by line (without CR/LF).
-
-  :param string filename: the file name
-  :return: the file content as an array
-  :rtype: array
-
-.. function:: file_get_contents(filename)
-
-  Return the content of the filename as a string.
-
-  :param string filename: the file name
-  :return: the file content as a string
-  :rtype: string
-
-.. function:: in_file(needle, filename, [options])
-
-  Searches for a needle at the beginning (or at `index`) of each line in filename. If found, the line is returned as an array separated by the `delimiter`.
-
-  :param any needle: the string to match or a callback function
-  :param string filename: the file name
-  :param array options: options array
-  :return: if word is found in string, return all words on that line as an array
-  :rtype: array
-
-  The following options are available in the options array.
-
-   * **type** (string) may be ``text/plain`` or ``text/csv``. In `text/csv` mode the delimiter is changed to ``,`` and the first line may be used as ``index``. The default type is ``text/plain``.
-   * **delimiter** (string) separates words. The default is a white space for `text/plain` and ``,`` for `text/csv`.
-   * **assoc** (boolean) in `text/csv` mode the first line may be used as associative index for the returned array. The default is ``true``.
-   * **index** (number) the word index to search for (indexed at zero). The default is ``0`` (the first word).
-
-  The needle function should take one argument (the line, as an array of words) and return a boolean value.
-
-  .. note::
-
-	Example using a CSV file; below is the content of ``file:1``::
-
-		ip,comment
-		192.168.1.25,webserver
-		192.168.1.26,mailserver
-
-	.. code-block:: hsl
-
-		$infile = in_file($senderip, "file:1", ["type" => "text/csv"]);
-		if ($infile) {
-			// e.g. ["ip" => "192.168.1.26", "comment" => "mailserver"]
-		}
-		$infile = in_file(function ($v) {
-						global $senderip;
-						return $v["ip"] == $senderip;
-					}, "file:1", ["type" => "text/csv"]);
-
-.. function:: http(url, [options, [get, [post]]])
-
-  Make HTTP/HTTPS request to a URL and return the content.
-
-  :param string url: URL to request
-  :param array options: options array
-  :param array get: GET variables, replaced and encoded in URL as $1, $2...
-  :param post: POST data as an array or a string for raw POST data
-  :type post: array or string
-  :return: if the request was successful (2XX) the content is returned, otherwise the type ``None`` is returned
-  :rtype: string or array
-
-  The following options are available in the options array.
-
-   * **extended_result** (boolean) Get a more extended result. The default is ``false``.
-   * **connect_timeout** (number) Connection timeout (in seconds). The default is ``10`` seconds.
-   * **timeout** (number) Timeout (in seconds) waiting for data once the connection is established. The default is to wait indefinitely.
-   * **max_file_size** (number) Maximum file size (in bytes). The default is no limit.
-   * **sourceip** (string) Explicitly bind an IP address. The default is to be chosen by the system.
-   * **sourceipid** (string) Explicitly bind an IP address ID. The default is to be chosen by the system.
-   * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
-   * **headers** (array) An array of additional HTTP headers as strings. 
-   * **response_headers** (boolean) Return the full request, including response headers (regardless of HTTP status). The default is ``false``.
-   * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
-   * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
-   * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
-   * **background** (boolean) Perform request in the background. In which case this function returns ``true`` if the queueing was successful, otherwise ``None`` on errors. The default is ``false``.
-   * **background_hash** (number) Assign this request to a specific queue. If this value is higher than the number of queues, it's chosen by modulus. The default is queue ``0``.
-   * **background_retry_count** (number) Number of retry attempts made after the initial failure. The default is ``0``.
-   * **background_retry_delay** (number) The delay, in seconds, before each retry attempt. The default is ``0`` seconds.
-   * **proxy** (string) Use a HTTP proxy. See CURL_PROXY manual. The default is to inherit proxy settings from the system.
-
-  If the option ``extended_result`` result is ``true``. This function will return an array containing the ``status`` code and ``content``. If no valid HTTP response is receivied `None` is return.
-
-	.. code-block:: hsl
-
-	  $response = http("http://halon.io/", [
-              "extended_result" => true,
-              "headers" => ["Host: example.com", "Accept: application/json"]
-              ]);
-	  if ($response) {
-		  echo $response;
-	  }
 
 .. class:: File(filename)
 
@@ -1029,6 +930,49 @@ The filename may point to a file in the configuration ``file:X`` or a file relat
 	$file = File::String("Hello\nWorld");
 	echo $file->readline(); // "Hello"
 
+.. function:: http(url, [options, [get, [post]]])
+
+  Make HTTP/HTTPS request to a URL and return the content.
+
+  :param string url: URL to request
+  :param array options: options array
+  :param array get: GET variables, replaced and encoded in URL as $1, $2...
+  :param post: POST data as an array or a string for raw POST data
+  :type post: array or string
+  :return: if the request was successful (2XX) the content is returned, otherwise the type ``None`` is returned
+  :rtype: string or array
+
+  The following options are available in the options array.
+
+   * **extended_result** (boolean) Get a more extended result. The default is ``false``.
+   * **connect_timeout** (number) Connection timeout (in seconds). The default is ``10`` seconds.
+   * **timeout** (number) Timeout (in seconds) waiting for data once the connection is established. The default is to wait indefinitely.
+   * **max_file_size** (number) Maximum file size (in bytes). The default is no limit.
+   * **sourceip** (string) Explicitly bind an IP address. The default is to be chosen by the system.
+   * **sourceipid** (string) Explicitly bind an IP address ID. The default is to be chosen by the system.
+   * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
+   * **headers** (array) An array of additional HTTP headers as strings. 
+   * **response_headers** (boolean) Return the full request, including response headers (regardless of HTTP status). The default is ``false``.
+   * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
+   * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
+   * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
+   * **background** (boolean) Perform request in the background. In which case this function returns ``true`` if the queueing was successful, otherwise ``None`` on errors. The default is ``false``.
+   * **background_hash** (number) Assign this request to a specific queue. If this value is higher than the number of queues, it's chosen by modulus. The default is queue ``0``.
+   * **background_retry_count** (number) Number of retry attempts made after the initial failure. The default is ``0``.
+   * **background_retry_delay** (number) The delay, in seconds, before each retry attempt. The default is ``0`` seconds.
+   * **proxy** (string) Use a HTTP proxy. See CURL_PROXY manual. The default is to inherit proxy settings from the system.
+
+  If the option ``extended_result`` result is ``true``. This function will return an array containing the ``status`` code and ``content``. If no valid HTTP response is receivied `None` is return.
+
+	.. code-block:: hsl
+
+	  $response = http("http://halon.io/", [
+              "extended_result" => true,
+              "headers" => ["Host: example.com", "Accept: application/json"]
+              ]);
+	  if ($response) {
+		  echo $response;
+	  }
 
 Mail
 ----
