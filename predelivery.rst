@@ -237,7 +237,7 @@ Functions
   :return: the data set by :func:`SetMetaData`
   :rtype: array
 
-.. function:: GetMailQueueMetric(options)
+.. function:: GetMailQueueMetric([options])
 
   Return metric information about the mail queue, it can be used to enforce quotas.
 

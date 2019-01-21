@@ -567,7 +567,7 @@ Miscellaneous
 
  	$headerSender = GetAddressList(GetHeader("From"))[0]; // first email address in From header
 
-.. function:: GetMailQueueMetric(options)
+.. function:: GetMailQueueMetric([options])
 
   Return metric information about the mail queue, it can be used to enforce quotas.
 

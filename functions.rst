@@ -1648,7 +1648,7 @@ Protocols
 	  :return: this
 	  :rtype: LDAP or None
 
-  .. function:: LDAP.search(basedn, [options]]])
+  .. function:: LDAP.search(basedn, [options])
 
     Search LDAP connection in the current base and subtree.
 
