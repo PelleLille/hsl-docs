@@ -9,13 +9,13 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Cryptographic** :func:`aes_decrypt` :func:`aes_encrypt` :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify` :func:`random_bytes` :func:`random_number` :func:`crypt`
 * **Data types** :func:`length` :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
-* **DNS** :func:`dns` :func:`is_subdomain` :func:`idna_encode` :func:`idna_decode`
+* **DNS** :func:`dns` :func:`domain_includes` :func:`idna_encode` :func:`idna_decode`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_decode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
 * **File and HTTP** :func:`file` :func:`file_get_contents` :func:`in_file` :func:`http` :class:`File`
 * **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME`
-* **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`in_network` :func:`inet_ntop` :func:`inet_pton` :func:`rate` :func:`mail`
+* **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`inet_includes` :func:`inet_ntop` :func:`inet_pton` :func:`rate` :func:`mail`
 * **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :class:`LDAP`
 * **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`str_find` :func:`str_rfind` :func:`str_lower` :func:`str_upper` :func:`str_slice` :func:`str_split`
 * **Regular expression** :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
@@ -609,16 +609,16 @@ DNS
 	echo dns("halon.se", ["extended_result" => true, "type" => "a"]);
 	// ["result"=>[0=>"54.152.237.238"],"dnssec"=>0]
 
-.. function:: is_subdomain(subdomain, domain)
+.. function:: domain_includes(subdomain, domain)
 
   Test if subdomain is a subdomain of domain. If the domain starts with a dot ``.`` it must be a subdomain of domain, hence it will **not** even if `subdomain == domain`.
 
   .. code-block:: hsl
 
-	is_subdomain("www.halon.io", "halon.io"); // true
-	is_subdomain("halon.io", "halon.io"); // true
-	is_subdomain("www.halon.io", ".halon.io"); // true
-	is_subdomain("halon.io", ".halon.io"); // false
+	domain_includes("www.halon.io", "halon.io"); // true
+	domain_includes("halon.io", "halon.io"); // true
+	domain_includes("www.halon.io", ".halon.io"); // true
+	domain_includes("halon.io", ".halon.io"); // false
 
   :param string subdomain: the subdomain
   :param string domain: the domain
@@ -1368,16 +1368,16 @@ Misc
   .. code-block:: hsl
 
 	  $fam4 = 0; $fam6 = 0;
-	  if (in_network($senderip, "0.0.0.0/0")) { $fam4 = 1; } else { $fam6 = 1; }
+	  if (inet_includes($senderip, "0.0.0.0/0")) { $fam4 = 1; } else { $fam6 = 1; }
 	  stat("ip-family", ["ipv4" => $fam4, "ipv6" => $fam6]);
 
   .. note::
 
 	You can only use "a-z0-9.-" in the name and "a-zA-Z0-9-_" in the legends (legends longer than 19 characters will be truncated on the graph page) when using the stat function.
 
-.. function:: in_network(ip, network)
+.. function:: inet_includes(ip, network)
 
-  Returns true if `ip` is in the subnet of `network`. Both IPv4 and IPv6 are supported.
+  Returns true if `ip` is in the subnet or range of `network`. Both IPv4 and IPv6 are supported.
 
   :param string ip: ip address
   :param string network: address, subnet or range.
@@ -1386,10 +1386,10 @@ Misc
 
   .. code-block:: hsl
 
-	in_network("127.0.0.1", "127.0.0.1/8");
-	in_network("127.0.0.1", "127.0.0.0-127.255.255.255");
-	in_network("127.0.0.1", "127.0.0.1");
-	in_network("2001:4860:4860::8888", "2001:4860:4860::/48");
+	inet_includes("127.0.0.1", "127.0.0.1/8");
+	inet_includes("127.0.0.1", "127.0.0.0-127.255.255.255");
+	inet_includes("127.0.0.1", "127.0.0.1");
+	inet_includes("2001:4860:4860::8888", "2001:4860:4860::/48");
 
 .. function:: inet_ntop(ip)
 
