@@ -128,7 +128,7 @@ Actions
 
 .. function:: Quarantine(quarantineid, [options])
 
-  Quarantine or `archive <http://wiki.halon.se/Archiving>`_ a message.
+  Quarantine or `archive <https://docs.halon.io/go/archiving>`_ a message.
 
   :param string quarantineid: the quarantine profile ID
   :param array options: an options array

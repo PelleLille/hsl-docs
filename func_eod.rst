@@ -284,7 +284,7 @@ These are DKIM-related functions, including DMARC. Other modules, such as ARC, i
 
 .. function:: ScanDMARC()
 
-  Returns the `DMARC <http://wiki.halon.se/DMARC>`_ policy to apply to the message for the From-address. It will return an associative array containing the domain as result. If the domain cannot be properly extracted or missing an error message will be returned.
+  Returns the `DMARC <https://docs.halon.io/go/dmarc>`_ policy to apply to the message for the From-address. It will return an associative array containing the domain as result. If the domain cannot be properly extracted or missing an error message will be returned.
 
   :return: associative array containing the domain and result or an error.
   :rtype: array or string
@@ -301,7 +301,7 @@ These are DKIM-related functions, including DMARC. Other modules, such as ARC, i
 
 .. function:: DKIMSign(selector, domain, key, [options])
 
-  Sign the message using `DKIM <http://wiki.halon.se/DKIM>`_.
+  Sign the message using `DKIM <https://docs.halon.io/go/dkim>`_.
 
   :param string selector: selector to use when signing
   :param string domain: domain to use when signing
@@ -351,7 +351,7 @@ These are DKIM-related functions, including DMARC. Other modules, such as ARC, i
 
 .. function:: DKIMSDID([explicitdomains, [options]])
 
-  Returns the SDID (Signing Domain IDentifier) status from the `DKIM <http://wiki.halon.se/DKIM>`_ header of the message.
+  Returns the SDID (Signing Domain IDentifier) status from the `DKIM <https://docs.halon.io/go/dkim>`_ header of the message.
 
   :param array explicitdomains: array of explicit domains to check, empty array for all
   :param array options: options array
@@ -384,7 +384,7 @@ All connectors are available in the `script library <https://github.com/halon/hs
 
 .. function:: ScanDLP([patterns, [options]])
 
-  Scan a message using the builtin `DLP <http://wiki.halon.se/DLP>`_ engine.
+  Scan a message using the builtin `DLP <https://docs.halon.io/go/dlp>`_ engine.
 
   :param array patterns: array of pre-configured rules or an array of custom rules
   :param array options: options array
@@ -435,7 +435,7 @@ All connectors are available in the `script library <https://github.com/halon/hs
 
 .. function:: ScanRPD([options])
 
-  Scan the message using `Cyren <http://wiki.halon.se/CYREN>`_; anti-spam ``ctasd`` (RPD and LocalView) and zero-hour malware detection (VOD). It runs in either inbound or outbound mode, and it's important to configure this correctly with the `outbound` option.
+  Scan the message using `Cyren <https://docs.halon.io/go/cyren>`_; anti-spam ``ctasd`` (RPD and LocalView) and zero-hour malware detection (VOD). It runs in either inbound or outbound mode, and it's important to configure this correctly with the `outbound` option.
 
   :param array options: options array
   :return: score or refid
@@ -484,7 +484,7 @@ All connectors are available in the `script library <https://github.com/halon/hs
 
 .. function:: ScanSA([options])
 
-  Scan the message using `SpamAssassin <http://wiki.halon.se/SpamAssassin>`_.
+  Scan the message using `SpamAssassin <https://docs.halon.io/go/distspamassassin>`_.
 
   :param array options: options array
   :return: score or rules

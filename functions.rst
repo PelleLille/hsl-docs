@@ -1166,7 +1166,7 @@ MIME
 
   .. function:: MIME.signDKIM(selector, domain, key, [options])
 
-	  Sign the MIME structure (message) using `DKIM <http://wiki.halon.se/DKIM>`_.
+	  Sign the MIME structure (message) using `DKIM <https://docs.halon.io/go/dkim>`_.
 
 	  :param string selector: selector to use when signing
 	  :param string domain: domain to use when signing
