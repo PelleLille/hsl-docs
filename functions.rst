@@ -47,7 +47,7 @@ Array
   :param function callback: the callback
   :param array array: the array
   :return: the value if found
-  :rtype: boolean or none
+  :rtype: any
 
   The callback function should take one argument (value) and return a boolean value.
 
