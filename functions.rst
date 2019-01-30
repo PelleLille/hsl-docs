@@ -44,7 +44,7 @@ Array
 
   Return the first element that matches in the array.
 
-  :param any needle: the callback
+  :param function callback: the callback
   :param array array: the array
   :return: the value if found
   :rtype: boolean or none
