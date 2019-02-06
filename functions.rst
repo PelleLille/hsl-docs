@@ -962,6 +962,7 @@ File and HTTP
    * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
    * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
+   * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
    * **background** (boolean) Perform request in the background. In which case this function returns ``true`` if the queueing was successful, otherwise ``None`` on errors. The default is ``false``.
    * **background_hash** (number) Assign this request to a specific queue. If this value is higher than the number of queues, it's chosen by modulus. The default is queue ``0``.
    * **background_retry_count** (number) Number of retry attempts made after the initial failure. The default is ``0``.
