@@ -58,11 +58,16 @@ Functions
 Actions
 ^^^^^^^
 
-.. function:: Accept()
+.. function:: Accept([options])
 
   Accept the `DATA` command (mail data).
 
   :return: doesn't return, script is terminated
+
+  The following options are available in the options array.
+
+   * **reason** (string) The reason to report. The default is a system generated message.
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Defer([reason, [options]])
 

@@ -68,6 +68,8 @@ Functions
   The following options are available in the options array.
 
    * **saslusername** (string) Set the username. The default is ``$saslusername`` (if available).
+   * **reason** (string) The reason to report. The default is a system generated message.
+   * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
 .. function:: Defer([reason, [options]])
 
