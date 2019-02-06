@@ -1311,7 +1311,7 @@ Misc
 
    * as a line graph (on the graphs and report page)
    * as a pie chart (on the graphs and report page)
-   * using the statList and graphFile SOAP API call.
+   * using the REST API.
    * using SNMP
 
   In order for the line graph to work properly, all values should be defined to the stat function on every `stat` call (even if they are not increased).
