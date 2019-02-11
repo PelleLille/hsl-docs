@@ -1139,7 +1139,7 @@ MIME
 
 	  :param string name: name of the header
 	  :param string value: value of the header
-    :param array options: an options array
+	  :param array options: an options array
 	  :return: this
 	  :rtype: MIME
 
