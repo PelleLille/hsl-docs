@@ -213,12 +213,17 @@ MIME and attachments
 
 	  :rtype: none
 
-  .. function:: MIME.getBody()
+  .. function:: MIME.getBody([options])
 
 	  Get the body (content) of a MIME part. The content will be decoded according to the `Content-Transfer-Encoding` header. If the body size is bigger than 1 MiB, the type `none` is returned.
 
+	  :param array options: an options array
 	  :return: the body content
 	  :rtype: string (or none)
+
+	  The following options are available in the options array.
+
+	   * **encode** (number) Encode the body accoding to the "Content-Transfer-Encoding" header. The default is ``true``.
 
 	  .. note::
 
@@ -226,7 +231,7 @@ MIME and attachments
 
   .. function:: MIME.setBody(data)
 
-	  Set the body (content) of a MIME part. If the body argument is bigger than 1 MiB (or an another error occurred), the type `none` is returned. The MIME parts encoding (`Content-Transfer-Encoding`) will be changed to `base64` as the data will encoded as such.
+	  Set the body (content) of a MIME part. If the body argument is bigger than 1 MiB (or an another error occurred), the type `none` is returned. The MIME parts encoding (`Content-Transfer-Encoding`) will be changed to the best readable match, that can be either `7bit`, `quoted-printable` or `base64` and the data will encoded as such.
 
 	  :param string data: the body content
 	  :return: this
