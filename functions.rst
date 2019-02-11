@@ -1145,7 +1145,7 @@ MIME
 
 	  The following options are available in the options array.
 
-	   * **encode** (number) Refold and encode the header. The default is ``true``.
+	   * **encode** (boolean) Refold and encode the header. The default is ``true``.
 
 	  .. note::
 

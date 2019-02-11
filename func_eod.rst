@@ -179,7 +179,7 @@ MIME and attachments
 	  The following options are available in the options array.
 
 	   * **index** (number) The index of the header, from the top, starting at zero.
-	   * **encode** (number) Refold and encode the header. The default is ``true``.
+	   * **encode** (boolean) Refold and encode the header. The default is ``true``.
 
   .. function:: MIME.addHeader(name, value, [options])
 
@@ -192,7 +192,7 @@ MIME and attachments
 
 	  The following options are available in the options array.
 
-	   * **encode** (number) Refold and encode the header. The default is ``true``.
+	   * **encode** (boolean) Refold and encode the header. The default is ``true``.
 
   .. function:: MIME.delHeader(name, [options])
 
@@ -223,7 +223,7 @@ MIME and attachments
 
 	  The following options are available in the options array.
 
-	   * **encode** (number) Encode the body accoding to the "Content-Transfer-Encoding" header. The default is ``true``.
+	   * **encode** (boolean) Encode the body accoding to the "Content-Transfer-Encoding" header. The default is ``true``.
 
 	  .. note::
 
@@ -237,21 +237,31 @@ MIME and attachments
 	  :return: this
 	  :rtype: MIME (or none)
 
-  .. function:: MIME.prependPart(part)
+  .. function:: MIME.prependPart(part, [options])
 
 	  Add a MIME part before this part.
 
 	  :param MIME part: a :class:`MIME` part
+	  :param array options: an options array
 	  :return: this
 	  :rtype: MIME
 
-  .. function:: MIME.appendPart(part)
+	  The following options are available in the options array.
+
+	   * **type** (string) The multipart content type to use. The default is ``multipart/mixed``.
+
+  .. function:: MIME.appendPart(part, [options])
 
 	  Add a MIME part after this part.
 
 	  :param MIME part: a :class:`MIME` part
+	  :param array options: an options array
 	  :return: this
 	  :rtype: MIME
+
+	  The following options are available in the options array.
+
+	   * **type** (string) The multipart content type to use. The default is ``multipart/mixed``.
 
   .. function:: MIME.replacePart(part)
 
