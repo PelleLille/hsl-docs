@@ -1133,14 +1133,19 @@ MIME
 
        echo MIME()->addHeader("Subject", "Hello")->setBody("Hello World")->toString();
 
-  .. function:: MIME.addHeader(name, value)
+  .. function:: MIME.addHeader(name, value, [options])
 
 	  Add a header. The value may be encoded (if needed) and reformatted.
 
 	  :param string name: name of the header
 	  :param string value: value of the header
+    :param array options: an options array
 	  :return: this
 	  :rtype: MIME
+
+	  The following options are available in the options array.
+
+	   * **encode** (number) Refold and encode the header. The default is ``true``.
 
 	  .. note::
 
