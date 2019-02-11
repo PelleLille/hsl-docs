@@ -6,7 +6,7 @@ Standard library
 Functions which are documented in this chapter are considered `core` functions hence are available in all `contexts`. Functions in the standard library may be recognized by the fact that they are all in lowercase.
 
 * **Array** :func:`array_filter` :func:`array_find` :func:`array_includes` :func:`array_join` :func:`array_keys` :func:`array_map` :func:`array_range` :func:`array_reduce` :func:`array_reverse` :func:`array_sort`
-* **Cryptographic** :func:`aes_decrypt` :func:`aes_encrypt` :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify` :func:`random_bytes` :func:`random_number` :func:`crypt`
+* **Cryptographic** :func:`aes_decrypt` :func:`aes_encrypt` :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify` :func:`pkcs7_sign` :func:`random_bytes` :func:`random_number` :func:`crypt`
 * **Data types** :func:`length` :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns` :func:`domain_includes` :func:`idna_encode` :func:`idna_decode`
@@ -359,6 +359,23 @@ Cryptographic
   :param string publickey: the private key as raw bytes
   :return: if the signature verifies
   :rtype: boolean or none (on error)
+
+.. function:: pkcs7_sign(message, certificate, [options])
+
+  PKCS7 sign (S/MIME) a message.
+
+  :param string message: the message to sign
+  :param string certificate: the certificate and privatekey to use (PEM format)
+  :param array options: options array
+  :return: the message signature
+  :rtype: string or none (on error)
+
+  The following options are available in the options array.
+
+   * **id** (boolean) If the certificate is in the configuration "pki:X" format. The default is ``false``.
+   * **detached** (boolean) If the signature should be detached (not include the message itself). The default is ``true``.
+
+  If the certificate argument contains multiple certificates (intermediates) they will be included in the signature as well.
 
 .. function:: random_bytes(bytes)
 
