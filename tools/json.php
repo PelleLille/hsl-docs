@@ -73,6 +73,9 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 			foreach ($functions as $function) {
 				// Name
 				$name = (string) $function->desc_signature['fullname'];
+				if (!$name) {
+					$name = (string) $function->desc_signature->desc_name;
+				}
 
 				// Skip File class since it cannot be created
 				if ($argv[1] === 'classes' && $name === 'File')
