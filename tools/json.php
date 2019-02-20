@@ -74,10 +74,6 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 				// Name
 				$name = (string) $function->desc_signature['fullname'];
 
-				// Skip class methods
-				if (strpos($name, '.'))
-					continue;
-				
 				// Skip File class since it cannot be created
 				if ($argv[1] === 'classes' && $name === 'File')
 					continue;
@@ -191,6 +187,11 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 				$documentation = strip_tags($documentation);
 
 				// Store result
+				if (strpos($name, '.')) {
+					$class = explode('.', $name, 2)[0];
+					$result[$file === 'functions' ? 'core': $file][$i]['class'] = $class;
+					$value = explode('.', $value, 2)[1];
+				}
 				$result[$file === 'functions' ? 'core': $file][$i]['name'] = $name;
 				if ($parameters) $result[$file === 'functions' ? 'core': $file][$i]['parameters'] = $parameters;
 				if ($returnType) $result[$file === 'functions' ? 'core': $file][$i]['returnType'] = $returnType;
