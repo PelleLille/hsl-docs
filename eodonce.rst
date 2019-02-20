@@ -48,12 +48,11 @@ The are no arguments to the per-message end-of-DATA script. The mail data file i
 Functions
 ---------
 
-* **Actions** :func:`Accept` :func:`Defer` :func:`Reject`
+* **Actions** :func:`Accept` :func:`Reject` :func:`Defer`
 * **Queueing** :func:`Queue` :func:`History`
-* **MIME and attachments** :func:`GetMailFile` :class:`~data.MIME`
-* **DKIM** :func:`ScanDMARC` :func:`DKIMSign` :func:`DKIMVerify` :func:`DKIMSDID`
-* **Embedded content scanning** :func:`ScanDLP` :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM`
-* **Miscellaneous** :func:`GetAddressList` :func:`GetMailQueueMetric` :func:`GetTLS`
+* **DATA, MIME and attachments** :func:`GetMailMessage` :cpp:class:`MailMessage` :cpp:class:`MIMEPart` 
+* **Embedded scanning** :func:`ScanDMARC` :func:`ScanDLP` :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM`
+* **Miscellaneous** :func:`GetMailQueueMetric` :func:`GetTLS`
 
 Actions
 ^^^^^^^
@@ -69,11 +68,11 @@ Actions
    * **reason** (string) The reason to report. The default is a system generated message.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
-.. function:: Defer([reason, [options]])
+.. function:: Reject([reason, [options]])
 
-  Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
+  Reject (550) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
-  :param reason: defer message with reason
+  :param reason: reject message with reason
   :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -83,11 +82,11 @@ Actions
    * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
-.. function:: Reject([reason, [options]])
+.. function:: Defer([reason, [options]])
 
-  Reject (550) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
+  Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
-  :param reason: reject message with reason
+  :param reason: defer message with reason
   :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated

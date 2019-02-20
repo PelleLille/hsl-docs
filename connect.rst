@@ -48,7 +48,7 @@ Functions
 
 .. function:: Accept([options])
 
-  Allow SMTP connection to be established.
+  Allow the connection to be established.
   Optionally change the ``$senderip`` and PTR of the accepted client connection, which is written back to the connection context.
 
   :param array options: an options array
@@ -70,11 +70,11 @@ Functions
 		if (count($x) == 4 and $x[0:3] == [6619035, 0, 0]) // 64:ff9b::[IPv4]
 			$ip = inet_ntop(pack("N", $x[3]));
 
-.. function:: Defer([reason, [options]])
+.. function:: Reject([reason, [options]])
 
-  Defer the connection with a temporary (421) error.
+  Close the connection with a permanent (521) error.
 
-  :param reason: defer message with reason
+  :param reason: reject message with reason
   :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -83,11 +83,11 @@ Functions
 
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
-.. function:: Reject([reason, [options]])
+.. function:: Defer([reason, [options]])
 
-  Reject the connection with a permanent (521) error.
+  Close the connection with a temporary (421) error.
 
-  :param reason: reject message with reason
+  :param reason: defer message with reason
   :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -99,9 +99,9 @@ Functions
 On script error
 ---------------
 
-On script error ``Defer()`` is called.
+On script error :func:`Defer` is called.
 
 On implicit termination
 -----------------------
 
-If not explicitly terminated then ``Accept()`` is called.
+If not explicitly terminated then :func:`Accept` is called.

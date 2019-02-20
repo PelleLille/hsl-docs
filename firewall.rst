@@ -40,9 +40,9 @@ Functions
 On script error
 ---------------
 
-On script error ``Block()`` is called.
+On script error :func:`Block` is called.
 
 On implicit termination
 -----------------------
 
-If not explicitly terminated then ``Allow()`` is called.
+If not explicitly terminated then :func:`Allow` is called.

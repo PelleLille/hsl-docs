@@ -1,5 +1,3 @@
-.. module:: core
-
 Standard library
 ================
 
@@ -12,7 +10,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **DNS** :func:`dns` :func:`domain_includes` :func:`idna_encode` :func:`idna_decode`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_decode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
 * **File and HTTP** :class:`File` :func:`http`
-* **Mail** :func:`dnsbl` :func:`spf` :func:`globalview`
+* **Mail** :func:`header_addresslist_extract` :func:`header_dkim_decode` :func:`dnsbl` :func:`spf` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`inet_includes` :func:`inet_ntop` :func:`inet_pton` :func:`inet_reverse` :func:`rate` :func:`mail`
@@ -861,21 +859,21 @@ Encodings and JSON
 File and HTTP
 -------------
 
-.. class:: File(filename)
+.. class:: File
 
-  The File class allows low level file access. A file resource is created for each File instance, this resource is automatically garbage collected (closed) once the object is destroyed.
+  This class allows low level file access. A file resource is created for each File instance, this resource is automatically garbage collected (closed) once the object is destroyed.
 
-  :param string filename: the file name
+  .. function:: File.constructor(filename)
 
-  .. code-block:: hsl
+    Open a virtual file from the configuration. 
 
-	$file = File("myfile.txt");
-	while ($data = $file->read(8192))
-		echo $data;
+    :param string filename: the file name
 
-	$file = GetMailFile();
-	while ($data = $file->read(8192))
-		echo $data;
+    .. code-block:: hsl
+
+  	$file = File("myfile.txt");
+  	while ($data = $file->read(8192))
+	  	echo $data;
 
   .. function:: File.close()
 
@@ -890,13 +888,13 @@ File and HTTP
 
   .. function:: File.read([length])
 
-	  Read data from file. On EOF an empty string is returned. On error ``None`` is returned.
+    Read data from file. On EOF an empty string is returned. On error ``None`` is returned.
 
-	  :param number length: bytes to read
-	  :return: data
-	  :rtype: string or None
+    :param number length: bytes to read
+    :return: data
+    :rtype: string or None
 
-    If no length is given, all the remaning data until EOF will be read in one operation.
+	  If no length is given, all the remaning data until EOF will be read in one operation.
 
   .. function:: File.readline()
 
@@ -1000,6 +998,44 @@ File and HTTP
 
 Mail
 ----
+
+.. function:: header_addresslist_extract(value, [options])
+
+  Extract addresses from a header value or field, often used with `From`, `To` and `CC` headers. On error `None` is returned.
+
+  :param string value: value to extract email addresses from
+  :param array options: an options array
+  :return: email addresses
+  :rtype: array
+
+  The following options are available in the options array.
+
+   * **field** (boolean) If the value is a header field (Header: Value) format. The default is ``false``.
+
+  .. code-block:: hsl
+
+    $fromAddresses = header_addresslist_extract("Charlie <charlie@example.org>; James <james@example.com>");
+    if ($fromAddresses and length($fromAddresses) > 1)
+      echo "Too many From addresses";
+
+.. function:: header_dkim_decode(value, [options])
+
+  Decode a Tag=Value list from a DKIM header value or field, often used with `DKIM-Signature` or `ARC-` headers. On error `None` is returned.
+
+  :param string value: value to extract tags from
+  :param array options: an options array
+  :return: tags
+  :rtype: array
+
+  The following options are available in the options array.
+
+   * **field** (boolean) If the value is a header field (Header: Value) format. The default is ``false``.
+
+  .. code-block:: hsl
+
+    $tags = header_dkim_decode("d=domain; s=selector; h=to:from:date:subject");
+    if ($tags and isset($tags["s"]) and isset($tags["d"]))
+      echo $tags["s"]."_domainkey".$tags["d"];
 
 .. function:: dnsbl(ip, hostname, [resolvers, [timeout = 5]])
 
@@ -1107,31 +1143,29 @@ Mathematical
 MIME
 ----
 
-.. class:: MIME()
+.. class:: MIME
 
-  The MIME object "constructor" takes no function arguments, and returns a new MIME object.
+  This is a MIME "string builder" used to construct MIME parts. In the :doc:`end-of-DATA <eod>` context there is a similar :cpp:class:`MIMEPart` object as well (however it has other member functions available), which is used to work with a message's MIME parts.
+  
+  .. function:: MIME.constructor()
 
-  The standard library's MIME object is a "string builder" to construct MIME parts. In the :doc:`end-of-DATA <eod>` context there is an similar :class:`~data.MIME` object as well (however it has other member functions available), which is used to work with a message's MIME parts. To create a "string building" MIME object, call the :class:`MIME` function without any arguments.
-
-  .. note::
-
-    If you call the :class:`~data.MIME` function **with** an argument in the :doc:`end-of-DATA <eod>` context then the :doc:`EOD <eod>` context's :class:`~data.MIME` object will be created instead.
-
-  .. code-block:: hsl
-
-	$part = MIME();
-	$part->setType("multipart/alternative");
-	$part->appendPart(MIME()->setType("text/plain")->setBody("*Hello World*"));
-	$part->appendPart(MIME()->setType("text/html")->setBody("<strong>Hello World</strong>"));
-	echo $part->toString();
-
-  .. note::
-
-    Many of the MIME object's member functions return `this`, allowing them to be called with method chaining.
+    The MIME object "constructor" takes no function arguments.
 
     .. code-block:: hsl
 
-       echo MIME()->addHeader("Subject", "Hello")->setBody("Hello World")->toString();
+  	$part = MIME();
+  	$part->setType("multipart/alternative");
+  	$part->appendPart(MIME()->setType("text/plain")->setBody("*Hello World*"));
+  	$part->appendPart(MIME()->setType("text/html")->setBody("<strong>Hello World</strong>"));
+  	echo $part->toString();
+
+    .. note::
+
+      Many of the MIME object's member functions return `this`, allowing them to be called with method chaining.
+
+      .. code-block:: hsl
+
+         echo MIME()->addHeader("Subject", "Hello")->setBody("Hello World")->toString();
 
   .. function:: MIME.addHeader(name, value, [options])
 
@@ -1141,7 +1175,7 @@ MIME
 	  :param string value: value of the header
 	  :param array options: an options array
 	  :return: this
-	  :rtype: MIME
+	  :rtype: :class:`MIME`
 
 	  The following options are available in the options array.
 
@@ -1157,7 +1191,7 @@ MIME
 
 	  :param MIME part: a MIME part object
 	  :return: this
-	  :rtype: MIME
+	  :rtype: :class:`MIME`
 
 	  .. note::
 
@@ -1169,7 +1203,7 @@ MIME
 
 	  :param string body: the body
 	  :return: this
-	  :rtype: MIME
+	  :rtype: :class:`MIME`
 
   .. function:: MIME.setType(type)
 
@@ -1177,7 +1211,7 @@ MIME
 
 	  :param string type: the content type
 	  :return: this
-	  :rtype: MIME
+	  :rtype: :class:`MIME`
 
   .. function:: MIME.setBoundary(boundary)
 
@@ -1185,7 +1219,7 @@ MIME
 
 	  :param string boundary: the boundary
 	  :return: this
-	  :rtype: MIME
+	  :rtype: :class:`MIME`
 
   .. function:: MIME.signDKIM(selector, domain, key, [options])
 
@@ -1196,7 +1230,7 @@ MIME
 	  :param string key: private key to use, either ``pki:X`` or a private RSA key in PEM format.
 	  :param array options: options array
 	  :return: this
-	  :rtype: MIME
+	  :rtype: :class:`MIME`
 
 	  The following options are available in the options array.
 
@@ -1206,6 +1240,7 @@ MIME
 	   * **additional_headers** (array) additional headers to sign in addition to those recommended by the RFC.
 	   * **oversign_headers** (array) headers to oversign. The default is ``from``.
 	   * **headers** (array) headers to sign. The default is to sign all headers recommended by the RFC.
+	   * **id** (boolean) If the key is expected to be in the ``pki:X`` format. The default is auto detect.
 
   .. function:: MIME.toString()
 
@@ -1571,19 +1606,21 @@ Protocols
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``true``.
    * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
 
-.. class:: LDAP(uri)
+.. class:: LDAP
 
   The LDAP class is a OpenLDAP wrapper class. The URI should be in the format of ldap:// or ldaps://. Multiple hosts may be given separated by space.
 
-  :param string uri: The LDAP 
+  .. function:: LDAP.constructor(family, type)
+
+    :param string uri: The LDAP 
   
-  .. code-block:: hsl
+    .. code-block:: hsl
   
-    $ldap = LDAP("ldap://ldap.forumsys.com");
-    $ldap->bind("uid=tesla,dc=example,dc=com", "password");
-    $x = $ldap->search("dc=example,dc=com");
-    while ($x and $entry = $x->entry())
-        echo $entry;
+      $ldap = LDAP("ldap://ldap.forumsys.com");
+      $ldap->bind("uid=tesla,dc=example,dc=com", "password");
+      $x = $ldap->search("dc=example,dc=com");
+      while ($x and $entry = $x->entry())
+          echo $entry;
 
   .. function:: LDAP.setoption(name, value)
 
@@ -1710,7 +1747,7 @@ Protocols
     :return: String representation of the DN
     :rtype: String
 
-.. class:: LDAPResult()
+.. class:: LDAPResult
 
   A LDAP result iterable object which holds the result from an LDAP search.
 
@@ -1915,20 +1952,22 @@ Regular expression
 Socket
 ------
 
-.. class:: Socket(family, type)
+.. class:: Socket
 
-  The Socket class allows POSIX like socket(2) code. A socket resource is created for each Socket instance, this resource is automatically garbage collected (closed) once the object is destroyed.
+  This class allows POSIX like socket(2) code. A socket resource is created for each Socket instance, this resource is automatically garbage collected (closed) once the object is destroyed.
 
-  :param string family: address family either ``AF_INET`` or ``AF_INET6``
-  :param string type: socket type either ``SOCK_STREAM`` (TCP) or ``SOCK_DGRAM`` (UDP)
+  .. function:: Socket.constructor(family, type)
 
-  .. code-block:: hsl
+    :param string family: address family either ``AF_INET`` or ``AF_INET6``
+    :param string type: socket type either ``SOCK_STREAM`` (TCP) or ``SOCK_DGRAM`` (UDP)
 
-	$socket = Socket("AF_INET", "SOCK_STREAM");
-	$socket->close();
+    .. code-block:: hsl
 
-	$socket2 = Socket(Socket::AF($address), "SOCK_STREAM");
-	$socket2->close();
+  	$socket = Socket("AF_INET", "SOCK_STREAM");
+  	$socket->close();
+
+  	$socket2 = Socket(Socket::AF($address), "SOCK_STREAM");
+  	$socket2->close();
 
   .. function:: Socket.bind(address, [port, [options]])
 
@@ -2028,26 +2067,28 @@ Socket
 	  :return: AF family
 	  :rtype: String or None
 
-.. class:: TLSSocket(socket, options)
+.. class:: TLSSocket
 
-  The TLSSocket class allows OpenSSL like SSL(3) code. The TLSSocket class takes a connected :class:`Socket` instance (SOCK_STREAM) and encapsulates any read and writes in TLS/SSL.
+  This class allows OpenSSL like SSL(3) code. The TLSSocket class takes a connected :class:`Socket` instance (SOCK_STREAM) and encapsulates any read and writes in TLS/SSL.
 
-  :param Socket socket: a socket
-  :param array options: options array
+  .. function:: TLSSocket.constructor(socket, options)
 
-  The following options are available in the options array.
+    :param Socket socket: a socket
+    :param array options: options array
 
-   * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv2``, ``SSLv3``, ``TLSv1``, ``TLSv1.1``, ``TLSv1.2`` or ``TLSv1.3``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
-   * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
-   * **tls_verify_name** (array) Hostnames to verify against the certificate's CN and SAN (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
-   * **tls_verify_ca** (boolean) Verify certificate against known CAs. The default is ``false``.
-   * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
-   * **tls_sni** (string) Request a certificate using the SNI extension. The default is not to use SNI.
-   * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
+    The following options are available in the options array.
 
-  .. note::
+     * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv2``, ``SSLv3``, ``TLSv1``, ``TLSv1.1``, ``TLSv1.2`` or ``TLSv1.3``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
+     * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
+     * **tls_verify_name** (array) Hostnames to verify against the certificate's CN and SAN (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
+     * **tls_verify_ca** (boolean) Verify certificate against known CAs. The default is ``false``.
+     * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
+     * **tls_sni** (string) Request a certificate using the SNI extension. The default is not to use SNI.
+     * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
 
-	By default, no certificate nor hostname validation is done.
+    .. note::
+
+  	By default, no certificate nor hostname validation is done.
 
   .. function:: TLSSocket.handshake()
 

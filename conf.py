@@ -81,9 +81,11 @@ def set_id(self, node, msgnode=None):
 	return id
 document.set_id = set_id
 
-# from sphinx.domains.python import PythonDomain
 from sphinx.domains import PythonDomain
 PythonDomain.label = 'HSL'
+from sphinx.domains.cpp import CPPDomain
+CPPDomain.label = 'HSL'
+
 html_show_sourcelink = False
 
 # If extensions (or modules to document with autodoc) are in another directory,

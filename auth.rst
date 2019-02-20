@@ -71,11 +71,11 @@ Functions
    * **reason** (string) The reason to report. The default is a system generated message.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
-.. function:: Defer([reason, [options]])
+.. function:: Reject([reason, [options]])
 
-  Defer the login request with a temporary (454) error.
+  Reject the login request with a permanent (535) error.
 
-  :param reason: defer message with reason
+  :param reason: reject message with reason
   :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -85,11 +85,11 @@ Functions
    * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
-.. function:: Reject([reason, [options]])
+.. function:: Defer([reason, [options]])
 
-  Reject the login request.
+  Defer the login request with a temporary (454) error.
 
-  :param reason: reject message with reason
+  :param reason: defer message with reason
   :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -113,17 +113,26 @@ Functions
    * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
+.. function:: GetMailQueueMetric([options])
+
+  Return metric information about the mail queue, it can be used to enforce quotas.
+
+  :param array options: options array
+  :rtype: number
+
+.. include:: func_getmailqueuemetric.rst
+
 .. include:: func_gettls.rst
 
 On script error
 ---------------
 
-On script error ``Defer()`` is called.
+On script error :func:`Defer` is called.
 
 On implicit termination
 -----------------------
 
-If not explicitly terminated then ``Reject()`` is called.
+If not explicitly terminated then :func:`Reject` is called.
 
 Authentication diagram 
 ----------------------

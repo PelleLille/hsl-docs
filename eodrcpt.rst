@@ -1,4 +1,4 @@
-.. module:: data
+.. module:: eodrcpt
 
 Per recipient
 =============
@@ -57,14 +57,12 @@ $actionid           number  1                          ID; incremented per messa
 Functions
 ---------
 
-* **Actions** :func:`Deliver` :func:`Defer` :func:`Reject` :func:`Delete` :func:`Quarantine` :func:`Done`
-* **MIME and attachments** :func:`GetMailFile` :class:`~data.MIME`
-* **DKIM** :func:`ScanDMARC` :func:`DKIMSign` :func:`DKIMVerify` :func:`DKIMSDID`
-* **Embedded content scanning** :func:`ScanDLP` :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM`
-* **Miscellaneous** :func:`GetAddressList` :func:`GetMailQueueMetric` :func:`GetTLS`
+* **Actions** :func:`Deliver` :func:`Reject` :func:`Defer` :func:`Delete` :func:`Quarantine` :func:`Done`
+* **DATA, MIME and attachments** :func:`GetMailMessage` :cpp:class:`MailMessage` :cpp:class:`MIMEPart` 
+* **Embedded scanning** :func:`ScanDMARC` :func:`ScanDLP` :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM`
+* **Miscellaneous** :func:`GetMailQueueMetric` :func:`GetTLS`
 * **Arguments** :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData` :func:`GetMetaData` :func:`SetSender` :func:`SetSenderIP` :func:`SetSenderHELO`
 * **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
-
 
 Actions
 ^^^^^^^
@@ -89,11 +87,11 @@ Actions
    * **reason** (string) The reason to report. The default is a system generated message.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
-.. function:: Defer([reason, [options]])
+.. function:: Reject([reason, [options]])
 
-  Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
+  Reject (550) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
-  :param reason: defer message with reason
+  :param reason: reject message with reason
   :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -104,11 +102,11 @@ Actions
    * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
-.. function:: Reject([reason, [options]])
+.. function:: Defer([reason, [options]])
 
-  Reject (550) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
+  Defer (421) a message. If `reason` is an array or contains `\\n` it will be split into a multiline response.
 
-  :param reason: reject message with reason
+  :param reason: defer message with reason
   :type reason: string or array
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -234,7 +232,7 @@ Those functions update the current recipient execution (``$actionid``) arguments
 
 Headers
 ^^^^^^^
-These functions operate on message headers, just like :class:`~data.MIME`.
+These functions operate on message headers, just like :cpp:class:`MIMEPart`.
 
 .. function:: GetHeader(name, [decode = true])
 
@@ -326,9 +324,9 @@ These functions operate on message headers, just like :class:`~data.MIME`.
 On script error
 ---------------
 
-On script error ``Defer()`` is called.
+On script error :func:`Defer` is called.
 
 On implicit termination
 -----------------------
 
-If not explicitly terminated then ``Deliver()`` is called.
+If not explicitly terminated then :func:`Deliver` is called.

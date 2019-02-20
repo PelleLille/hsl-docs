@@ -314,7 +314,7 @@ The .csv import behaviour can be changed with the following options.
 
    * **delimiter** (string) The format separator. The default is ``,``.
    * **header** (boolean) If the CSV data includes a header. The default is ``true``.
-   * **schema** (array) A :func:`core.csv_decode` compatible CSV schema.
+   * **schema** (array) A :func:`csv_decode` compatible CSV schema.
 
 The .txt import behaviour can be changed with the following options.
 

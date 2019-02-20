@@ -266,4 +266,4 @@ On script error ``Reschedule(300)`` is called with ``increment_retry`` set to fa
 On implicit termination
 -----------------------
 
-If not explicitly terminated then ``Try()`` is called.
+If not explicitly terminated then :func:`Try` is called.

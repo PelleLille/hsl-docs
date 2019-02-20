@@ -109,9 +109,9 @@ Functions
 On script error
 ---------------
 
-On script error ``Defer()`` is called.
+On script error :func:`Defer` is called.
 
 On implicit termination
 -----------------------
 
-If not explicitly terminated then ``Accept()`` is called.
+If not explicitly terminated then :func:`Accept` is called.
