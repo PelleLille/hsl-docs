@@ -188,7 +188,7 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 
 				// Store result
 				if (strpos($name, '.')) {
-					$class = explode('.', $name, 2)[0];
+					[$class, $name] = explode('.', $name, 2);
 					$result[$file === 'functions' ? 'core': $file][$i]['class'] = $class;
 					$value = explode('.', $value, 2)[1];
 				}
@@ -198,7 +198,7 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 				$result[$file === 'functions' ? 'core': $file][$i]['detail'] = $detail;
 				$result[$file === 'functions' ? 'core': $file][$i]['value'] = $value;
 				if ($documentation) $result[$file === 'functions' ? 'core': $file][$i]['documentation'] = $documentation;
-				$result[$file === 'functions' ? 'core': $file][$i]['link'] = '[Full documentation]({{ docsurl }}'.$file.'.html#'.$name.')';
+				$result[$file === 'functions' ? 'core': $file][$i]['link'] = '[Full documentation]({{ docsurl }}'.$file.'.html#'.(isset($class) ? $class.'.'.$name : $name).')';
 
 				$i += 1;
 			}
