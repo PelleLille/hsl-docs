@@ -81,51 +81,63 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 				if ($argv[1] === 'functions' && $name === 'echo')
 					continue;
 
-				// Fields
-				$fields = $function->desc_content->field_list;
-
 				// Parameters
 				$parameters = ['required' => [], 'optional' => []];
-				$paramRequired = (array) $function->desc_signature->desc_parameterlist->desc_parameter;
-				$paramOptionalPath = $function->desc_signature->desc_parameterlist->xpath('.//desc_optional');
-				$paramOptional = [];
-				foreach ($paramOptionalPath as $path) {
-					$paramOptional[] = (string) $path->desc_parameter;
-				}
-				if (isset($fields->field)) {
-					foreach ($fields->field as $field) {
-						if ((string) $field->field_name == 'Parameters') {
-							if ($field->field_body->paragraph) {
-								$paramName = (string) $field->field_body->paragraph->literal_strong;
-								$paramType = (string) $field->field_body->paragraph->literal_emphasis;
-								foreach ($paramRequired as $p)
-									if ($paramName == $p)
-										$parameters['required'][] = ['name' => $p, 'type' => $paramType];
-								foreach ($paramOptional as $p)
-									if ($paramName == strtok($p, ' '))
-										$parameters['optional'][] = ['name' => $p, 'type' => $paramType];
-							} else if ($field->field_body->bullet_list) {
-								foreach ($field->field_body->bullet_list->list_item as $item) {
-									$paramName = (string) $item->paragraph->literal_strong;
-									$paramType = (string) $item->paragraph->literal_emphasis;
+				if ($argv[1] === 'functions') {
+					$fields = $function->desc_content->field_list;
+					$paramRequired = (array) $function->desc_signature->desc_parameterlist->desc_parameter;
+					$paramOptionalPath = $function->desc_signature->desc_parameterlist->xpath('.//desc_optional');
+					$paramOptional = [];
+					foreach ($paramOptionalPath as $path) {
+						$paramOptional[] = (string) $path->desc_parameter;
+					}
+					if (isset($fields->field)) {
+						foreach ($fields->field as $field) {
+							if ((string) $field->field_name == 'Parameters') {
+								if ($field->field_body->paragraph) {
+									$paramName = (string) $field->field_body->paragraph->literal_strong;
+									$paramType = (string) $field->field_body->paragraph->literal_emphasis;
 									foreach ($paramRequired as $p)
 										if ($paramName == $p)
 											$parameters['required'][] = ['name' => $p, 'type' => $paramType];
 									foreach ($paramOptional as $p)
 										if ($paramName == strtok($p, ' '))
 											$parameters['optional'][] = ['name' => $p, 'type' => $paramType];
+								} else if ($field->field_body->bullet_list) {
+									foreach ($field->field_body->bullet_list->list_item as $item) {
+										$paramName = (string) $item->paragraph->literal_strong;
+										$paramType = (string) $item->paragraph->literal_emphasis;
+										foreach ($paramRequired as $p)
+											if ($paramName == $p)
+												$parameters['required'][] = ['name' => $p, 'type' => $paramType];
+										foreach ($paramOptional as $p)
+											if ($paramName == strtok($p, ' '))
+												$parameters['optional'][] = ['name' => $p, 'type' => $paramType];
+									}
 								}
 							}
 						}
 					}
-				}
 
-				// Return type
-				$returnType = null;
-				if ($argv[1] === 'functions') {
-					foreach ($fields->field as $field) {
-						if ((string) $field->field_name == 'Return type') {
-							$returnType = (string) $field->field_body->paragraph;
+					// Return type
+					$returnType = null;
+					if ($argv[1] === 'functions') {
+						foreach ($fields->field as $field) {
+							if ((string) $field->field_name == 'Return type') {
+								$returnType = (string) $field->field_body->paragraph;
+							}
+						}
+					}
+				} else {
+					// Classes
+					if (file_exists($outputPath.'functions.json')) {
+						$json = file_get_contents($outputPath.'functions.json');
+						$data = json_decode($json, true);
+						$jsonFunctions = $data[$file === 'functions' ? 'core': $file];
+						foreach ($jsonFunctions as $jsonFunction) {
+							if ($jsonFunction['class'] === $name && $jsonFunction['name'] === 'constructor') {
+								$parameters = $jsonFunction['parameters'];
+							}
 						}
 					}
 				}
