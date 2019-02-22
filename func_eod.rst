@@ -155,12 +155,33 @@ DATA, MIME and attachments
     .. code::
 
       $result = $message->send(
-        ["host" => "10.2.0.1", "tls" => "require"],
-        ["address" => ""],
-        [
-          ["address" => "chris@example.com", "params" => ["NOTIFY" => "DELAY"]],
-          ["address" => ["charlie", "example.com"]]
-        ]);
+          ["host" => "10.2.0.1", "tls" => "require"],
+          ["address" => ""],
+          [
+              ["address" => "chris@example.com", "params" => ["NOTIFY" => "DELAY"]],
+              ["address" => ["charlie", "example.com"]]
+          ]);
+      
+      if (isset($result["error"]))
+      {
+          $error = $result["error"];
+          if (isset($error["code"]))
+          {
+              if ($error["code"] >= 500 and $error["code"] <= 599)
+                  Reject($error["reason"],
+                      ["reply_codes" => ["code" => $error["code"], "enhanced" => $error["enhanced"]]]);
+              else
+                  Defer($error["reason"],
+                      ["reply_codes" => ["code" => $error["code"], "enhanced" => $error["enhanced"]]]);
+          }
+          else
+          {
+              Defer();
+          }
+      } else {
+          Accept($result["result"]["reason"],
+              ["reply_codes" => ["code" => $result["result"]["code"], "enhanced" => $result["result"]["enhanced"]]]);
+      }
 
     .. include:: func_serverarray.rst
 
