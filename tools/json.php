@@ -57,6 +57,9 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 		$outputFile = $outputPath.'functions.json';
 	} else if ($argv[1] === 'classes') {
 		$outputFile = $outputPath.'classes.json';
+		if (file_exists($outputPath.'functions.json')) {
+			$jsonOutput = json_decode(file_get_contents($outputPath.'functions.json'), true);
+		}
 	}
 	$files = ['functions', 'connect', 'helo', 'auth', 'mailfrom', 'rcptto', 'eodonce', 'eodrcpt', 'predelivery', 'postdelivery', 'api', 'firewall'];
 	$result = [];
@@ -129,14 +132,17 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 						}
 					}
 				} else {
-					// Classes
-					if (file_exists($outputPath.'functions.json')) {
-						$json = file_get_contents($outputPath.'functions.json');
-						$data = json_decode($json, true);
-						$jsonFunctions = $data[$file === 'functions' ? 'core': $file];
-						foreach ($jsonFunctions as $jsonFunction) {
-							if ($jsonFunction['class'] === $name && $jsonFunction['name'] === 'constructor') {
-								$parameters = $jsonFunction['parameters'];
+					// Methods
+					$methods = [];
+					if (isset($jsonOutput)) {
+						foreach ($jsonOutput[$file === 'functions' ? 'core': $file] as $jsonFunction) {
+							if ($jsonFunction['class'] === $name) {
+								if ($jsonFunction['name'] === 'constructor') {
+									$parameters = $jsonFunction['parameters'];
+								} else {
+									unset($jsonFunction['class']);
+									$methods[] = $jsonFunction;
+								}
 							}
 						}
 					}
@@ -201,6 +207,7 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 				}
 				$result[$file === 'functions' ? 'core': $file][$i]['name'] = $name;
 				if ($parameters) $result[$file === 'functions' ? 'core': $file][$i]['parameters'] = $parameters;
+				if ($methods) $result[$file === 'functions' ? 'core': $file][$i]['methods'] = $methods;
 				if ($returnType) $result[$file === 'functions' ? 'core': $file][$i]['returnType'] = $returnType;
 				$result[$file === 'functions' ? 'core': $file][$i]['detail'] = $detail;
 				$result[$file === 'functions' ? 'core': $file][$i]['value'] = $value;
@@ -215,4 +222,17 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 	}
 	if (!is_dir($outputPath)) mkdir($outputPath);
 	file_put_contents($outputFile, json_encode($result, JSON_PRETTY_PRINT)."\n");
+
+	// Cleanup
+	if ($argv[1] === 'classes') {
+		// Remove methods from functions file
+		foreach ($files as $file) {
+			$file = $file === 'functions' ? 'core': $file;
+			$jsonOutput[$file] = array_filter($jsonOutput[$file], function($item) {
+				return !isset($item['class']);
+			});
+			$jsonOutput[$file] = array_values($jsonOutput[$file]);
+		}
+		file_put_contents($outputPath.'functions.json', json_encode($jsonOutput, JSON_PRETTY_PRINT)."\n");
+	}
 }
