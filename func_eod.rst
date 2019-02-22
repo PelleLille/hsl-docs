@@ -152,7 +152,7 @@ DATA, MIME and attachments
 
     The address object should contain a ``address`` field (either a string or a tuple with localpart and domain) and optionally a ``params`` field as key-values (to be sent in `MAIL FROM` or `RCPT TO`).
 
-    .. code::
+    .. code-block:: hsl
 
       $result = $message->send(
           ["host" => "10.2.0.1", "tls" => "require"],
