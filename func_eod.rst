@@ -178,7 +178,9 @@ DATA, MIME and attachments
           {
               Defer();
           }
-      } else {
+      }
+      else
+      {
           Accept($result["result"]["reason"],
               ["reply_codes" => ["code" => $result["result"]["code"], "enhanced" => $result["result"]["enhanced"]]]);
       }
