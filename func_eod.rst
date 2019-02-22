@@ -139,7 +139,7 @@ DATA, MIME and attachments
 
   .. function:: MailMessage.send(server, sender, recipients)
 
-    Try to send the message in-line to the server.
+    Try to send the message to the server.
 
     :param server: array with server settings or transport profile ID
     :type server: string or array
