@@ -200,6 +200,7 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 				$documentation = strip_tags($documentation);
 
 				// Store result
+				$class = null;
 				if (strpos($name, '.')) {
 					[$class, $name] = explode('.', $name, 2);
 					$result[$file === 'functions' ? 'core': $file][$i]['class'] = $class;
