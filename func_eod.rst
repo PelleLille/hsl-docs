@@ -137,6 +137,62 @@ DATA, MIME and attachments
 
     The resulting array always contains a ``result`` field of either ``pass``, ``permerror`` or ``temperror``. In case of an error the reason is included in an ``error`` field. If the header was successfully parsed (regardless of the result) a ``tags`` field will be included. 
 
+  .. function:: MailMessage.send(server, sender, recipients)
+
+    Try to send the message to the server.
+
+    :param server: array with server settings or transport profile ID
+    :type server: string or array
+    :param sender: the sender (`MAIL FROM`), an address object
+    :type sender: array
+    :param recipients: the recipient (`RCPT TO`), an array of address objects
+    :type recipients: array
+    :return: associative array containing the result or an error
+    :rtype: array
+
+    The address object should contain a ``address`` field (either a string or a tuple with localpart and domain) and optionally a ``params`` field as an key-values array (to be sent in the `MAIL FROM` or `RCPT TO` command).
+
+    .. code-block:: hsl
+
+      $result = $message->send(
+          ["host" => "10.2.0.1", "tls" => "require"],
+          ["address" => ""],
+          [
+              ["address" => "chris@example.com", "params" => ["NOTIFY" => "DELAY"]],
+              ["address" => ["charlie", "example.com"]]
+          ]);
+      
+      if (isset($result["error"]))
+      {
+          $error = $result["error"];
+          if (isset($error["code"]))
+          {
+              if ($error["code"] >= 500 and $error["code"] <= 599)
+                  Reject($error["reason"],
+                      ["reply_codes" => ["code" => $error["code"], "enhanced" => $error["enhanced"]]]);
+              else
+                  Defer($error["reason"],
+                      ["reply_codes" => ["code" => $error["code"], "enhanced" => $error["enhanced"]]]);
+          }
+          else
+          {
+              Defer();
+          }
+      }
+      else
+      {
+          Accept($result["result"]["reason"],
+              ["reply_codes" => ["code" => $result["result"]["code"], "enhanced" => $result["result"]["enhanced"]]]);
+      }
+
+    .. include:: func_serverarray.rst
+
+    A successful result from this function contains a ``result`` field. This ``result`` field contains a ``reason`` field (array of strings) containing the SMTP reponse (from the server) and a ``code`` (number) field containg the SMTP status code, optionally a ``enhanced`` (array of three numbers) field containg the SMTP enhanced status code.
+    
+    An error result from this function contains an ``error`` field. This ``error`` field contains a ``temporary`` (boolean) field to indicate if the error may be transient and a ``reason`` field (array of strings) containing either the SMTP response (from the server) or a list of errors. In case the error was due to a SMTP response a ``code`` (number) field containg the SMTP status code will be included and optionally a ``enhanced`` (array of three numbers) field containg the SMTP enhanced status code.
+
+    A ``tls`` field will always be included, to indicate if the connection had TLS enabled. 
+    
 .. cpp:class:: MIMEPart
 
   This class represent a MIME part in the MIME tree parsed as a result of the End-of-DATA command.
