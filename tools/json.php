@@ -77,14 +77,6 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 					$name = (string) $function->desc_signature->desc_name;
 				}
 
-				// Skip File class since it cannot be created
-				if ($argv[1] === 'classes' && $name === 'File')
-					continue;
-			
-				// Skip LDAPResult class since it cannot be created
-				if ($argv[1] === 'classes' && $name === 'LDAPResult')
-					continue;
-
 				// Skip echo since it's not a function
 				if ($argv[1] === 'functions' && $name === 'echo')
 					continue;
