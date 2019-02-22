@@ -150,7 +150,7 @@ DATA, MIME and attachments
     :return: associative array containing the result or an error
     :rtype: array
 
-    The address object should contain a ``address`` field (either a string or a tuple with localpart and domain) and optionally a ``params`` field as key-values (to be sent in `MAIL FROM` or `RCPT TO`).
+    The address object should contain a ``address`` field (either a string or a tuple with localpart and domain) and optionally a ``params`` field as an key-values array (to be sent in the `MAIL FROM` or `RCPT TO` command).
 
     .. code-block:: hsl
 
