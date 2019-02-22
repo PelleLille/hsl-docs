@@ -128,6 +128,9 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 						foreach ($fields->field as $field) {
 							if ((string) $field->field_name == 'Return type') {
 								$returnType = (string) $field->field_body->paragraph;
+								if (!$returnType) {
+									$returnType = (string) $field->field_body->paragraph->reference->literal;
+								}
 							}
 						}
 					}
