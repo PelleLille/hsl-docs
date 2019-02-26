@@ -57,7 +57,7 @@ Keyed index assignments are also supported.
 
 		[
 			"result" => $result = [],
-			"error" => $error = 0,
+			"error" => $error = none,
 			"dnssec" => $dnssec = false
 		] = dns("halon.io", ["extended_result" => true]);
 
