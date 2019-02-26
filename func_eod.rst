@@ -137,16 +137,16 @@ DATA, MIME and attachments
 
     The resulting array always contains a ``result`` field of either ``pass``, ``permerror`` or ``temperror``. In case of an error the reason is included in an ``error`` field. If the header was successfully parsed (regardless of the result) a ``tags`` field will be included. 
 
-  .. function:: MailMessage.send(server, sender, recipients)
+  .. function:: MailMessage.send(sender, recipients, server)
 
     Try to send the message to the server.
 
-    :param server: array with server settings or transport profile ID
-    :type server: string or array
     :param sender: the sender (`MAIL FROM`), an address object
     :type sender: array
     :param recipients: the recipient (`RCPT TO`), an array of address objects
     :type recipients: array
+    :param server: array with server settings or transport profile ID
+    :type server: string or array
     :return: associative array containing the result or an error
     :rtype: array
 
@@ -155,12 +155,12 @@ DATA, MIME and attachments
     .. code-block:: hsl
 
       $result = $message->send(
-          ["host" => "10.2.0.1", "tls" => "require"],
           ["address" => ""],
           [
               ["address" => "chris@example.com", "params" => ["NOTIFY" => "DELAY"]],
               ["address" => ["charlie", "example.com"]]
-          ]);
+          ],
+          ["host" => "10.2.0.1", "tls" => "require"]);
       
       if (isset($result["error"]))
       {
