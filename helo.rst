@@ -66,8 +66,9 @@ Functions
 
   The following options are available in the options array.
 
-   * **extensions** (array) SMTP service extensions to announce.
+   * **extensions** (array) SMTP service extensions to announce in EHLO responses.
    * **senderhelo** (string) Set the HELO hostname for the current connection. The default is ``$senderhelo``.
+   * **reason** (string) First line of the response. The default is the system hostname.
 
 .. function:: Reject([reason, [options]])
 

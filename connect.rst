@@ -56,7 +56,7 @@ Functions
 
   The following options are available in the options array.
 
-   * **reason** (string) The HELO banner response.
+   * **reason** (string) The greeting banner response.
    * **senderip** (string) Set the IP address of the accepted client connection. The default is ``$senderip``.
    * **senderptr** (string) Set the reverse DNS pointer (PTR) for the IP address.
 
