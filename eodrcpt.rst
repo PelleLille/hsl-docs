@@ -22,7 +22,7 @@ $senderport       number  41666                      TCP port of connected clien
 $serverip         string  "10.0.0.1"                 IP address of the server
 $serverport       number  25                         TCP port of the server
 $serverid         string  "mailserver\:1"            ID of the server
-$senderhelo       string  "mail.example.com"         HELO message of sender
+$senderhelo       string  "mail.example.com"         HELO hostname of sender
 $tlsstarted       boolean false                      Whether or not the SMTP session is using TLS
 $saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
 $saslusername     string  "mailuser"                 SASL username

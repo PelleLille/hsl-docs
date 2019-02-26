@@ -18,7 +18,7 @@ $sourceip           string  "10.0.0.1"                 The delivery source IP (i
 $destination        string  "172.16.1.25"              The destination host (initially defined by the transport profile)
 $destinationport    number  25                         The destination port (initially defined by the transport profile)
 $senderip           string  "192.168.1.11"             IP address of the sender
-$senderhelo         string  "mail.example.com"         HELO message of sender
+$senderhelo         string  "mail.example.com"         HELO hostname of sender
 $saslusername       string  "mailuser"                 SASL username
 $sender             string  "test\@example.org"        Email address of sender (envelope), lowercase
 $senderlocalpart    string  "test"                     Local part of sender's address (envelope)

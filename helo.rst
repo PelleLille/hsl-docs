@@ -49,7 +49,7 @@ Arguments
 ================= ======= ========================== ===========
 Variable          Type    Example                    Description
 ================= ======= ========================== ===========
-$senderhelo       string  "mail.example.com"         HELO message of sender
+$senderhelo       string  "mail.example.com"         HELO hostname of sender
 $senderhelotype   string  "EHLO"                     HELO or EHLO command
 ================= ======= ========================== ===========
 
