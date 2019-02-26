@@ -208,6 +208,7 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 					[$class, $name] = explode('.', $name, 2);
 					$result[$file === 'functions' ? 'core': $file][$i]['class'] = $class;
 					$value = explode('.', $value, 2)[1];
+					$detail = str_replace('.', '->', $detail);
 				}
 				$result[$file === 'functions' ? 'core': $file][$i]['name'] = $name;
 				if ($parameters) $result[$file === 'functions' ? 'core': $file][$i]['parameters'] = $parameters;
