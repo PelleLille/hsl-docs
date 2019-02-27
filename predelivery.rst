@@ -13,7 +13,7 @@ These are the read-only pre-defined variables available. Some of them can be cha
 Original message
 ^^^^^^^^^^^^^^^^
 
-These variables are related to the queue message.
+These variables are related to the queued message.
 
 Connection
 """"""""""

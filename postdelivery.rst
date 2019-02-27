@@ -13,7 +13,7 @@ These are the read-only pre-defined variables available each time after a delive
 Original message
 ^^^^^^^^^^^^^^^^
 
-These variables are related to the queue message.
+These variables are related to the queued message.
 
 Connection
 """"""""""
