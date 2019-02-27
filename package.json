@@ -1,9 +1,11 @@
 {
     "name": "halon-hsl-docs",
-    "version": "1.0.0",
+    "version": "5.0.0",
     "private": true,
     "scripts": {
-        "sphinx-build": "sphinx-build -b xml . ./dist/xml",
-        "json": "npm run -s sphinx-build && php ./tools/json.php variables && php ./tools/json.php functions && php ./tools/json.php classes"
+        "build": "npm run -s build-html && npm run -s build-xml && npm run -s build-json",
+        "build-html": "sphinx-build -b html . ./dist/html",
+        "build-xml": "sphinx-build -b xml . ./dist/xml",
+        "build-json": "php ./tools/json.php variables && php ./tools/json.php functions && php ./tools/json.php classes"
     }
 }
