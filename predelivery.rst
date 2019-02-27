@@ -10,29 +10,60 @@ Pre-defined variables
 
 These are the read-only pre-defined variables available. Some of them can be changed using the functions below.
 
+Original message
+^^^^^^^^^^^^^^^^
+
+These variables are related to the queue message.
+
+Connection
+""""""""""
+
 =================== ======= ========================== ===========
 Variable            Type    Example                    Description
 =================== ======= ========================== ===========
-$receivedtime       number  1445937340                 The unix time (in UTC) when the message was received
-$sourceip           string  "10.0.0.1"                 The delivery source IP (initially defined by the transport profile)
-$destination        string  "172.16.1.25"              The destination host (initially defined by the transport profile)
-$destinationport    number  25                         The destination port (initially defined by the transport profile)
 $senderip           string  "192.168.1.11"             IP address of the sender
+$serverid           string  "mailserver\:1"            ID of the server the message was recevied on
 $senderhelo         string  "mail.example.com"         HELO hostname of sender
 $saslusername       string  "mailuser"                 SASL username
+=================== ======= ========================== ===========
+
+Transaction
+"""""""""""
+
+=================== ======= ========================== ===========
+Variable            Type    Example                    Description
+=================== ======= ========================== ===========
+$messageid          string  "18c190a3-93f-47d7-bd..."  ID of the message
 $sender             string  "test\@example.org"        Email address of sender (envelope), lowercase
 $senderlocalpart    string  "test"                     Local part of sender's address (envelope)
 $senderdomain       string  "example.org"              Domain part of sender's address (envelope)
 $recipient          string  "test\@example.com"        Email address of recipient (envelope), lowercase
 $recipientlocalpart string  "test"                     Local part of recipient's address (envelope)
 $recipientdomain    string  "example.com"              Domain part of recipient's address (envelope)
+$receivedtime       number  1445937340                 The unix time (in UTC) when the message was received
+$actionid           number  1                          Same as $actionid in DATA context
+=================== ======= ========================== ===========
+
+Queue
+^^^^^
+=================== ======= ========================== ===========
+Variable            Type    Example                    Description
+=================== ======= ========================== ===========
+$transportid        string  "mailtransport\:1"         ID of the transport profile assigned
+$queueid            number  12345                      Queue ID of the message
 $retry              number  3                          The current retry count
 $retries            number  30                         The maximum number of retries for that message
-$messageid          string  "18c190a3-93f-47d7-bd..."  ID of the message
-$actionid           number  1                          Same as $actionid in DATA context
-$queueid            number  12345                      Queue ID of the message
-$serverid           string  "mailserver\:1"            ID of the server the message was recevied on
-$transportid        string  "mailtransport\:1"         ID of the transport profile assigned
+=================== ======= ========================== ===========
+
+Arguments
+^^^^^^^^^
+
+=================== ======= ========================== ===========
+Variable            Type    Example                    Description
+=================== ======= ========================== ===========
+$sourceip           string  "10.0.0.1"                 The delivery source IP (initially defined by the transport profile)
+$destination        string  "172.16.1.25"              The destination host (initially defined by the transport profile)
+$destinationport    number  25                         The destination port (initially defined by the transport profile)
 =================== ======= ========================== ===========
 
 These are the writable pre-defined variables available.
