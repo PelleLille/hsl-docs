@@ -187,9 +187,50 @@ DATA, MIME and attachments
     If the send function resulted in a SMTP response you will get the SMTP response in a ``result`` field. This ``result`` field contains a ``state`` field (string) which indicates at what SMTP stage the error happened, a ``reason`` field (array of strings) containing the SMTP reponse (from the server) and a ``code`` field (number) containg the SMTP status code, optionally a ``enhanced`` (array of three numbers) field containg the SMTP enhanced status code. If a generic error happens the function will return a ``error`` field. This ``error`` field contains a ``temporary`` (boolean) field to indicate if the error may be transient and a ``reason`` field (string) containing a the error which happened.
 
     If a SMTP connection could be established a ``connection`` field will be included. This field contains the ``senderip`` field (string) and the ``serverip`` field (string).
-    
+
     A ``tls`` field will always be included, to indicate if the connection had TLS enabled. 
-    
+
+    The follwing ``state`` are available.
+
+    +-----------------+-------------------------------------------------+
+    | CONNECT         | The initial SMTP greeting                       |
+    +-----------------+-------------------------------------------------+
+    | HELO            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | EHLO            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | LHLO            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | STARTTLS        |                                                 |
+    +-----------------+-------------------------------------------------+
+    | AUTH-CRAM-MD5   | In reply to sending AUTH CRAM-MD5 command       |
+    +-----------------+-------------------------------------------------+
+    | AUTH-PLAIN      | In reply to sending AUTH PLAIN command          |
+    +-----------------+-------------------------------------------------+
+    | AUTH-LOGIN      | In reply to sending AUTH LOGIN command          |
+    +-----------------+-------------------------------------------------+
+    | AUTH-LOGIN-USER | In reply to sending AUTH LOGIN username         |
+    +-----------------+-------------------------------------------------+
+    | AUTH            | In reply to last command of AUTH login attempt  |
+    +-----------------+-------------------------------------------------+
+    | XCLIENT         | In reply to sending a XCLIENT command           |
+    +-----------------+-------------------------------------------------+
+    | MAIL            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | RCPT            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | DATA            | In reply to sending the DATA command            |
+    +-----------------+-------------------------------------------------+
+    | EOD             | In reply sending the End-of-DATA                |
+    +-----------------+-------------------------------------------------+
+    | RSET            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | NOOP            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | QUIT            |                                                 |
+    +-----------------+-------------------------------------------------+
+
+
 .. cpp:class:: MIMEPart
 
   This class represent a MIME part in the MIME tree parsed as a result of the End-of-DATA command.
