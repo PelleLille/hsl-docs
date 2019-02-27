@@ -154,7 +154,7 @@ DATA, MIME and attachments
 
     .. code-block:: hsl
 
-      $result = $message->send(
+      $response = $message->send(
           ["address" => ""],
           [
               ["address" => "chris@example.com", "params" => ["NOTIFY" => "DELAY"]],
@@ -162,35 +162,32 @@ DATA, MIME and attachments
           ],
           ["host" => "10.2.0.1", "tls" => "require"]);
       
-      if (isset($result["error"]))
+      if (isset($response["result"]))
       {
-          $error = $result["error"];
-          if (isset($error["code"]))
-          {
-              if ($error["code"] >= 500 and $error["code"] <= 599)
-                  Reject($error["reason"],
-                      ["reply_codes" => ["code" => $error["code"], "enhanced" => $error["enhanced"]]]);
-              else
-                  Defer($error["reason"],
-                      ["reply_codes" => ["code" => $error["code"], "enhanced" => $error["enhanced"]]]);
-          }
-          else
-          {
-              Defer();
-          }
+          $result = $response["result"];
+          $codes = [];
+          if ($result["state"] == "EOD")
+              $codes = ["reply_codes" => ["code" => $result["code"], "enhanced" => $result["enhanced"]]];
+          if ($result["code"] >= 200 and $result["code"] <= 299)
+              Accept($result["reason"], $codes);
+          if ($result["code"] >= 500 and $result["code"] <= 599)
+              Reject($result["reason"], $codes);
+          Defer($result["reason"], $codes);
       }
       else
       {
-          Accept($result["result"]["reason"],
-              ["reply_codes" => ["code" => $result["result"]["code"], "enhanced" => $result["result"]["enhanced"]]]);
+          $error = $response["error"];
+          if (!$error["temporary"])
+              Reject($error["message"]);
+          Defer($error["message"]);
       }
 
     .. include:: func_serverarray.rst
 
-    A successful result from this function contains a ``result`` field. This ``result`` field contains a ``reason`` field (array of strings) containing the SMTP reponse (from the server) and a ``code`` (number) field containg the SMTP status code, optionally a ``enhanced`` (array of three numbers) field containg the SMTP enhanced status code.
-    
-    An error result from this function contains an ``error`` field. This ``error`` field contains a ``temporary`` (boolean) field to indicate if the error may be transient and a ``reason`` field (array of strings) containing either the SMTP response (from the server) or a list of errors. In case the error was due to a SMTP response a ``code`` (number) field containg the SMTP status code will be included and optionally a ``enhanced`` (array of three numbers) field containg the SMTP enhanced status code.
+    If the send function resulted in a SMTP response you will get the SMTP response in a ``result`` field. This ``result`` field contains a ``state`` field (string) which indicates at what SMTP stage the error happened, a ``reason`` field (array of strings) containing the SMTP reponse (from the server) and a ``code`` field (number) containg the SMTP status code, optionally a ``enhanced`` (array of three numbers) field containg the SMTP enhanced status code. If a generic error happens the function will return a ``error`` field. This ``error`` field contains a ``temporary`` (boolean) field to indicate if the error may be transient and a ``reason`` field (string) containing a the error which happened.
 
+    If a SMTP connection could be established a ``connection`` field will be included. This field contains the ``senderip`` field (string) and the ``serverip`` field (string).
+    
     A ``tls`` field will always be included, to indicate if the connection had TLS enabled. 
     
 .. cpp:class:: MIMEPart
@@ -424,33 +421,6 @@ These are DKIM-related functions, including DMARC. Other modules, such as ARC, i
   ["example.com" => "reject"]        The policy resulted in reject
   ["example.com" => "quarantine"]    The policy resulted in quarantine
   ================================== ==========
-
-.. function:: XKIMSDID([explicitdomains, [options]])
-
-  Returns the SDID (Signing Domain IDentifier) status from the `DKIM <https://docs.halon.io/go/dkim>`_ header of the message.
-
-  :param array explicitdomains: array of explicit domains to check, empty array for all
-  :param array options: options array
-  :return: associative array containing the domain and result.
-  :rtype: array
-
-  The following options are available in the options array.
-
-   * **signature_limit** (number) signatures to verify. The default is ``5``.
-   * **timeout** (number) the timeout (per DNS query). The default is ``5``.
-   * **dns_function** (function) a custom DNS function. The default is to use the built in.
-
-  The DNS function will be called with the hostname (eg. `2018._domainkeys.example.com`) for which a DKIM record should be returned. The result must be an array containing either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
-
-  ========= ===========
-  Result    Description
-  ========= ===========
-  skip      The validation of the DKIM record was not checked (due to the domain filter or signature limit)
-  pass      The message was signed and the signature(s) passed verification.
-  fail      The message was signed but they failed the verification.
-  temperror A later attempt may produce a final result.
-  permerror A later attempt is unlikely to produce a final result.
-  ========= ===========
 
 Embedded content scanning
 ^^^^^^^^^^^^^^^^^^^^^^^^^
