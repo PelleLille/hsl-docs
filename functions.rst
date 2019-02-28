@@ -605,7 +605,7 @@ DNS
 
   The following options are available in the options array.
 
-  * **type** (string) Query type (one of ``a``, ``aaaa``, ``mx``, ``txt``, ``cname``, ``ns`` or ``ptr``). The default is to query for both ``a`` and ``aaaa``.
+  * **type** (string) Query type (one of ``a``, ``aaaa``, ``mx``, ``txt``, ``cname``, ``ns`` or ``ptr``). The default is to query for ``a`` records.
   * **timeout** (number) Query timeout in seconds. The default is ``5``.
   * **servers** (array) List of resolvers. The default is the system wide.
 
