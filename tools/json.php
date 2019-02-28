@@ -242,6 +242,12 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 		}
 	}
 
+	// Deprecations
+	if ($argv[1] === 'functions') {
+		$deprecations_file = json_decode(file_get_contents(dirname(__FILE__).'/deprecations/functions.json'), true);
+		$result = array_merge_recursive($result, $deprecations_file);
+	}
+
 	if (!is_dir($outputPath)) mkdir($outputPath);
 	file_put_contents($outputFile, json_encode($result, JSON_PRETTY_PRINT)."\n");
 
