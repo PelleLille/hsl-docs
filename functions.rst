@@ -620,10 +620,10 @@ DNS
 	// ["result"=>[0=>"54.152.237.238"],"dnssec"=>false]
 
 	echo dns_query(inet_reverse("8.8.8.8"), ["type" => "ptr"]);
-	// [0=>"google-public-dns-a.google.com"]
+	// ["result"=>[0=>"google-public-dns-a.google.com"],"dnssec"=>false]
 
 	echo dns_query(inet_reverse("12.34.56.78", "dnsbl.example.com"), ["type" => "ptr"]);
-	// [0=>"127.0.0.1"]
+	// ["result"=>[0=>"a.custom.hostname"],"dnssec"=>false]
 
 .. function:: domain_includes(subdomain, domain)
 
