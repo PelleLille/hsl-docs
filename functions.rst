@@ -614,13 +614,9 @@ DNS
   .. code-block:: hsl
 
 	echo dns_query("nxdomain.halon.se");
-	// []
-	echo dns_query("nxdomain.halon.se", ["extended_result" => true]);
 	// ["error"=>"NXDOMAIN","dnssec"=>false]
 
 	echo dns_query("halon.se");
-	// [0=>"54.152.237.238"]
-	echo dns_query("halon.se", ["extended_result" => true, "type" => "a"]);
 	// ["result"=>[0=>"54.152.237.238"],"dnssec"=>false]
 
 	echo dns_query(inet_reverse("8.8.8.8"), ["type" => "ptr"]);
