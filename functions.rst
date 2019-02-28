@@ -7,10 +7,10 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Cryptographic** :func:`aes_decrypt` :func:`aes_encrypt` :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify` :func:`pkcs7_sign` :func:`random_bytes` :func:`random_number` :func:`crypt`
 * **Data types** :func:`length` :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
-* **DNS** :func:`dns` :func:`domain_includes` :func:`idna_encode` :func:`idna_decode`
+* **DNS** :func:`dns_query` :func:`domain_includes` :func:`idna_encode` :func:`idna_decode`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_decode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
 * **File and HTTP** :class:`File` :func:`http`
-* **Mail** :func:`header_addresslist_extract` :func:`header_dkim_decode` :func:`dnsbl` :func:`spf` :func:`globalview`
+* **Mail** :func:`header_addresslist_extract` :func:`header_dkim_decode` :func:`dnsbl` :func:`spf_query` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`inet_includes` :func:`inet_ntop` :func:`inet_pton` :func:`inet_reverse` :func:`rate` :func:`mail`
@@ -594,40 +594,39 @@ Date and time
 DNS
 ---
 
-.. function:: dns(host, [options])
+.. function:: dns_query(host, [options])
 
   Query for DNS records of a hostname.
 
   :param string host: the host
   :param array options: options array
-  :return: list of items or an extended result
+  :return: the result
   :rtype: array
 
   The following options are available in the options array.
 
   * **type** (string) Query type (one of ``a``, ``aaaa``, ``mx``, ``txt``, ``cname``, ``ns`` or ``ptr``). The default is to query for both ``a`` and ``aaaa``.
   * **timeout** (number) Query timeout in seconds. The default is ``5``.
-  * **extended_result** (boolean) Get a more extended result. The default is ``false``.
   * **servers** (array) List of resolvers. The default is the system wide.
 
-  In the ``extended_result`` mode, either ``result`` or ``error`` in set in an associative array. ``dnssec`` is always included. ``result`` is the list of results and ``error`` is the string representation of `rcode` or `h_errno`.
+  An array with either ``result`` or ``error`` in set in an associative array. ``dnssec`` is always included. ``result`` is the list of results and ``error`` is the string representation of `rcode` or `h_errno`.
 
   .. code-block:: hsl
 
-	echo dns("nxdomain.halon.se");
+	echo dns_query("nxdomain.halon.se");
 	// []
-	echo dns("nxdomain.halon.se", ["extended_result" => true]);
+	echo dns_query("nxdomain.halon.se", ["extended_result" => true]);
 	// ["error"=>"NXDOMAIN","dnssec"=>false]
 
-	echo dns("halon.se");
+	echo dns_query("halon.se");
 	// [0=>"54.152.237.238"]
-	echo dns("halon.se", ["extended_result" => true, "type" => "a"]);
+	echo dns_query("halon.se", ["extended_result" => true, "type" => "a"]);
 	// ["result"=>[0=>"54.152.237.238"],"dnssec"=>false]
 
-	echo dns(inet_reverse("8.8.8.8"), ["type" => "ptr"]);
+	echo dns_query(inet_reverse("8.8.8.8"), ["type" => "ptr"]);
 	// [0=>"google-public-dns-a.google.com"]
 
-	echo dns(inet_reverse("12.34.56.78", "dnsbl.example.com"), ["type" => "ptr"]);
+	echo dns_query(inet_reverse("12.34.56.78", "dnsbl.example.com"), ["type" => "ptr"]);
 	// [0=>"127.0.0.1"]
 
 .. function:: domain_includes(subdomain, domain)
@@ -1050,20 +1049,41 @@ Mail
 
   This function works by reversing the IP addresses octets and appending to the hostname parameter.
 
-.. function:: spf(ip, helo, domain, [options])
+.. function:: spf_query(ip, helo, domain, [options])
 
   Check the SPF status of the senderdomain.
 
   :param string ip: IP or IPv6 address to check
   :param string helo: HELO/EHLO host name
-  :param string domain: domain too lookup
+  :param string domain: domain to lookup
   :param array options: options array
-  :return: ``0`` if the addresses passed, ``20`` for softfail, ``50`` if the status is unknown and ``100`` if the spf failed.
-  :rtype: number
+  :return: the result
+  :rtype: array
 
   The following options are available in the options array.
 
-   * **extended_result** (boolean) If ``true`` an associative array with ``result`` is returned with the string result as defined by libspf2 (eg. ``pass``). The default is ``false``.
+   * **timeout** (number) Query timeout in seconds. The default is ``5``.
+   * **servers** (array) List of resolvers. The default is the system wide.
+
+  An array with a ``result`` field as an associative array. The ``result`` is returned as the string result as defined by libspf2 (eg. ``pass``).
+
+  +----------------------+-----------+
+  | SPF_RESULT_INVALID   | invalid   |
+  +----------------------+-----------+
+  | SPF_RESULT_NEUTRAL   | neutral   |
+  +----------------------+-----------+
+  | SPF_RESULT_PASS      | pass      |
+  +----------------------+-----------+
+  | SPF_RESULT_FAIL      | fail      |
+  +----------------------+-----------+
+  | SPF_RESULT_SOFTFAIL  | softfail  |
+  +----------------------+-----------+
+  | SPF_RESULT_NONE      | none      |
+  +----------------------+-----------+
+  | SPF_RESULT_TEMPERROR | temperror |
+  +----------------------+-----------+
+  | SPF_RESULT_PERMERROR | permerror |
+  +----------------------+-----------+
 
 .. function:: globalview(ip)
 

@@ -59,7 +59,7 @@ Keyed index assignments are also supported.
 			"result" => $result = [],
 			"error" => $error = none,
 			"dnssec" => $dnssec = false
-		] = dns("halon.io", ["extended_result" => true]);
+		] = dns_query("halon.io", ["extended_result" => true]);
 
 It's however not possible to mix keyed with unkeyed assignments.
 
