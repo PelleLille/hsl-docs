@@ -225,6 +225,23 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 			throw new Exception('File not found.');
 		}
 	}
+
+	// Aliases
+	if ($argv[1] === 'functions') {
+		$aliases_file = json_decode(file_get_contents(dirname(__FILE__).'/aliases/functions.json'), true);
+		foreach ($aliases_file as $file => $aliases) {
+			foreach ($aliases as $alias) {
+				$result[$file] = array_map(function($item) use ($alias) {
+					if ($item['name'] === $alias['alias']) {
+						if (!isset($item['aliases'])) $item['aliases'] = [];
+						$item['aliases'][] = $alias['name'];
+					}
+					return $item;
+				}, $result[$file]);
+			}
+		}
+	}
+
 	if (!is_dir($outputPath)) mkdir($outputPath);
 	file_put_contents($outputFile, json_encode($result, JSON_PRETTY_PRINT)."\n");
 

@@ -1,0 +1,59 @@
+{
+    "core": [
+        {
+            "name": "count",
+            "alias": "length"
+        },
+        {
+            "name": "strlen",
+            "alias": "length"
+        },
+        {
+            "name": "strpos",
+            "alias": "str_find"
+        },
+        {
+            "name": "strrpos",
+            "alias": "str_rfind"
+        },
+        {
+            "name": "substr",
+            "alias": "str_slice"
+        },
+        {
+            "name": "strtolower",
+            "alias": "str_lower"
+        },
+        {
+            "name": "strtoupper",
+            "alias": "str_upper"
+        },
+        {
+            "name": "trim",
+            "alias": "str_strip"
+        },
+        {
+            "name": "rand",
+            "alias": "random_number"
+        },
+        {
+            "name": "is_subdomain",
+            "alias": "domain_includes"
+        },
+        {
+            "name": "in_network",
+            "alias": "inet_includes"
+        }
+    ],
+    "connect": [],
+    "helo": [],
+    "auth": [],
+    "mailfrom": [],
+    "rcptto": [],
+    "eodonce": [],
+    "eodrcpt": [],
+    "predelivery": [],
+    "postdelivery": [],
+    "api": [],
+    "firewall": []
+}
