@@ -10,7 +10,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **DNS** :func:`dns_query` :func:`domain_includes` :func:`idna_encode` :func:`idna_decode`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_decode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
 * **File and HTTP** :class:`File` :func:`http`
-* **Mail** :func:`header_addresslist_extract` :func:`header_dkim_decode` :func:`dnsbl` :func:`spf_query` :func:`globalview`
+* **Mail** :func:`header_addresslist_extract` :func:`header_dkim_decode` :func:`xtext_encode` :func:`xtext_decode` :func:`dnsbl` :func:`spf_query` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`inet_includes` :func:`inet_ntop` :func:`inet_pton` :func:`inet_reverse` :func:`rate` :func:`mail`
@@ -1031,6 +1031,22 @@ Mail
     $tags = header_dkim_decode("d=domain; s=selector; h=to:from:date:subject");
     if ($tags and isset($tags["s"]) and isset($tags["d"]))
       echo $tags["s"]."_domainkey".$tags["d"];
+
+.. function:: xtext_encode(text)
+
+  Encode `xtext` according to the `rfc1891 <https://tools.ietf.org/html/rfc1891>`_.
+
+  :param string text: value to encode
+  :return: the encoded value
+  :rtype: string
+
+.. function:: xtext_decode(text)
+
+  Decode `xtext` according to the `rfc1891 <https://tools.ietf.org/html/rfc1891>`_.
+
+  :param string text: value to decode
+  :return: the decoded value
+  :rtype: string
 
 .. function:: dnsbl(ip, hostname, [resolvers, [timeout = 5]])
 
