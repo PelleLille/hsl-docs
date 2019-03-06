@@ -11,7 +11,7 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 	$inputPath = dirname(__FILE__).'/../dist/xml/';
 	$outputPath = dirname(__FILE__).'/../dist/json/';
 	$outputFile = $outputPath.'variables.json';
-	$files = ['connect', 'helo', 'auth', 'mailfrom', 'rcptto', 'eodonce', 'eodrcpt', 'predelivery', 'postdelivery', 'api', 'firewall'];
+	$files = ['connect', 'proxy', 'helo', 'auth', 'mailfrom', 'rcptto', 'eodonce', 'eodrcpt', 'predelivery', 'postdelivery', 'api', 'firewall'];
 	$result = ['core' => []];
 	foreach ($files as $file) {
 		$result[$file] = [];
@@ -37,7 +37,7 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 							$result[$file][$i]['documentation'] = (string) $row->entry[3]->paragraph;
 							$result[$file][$i]['example'] = (string) $row->entry[2]->paragraph;
 						}
-						$i += 1;	
+						$i += 1;
 					}
 				}
 			}
@@ -61,7 +61,7 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 			$jsonOutput = json_decode(file_get_contents($outputPath.'functions.json'), true);
 		}
 	}
-	$files = ['functions', 'connect', 'helo', 'auth', 'mailfrom', 'rcptto', 'eodonce', 'eodrcpt', 'predelivery', 'postdelivery', 'api', 'firewall'];
+	$files = ['functions', 'connect', 'proxy', 'helo', 'auth', 'mailfrom', 'rcptto', 'eodonce', 'eodrcpt', 'predelivery', 'postdelivery', 'api', 'firewall'];
 	$result = [];
 	foreach ($files as $file) {
 		$result[$file === 'functions' ? 'core': $file] = [];
