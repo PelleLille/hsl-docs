@@ -42,7 +42,7 @@ Augmented assignment operators are documented in the arithmetic chapter.
 Destructuring assignment
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Destructuring assignment assigns variables with values taken from an `array` value. If the value is not an `array`, all variables will be assigned `none` or its default value.
+Destructuring assignment assigns variables with values taken from an `array` value. If the value is not an `array`, all variables will be assigned `none` (rest variables defaults to an empty array) or its default value.
 
   .. code-block:: hsl
 
@@ -50,6 +50,13 @@ Destructuring assignment assigns variables with values taken from an `array` val
 		echo $a; // 1
 		echo $b; // 2
 		echo $c; // 3 // default value
+
+The rest variable syntax may be used to collect the rest of the array values in a destructuring assignment. This variable has to come last in the destructuring assignment list. The type of the rest variable is always an array.
+
+  .. code-block:: hsl
+
+		[$a, $b, ...$c] = [1, 2, 3, 4];
+		echo $c; // [3, 4]
 
 Keyed index assignments are also supported.
 
@@ -65,17 +72,19 @@ It's however not possible to mix keyed with unkeyed assignments.
 
 .. note::
 
-	If there is less variables in the assignment list than array values, the remaining values will be discarded. 
+	If there is less variables in the assignment list than array values, the remaining values will be discarded. If you don't use the rest variable syntax.
 
 	.. code-block:: hsl
 
 		[$a] = [0, 1, 2];
+		[$a, ...$c] = [1, 2, 3];
 
-	If there is more variables in the assignment list than array values, the remaining variables will be assigned the value of `none` or its default value. 
+	If there is more variables in the assignment list than array values, the remaining variables will be assigned the value of `none` (rest variables defaults to an empty array) or its default value.
 
 	.. code-block:: hsl
 
 		[$a, $b = 1, $c = 2] = [0];
+		[$a, $b, ...$c] = [1, 2];
 
 Slice assignment
 ^^^^^^^^^^^^^^^^
