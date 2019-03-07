@@ -544,31 +544,41 @@ Date and time
   :return: the time slept in seconds (with decimals)
   :rtype: number
 
-.. function:: strftime(format, [time])
+.. function:: strftime(format, [time], [options])
 
   Format according to the `strftime <http://www.freebsd.org/cgi/man.cgi?query=strftime>`_ manual.
+
+  :param string format: the format string
+  :param number time: the default is current time without timezone
+  :param array options: options array
+  :return: the time formatted (max length 100)
+  :rtype: string
+
+  The following options are available in the options array.
+
+  * **local** (boolean) Expect the time to be in the current local timezone. The default is ``true``.
 
   .. code-block:: hsl
 
 	 echo strftime("%H:%M:%S"); // prints current time eg "13:58:38"
 
-  :param string format: the format string
-  :param number time: the default is current time without timezone
-  :return: the time formatted (max length 100)
-  :rtype: string
-
-.. function:: strptime(datestring, format)
+.. function:: strptime(datestring, format, [options])
 
   Parse a date string according to the `strftime <http://www.freebsd.org/cgi/man.cgi?query=strftime>`_ manual with the time without timezone.
+
+  :param string datestring: the date string
+  :param string format: the format string
+  :param array options: options array
+  :return: the time in seconds
+  :rtype: number
+
+  The following options are available in the options array.
+
+  * **local** (boolean) Expect the time to be in the current local timezone. The default is ``true``.
 
   .. code-block:: hsl
 
 	 echo strptime("13:58:38", "%H:%M:%S"); // prints time of today at "13:58:38"
-
-  :param string datestring: the date string
-  :param string format: the format string
-  :return: the time in seconds
-  :rtype: number
 
 .. function:: time()
 
@@ -629,17 +639,17 @@ DNS
 
   Test if subdomain is a subdomain of domain. If the domain starts with a dot ``.`` it must be a subdomain of domain, hence it will **not** even if `subdomain == domain`.
 
+  :param string subdomain: the subdomain
+  :param string domain: the domain
+  :return: if subdomain is a subdomain of domain
+  :rtype: boolean
+
   .. code-block:: hsl
 
 	domain_includes("www.halon.io", "halon.io"); // true
 	domain_includes("halon.io", "halon.io"); // true
 	domain_includes("www.halon.io", ".halon.io"); // true
 	domain_includes("halon.io", ".halon.io"); // false
-
-  :param string subdomain: the subdomain
-  :param string domain: the domain
-  :return: if subdomain is a subdomain of domain
-  :rtype: boolean
 
 .. function:: idna_encode(domain)
 
