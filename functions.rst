@@ -1030,7 +1030,7 @@ Mail
 
     $tags = header_dkim_decode("v=1; d=domain; s=selector; h=to:from:date:subject");
     if ($tags and isset($tags["s"]) and isset($tags["d"]))
-      echo $tags["s"]."_domainkey".$tags["d"];
+      echo $tags["s"]."._domainkey.".$tags["d"];
 
 .. function:: xtext_encode(text)
 
