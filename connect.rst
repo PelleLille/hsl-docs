@@ -32,6 +32,7 @@ remoteport        number  41666                      TCP port of connected clien
 localip           string  "10.0.0.1"                 IP address of the server
 localport         number  25                         TCP port of the server
 serverid          string  "mailserver\:1"            ID of the server
+proxyip           string  "192.168.1.1"              IP address of the proxy server (if used)
 ================= ======= ========================== ===========
 
 .. _v_t1:
