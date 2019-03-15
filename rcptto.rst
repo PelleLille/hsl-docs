@@ -5,53 +5,40 @@ RCPT TO
 
 The ``RCPT TO`` script allows verification of recipients.
 
-Pre-defined variables
----------------------
+Variables
+---------
 
-These are the read-only pre-defined variables available for `RCPT TO` command.
+========================== ======= ========= ===========
+Variable                   Type    Read-only Description
+========================== ======= ========= ===========
+:ref:`$arguments <v_a5>`   array   yes       Context/hook arguments
+:ref:`$connection <v_c5>`  array   yes       Connection/session bound
+:ref:`$transaction <v_t5>` array   yes       Transaction bound
+$context                   any     no        Connection bound user-defined (default none)
+========================== ======= ========= ===========
 
-Connection
-^^^^^^^^^^
-
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$senderip         string  "192.168.1.11"             IP address of the connected client
-$senderport       number  41666                      TCP port of connected client
-$serverip         string  "10.0.0.1"                 IP address of the server
-$serverport       number  25                         TCP port of the server
-$serverid         string  "mailserver\:1"            ID of the server
-$senderhelo       string  "mail.example.com"         HELO hostname of sender
-$tlsstarted       boolean false                      Whether or not the SMTP session is using TLS
-$saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
-$saslusername     string  "mailuser"                 SASL username
-================= ======= ========================== ===========
-
-These are the writable pre-defined variables available.
-
-================= ======= ===========
-Variable          Type    Description
-================= ======= ===========
-$context          any     Connection-bound variable
-================= ======= ===========
-
-Transaction
-^^^^^^^^^^^
-
-.. include:: var_transaction.rst
+.. _v_a5:
 
 Arguments
-^^^^^^^^^
++++++++++
 
 =================== ======= ========================== ===========
-Variable            Type    Example                    Description
+Array item          Type    Example                    Description
 =================== ======= ========================== ===========
-$recipient          string  "test\@example.com"        Email address of recipient (envelope), lowercase
-$recipientlocalpart string  "test"                     Local part of recipient's address (envelope)
-$recipientdomain    string  "example.com"              Domain part of recipient's address (envelope)
-$recipientparams    array   ["NOTIFY" => "NEVER", .. ] Recipient parameters to the envelope address
-$transportid        string  "mailtransport\:1"         ID of the transport profile to be used
+recipient           string  "test\@example.com"        Email address of recipient (envelope), lowercase
+recipientlocalpart  string  "test"                     Local part of recipient's address (envelope)
+recipientdomain     string  "example.com"              Domain part of recipient's address (envelope)
+recipientparams     array   ["NOTIFY" => "NEVER", .. ] Recipient parameters to the envelope address
+transportid         string  "mailtransport\:1"         ID of the transport profile to be used
 =================== ======= ========================== ===========
+
+.. _v_c5:
+
+.. include:: var_connection.rst
+
+.. _v_t5:
+
+.. include:: var_transaction.rst
 
 Functions
 ---------
@@ -66,8 +53,8 @@ Functions
 
   The following options are available in the options array.
 
-   * **recipient** (string or array) Set the recipient email address, either as a string or a tuple with localpart and domain. The default is ``$recipientlocalpart`` at ``$recipientdomain``.
-   * **transportid** (string) Set the transport ID. The default is ``$transportid``.
+   * **recipient** (string or array) Change the recipient email address, either as a string or a tuple with localpart and domain. The default is the ``recipientlocalpart`` argument `at` the ``recipientdomain`` argument.
+   * **transportid** (string) Change the transport ID. The default is the ``transportid`` argument.
    * **reason** (string) The reason to report. The default is a system generated message.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 

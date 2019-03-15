@@ -5,43 +5,45 @@ Connect
 
 This script is executed before the SMTP banner is sent.
 
-Pre-defined variables
----------------------
+Variables
+---------
 
-These are the read-only pre-defined variables available for each connection that is established.
+These are the pre-defined variables available.
 
-Connection
-^^^^^^^^^^
+========================== ======= ========= ===========
+Variable                   Type    Read-only Description
+========================== ======= ========= ===========
+:ref:`$arguments <v_a1>`   array   yes       Context/hook arguments
+:ref:`$connection <v_c1>`  array   yes       Connection/session bound
+:ref:`$transaction <v_t1>` array   yes       Transaction bound
+$context                   any     no        Connection bound user-defined (default none)
+========================== ======= ========= ===========
 
-These are the writable pre-defined variables available.
-
-================= ======= ===========
-Variable          Type    Description
-================= ======= ===========
-$context          any     Connection-bound variable
-================= ======= ===========
-
-Transaction
-^^^^^^^^^^^
-
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$transaction      array   ["id" => "18c190a3-93f..." Contains the transaction ID
-================= ======= ========================== ===========
+.. _v_a1:
 
 Arguments
-^^^^^^^^^
++++++++++
 
 ================= ======= ========================== ===========
-Variable          Type    Example                    Description
+Array item        Type    Example                    Description
 ================= ======= ========================== ===========
-$senderip         string  "192.168.1.11"             IP address of the connected client
-$senderport       number  41666                      TCP port of connected client
-$serverip         string  "10.0.0.1"                 IP address of the server
-$serverport       number  25                         TCP port of the server
-$serverid         string  "mailserver\:1"            ID of the server
+remoteip          string  "192.168.1.11"             IP address of the connected client
+remoteport        number  41666                      TCP port of connected client
+localip           string  "10.0.0.1"                 IP address of the server
+localport         number  25                         TCP port of the server
+serverid          string  "mailserver\:1"            ID of the server
 ================= ======= ========================== ===========
+
+.. _v_t1:
+
+Transaction
++++++++++++
+
+========================= ======= ========================== ===========
+Array item                Type    Example                    Description
+========================= ======= ========================== ===========
+id                        string  "18c190a3-93f-47d7-bd..."  ID of the transaction
+========================= ======= ========================== ===========
 
 Functions
 ---------
@@ -49,7 +51,7 @@ Functions
 .. function:: Accept([options])
 
   Allow the connection to be established.
-  Optionally change the ``$senderip`` and PTR of the accepted client connection, which is written back to the connection context.
+  Optionally change the ``remoteip`` and PTR of the accepted client connection, which is written back to the ``$connection`` variable.
 
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -57,8 +59,8 @@ Functions
   The following options are available in the options array.
 
    * **reason** (string) The greeting banner response.
-   * **senderip** (string) Set the IP address of the accepted client connection. The default is ``$senderip``.
-   * **senderptr** (string) Set the reverse DNS pointer (PTR) for the IP address.
+   * **remoteip** (string) Change the IP address of the accepted client connection.
+   * **remoteptr** (string) Set the reverse DNS pointer (PTR) for the IP address.
 
   .. note::
 
@@ -66,7 +68,7 @@ Functions
 
 	.. code::
 
-		$x = unpack("N*", inet_pton($senderip));
+		$x = unpack("N*", inet_pton($arguments["remoteip"]));
 		if (count($x) == 4 and $x[0:3] == [6619035, 0, 0]) // 64:ff9b::[IPv4]
 			$ip = inet_ntop(pack("N", $x[3]));
 

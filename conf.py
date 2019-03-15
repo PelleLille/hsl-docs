@@ -146,7 +146,7 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build', 'lib', 'lib64', 'func_getmailqueuemetric.rst', 'func_dns.rst', 'func_gettls.rst', 'func_serverarray.rst', 'func_eod.rst', 'var_transaction.rst']
+exclude_patterns = ['_build', 'lib', 'lib64', 'func_getmailqueuemetric.rst', 'func_dns.rst', 'func_gettls.rst', 'func_serverarray.rst', 'func_eod.rst', 'var_transaction.rst', 'var_connection.rst']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.

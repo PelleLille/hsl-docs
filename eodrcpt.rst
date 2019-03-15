@@ -36,11 +36,6 @@ Variable          Type    Description
 $context          any     Connection-bound variable
 ================= ======= ===========
 
-Transaction
-^^^^^^^^^^^
-
-.. include:: var_transaction.rst
-
 Arguments
 ^^^^^^^^^
 

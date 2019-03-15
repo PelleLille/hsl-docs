@@ -3,57 +3,64 @@
 AUTH
 ====
 
-The AUTH script allows trusted SMTP clients. The SASL mechanisms `LOGIN` and `PLAIN` are implemented in the SMTP engine and will populate the ``$saslusername`` and ``$saslpassword``. If you add support for custom authentication mechanisms you will need to use the ``$saslmechanism``, ``$saslstate`` and ``$saslresponse`` variables to do so.
+The AUTH script allows trusted SMTP clients. The SASL mechanisms `LOGIN` and `PLAIN` are implemented in the SMTP engine and will populate the ``saslusername`` and ``saslpassword`` argument. If you add support for custom authentication mechanisms you will need to use the ``saslmechanism``, ``saslstate`` and ``saslresponse`` arguments instead.
 
-Pre-defined variables
----------------------
+Variables
+---------
 
-These are the read-only pre-defined variables available for each `AUTH` command.
+These are the pre-defined variables available.
 
-Connection
-^^^^^^^^^^
+========================== ======= ========= ===========
+Variable                   Type    Read-only Description
+========================== ======= ========= ===========
+:ref:`$arguments <v_a3>`   array   yes       Context/hook arguments
+:ref:`$connection <v_c3>`  array   yes       Connection/session bound
+:ref:`$transaction <v_t3>` array   yes       Transaction bound
+$context                   any     no        Connection bound user-defined (default none)
+========================== ======= ========= ===========
 
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$senderip         string  "192.168.1.11"             IP address of the connected client
-$senderport       number  41666                      TCP port of connected client
-$serverip         string  "10.0.0.1"                 IP address of the server
-$serverport       number  25                         TCP port of the server
-$serverid         string  "mailserver\:1"            ID of the server
-$senderhelo       string  "mail.example.com"         HELO hostname of sender
-$tlsstarted       boolean false                      Whether or not the SMTP session is using TLS
-================= ======= ========================== ===========
-
-These are the writable pre-defined variables available.
-
-================= ======= ===========
-Variable          Type    Description
-================= ======= ===========
-$context          any     Connection-bound variable
-================= ======= ===========
-
-Transaction
-^^^^^^^^^^^
-
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$transaction      array   ["id" => "18c190a3-93f..." Contains the transaction ID
-================= ======= ========================== ===========
+.. _v_a3:
 
 Arguments
-^^^^^^^^^
++++++++++
 
 ================= ======= ========================== ===========
-Variable          Type    Example                    Description
+Array item        Type    Example                    Description
 ================= ======= ========================== ===========
-$saslusername     string  "mailuser"                 SASL username
-$saslpassword     string  "secret"                   SASL password
-$saslmechanism    string  "PLAIN"                    SASL mechanism (always in uppercase)
-$saslstate        number  0                          SASL state (incremeted per Reply)
-$saslresponse     string  none                       SASL response (not used with LOGIN or PLAIN)
+saslusername      string  "mailuser"                 SASL username
+saslpassword      string  "secret"                   SASL password
+saslmechanism     string  "PLAIN"                    SASL mechanism (always in uppercase)
+saslstate         number  0                          SASL state, incremeted per Reply (not available with LOGIN or PLAIN)
+saslresponse      string  none                       SASL response (not available with LOGIN or PLAIN)
 ================= ======= ========================== ===========
+
+.. _v_c3:
+
+Connection
+++++++++++
+
+================= ======= ========================== ===========
+Array item        Type    Example                    Description
+================= ======= ========================== ===========
+remoteip          string  "192.168.1.11"             IP address of the connected client
+remoteport        number  41666                      TCP port of connected client
+localip           string  "10.0.0.1"                 IP address of the server
+localport         number  25                         TCP port of the server
+serverid          string  "inbound"                  ID of the server
+helohost          string  "mail.example.com"         HELO hostname of sender (not always available)
+tlsstarted        boolean false                      Whether or not the SMTP session is using TLS
+================= ======= ========================== ===========
+
+.. _v_t3:
+
+Transaction
++++++++++++
+
+========================= ======= ========================== ===========
+Array item                Type    Example                    Description
+========================= ======= ========================== ===========
+id                        string  "18c190a3-93f-47d7-bd..."  ID of the transaction
+========================= ======= ========================== ===========
 
 Functions
 ---------
@@ -67,7 +74,7 @@ Functions
 
   The following options are available in the options array.
 
-   * **saslusername** (string) Set the username. The default is ``$saslusername`` (if available).
+   * **saslusername** (string) Set or change the username. The default is the ``saslusername`` argument (if available).
    * **reason** (string) The reason to report. The default is a system generated message.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
@@ -105,8 +112,8 @@ Functions
 
   :param string reply: the reply message
   :param array options: an options array
+  :increments: ``saslstate`` argument
   :return: doesn't return, script is terminated
-  :updates: ``$saslstate``
 
   The following options are available in the options array.
 
@@ -146,9 +153,9 @@ A flow chart diagram of how custom authentication is implemented::
 	                    |
 	                    v
 	+---------------------------------------+
-	|   $saslstate = 0                      |
+	|   saslstate = 0                       |
 	+---------------------------------------+      Accept()      +-------------------+
-	| > AUTH $saslmechanism [$saslresponse] | ---- Reject() ---> | AUTH request done |
+	| > AUTH  saslmechanism [saslresponse]  | ---- Reject() ---> | AUTH request done |
 	+---------------------------------------+      Defer()       +-------------------+
 	                    |                             ^
 	                    |                             |
@@ -157,9 +164,9 @@ A flow chart diagram of how custom authentication is implemented::
 	                    |                        |    |
 	                    v                        |    |
 	+---------------------------------------+    |    |
-	|   $saslstate += 1                     |    |    |
+	|   saslstate += 1                      |    |    |
 	+---------------------------------------+    |    |
-	| > $saslresponse                       | ---+----+
+	| > saslresponse                        | ---+----+
 	+---------------------------------------+    |
 	                    |                        |
 	                    |                        |

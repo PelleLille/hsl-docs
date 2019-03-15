@@ -5,56 +5,46 @@ MAIL FROM
 
 The ``MAIL FROM`` script allows verification of the sender.
 
-Pre-defined variables
----------------------
+Variables
+---------
 
-These are the read-only pre-defined variables available for `MAIL FROM` command.
+========================== ======= ========= ===========
+Variable                   Type    Read-only Description
+========================== ======= ========= ===========
+:ref:`$arguments <v_a4>`   array   yes       Context/hook arguments
+:ref:`$connection <v_c4>`  array   yes       Connection/session bound
+:ref:`$transaction <v_t4>` array   yes       Transaction bound
+$context                   any     no        Connection bound user-defined (default none)
+========================== ======= ========= ===========
 
-Connection
-^^^^^^^^^^
-
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$senderip         string  "192.168.1.11"             IP address of the connected client
-$senderport       number  41666                      TCP port of connected client
-$serverip         string  "10.0.0.1"                 IP address of the server
-$serverport       number  25                         TCP port of the server
-$serverid         string  "mailserver\:1"            ID of the server
-$senderhelo       string  "mail.example.com"         HELO hostname of sender
-$tlsstarted       boolean false                      Whether or not the SMTP session is using TLS
-$saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
-$saslusername     string  "mailuser"                 SASL username
-================= ======= ========================== ===========
-
-These are the writable pre-defined variables available.
-
-================= ======= ===========
-Variable          Type    Description
-================= ======= ===========
-$context          any     Connection-bound variable
-================= ======= ===========
-
-Transaction
-^^^^^^^^^^^
-
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$transaction      array   ["id" => "18c190a3-93f..." Contains the transaction ID
-================= ======= ========================== ===========
+.. _v_a4:
 
 Arguments
-^^^^^^^^^
++++++++++
 
 ================= ======= ========================== ===========
-Variable          Type    Example                    Description
+Array item        Type    Example                    Description
 ================= ======= ========================== ===========
-$sender           string  "test\@example.org"        Email address of sender (envelope), lowercase
-$senderlocalpart  string  "test"                     Local part of sender's address (envelope)
-$senderdomain     string  "example.org"              Domain part of sender's address (envelope)
-$senderparams     array   ["SIZE" => "2048", ... ]   Sender parameters to the envelope address
+sender            string  "test\@example.org"        Email address of sender (envelope), lowercase
+senderlocalpart   string  "test"                     Local part of sender's address (envelope)
+senderdomain      string  "example.org"              Domain part of sender's address (envelope)
+senderparams      array   ["SIZE" => "2048", ... ]   Sender parameters to the envelope address
 ================= ======= ========================== ===========
+
+.. _v_c4:
+
+.. include:: var_connection.rst
+
+.. _v_t4:
+
+Transaction
++++++++++++
+
+========================= ======= ========================== ===========
+Array item                Type    Example                    Description
+========================= ======= ========================== ===========
+id                        string  "18c190a3-93f-47d7-bd..."  ID of the transaction
+========================= ======= ========================== ===========
 
 Functions
 ---------
@@ -69,7 +59,7 @@ Functions
 
   The following options are available in the options array.
 
-   * **sender** (string or array) Set the sender email address, either as a string or a tuple with localpart and domain. The default is ``$senderlocalpart`` at ``$senderdomain``.
+   * **sender** (string or array) Change the sender email address, either as a string or a tuple with localpart and domain. The default is the ``senderlocalpart`` argument `at` the ``senderdomain`` argument.
    * **reason** (string) The reason to report. The default is a system generated message.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 

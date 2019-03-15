@@ -8,13 +8,13 @@
   =============== =======
   Type            Example
   =============== =======
-  senderip        $senderip
-  saslusername    $saslusername
-  sender          $sender
-  senderdomain    $senderdomain
-  recipient       $recipient
-  recipientdomain $recipientdomain
-  transportid     $transportid
+  remoteip        $connection["remoteip"]
+  saslusername    $connection["saslusername"]
+  sender          $transaction["sender"]
+  senderdomain    $transaction["senderdomain"]
+  recipient       $transaction["recipients"][0]["recipient"]
+  recipientdomain $transaction["recipients"][0]["recipientdomain"]
+  transportid     $transaction["recipients"][0]["transportid"]
   retry           1
   metadata.x      any metadata
   =============== =======

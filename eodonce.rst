@@ -6,44 +6,27 @@ Per message
 The per-message end-of-DATA script is executed once, when the message is fully received (but not yet accepted).
 To relay the message for all recipients, call :func:`Queue` for each ``$transaction["recipients"]`` and then :func:`Accept`.
 
-Pre-defined variables
----------------------
+Variables
+---------
 
-These are the read-only pre-defined variables available for each recipient (on a message).
+These are the read-only pre-defined variables available.
 
-Connection
-^^^^^^^^^^
+========================== ======= ========= ===========
+Variable                   Type    Read-only Description
+========================== ======= ========= ===========
+:ref:`$arguments <v_a6>`   array   yes       Context/hook arguments
+:ref:`$connection <v_c6>`  array   yes       Connection/session bound
+:ref:`$transaction <v_t6>` array   yes       Transaction bound
+$context                   any     no        Connection bound user-defined (default none)
+========================== ======= ========= ===========
 
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$senderip         string  "192.168.1.11"             IP address of the connected client
-$senderport       number  41666                      TCP port of connected client
-$serverip         string  "10.0.0.1"                 IP address of the server
-$serverport       number  25                         TCP port of the server
-$serverid         string  "mailserver\:1"            ID of the server
-$senderhelo       string  "mail.example.com"         HELO hostname of sender
-$tlsstarted       boolean false                      Whether or not the SMTP session is using TLS
-$saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
-$saslusername     string  "mailuser"                 SASL username
-================= ======= ========================== ===========
+.. _v_c6:
 
-These are the writable pre-defined variables available.
+.. include:: var_connection.rst
 
-================= ======= ===========
-Variable          Type    Description
-================= ======= ===========
-$context          any     Connection-bound variable
-================= ======= ===========
-
-Transaction
-^^^^^^^^^^^
+.. _v_t6:
 
 .. include:: var_transaction.rst
-
-Arguments
-^^^^^^^^^
-The are no arguments to the per-message end-of-DATA script. The mail data file is however available via several functions.
 
 Functions
 ---------
@@ -112,7 +95,7 @@ Queueing
 
   The following options are available in the options array.
 
-   * **sender** (string) The sender email address, either as a string or a tuple with localpart and domain. The default is ``$transaction["senderlocalpart"]`` at ``$transaction["senderdomain"]``.
+   * **sender** (string) The sender email address, either as a string or a tuple with localpart and domain. The default is ``$transaction["senderlocalpart"]`` `at` ``$transaction["senderdomain"]``.
    * **metadata** (array) Add metadata to the queued message, as a key-value pair array of strings.
    * **hold** (boolean) Put the message in the hold (inactive) queue.
    * **delay** (number) Delay the first delivery attempt, in seconds. The default is ``0``.
@@ -132,7 +115,7 @@ Queueing
 
   The following options are available in the options array.
 
-   * **sender** (string) the sender email address, either as a string or a tuple with localpart and domain. The default is ``$transaction["senderlocalpart"]`` at ``$transaction["senderdomain"]``.
+   * **sender** (string) the sender email address, either as a string or a tuple with localpart and domain. The default is ``$transaction["senderlocalpart"]`` `at` ``$transaction["senderdomain"]``.
    * **metadata** (array) add metadata to the history entry, as a key-value pair array of strings
    * **transportid** (string) the transport profile ID
    * **reason** (string) reason message

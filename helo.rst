@@ -5,61 +5,68 @@ HELO
 
 This script is executed on ``HELO`` and ``EHLO``. It allows verification of identification.
 
-Pre-defined variables
----------------------
+Variables
+---------
 
-These are the read-only pre-defined variables available for `HELO` and `EHLO` command.
+These are the pre-defined variables available.
 
-Connection
-^^^^^^^^^^
+========================== ======= ========= ===========
+Variable                   Type    Read-only Description
+========================== ======= ========= ===========
+:ref:`$arguments <v_a2>`   array   yes       Context/hook arguments
+:ref:`$connection <v_c2>`  array   yes       Connection/session bound
+:ref:`$transaction <v_t2>` array   yes       Transaction bound
+$context                   any     no        Connection bound user-defined (default none)
+========================== ======= ========= ===========
 
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$senderip         string  "192.168.1.11"             IP address of the connected client
-$senderport       number  41666                      TCP port of connected client
-$serverip         string  "10.0.0.1"                 IP address of the server
-$serverport       number  25                         TCP port of the server
-$serverid         string  "mailserver\:1"            ID of the server
-$tlsstarted       boolean false                      Whether or not the SMTP session is using TLS
-$saslauthed       boolean true                       Whether or not the SMTP session is authenticated (SASL)
-$saslusername     string  "mailuser"                 SASL username
-================= ======= ========================== ===========
-
-These are the writable pre-defined variables available.
-
-================= ======= ===========
-Variable          Type    Description
-================= ======= ===========
-$context          any     Connection-bound variable
-================= ======= ===========
-
-Transaction
-^^^^^^^^^^^
-
-================= ======= ========================== ===========
-Variable          Type    Example                    Description
-================= ======= ========================== ===========
-$transaction      array   ["id" => "18c190a3-93f..." Contains the transaction ID
-================= ======= ========================== ===========
+.. _v_a2:
 
 Arguments
-^^^^^^^^^
++++++++++
 
 ================= ======= ========================== ===========
-Variable          Type    Example                    Description
+Array item        Type    Example                    Description
 ================= ======= ========================== ===========
-$senderhelo       string  "mail.example.com"         HELO hostname of sender
-$senderhelotype   string  "EHLO"                     HELO or EHLO command
+helohost          string  "mail.example.com"         HELO hostname of sender
+heloverb          string  "EHLO"                     HELO or EHLO command
 ================= ======= ========================== ===========
+
+.. _v_c2:
+
+Connection
+++++++++++
+
+================= ======= ========================== ===========
+Array item        Type    Example                    Description
+================= ======= ========================== ===========
+remoteip          string  "192.168.1.11"             IP address of the connected client
+remoteport        number  41666                      TCP port of connected client
+localip           string  "10.0.0.1"                 IP address of the server
+localport         number  25                         TCP port of the server
+serverid          string  "inbound"                  ID of the server
+tlsstarted        boolean false                      Whether or not the SMTP session is using TLS
+saslauthed        boolean true                       Whether or not the SMTP session is authenticated (SASL)
+saslusername      string  "mailuser"                 SASL username (not always available)
+================= ======= ========================== ===========
+
+.. _v_t2:
+
+Transaction
++++++++++++
+
+========================= ======= ========================== ===========
+Array item                Type    Example                    Description
+========================= ======= ========================== ===========
+id                        string  "18c190a3-93f-47d7-bd..."  ID of the transaction
+========================= ======= ========================== ===========
+
 
 Functions
 ---------
 
 .. function:: Accept([options])
 
-  Accept the `HELO` or `EHLO` command.
-  Optionally change the ``$senderhelo`` of the sending client, which is written back to the connection context.
+  Accept the `HELO` or `EHLO` command. Optionally change the ``helohost`` of the sending client, which is written back to the ``$connection`` variable.
 
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -67,7 +74,7 @@ Functions
   The following options are available in the options array.
 
    * **extensions** (array) SMTP service extensions to announce in EHLO responses.
-   * **senderhelo** (string) Set the HELO hostname for the current connection. The default is ``$senderhelo``.
+   * **senderhelo** (string) Change the HELO hostname for the current connection.
    * **reason** (string) First line of the response. The default is the system hostname.
 
 .. function:: Reject([reason, [options]])
