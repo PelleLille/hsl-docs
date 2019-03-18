@@ -29,7 +29,7 @@ recipient           string  "test\@example.com"        Email address of recipien
 recipientlocalpart  string  "test"                     Local part of recipient's address (envelope)
 recipientdomain     string  "example.com"              Domain part of recipient's address (envelope)
 recipientparams     array   ["NOTIFY" => "NEVER", .. ] Recipient parameters to the envelope address
-transportid         string  "mailtransport\:1"         ID of the transport profile to be used
+transportid         string  "inbound"                  ID of the transport profile to be used
 =================== ======= ========================== ===========
 
 .. _v_c5:

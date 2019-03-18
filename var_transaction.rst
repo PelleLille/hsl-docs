@@ -24,5 +24,5 @@ recipient            string  "test\@example.com"        Recipient address, lower
 recipientlocalpart   string  "test"                     Local part of recipient address
 recipientdomain      string  "example.com"              Domain part of recipient address
 recipientparams      array   ["NOTIFY" => "NEVER", .. ] Recipient parameters to the envelope address
-transportid          string  "mx"                       Transport ID for recipient
+transportid          string  "inbound"                  Transport ID for recipient
 ==================== ======= ========================== ===========
