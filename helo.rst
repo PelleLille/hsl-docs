@@ -29,7 +29,7 @@ Array item        Type    Example                    Description
 ================= ======= ========================== ===========
 helohost          string  "mail.example.com"         HELO hostname of sender
 heloverb          string  "EHLO"                     HELO or EHLO command
-extensions        array   ["PIPELINING", "SIZE 1...  The extensions to be sent to the client (if EHLO was used)
+extensions        array   ["PIPELINING", "SIZE 1...  The extensions to be sent to the client (if EHLO was issued)
 ================= ======= ========================== ===========
 
 .. _v_c2:
