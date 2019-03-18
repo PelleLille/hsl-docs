@@ -29,6 +29,7 @@ Array item        Type    Example                    Description
 ================= ======= ========================== ===========
 helohost          string  "mail.example.com"         HELO hostname of sender
 heloverb          string  "EHLO"                     HELO or EHLO command
+extensions        array   ["PIPELINING", "SIZE 1...  The extensions to be sent to the client (if EHLO was used)
 ================= ======= ========================== ===========
 
 .. _v_c2:
@@ -74,7 +75,7 @@ Functions
   The following options are available in the options array.
 
    * **extensions** (array) SMTP service extensions to announce in EHLO responses.
-   * **senderhelo** (string) Change the HELO hostname for the current connection.
+   * **helohost** (string) Change the HELO hostname for the current connection.
    * **reason** (string) First line of the response. The default is the system hostname.
 
 .. function:: Reject([reason, [options]])
@@ -104,13 +105,6 @@ Functions
 
    * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
-
-.. function:: GetExtensions()
-
-  Return the current SMTP service extensions to be sent if the EHLO command was issued.
-
-  :return: the current SMTP service extensions
-  :rtype: array
 
 .. include:: func_gettls.rst
 
