@@ -594,6 +594,8 @@ The `class` statement can be used to declare new types of classes. The `class-na
 		private $variable = initial-value;
 		private function-name() {};
 
+		readonly $variable = initial-value;
+
 		static $variable = initial-value;
 		static function function-name() {}
 
@@ -711,6 +713,29 @@ Variables and functions may be declared as private, in which case they can only 
 	$x = Foo();
 	$x->publicAPI();
 	Foo::publicAPI2();
+
+Permissions
+^^^^^^^^^^^
+
+The default permissions of public class variable allows for read and write access.
+
+readonly
+********
+
+Variables may be declared as readonly, in which case they can only be written to from within function on the same instance.
+
+.. code-block:: hsl
+
+	class Foo
+	{
+		readonly $count = 0;
+
+		function inc() { $this->count += 1; }
+	}
+	$x = Foo();
+	$x->inc();
+	echo $x->count; // 1
+	$x->count = 2; // Error
 
 cache
 -----
