@@ -356,7 +356,7 @@ It's possible to write new functions in HSL, and also to override builtin :doc:`
 Named functions
 ^^^^^^^^^^^^^^^
 
-A function may be named (in order to be callable by its name) according to the regular expression pattern :regexp:`[a-zA-Z_]+[a-zA-Z_0-9]*` with the exception of reserved keywords. In order to prevent naming conflicts in the future with added reserved keywords; it may be a good idea to prefix the function name with a unique identifier like ``halon_func``.
+A function may be named (in order to be callable by its name) according to the regular expression pattern :regexp:`[a-zA-Z_]+[a-zA-Z0-9_]*` with the exception of reserved keywords. In order to prevent naming conflicts in the future with added reserved keywords; it may be a good idea to prefix the function name with a unique identifier like ``halon_func``.
 
 ``and`` ``array`` ``as`` ``barrier`` ``break`` ``builtin`` ``cache`` ``case`` ``class`` ``closure`` ``constructor`` ``continue`` ``default`` ``echo`` ``else`` ``false`` ``for`` ``foreach`` ``forever`` ``from`` ``function`` ``global`` ``if`` ``import`` ``include`` ``include_once`` ``isset`` ``not`` ``none`` ``object`` ``or`` ``private`` ``readonly`` ``return`` ``switch`` ``true`` ``unset`` ``while`` ``with``
 

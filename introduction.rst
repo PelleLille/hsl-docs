@@ -8,7 +8,7 @@ If you want to test out the language there is a `REPL <http://en.wikipedia.org/w
 Variables
 ---------
 
-Variables may store values from expression (e.g. constants or function calls) or callable function objects such as anonymous functions and named function pointers. In HSL variables are prefixed with ``$`` followed by :regexp:`[a-zA-Z]+[a-zA-Z0-9]*`. Variable names are case-sensitive. Some variables are read-only, hence they are not allowed to be assigned to (primarily pre-defined variables in contexts). Variables are assigned by value (`copy-on-write <http://en.wikipedia.org/wiki/Copy-on-write>`_).
+Variables may store values from expression (e.g. constants or function calls) or callable function objects such as anonymous functions and named function pointers. In HSL variables are prefixed with ``$`` followed by :regexp:`[a-zA-Z_]+[a-zA-Z0-9_]*`. Variable names are case-sensitive. Some variables are read-only, hence they are not allowed to be assigned to (primarily pre-defined variables in contexts). Variables are assigned by value (`copy-on-write <http://en.wikipedia.org/wiki/Copy-on-write>`_).
 
 .. code-block:: hsl
 
