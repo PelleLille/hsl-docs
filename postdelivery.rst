@@ -163,7 +163,7 @@ Functions
 
    * **started** (boolean) If STARTTLS was issued.
    * **protocol** (string) The protocol used (eg. ``TLSv1.2``)
-   * **ciphers** (string) The cipher used (eg. ``ECDHE-RSA-AES256-SHA384``).
+   * **cipher** (string) The cipher used (eg. ``ECDHE-RSA-AES256-SHA384``).
    * **keysize** (number) The keysize used (eg. ``256``).
    * **peer_cert** (array) The peer certificate (if requested by :func:`predelivery.SetTLS`). Same format as :func:`TLSSocket.getpeercert`.
    * **tlsrpt** (string) TLS reporting result.
