@@ -73,13 +73,13 @@ Functions
 ---------
 
 * **Actions** :func:`Accept` :func:`Reject` :func:`Defer`
-* **Queueing** :func:`Queue` :func:`History`
-* **DATA, MIME and attachments** :func:`GetMailMessage` :cpp:class:`MailMessage` :cpp:class:`MIMEPart` 
+* **Logging** :func:`History`
+* **DATA, MIME and attachments** :cpp:class:`MailMessage` :cpp:class:`MIMEPart`
 * **Embedded scanning** :func:`ScanDMARC` :func:`ScanDLP` :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM`
 * **Miscellaneous** :func:`GetMailQueueMetric`
 
 Actions
-^^^^^^^
++++++++
 
 .. function:: Accept([options])
 
@@ -120,26 +120,8 @@ Actions
    * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
-Queueing
-^^^^^^^^
-
-.. function:: Queue(recipient, transportid, [options])
-
-  Queue the message.
-
-  :param recipient: the recipient email address, either as a string or a tuple with localpart and domain
-  :type recipient: string or array
-  :param string transportid: the transport profile ID
-  :param array options: an options array
-  :return: true (or none)
-  :rtype: boolean or none
-
-  The following options are available in the options array.
-
-   * **sender** (string) The sender email address, either as a string or a tuple with localpart and domain. The default is ``$transaction["senderlocalpart"]`` `at` ``$transaction["senderdomain"]``.
-   * **metadata** (array) Add metadata to the queued message, as a key-value pair array of strings.
-   * **hold** (boolean) Put the message in the hold (inactive) queue.
-   * **delay** (number) Delay the first delivery attempt, in seconds. The default is ``0``.
+Logging
++++++++
 
 .. function:: History(action, recipient, [options])
 

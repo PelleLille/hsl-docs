@@ -1,5 +1,5 @@
 DATA, MIME and attachments
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++
 
 .. function:: GetMailMessage()
 
@@ -137,7 +137,25 @@ DATA, MIME and attachments
 
     The resulting array always contains a ``result`` field of either ``pass``, ``permerror`` or ``temperror``. In case of an error the reason is included in an ``error`` field. If the header was successfully parsed (regardless of the result) a ``tags`` field will be included. 
 
-  .. function:: MailMessage.send(sender, recipients, server)
+  .. function:: MailMessage.queue(sender, recipient, transportid, [options])
+
+    Queue the message.
+
+    :param sender: the sender email address, either as a string or a tuple with localpart and domain
+    :param recipient: the recipient email address, either as a string or a tuple with localpart and domain
+    :type recipient: string or array
+    :param string transportid: the transport profile ID
+    :param array options: an options array
+    :return: true (or none)
+    :rtype: boolean or none
+
+    The following options are available in the options array.
+
+     * **metadata** (array) Add metadata to the queued message, as a key-value pair array of strings.
+     * **hold** (boolean) Put the message in the hold (inactive) queue.
+     * **delay** (number) Delay the first delivery attempt, in seconds. The default is ``0``.
+
+  .. function:: MailMessage.deliver(sender, recipients, server)
 
     Try to send the message to the server.
 
@@ -443,7 +461,8 @@ DATA, MIME and attachments
 	  :rtype: array of :cpp:class:`MIMEPart` objects
 
 DKIM
-^^^^
+++++
+
 These are DKIM-related functions, including DMARC. Other modules, such as ARC, is available in the `authentication script library <https://github.com/halon/hsl-examples/tree/master/authentication>`_.
 
 .. function:: ScanDMARC()
@@ -464,7 +483,8 @@ These are DKIM-related functions, including DMARC. Other modules, such as ARC, i
   ================================== ==========
 
 Embedded content scanning
-^^^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++++
+
 These functions scan the message file using various engines.
 While the DLP engine ``dlpd`` is included in all software packages, the embedded anti-spam and anti-virus engines are only available in the full system distribution (virtual machine) package.
 All connectors are available in the `script library <https://github.com/halon/hsl-examples/>`_.
@@ -640,7 +660,7 @@ All connectors are available in the `script library <https://github.com/halon/hs
 	   * **error** (boolean) Indicates if there was an error during the scanning
 
 Miscellaneous
-^^^^^^^^^^^^^
++++++++++++++
 
 .. function:: GetMailQueueMetric([options])
 
