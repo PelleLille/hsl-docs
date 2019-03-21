@@ -2136,54 +2136,74 @@ Socket
 	  :return: errno
 	  :rtype: number
 
-  .. function:: TLSSocket.getpeercert([options])
+  .. function:: TLSSocket.getpeerx509()
 
-	  Get the peer certificate (X.509) given during the handshake as an associative array.
+	  Get the peer certificate (X.509) as a :class:`X509` instance.
 
-	  :param array options: options array
-	  :return: X.509 certificate data
-	  :rtype: array
+	  :return: The peer certificate
+	  :rtype: :class:`X509`
 
-	  The following options are available in the options array.
+.. class:: X509
 
-	   * **fingerprint** (string) Generate the fingerprint of the certificate using one of the following hash function (``md5``, ``sha1``, ``sha256`` or ``sha512``). The default no hashing.
+  This class allows you to parse an X509 resource. The X509 class takes a `X509Resource`.
 
-	  The following items are available in the result.
+  .. function:: X509.constructor(x509resource)
 
-	   * **subject** (array) The subject, if there are duplicate attribute types (eg. C or CN) the attribute value will be an array instead
-	   * **issuer** (array) The issuer, if there are duplicate attribute types (eg. C or CN) the attribute value will be an array instead
-	   * **subject_alt_name** (array) The subject alt names ``DNS`` items
-	   * **version** (number) The version of the X.509 certificate
-	   * **serial_number** (string) The serial number in HEX
-	   * **not_valid_before** (number) The start date of the certificate (in unix time)
-	   * **not_valid_after** (number) The end date of the certificate (in unix time)
-	   * **fingerprint** (string) The certificate fingerprint (if requested)
+    :param X509Resource x509resource: a X509Resource
 
-	  .. note::
+  .. function:: X509.fingerprint(algorithm)
 
-		Example output (using :func:`json_encode` with pretty print)::
+	  Generate the fingerprint of the certificate using one of the following hash function (``md5``, ``sha1``, ``sha256`` or ``sha512``).
 
-			{
-				"subject": {
-					"C": "US",
-					"ST": "California",
-					"L": "Mountain View",
-					"O": "Google Inc",
-					"CN": "mail.google.com"
-				},
-				"issuer": {
-					"C": "US",
-					"O": "Google Trust Services",
-					"CN": "Google Internet Authority G3"
-				},
-				"subject_alt_name": {
-					"DNS": [
-						"mail.google.com",
-						"inbox.google.com"
-					]
-				},
-				"version": 2,
-				"serial_number": "5d8bca2821d49564",
-				"not_valid_before": 1511950612,
-				"not_valid_after": 1519205880
-			}
+	  :param string algorithm: the hash algorithm
+	  :return: The fingerprint using the hash algorithm
+	  :rtype: string
+
+  .. attribute:: subject
+
+    The subject, if there are duplicate attribute types (eg. C or CN) the attribute value will be an array instead
+
+    :type: array
+    :read-only: yes
+
+  .. attribute:: issuer
+
+    The issuer, if there are duplicate attribute types (eg. C or CN) the attribute value will be an array instead
+
+    :type: array
+    :read-only: yes
+
+  .. attribute:: subject_alt_name
+
+    The subject alt names (DNS) items
+
+    :type: array
+    :read-only: yes
+
+  .. attribute:: version
+
+    The version of the X.509 certificate
+
+    :type: number
+    :read-only: yes
+
+  .. attribute:: serial_number
+
+    The serial number in HEX
+
+    :type: string
+    :read-only: yes
+
+  .. attribute:: not_valid_before
+
+    The start date of the certificate (in unix time)
+
+    :type: number
+    :read-only: yes
+
+  .. attribute:: not_valid_after
+
+    The end date of the certificate (in unix time)
+
+    :type: number
+    :read-only: yes
