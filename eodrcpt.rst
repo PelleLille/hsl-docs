@@ -6,7 +6,7 @@ Per recipient
 The per-recipient end-of-DATA script is executed once for every recipient when the message is fully received (but not yet accepted).
 If multiple types of actions are performed, the response message (sent back to the client) will be chosen in the order of reject, defer, quarantine, delete and deliver.
 
-Pre-defined variables
+Variables
 ---------------------
 
 These are the read-only pre-defined variables available for each recipient (on a message).

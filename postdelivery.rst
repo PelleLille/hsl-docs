@@ -5,7 +5,7 @@ Post-delivery
 
 The post-delivery script is executed after a delivery attempt or when a message is deleted or bounced from the queue. If the message was deleted from the queue (either manually or by retention) the ``$context`` variable will not be defined.
 
-Pre-defined variables
+Variables
 ---------------------
 
 These are the read-only pre-defined variables available each time after a delivery attempt is made.

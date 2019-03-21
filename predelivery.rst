@@ -5,7 +5,7 @@ Pre-delivery
 
 The pre-delivery script is executed just before a delivery attempt of a message that is being picked up from the queue.
 
-Pre-defined variables
+Variables
 ---------------------
 
 These are the read-only pre-defined variables available. Some of them can be changed using the functions below.

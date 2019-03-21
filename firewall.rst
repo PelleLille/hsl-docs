@@ -5,7 +5,7 @@ Firewall
 
 The firewall script acts as a firewall. It can be enabled for services sush as HTTP, FTP, SSH and SNMP.
 
-Pre-defined variables
+Variables
 ---------------------
 
 These are the read-only pre-defined variables available for each connection that is established.

@@ -28,7 +28,7 @@ Arguments
 ================= ======================== ========================== ===========
 Array item        Type                     Example                    Description
 ================= ======================== ========================== ===========
-mail              :cpp:class:`MailMessage`                             A :cpp:class:`MailMessage` instance
+mail              :cpp:class:`MailMessage`                             An instance of the mail message
 ================= ======================== ========================== ===========
 
 .. _v_c6:

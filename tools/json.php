@@ -17,27 +17,101 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 		$result[$file] = [];
 		if (file_exists($inputPath.$file.'.xml')) {
 			$xml = simplexml_load_file($inputPath.$file.'.xml');
-			$variables = $xml->xpath('//*[@ids="pre-defined-variables"]')[0];
+			$variables = $xml->xpath('//*[@ids="variables"]')[0];
 			$i = 0;
 			$tables = $variables->xpath('.//table');
 			foreach ($tables as $table) {
-				$rows = $table->tgroup->tbody->row;
-				foreach ($rows as $row) {
-					$name = (string) $row->entry[0]->paragraph;
-					$type = (string) $row->entry[1]->paragraph;
-					if ($name[0] === '$') {
-						$result[$file][$i]['name'] = $name;
-						$result[$file][$i]['type'] = $type;
-						if ($name === '$context') {
-							$result[$file][$i]['detail'] = $type.' '.$name;
-							$result[$file][$i]['documentation'] = (string) $row->entry[2]->paragraph;
+				if ($file == 'eodrcpt' || $file === 'predelivery' || $file === 'postdelivery' || $file === 'api' || $file === 'firewall') {
+					$rows = $table->tgroup->tbody->row;
+					foreach ($rows as $row) {
+						$name = (string) $row->entry[0]->paragraph;
+						$type = (string) $row->entry[1]->paragraph;
+						if ($name[0] === '$') {
+							$result[$file][$i]['name'] = $name;
+							$result[$file][$i]['type'] = $type;
+							if ($name === '$context') {
+								$result[$file][$i]['detail'] = $type.' '.$name;
+								$result[$file][$i]['documentation'] = (string) $row->entry[2]->paragraph;
+							}
+							else {
+								$result[$file][$i]['detail'] = $type.' readonly '.$name;
+								$result[$file][$i]['documentation'] = (string) $row->entry[3]->paragraph;
+								$result[$file][$i]['example'] = (string) $row->entry[2]->paragraph;
+							}
+							$i += 1;
 						}
-						else {
-							$result[$file][$i]['detail'] = $type.' readonly '.$name;
-							$result[$file][$i]['documentation'] = (string) $row->entry[3]->paragraph;
-							$result[$file][$i]['example'] = (string) $row->entry[2]->paragraph;
+					}
+				} else {
+					$title = (string) $table->xpath('parent::*')[0]->title;
+					if ($title === 'Variables') {
+						// Variables
+						$rows = $table->tgroup->tbody->row;
+						foreach ($rows as $row) {
+							if (isset($row->entry[0]->paragraph->reference)) {
+								$name = (string) $row->entry[0]->paragraph->reference->inline;
+							} else if (isset($row->entry[0]->paragraph->inline)) {
+								$name = (string) $row->entry[0]->paragraph->inline;
+							} else {
+								$name = (string) $row->entry[0]->paragraph;
+							}
+	
+							if (isset($row->entry[1]->paragraph->reference)) {
+								$type = (string) $row->entry[1]->paragraph->reference->literal;
+							} else if (isset($row->entry[1]->paragraph->inline)) {
+								$type = (string) $row->entry[1]->paragraph->inline;
+							} else {
+								$type = (string) $row->entry[1]->paragraph;
+							}
+	
+							$readonly = (string) $row->entry[2]->paragraph;
+							$documentation = (string) $row->entry[3]->paragraph;
+	
+							$result[$file][$i]['name'] = $name;
+							$result[$file][$i]['type'] = $type;
+							if ($readonly === 'yes') {
+								$result[$file][$i]['detail'] = $type.' readonly '.$name;
+							} else {
+								$result[$file][$i]['detail'] = $type.' '.$name;
+							}
+							$result[$file][$i]['documentation'] = $documentation;
+							$i += 1;
 						}
-						$i += 1;
+					} else {
+						// Properties
+						$variable = '$'.strtolower($title);
+						$rows = $table->tgroup->tbody->row;
+						foreach ($rows as $row) {
+							if (isset($row->entry[0]->paragraph->reference)) {
+								$name = (string) $row->entry[0]->paragraph->reference->inline;
+							} else if (isset($row->entry[0]->paragraph->inline)) {
+								$name = (string) $row->entry[0]->paragraph->inline;
+							} else {
+								$name = (string) $row->entry[0]->paragraph;
+							}
+	
+							if (isset($row->entry[1]->paragraph->reference)) {
+								$type = (string) $row->entry[1]->paragraph->reference->literal;
+							} else if (isset($row->entry[1]->paragraph->inline)) {
+								$type = (string) $row->entry[1]->paragraph->inline;
+							} else {
+								$type = (string) $row->entry[1]->paragraph;
+							}
+	
+							$example = (string) $row->entry[2]->paragraph;
+							$documentation = (string) $row->entry[3]->paragraph;
+				
+							$result[$file] = array_map(function($item) use ($variable, $name, $type, $example, $documentation) {
+								if ($variable == $item['name']) {
+									$item['keys'][] = [
+										'name' => $name,
+										'type' => $type,
+										'example' => $example,
+										'documentation' => $documentation
+									];
+								}
+								return $item;
+							}, $result[$file]);
+						}
 					}
 				}
 			}
