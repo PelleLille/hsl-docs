@@ -650,5 +650,3 @@ Miscellaneous
   :rtype: number
 
 .. include:: func_getmailqueuemetric.rst
-
-.. include:: func_gettls.rst

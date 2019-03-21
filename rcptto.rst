@@ -34,7 +34,37 @@ transportid         string  "inbound"                  ID of the transport profi
 
 .. _v_c5:
 
-.. include:: var_connection.rst
+Connection
+++++++++++
+
+================= ======= ========================== ===========
+Array item        Type    Example                    Description
+================= ======= ========================== ===========
+remoteip          string  "192.168.1.11"             IP address of the connected client
+remoteport        number  41666                      TCP port of connected client
+localip           string  "10.0.0.1"                 IP address of the server
+localport         number  25                         TCP port of the server
+serverid          string  "inbound"                  ID of the server
+helohost          string  "mail.example.com"         HELO hostname of sender (not always available)
+:ref:`tls <tls5>` array                              TLS information (if TLS was started)
+saslauthed        boolean true                       Whether or not the SMTP session is authenticated (SASL)
+saslusername      string  "mailuser"                 SASL username (not always available)
+================= ======= ========================== ===========
+
+.. _tls5:
+
+TLS
+>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+protocol             string  "TLSv1.3"                  The protocol
+cipher               string  "ECDHE-RSA-AES256-SHA384"  The cipher
+keysize              number  256                        The keysize
+peercert             x509                               The peer certificate (if provided by the client)
+peercerterror        number  18                         The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))
+==================== ======= ========================== ===========
 
 .. _v_t5:
 
@@ -94,8 +124,6 @@ Functions
   :rtype: number
 
 .. include:: func_getmailqueuemetric.rst
-
-.. include:: func_gettls.rst
 
 On script error
 ---------------

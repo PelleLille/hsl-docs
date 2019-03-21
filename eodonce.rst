@@ -20,9 +20,50 @@ Variable                   Type    Read-only Description
 $context                   any     no        Connection bound user-defined (default none)
 ========================== ======= ========= ===========
 
+.. _v_a6:
+
+Arguments
++++++++++
+
+================= ======================== ========================== ===========
+Array item        Type                     Example                    Description
+================= ======================== ========================== ===========
+mail              :cpp:class:`MailMessage`                             A :cpp:class:`MailMessage` instance
+================= ======================== ========================== ===========
+
 .. _v_c6:
 
-.. include:: var_connection.rst
+Connection
+++++++++++
+
+================= ======= ========================== ===========
+Array item        Type    Example                    Description
+================= ======= ========================== ===========
+remoteip          string  "192.168.1.11"             IP address of the connected client
+remoteport        number  41666                      TCP port of connected client
+localip           string  "10.0.0.1"                 IP address of the server
+localport         number  25                         TCP port of the server
+serverid          string  "inbound"                  ID of the server
+helohost          string  "mail.example.com"         HELO hostname of sender (not always available)
+:ref:`tls <tls6>` array                              TLS information (if TLS was started)
+saslauthed        boolean true                       Whether or not the SMTP session is authenticated (SASL)
+saslusername      string  "mailuser"                 SASL username (not always available)
+================= ======= ========================== ===========
+
+.. _tls6:
+
+TLS
+>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+protocol             string  "TLSv1.3"                  The protocol
+cipher               string  "ECDHE-RSA-AES256-SHA384"  The cipher
+keysize              number  256                        The keysize
+peercert             x509                               The peer certificate (if provided by the client)
+peercerterror        number  18                         The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))
+==================== ======= ========================== ===========
 
 .. _v_t6:
 
@@ -35,7 +76,7 @@ Functions
 * **Queueing** :func:`Queue` :func:`History`
 * **DATA, MIME and attachments** :func:`GetMailMessage` :cpp:class:`MailMessage` :cpp:class:`MIMEPart` 
 * **Embedded scanning** :func:`ScanDMARC` :func:`ScanDLP` :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM`
-* **Miscellaneous** :func:`GetMailQueueMetric` :func:`GetTLS`
+* **Miscellaneous** :func:`GetMailQueueMetric`
 
 Actions
 ^^^^^^^

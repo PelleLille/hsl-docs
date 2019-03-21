@@ -146,6 +146,8 @@ Actions
 
 .. include:: func_eod.rst
 
+.. include:: func_gettls.rst
+
 Arguments
 ^^^^^^^^^
 Those functions update the current recipient execution (``$actionid``) arguments, which is used by action functions such as :func:`Deliver`.

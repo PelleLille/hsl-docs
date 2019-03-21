@@ -27,8 +27,8 @@ Arguments
 ================= ======= ========================== ===========
 Array item        Type    Example                    Description
 ================= ======= ========================== ===========
-saslusername      string  "mailuser"                 SASL username
-saslpassword      string  "secret"                   SASL password
+saslusername      string  "mailuser"                 SASL username (only available with LOGIN or PLAIN)
+saslpassword      string  "secret"                   SASL password (only available with LOGIN or PLAIN)
 saslmechanism     string  "PLAIN"                    SASL mechanism (always in uppercase)
 saslstate         number  0                          SASL state, incremeted per Reply (not available with LOGIN or PLAIN)
 saslresponse      string  none                       SASL response (not available with LOGIN or PLAIN)
@@ -48,8 +48,23 @@ localip           string  "10.0.0.1"                 IP address of the server
 localport         number  25                         TCP port of the server
 serverid          string  "inbound"                  ID of the server
 helohost          string  "mail.example.com"         HELO hostname of sender (not always available)
-tlsstarted        boolean false                      Whether or not the SMTP session is using TLS
+:ref:`tls <tls3>` array                              TLS information (if TLS was started)
 ================= ======= ========================== ===========
+
+.. _tls3:
+
+TLS
+>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+protocol             string  "TLSv1.3"                  The protocol
+cipher               string  "ECDHE-RSA-AES256-SHA384"  The cipher
+keysize              number  256                        The keysize
+peercert             x509                               The peer certificate (if provided by the client)
+peercerterror        number  18                         The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))
+==================== ======= ========================== ===========
 
 .. _v_t3:
 
@@ -128,8 +143,6 @@ Functions
   :rtype: number
 
 .. include:: func_getmailqueuemetric.rst
-
-.. include:: func_gettls.rst
 
 On script error
 ---------------

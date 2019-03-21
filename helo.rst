@@ -45,10 +45,25 @@ remoteport        number  41666                      TCP port of connected clien
 localip           string  "10.0.0.1"                 IP address of the server
 localport         number  25                         TCP port of the server
 serverid          string  "inbound"                  ID of the server
-tlsstarted        boolean false                      Whether or not the SMTP session is using TLS
+:ref:`tls <tls2>` array                              TLS information (if TLS was started)
 saslauthed        boolean true                       Whether or not the SMTP session is authenticated (SASL)
 saslusername      string  "mailuser"                 SASL username (not always available)
 ================= ======= ========================== ===========
+
+.. _tls2:
+
+TLS
+>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+protocol             string  "TLSv1.3"                  The protocol
+cipher               string  "ECDHE-RSA-AES256-SHA384"  The cipher
+keysize              number  256                        The keysize
+peercert             x509                               The peer certificate (if provided by the client)
+peercerterror        number  18                         The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))
+==================== ======= ========================== ===========
 
 .. _v_t2:
 
@@ -105,8 +120,6 @@ Functions
 
    * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
-
-.. include:: func_gettls.rst
 
 On script error
 ---------------
