@@ -1291,7 +1291,7 @@ MIME
 	  :return: the MIME as string
 	  :rtype: string
 
-  .. function:: MIME.send(sender, recipient, transportid, [options])
+  .. function:: MIME.queue(sender, recipient, transportid, [options])
 
 	  Put the MIME message (email) into the queue.
 
@@ -1313,7 +1313,7 @@ MIME
 		MIME()
 			->addHeader("Subject", "Hello")
 			->setBody("Hi, how are you?")
-			->send("", "info@example.com", "mailtransport:1");
+			->queue("", "info@example.com", "mailtransport:1");
 
 Misc
 ----
