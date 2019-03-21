@@ -12,7 +12,8 @@ Halon's scripting language is a domain-specific language (`DSL <http://en.wikipe
    operators
    structures
    functions
-   contexts
+   smtpserver
+   smtpqueue
    system
 
 

@@ -143,6 +143,9 @@ Logging
    * **transportid** (string) the transport profile ID
    * **reason** (string) reason message
 
+DATA, MIME and attachments
+++++++++++++++++++++++++++
+
 .. include:: func_eod.rst
 
 On script error

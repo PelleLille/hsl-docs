@@ -144,6 +144,46 @@ Actions
 
   :return: doesn't return, script is terminated
 
+DATA, MIME and attachments
+++++++++++++++++++++++++++
+
+.. function:: GetMailMessage()
+
+  :return: A MailMessage reference
+  :rtype: :cpp:class:`MailMessage`
+
+  This is a "factory function" which returns a :cpp:class:`MailMessage` object reference to the DATA (message) received as the result of the End-of-DATA command.
+
+  .. code-block:: hsl
+
+	GetMailMessage()->appendPart(
+		MIME()
+			->setType("multipart/alternative")
+			->appendPart(
+				MIME()
+					->setType("text/plain")
+					->setBody("This is a custom footer")
+				)
+			->appendPart(
+				MIME()
+					->setType("multipart/related")
+					->appendPart(
+						MIME()
+							->setType("text/html")
+							->setBody("This is a custom footer with an image <img src='cid:logo.png'>")
+					)
+					->appendPart(
+						MIME()
+							->setType("image/png")
+							->addHeader("Content-ID", "logo.png")
+							->setBody(
+								cache [ "ttl" => 3600 * 24 * 7 ]
+									http("https://pbs.twimg.com/profile_images/656816032930119680/52m1eugJ.jpg")
+							)
+					)
+				)
+	);
+
 .. include:: func_eod.rst
 
 .. include:: func_gettls.rst
