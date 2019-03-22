@@ -27,8 +27,8 @@ Arguments
 ================= ======= ========================== ===========
 Array item        Type    Example                    Description
 ================= ======= ========================== ===========
-helohost          string  "mail.example.com"         HELO hostname of sender
-heloverb          string  "EHLO"                     HELO or EHLO command
+verb              string  "EHLO"                     HELO or EHLO command
+host              string  "mail.example.com"         HELO hostname of sender
 extensions        array   ["PIPELINING", "SIZE 1...  The extensions to be sent to the client (if EHLO was issued)
 ================= ======= ========================== ===========
 
@@ -93,7 +93,7 @@ Functions
 
 .. function:: Accept([options])
 
-  Accept the `HELO` or `EHLO` command. Optionally change the ``helohost`` of the sending client, which is written back to the ``$connection`` variable.
+  Accept the `HELO` or `EHLO` command. Optionally change the ``host`` of the sending client, which is written back to the ``$connection`` variable.
 
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -101,7 +101,7 @@ Functions
   The following options are available in the options array.
 
    * **extensions** (array) SMTP service extensions to announce in EHLO responses.
-   * **helohost** (string) Change the HELO hostname for the current connection.
+   * **host** (string) Change the HELO hostname for the current connection.
    * **reason** (string) First line of the response. The default is the system hostname.
 
 .. function:: Reject([reason, [options]])

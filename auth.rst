@@ -47,9 +47,21 @@ remoteport        number  41666                      TCP port of connected clien
 localip           string  "10.0.0.1"                 IP address of the server
 localport         number  25                         TCP port of the server
 serverid          string  "inbound"                  ID of the server
-helohost          string  "mail.example.com"         HELO hostname of sender (not always available)
+:ref:`helo <he3>` array                              HELO information (not always available)
 :ref:`tls <tls3>` array                              TLS information (if TLS was started)
 ================= ======= ========================== ===========
+
+.. _he3:
+
+HELO
+>>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+verb                 string  "EHLO"                     HELO or EHLO command
+host                 string  "mail.example.com"         HELO hostname
+==================== ======= ========================== ===========
 
 .. _tls3:
 
