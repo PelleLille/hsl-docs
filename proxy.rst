@@ -32,6 +32,9 @@ command             string  "XCLIENT ADDR=1.1.1.1"     The SMTP command line iss
 
 .. _v_c8:
 
+Connection
+++++++++++
+
 ================= ======= ========================== ===========
 Array item        Type    Example                    Description
 ================= ======= ========================== ===========
@@ -42,8 +45,7 @@ localport         number  25                         TCP port of the server
 serverid          string  "inbound"                  ID of the server
 helohost          string  "mail.example.com"         HELO hostname of sender (not always available)
 :ref:`tls <tls8>` array                              TLS information (if TLS was started)
-saslauthed        boolean true                       Whether or not the SMTP session is authenticated (SASL)
-saslusername      string  "mailuser"                 SASL username (not always available)
+:ref:`auth <au8>` array                              AUTH information (not always available)
 ================= ======= ========================== ===========
 
 .. _tls8:
@@ -59,6 +61,18 @@ cipher               string  "ECDHE-RSA-AES256-SHA384"  The cipher
 keysize              number  256                        The keysize
 peercert             x509                               The peer certificate (if provided by the client)
 peercerterror        number  18                         The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))
+==================== ======= ========================== ===========
+
+.. _au8:
+
+AUTH
+>>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+mechanism            string  "PLAIN"                    SASL mechanism (always in uppercase)
+username             string  "mailuser"                 SASL username (not always available)
 ==================== ======= ========================== ===========
 
 .. _v_t8:

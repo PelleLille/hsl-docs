@@ -3,7 +3,7 @@
 AUTH
 ====
 
-The AUTH script allows trusted SMTP clients. The SASL mechanisms `LOGIN` and `PLAIN` are implemented in the SMTP engine and will populate the ``saslusername`` and ``saslpassword`` argument. If you add support for custom authentication mechanisms you will need to use the ``saslmechanism``, ``saslstate`` and ``saslresponse`` arguments instead.
+The AUTH script allows trusted SMTP clients. The SASL mechanisms `LOGIN` and `PLAIN` are implemented in the SMTP engine and will populate the ``username`` and ``password`` argument. If you add support for custom authentication mechanisms you will need to use the ``mechanism``, ``state`` and ``response`` arguments instead.
 
 Variables
 ---------
@@ -24,15 +24,15 @@ $context                   any     no        Connection bound user-defined (defa
 Arguments
 +++++++++
 
-================= ======= ========================== ===========
-Array item        Type    Example                    Description
-================= ======= ========================== ===========
-saslusername      string  "mailuser"                 SASL username (only available with LOGIN or PLAIN)
-saslpassword      string  "secret"                   SASL password (only available with LOGIN or PLAIN)
-saslmechanism     string  "PLAIN"                    SASL mechanism (always in uppercase)
-saslstate         number  0                          SASL state, incremeted per Reply (not available with LOGIN or PLAIN)
-saslresponse      string  none                       SASL response (not available with LOGIN or PLAIN)
-================= ======= ========================== ===========
+============= ======= ========================== ===========
+Array item    Type    Example                    Description
+============= ======= ========================== ===========
+username      string  "mailuser"                 SASL username (only available with LOGIN or PLAIN)
+password      string  "secret"                   SASL password (only available with LOGIN or PLAIN)
+mechanism     string  "PLAIN"                    SASL mechanism (always in uppercase)
+state         number  0                          SASL state, incremeted per Reply (not available with LOGIN or PLAIN)
+response      string  none                       SASL response (not available with LOGIN or PLAIN)
+============= ======= ========================== ===========
 
 .. _v_c3:
 
@@ -89,7 +89,7 @@ Functions
 
   The following options are available in the options array.
 
-   * **saslusername** (string) Set or change the username. The default is the ``saslusername`` argument (if available).
+   * **username** (string) Set or change the username. The default is the ``username`` argument (if available).
    * **reason** (string) The reason to report. The default is a system generated message.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
@@ -127,7 +127,7 @@ Functions
 
   :param string reply: the reply message
   :param array options: an options array
-  :increments: ``saslstate`` argument
+  :increments: ``state`` argument
   :return: doesn't return, script is terminated
 
   The following options are available in the options array.
@@ -166,9 +166,9 @@ A flow chart diagram of how custom authentication is implemented::
 	                    |
 	                    v
 	+---------------------------------------+
-	|   saslstate = 0                       |
+	|   state = 0                           |
 	+---------------------------------------+      Accept()      +-------------------+
-	| > AUTH  saslmechanism [saslresponse]  | ---- Reject() ---> | AUTH request done |
+	| > AUTH mechanism [response]           | ---- Reject() ---> | AUTH request done |
 	+---------------------------------------+      Defer()       +-------------------+
 	                    |                             ^
 	                    |                             |
@@ -177,9 +177,9 @@ A flow chart diagram of how custom authentication is implemented::
 	                    |                        |    |
 	                    v                        |    |
 	+---------------------------------------+    |    |
-	|   saslstate += 1                      |    |    |
+	|   state += 1                          |    |    |
 	+---------------------------------------+    |    |
-	| > saslresponse                        | ---+----+
+	| > response                            | ---+----+
 	+---------------------------------------+    |
 	                    |                        |
 	                    |                        |
