@@ -1,0 +1,666 @@
+{
+    "connect": [
+        {
+            "name": "$messageid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "documentation": "ID of the message",
+            "example": "\"18c190a3-93f-47d7-bd...\""
+        },
+        {
+            "name": "$senderip",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderip",
+            "documentation": "IP address of the connected client",
+            "example": "\"192.168.1.11\""
+        },
+        {
+            "name": "$senderport",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $senderport",
+            "documentation": "TCP port of connected client",
+            "example": "41666"
+        },
+        {
+            "name": "$serverip",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $serverip",
+            "documentation": "IP address of the mailserver",
+            "example": "\"10.0.0.1\""
+        },
+        {
+            "name": "$serverport",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $serverport",
+            "documentation": "TCP port of the mailserver",
+            "example": "25"
+        },
+        {
+            "name": "$serverid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $serverid",
+            "documentation": "ID of the mailserver profile",
+            "example": "\"mailserver:1\""
+        }
+    ],
+    "helo": [
+        {
+            "name": "$senderip",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderip",
+            "documentation": "IP address of the connected client",
+            "example": "\"192.168.1.11\""
+        },
+        {
+            "name": "$senderport",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $senderport",
+            "documentation": "TCP port of connected client",
+            "example": "41666"
+        },
+        {
+            "name": "$serverip",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $serverip",
+            "documentation": "IP address of the mailserver",
+            "example": "\"10.0.0.1\""
+        },
+        {
+            "name": "$serverport",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $serverport",
+            "documentation": "TCP port of the mailserver",
+            "example": "25"
+        },
+        {
+            "name": "$serverid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $serverid",
+            "documentation": "ID of the mailserver profile",
+            "example": "\"mailserver:1\""
+        },
+        {
+            "name": "$tlsstarted",
+            "compat": 1,
+            "type": "boolean",
+            "detail": "boolean readonly $tlsstarted",
+            "documentation": "Whether or not the SMTP session is using TLS",
+            "example": "false"
+        },
+        {
+            "name": "$saslauthed",
+            "compat": 1,
+            "type": "boolean",
+            "detail": "boolean readonly $saslauthed",
+            "documentation": "Whether or not the SMTP session is authenticated (SASL)",
+            "example": "true"
+        },
+        {
+            "name": "$saslusername",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $saslusername",
+            "documentation": "SASL username",
+            "example": "\"mailuser\""
+        },
+        {
+            "name": "$messageid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "documentation": "ID of the message",
+            "example": "\"18c190a3-93f-47d7-bd...\""
+        },
+        {
+            "name": "$senderhelo",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderhelo",
+            "documentation": "HELO message of sender",
+            "example": "\"mail.example.com\""
+        },
+        {
+            "name": "$senderhelotype",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderhelotype",
+            "documentation": "HELO or EHLO command",
+            "example": "\"EHLO\""
+        }
+    ],
+    "auth": [
+        {
+            "name": "$senderip",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderip",
+            "documentation": "IP address of the connected client",
+            "example": "\"192.168.1.11\""
+        },
+        {
+            "name": "$senderport",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $senderport",
+            "documentation": "TCP port of connected client",
+            "example": "41666"
+        },
+        {
+            "name": "$serverip",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $serverip",
+            "documentation": "IP address of the mailserver",
+            "example": "\"10.0.0.1\""
+        },
+        {
+            "name": "$serverport",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $serverport",
+            "documentation": "TCP port of the mailserver",
+            "example": "25"
+        },
+        {
+            "name": "$serverid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $serverid",
+            "documentation": "ID of the mailserver profile",
+            "example": "\"mailserver:1\""
+        },
+        {
+            "name": "$senderhelo",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderhelo",
+            "documentation": "HELO message of sender",
+            "example": "\"mail.example.com\""
+        },
+        {
+            "name": "$tlsstarted",
+            "compat": 1,
+            "type": "boolean",
+            "detail": "boolean readonly $tlsstarted",
+            "documentation": "Whether or not the SMTP session is using TLS",
+            "example": "false"
+        },
+        {
+            "name": "$messageid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "documentation": "ID of the message",
+            "example": "\"18c190a3-93f-47d7-bd...\""
+        },
+        {
+            "name": "$saslusername",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $saslusername",
+            "documentation": "SASL username",
+            "example": "\"mailuser\""
+        },
+        {
+            "name": "$saslpassword",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $saslpassword",
+            "documentation": "SASL password",
+            "example": "\"secret\""
+        },
+        {
+            "name": "$saslmechanism",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $saslmechanism",
+            "documentation": "SASL mechanism (always in uppercase)",
+            "example": "\"PLAIN\""
+        },
+        {
+            "name": "$saslstate",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $saslstate",
+            "documentation": "SASL state (incremeted per Reply)",
+            "example": "0"
+        },
+        {
+            "name": "$saslresponse",
+            "type": "string",
+            "detail": "string readonly $saslresponse",
+            "documentation": "SASL response (not used with LOGIN or PLAIN)",
+            "compat": 1,
+            "example": "none"
+        }
+    ],
+    "mailfrom": [
+        {
+            "name": "$senderip",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderip",
+            "documentation": "IP address of the connected client",
+            "example": "\"192.168.1.11\""
+        },
+        {
+            "name": "$senderport",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $senderport",
+            "documentation": "TCP port of connected client",
+            "example": "41666"
+        },
+        {
+            "name": "$serverip",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $serverip",
+            "documentation": "IP address of the mailserver",
+            "example": "\"10.0.0.1\""
+        },
+        {
+            "name": "$serverport",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $serverport",
+            "documentation": "TCP port of the mailserver",
+            "example": "25"
+        },
+        {
+            "name": "$serverid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $serverid",
+            "documentation": "ID of the mailserver profile",
+            "example": "\"mailserver:1\""
+        },
+        {
+            "name": "$senderhelo",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderhelo",
+            "documentation": "HELO message of sender",
+            "example": "\"mail.example.com\""
+        },
+        {
+            "name": "$tlsstarted",
+            "compat": 1,
+            "type": "boolean",
+            "detail": "boolean readonly $tlsstarted",
+            "documentation": "Whether or not the SMTP session is using TLS",
+            "example": "false"
+        },
+        {
+            "name": "$saslauthed",
+            "compat": 1,
+            "type": "boolean",
+            "detail": "boolean readonly $saslauthed",
+            "documentation": "Whether or not the SMTP session is authenticated (SASL)",
+            "example": "true"
+        },
+        {
+            "name": "$saslusername",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $saslusername",
+            "documentation": "SASL username",
+            "example": "\"mailuser\""
+        },
+        {
+            "name": "$messageid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "documentation": "ID of the message",
+            "example": "\"18c190a3-93f-47d7-bd...\""
+        },
+        {
+            "name": "$senderdomain",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderdomain",
+            "documentation": "Domain part of sender's address (envelope)",
+            "example": "\"example.org\""
+        },
+        {
+            "name": "$sender",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $sender",
+            "documentation": "E-mail address of sender (envelope)",
+            "example": "\"test@example.org\""
+        },
+        {
+            "name": "$senderparams",
+            "compat": 1,
+            "type": "array",
+            "detail": "array readonly $senderparams",
+            "documentation": "Sender parameters to the envelope address",
+            "example": "[\"SIZE\" => \"2048\", ... ]"
+        }
+    ],
+    "rcptto": [
+        {
+            "name": "$senderip",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderip",
+            "documentation": "IP address of the connected client",
+            "example": "\"192.168.1.11\""
+        },
+        {
+            "name": "$senderport",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $senderport",
+            "documentation": "TCP port of connected client",
+            "example": "41666"
+        },
+        {
+            "name": "$serverip",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $serverip",
+            "documentation": "IP address of the mailserver",
+            "example": "\"10.0.0.1\""
+        },
+        {
+            "name": "$serverport",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $serverport",
+            "documentation": "TCP port of the mailserver",
+            "example": "25"
+        },
+        {
+            "name": "$serverid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $serverid",
+            "documentation": "ID of the mailserver profile",
+            "example": "\"mailserver:1\""
+        },
+        {
+            "name": "$senderhelo",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderhelo",
+            "documentation": "HELO message of sender",
+            "example": "\"mail.example.com\""
+        },
+        {
+            "name": "$tlsstarted",
+            "compat": 1,
+            "type": "boolean",
+            "detail": "boolean readonly $tlsstarted",
+            "documentation": "Whether or not the SMTP session is using TLS",
+            "example": "false"
+        },
+        {
+            "name": "$saslauthed",
+            "compat": 1,
+            "type": "boolean",
+            "detail": "boolean readonly $saslauthed",
+            "documentation": "Whether or not the SMTP session is authenticated (SASL)",
+            "example": "true"
+        },
+        {
+            "name": "$saslusername",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $saslusername",
+            "documentation": "SASL username",
+            "example": "\"mailuser\""
+        },
+        {
+            "name": "$messageid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "documentation": "ID of the message",
+            "example": "\"18c190a3-93f-47d7-bd...\""
+        },
+        {
+            "name": "$senderdomain",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderdomain",
+            "documentation": "Domain part of sender's address (envelope)",
+            "example": "\"example.org\""
+        },
+        {
+            "name": "$sender",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $sender",
+            "documentation": "E-mail address of sender (envelope)",
+            "example": "\"test@example.org\""
+        },
+        {
+            "name": "$senderparams",
+            "compat": 1,
+            "type": "array",
+            "detail": "array readonly $senderparams",
+            "documentation": "Sender parameters to the envelope address",
+            "example": "[\"SIZE\" => \"2048\", ... ]"
+        },
+        {
+            "name": "$recipientdomains",
+            "compat": 1,
+            "type": "array",
+            "detail": "array readonly $recipientdomains",
+            "documentation": "List of all accepted domain part of all recipient addresses (envelope)",
+            "example": "[\"example.com\", ...]"
+        },
+        {
+            "name": "$recipients",
+            "compat": 1,
+            "type": "array",
+            "detail": "array readonly $recipients",
+            "documentation": "List of all accepted recipient addresses (envelope), in order of scanning",
+            "example": "[\"test@example.com\", ...]"
+        },
+        {
+            "name": "$recipientdomain",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $recipientdomain",
+            "documentation": "Domain part of recipient's address (envelope)",
+            "example": "\"example.com\""
+        },
+        {
+            "name": "$recipient",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $recipient",
+            "documentation": "E-mail address of recipient (envelope)",
+            "example": "\"test@example.com\""
+        },
+        {
+            "name": "$recipientparams",
+            "compat": 1,
+            "type": "array",
+            "detail": "array readonly $recipientparams",
+            "documentation": "Recipient parameters to the envelope address",
+            "example": "[\"NOTIFY\" => \"NEVER\", .. ]"
+        },
+        {
+            "name": "$transportid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $transportid",
+            "documentation": "ID of the transport profile to be used",
+            "example": "\"mailtransport:1\""
+        }
+    ],
+    "data": [
+        {
+            "name": "$senderip",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderip",
+            "documentation": "IP address of the connected client",
+            "example": "\"192.168.1.11\""
+        },
+        {
+            "name": "$senderport",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $senderport",
+            "documentation": "TCP port of connected client",
+            "example": "41666"
+        },
+        {
+            "name": "$serverip",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $serverip",
+            "documentation": "IP address of the mailserver",
+            "example": "\"10.0.0.1\""
+        },
+        {
+            "name": "$serverport",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $serverport",
+            "documentation": "TCP port of the mailserver",
+            "example": "25"
+        },
+        {
+            "name": "$serverid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $serverid",
+            "documentation": "ID of the mailserver profile",
+            "example": "\"mailserver:1\""
+        },
+        {
+            "name": "$senderhelo",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderhelo",
+            "documentation": "HELO message of sender",
+            "example": "\"mail.example.com\""
+        },
+        {
+            "name": "$tlsstarted",
+            "compat": 1,
+            "type": "boolean",
+            "detail": "boolean readonly $tlsstarted",
+            "documentation": "Whether or not the SMTP session is using TLS",
+            "example": "false"
+        },
+        {
+            "name": "$saslauthed",
+            "compat": 1,
+            "type": "boolean",
+            "detail": "boolean readonly $saslauthed",
+            "documentation": "Whether or not the SMTP session is authenticated (SASL)",
+            "example": "true"
+        },
+        {
+            "name": "$saslusername",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $saslusername",
+            "documentation": "SASL username",
+            "example": "\"mailuser\""
+        },
+        {
+            "name": "$messageid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "documentation": "ID of the message",
+            "example": "\"18c190a3-93f-47d7-bd...\""
+        },
+        {
+            "name": "$senderdomain",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $senderdomain",
+            "documentation": "Domain part of sender's address (envelope)",
+            "example": "\"example.org\""
+        },
+        {
+            "name": "$sender",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $sender",
+            "documentation": "E-mail address of sender (envelope)",
+            "example": "\"test@example.org\""
+        },
+        {
+            "name": "$senderparams",
+            "compat": 1,
+            "type": "array",
+            "detail": "array readonly $senderparams",
+            "documentation": "Sender parameters to the envelope address",
+            "example": "[\"SIZE\" => \"2048\", ... ]"
+        },
+        {
+            "name": "$recipientdomains",
+            "compat": 1,
+            "type": "array",
+            "detail": "array readonly $recipientdomains",
+            "documentation": "List of all domain part of all recipient addresses (envelope)",
+            "example": "[\"example.com\", ...]"
+        },
+        {
+            "name": "$recipients",
+            "compat": 1,
+            "type": "array",
+            "detail": "array readonly $recipients",
+            "documentation": "List of all recipient addresses (envelope), in order of scanning",
+            "example": "[\"test@example.com\", ...]"
+        },
+        {
+            "name": "$recipientdomain",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $recipientdomain",
+            "documentation": "Domain part of recipient's address (envelope)",
+            "example": "\"example.com\""
+        },
+        {
+            "name": "$recipient",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $recipient",
+            "documentation": "E-mail address of recipient (envelope)",
+            "example": "\"test@example.com\""
+        },
+        {
+            "name": "$transportid",
+            "compat": 1,
+            "type": "string",
+            "detail": "string readonly $transportid",
+            "documentation": "ID of the transport profile to be used",
+            "example": "\"mailtransport:1\""
+        },
+        {
+            "name": "$actionid",
+            "compat": 1,
+            "type": "number",
+            "detail": "number readonly $actionid",
+            "documentation": "ID; incremented per message action\/recipient (Deliver, Quarantine, etc.)",
+            "example": "1"
+        }
+    ],
+    "predelivery": [],
+    "postdelivery": [],
+    "api": [],
+    "firewall": []
+}
