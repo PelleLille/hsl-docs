@@ -107,6 +107,7 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 									$key = [];
 									$key['name'] = $name;
 									$key['type'] = $type;
+									$key['detail'] = $type.' '.$name;
 									if ($example) $key['example'] = $example;
 									$key['documentation'] = $documentation;
 									$item['keys'][] = $key;
