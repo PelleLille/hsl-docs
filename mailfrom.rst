@@ -22,14 +22,13 @@ $context                   any     no        Connection bound user-defined (defa
 Arguments
 +++++++++
 
-================= ======= ========================== ===========
-Array item        Type    Example                    Description
-================= ======= ========================== ===========
-sender            string  "test\@example.org"        Email address of sender (envelope), lowercase
-senderlocalpart   string  "test"                     Local part of sender's address (envelope)
-senderdomain      string  "example.org"              Domain part of sender's address (envelope)
-senderparams      array   ["SIZE" => "2048", ... ]   Sender parameters to the envelope address
-================= ======= ========================== ===========
+=================== ======= ========================== ===========
+Array item          Type    Example                    Description
+=================== ======= ========================== ===========
+sender              string  "test\@example.org"        Sender address (envelope), lowercase
+:ref:`address <a4>` array   ["localpart" => "test"...] Sender address (envelope)
+params              array   ["SIZE" => "2048", ... ]   Sender parameters to the envelope address
+=================== ======= ========================== ===========
 
 .. _v_c4:
 
@@ -98,6 +97,18 @@ Array item                Type    Example                    Description
 ========================= ======= ========================== ===========
 id                        string  "18c190a3-93f-47d7-bd..."  ID of the transaction
 ========================= ======= ========================== ===========
+
+.. _a4:
+
+Address
+>>>>>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+localpart            string  "test"                     Local part of address
+domain               string  "example.org"              Domain part of address
+==================== ======= ========================== ===========
 
 Functions
 ---------

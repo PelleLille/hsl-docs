@@ -96,9 +96,8 @@ Transaction
 Array item                Type    Example                          Description
 ========================= ======= ================================ ===========
 id                        string  "18c190a3-93f-47d7-bd..."        ID of the transaction
-sender                    string  "test\@example.org"              Email address of sender (envelope), lowercase
-senderlocalpart           string  "test"                           Local part of sender's address (envelope)
-senderdomain              string  "example.org"                    Domain part of sender's address (envelope)
+sender                    string  "test\@example.org"              Sender address (envelope), lowercase
+:ref:`senderaddress <a8>` array   ["localpart" => "examp...]       Sender address (envelope)
 senderparams              array   ["SIZE" => "2048", ... ]         Sender parameters to the envelope address
 recipients                array   [:ref:`recipient <v_t_r8>`, ...] List of all accepted recipients (envelope), in order of scanning
 ========================= ======= ================================ ===========
@@ -111,11 +110,22 @@ Recipient
 ==================== ======= ========================== ===========
 Array item           Type    Example                    Description
 ==================== ======= ========================== ===========
-recipient            string  "test\@example.com"        Recipient address, lowercase
-recipientlocalpart   string  "test"                     Local part of recipient address
-recipientdomain      string  "example.com"              Domain part of recipient address
-recipientparams      array   ["NOTIFY" => "NEVER", .. ] Recipient parameters to the envelope address
+recipient            string  "test\@example.com"        Recipient address (envelope), lowercase
+:ref:`address <a8>`  array   ["localpart" => "examp...] Recipient address (envelope)
+params               array   ["NOTIFY" => "NEVER", .. ] Recipient parameters to the envelope address
 transportid          string  "inbound"                  Transport ID for recipient
+==================== ======= ========================== ===========
+
+.. _a8:
+
+Address
+>>>>>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+localpart            string  "test"                     Local part of address
+domain               string  "example.org"              Domain part of address
 ==================== ======= ========================== ===========
 
 Functions
