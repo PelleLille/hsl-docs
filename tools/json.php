@@ -26,17 +26,19 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 					foreach ($rows as $row) {
 						$name = (string) $row->entry[0]->paragraph;
 						$type = (string) $row->entry[1]->paragraph;
+						$example = (string) $row->entry[2]->paragraph;
+						$documentation = (string) $row->entry[3]->paragraph;
 						if ($name[0] === '$') {
 							$result[$file][$i]['name'] = $name;
 							$result[$file][$i]['type'] = $type;
 							if ($name === '$context') {
 								$result[$file][$i]['detail'] = $type.' '.$name;
-								$result[$file][$i]['documentation'] = (string) $row->entry[2]->paragraph;
+								$result[$file][$i]['documentation'] = $example; // $example is the documentation here
 							}
 							else {
 								$result[$file][$i]['detail'] = $type.' readonly '.$name;
-								$result[$file][$i]['documentation'] = (string) $row->entry[3]->paragraph;
-								$result[$file][$i]['example'] = (string) $row->entry[2]->paragraph;
+								if ($example) $result[$file][$i]['example'] = $example;
+								$result[$file][$i]['documentation'] = $documentation;
 							}
 							$i += 1;
 						}
@@ -102,12 +104,12 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 				
 							$result[$file] = array_map(function($item) use ($variable, $name, $type, $example, $documentation) {
 								if ($variable == $item['name']) {
-									$item['keys'][] = [
-										'name' => $name,
-										'type' => $type,
-										'example' => $example,
-										'documentation' => $documentation
-									];
+									$key = [];
+									$key['name'] = $name;
+									$key['type'] = $type;
+									if ($example) $key['example'] = $example;
+									$key['documentation'] = $documentation;
+									$item['keys'][] = $key;
 								}
 								return $item;
 							}, $result[$file]);
