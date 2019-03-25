@@ -123,7 +123,7 @@ Functions
 
   The following options are available in the options array.
 
-   * **sender** (string or array) Change the sender email address, either as a string or a tuple with localpart and domain. The default is the ``senderlocalpart`` argument `at` the ``senderdomain`` argument.
+   * **sender** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart`` and ``domain``. The default is the ``address`` argument.
    * **reason** (string) The reason to report. The default is a system generated message.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 

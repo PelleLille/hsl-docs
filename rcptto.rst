@@ -142,7 +142,7 @@ Functions
 
   The following options are available in the options array.
 
-   * **recipient** (string or array) Change the recipient email address, either as a string or a tuple with localpart and domain. The default is the ``recipientlocalpart`` argument `at` the ``recipientdomain`` argument.
+   * **recipient** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart`` and ``domain``. The default is the ``address`` argument.
    * **transportid** (string) Change the transport ID. The default is the ``transportid`` argument.
    * **reason** (string) The reason to report. The default is a system generated message.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
