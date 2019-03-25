@@ -17,7 +17,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :class:`LDAP`
 * **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`str_find` :func:`str_rfind` :func:`str_lower` :func:`str_upper` :func:`str_slice` :func:`str_split`
 * **Regular expression** :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
-* **Socket** :class:`Socket` :class:`TLSSocket`
+* **Socket** :class:`Socket` :class:`TLSSocket` :class:`X509`
 
 Array
 -----
@@ -2151,59 +2151,68 @@ Socket
 
     :param X509Resource x509resource: a X509Resource
 
-  .. function:: X509.fingerprint(algorithm)
-
-	  Generate the fingerprint of the certificate using one of the following hash function (``md5``, ``sha1``, ``sha256`` or ``sha512``).
-
-	  :param string algorithm: the hash algorithm
-	  :return: The fingerprint using the hash algorithm
-	  :rtype: string
-
-  .. attribute:: subject
+  .. function:: X509.subject()
 
     The subject, if there are duplicate attribute types (eg. C or CN) the attribute value will be an array instead
 
-    :type: array
-    :read-only: yes
+    :return: The subject
+    :rtype: array
 
-  .. attribute:: issuer
+  .. function:: X509.issuer()
 
     The issuer, if there are duplicate attribute types (eg. C or CN) the attribute value will be an array instead
 
-    :type: array
-    :read-only: yes
+    :return: The issuer
+    :rtype: array
 
-  .. attribute:: subject_alt_name
+  .. function:: X509.subject_alt_name()
 
     The subject alt names (DNS) items
 
-    :type: array
-    :read-only: yes
+    :return: The SAN
+    :rtype: array
 
-  .. attribute:: version
+  .. function:: X509.version()
 
     The version of the X.509 certificate
 
-    :type: number
-    :read-only: yes
+    :return: The version
+    :rtype: number
 
-  .. attribute:: serial_number
+  .. function:: X509.serial_number()
 
     The serial number in HEX
 
-    :type: string
-    :read-only: yes
+    :return: The serial
+    :rtype: string
 
-  .. attribute:: not_valid_before
+  .. function:: X509.not_valid_before()
 
     The start date of the certificate (in unix time)
 
-    :type: number
-    :read-only: yes
+    :return: The certificate start date
+    :rtype: number
 
-  .. attribute:: not_valid_after
+  .. function:: X509.not_valid_after()
 
     The end date of the certificate (in unix time)
 
-    :type: number
-    :read-only: yes
+    :return: The certificate end date
+    :rtype: number
+
+  .. function:: X509.toDER()
+
+	  Export the certificate in binary DER format.
+
+	  :return: The certificate in DER format
+	  :rtype: string
+
+	  .. code-block:: hsl
+
+	  	  // Convert to PEM
+	  	  $cert = "-----BEGIN CERTIFICATE-----\n" .
+	  	  	  array_join(pcre_match_all("(.{64}|.+)", base64_encode($c->toDER()))[0], ".") .
+	  	  	  "\n-----END CERTIFICATE-----";
+
+	  	  // SHA256 fingerprint
+	  	  echo sha2($c->toDER(), 256);
