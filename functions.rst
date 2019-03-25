@@ -1510,9 +1510,9 @@ Misc
 
   Put an email message into the queue.
 
-  :param sender: the sender email address, either as a string or a tuple with localpart and domain
+  :param sender: the sender email address, either as a string or an associative array with a ``localpart`` and ``domain``
   :type sender: string or array
-  :param recipient: the recipient email address, either as a string or a tuple with localpart and domain
+  :param recipient: the recipient email address, either as a string or an associative array with a ``localpart`` and ``domain``
   :type recipient: string or array
   :param string subject: the subject
   :param string body: the body
@@ -1551,9 +1551,9 @@ Protocols
 
   :param server: array with server settings or transport profile ID
   :type server: string or array
-  :param sender: the sender (MAIL FROM), either as a string or a tuple with localpart and domain
+  :param sender: the sender (MAIL FROM), either as a string or an associative array with a ``localpart`` and ``domain``
   :type sender: string or array
-  :param recipient: the recipient (RCPT TO), either as a string or a tuple with localpart and domain
+  :param recipient: the recipient (RCPT TO), either as a string or an associative array with a ``localpart`` and ``domain``
   :type recipient: string or array
   :param array options: options array
   :return: ``1`` if the command succeeded, ``0`` if the command failed and ``-1`` if an error occurred. The ``extended_result`` option may change this behavior.
