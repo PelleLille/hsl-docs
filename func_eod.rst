@@ -101,8 +101,9 @@
 
     Queue the message.
 
-    :param sender: the sender email address, either as a string or a tuple with localpart and domain
-    :param recipient: the recipient email address, either as a string or a tuple with localpart and domain
+    :param sender: the sender email address, either as a string or an associative array with a ``localpart`` and ``domain``
+    :type sender: string or array
+    :param recipient: the recipient email address, either as a string or an associative array with a ``localpart`` and ``domain``
     :type recipient: string or array
     :param string transportid: the transport profile ID
     :param array options: an options array
@@ -120,23 +121,23 @@
     Try to send the message to the server.
 
     :param sender: the sender (`MAIL FROM`), an address object
-    :type sender: array
+    :type sender: string or array
     :param recipients: the recipient (`RCPT TO`), an array of address objects
-    :type recipients: array
+    :type recipients: array of (string or array)
     :param server: array with server settings or transport profile ID
     :type server: string or array
     :return: associative array containing the result or an error
     :rtype: array
 
-    The address object should contain a ``address`` field (either a string or a tuple with localpart and domain) and optionally a ``params`` field as an key-values array (to be sent in the `MAIL FROM` or `RCPT TO` command).
+    The address parameters should be either a string or an associative array with a ``localpart`` and ``domain`` and optionally a ``params`` field as an key-values array (to be sent in the `MAIL FROM` or `RCPT TO` command).
 
     .. code-block:: hsl
 
       $response = $message->send(
-          ["address" => ""],
+          ["localpart" => "nick", "domain" => "example.org"],
           [
-              ["address" => "chris@example.com", "params" => ["NOTIFY" => "DELAY"]],
-              ["address" => ["charlie", "example.com"]]
+              ["localpart" => "chris", "domain" => "example.com", "params" => ["NOTIFY" => "DELAY"]],
+              ["localpart" => "charlie", "domain" => "example.com"],
           ],
           ["host" => "10.2.0.1", "tls" => "require"]);
       

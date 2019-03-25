@@ -190,7 +190,7 @@ Logging
   For long-term logging in high volume systems, remote logging to an external database such as Elasticsearch is recommended.
 
   :param string action: the logged action; either of `REJECT`, `DELETE`, `DELIVER`, `DEFER` or `ERROR`
-  :param recipient: the recipient email address, either as a string or a tuple with localpart and domain
+  :param recipient: the recipient email address, either as a string or an associative array with a ``localpart`` and ``domain``
   :type recipient: string or array
   :param array options: an options array
   :return: true (or none)
@@ -198,7 +198,7 @@ Logging
 
   The following options are available in the options array.
 
-   * **sender** (string) the sender email address, either as a string or a tuple with localpart and domain. The default is ``$transaction["senderlocalpart"]`` `at` ``$transaction["senderdomain"]``.
+   * **sender** (string) the sender email address, either as a string or an associative array with a ``localpart`` and ``domain``. The default is ``$transaction["senderaddress"]``
    * **metadata** (array) add metadata to the history entry, as a key-value pair array of strings
    * **transportid** (string) the transport profile ID
    * **reason** (string) reason message

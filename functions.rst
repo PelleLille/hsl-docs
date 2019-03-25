@@ -1295,9 +1295,9 @@ MIME
 
 	  Put the MIME message (email) into the queue.
 
-	  :param sender: the sender email address, either as a string or a tuple with localpart and domain
+	  :param sender: the sender email address, either as a string or an associative array with a ``localpart`` and ``domain``
 	  :type sender: string or array
-	  :param recipient: the recipient email address, either as a string or a tuple with localpart and domain
+	  :param recipient: the recipient email address, either as a string or an associative array with a ``localpart`` and ``domain``
 	  :type recipient: string or array
 	  :param string transportid: the transportid
 	  :param array options: options array
@@ -1313,7 +1313,7 @@ MIME
 		MIME()
 			->addHeader("Subject", "Hello")
 			->setBody("Hi, how are you?")
-			->queue("", "info@example.com", "mailtransport:1");
+			->queue("", ["localpart" => "info", "domain" => "example.com"], "mailtransport:1");
 
 Misc
 ----
