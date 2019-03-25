@@ -2200,19 +2200,32 @@ Socket
     :return: The certificate end date
     :rtype: number
 
-  .. function:: X509.toDER()
 
-	  Export the certificate in binary DER format.
+  .. function:: X509.public_key([options])
 
-	  :return: The certificate in DER format
-	  :rtype: string
+    Export the public key in binary DER format (default) or in PEM format.
 
-	  .. code-block:: hsl
+    :param array options: options array
+    :return: The public key
+    :rtype: string
 
-	  	  // Convert to PEM
-	  	  $cert = "-----BEGIN CERTIFICATE-----\n" .
-	  	  	  array_join(pcre_match_all("(.{64}|.+)", base64_encode($c->toDER()))[0], ".") .
-	  	  	  "\n-----END CERTIFICATE-----";
+    The following options are available in the options array.
+
+     * **pem** (boolean) Export the public key in PEM format. The default is ``false``.
+
+  .. function:: X509.export([options])
+
+    Export the certificate in binary DER format (default) or in PEM format.
+
+    :param array options: options array
+    :return: The certificate
+    :rtype: string
+
+    The following options are available in the options array.
+
+     * **pem** (boolean) Export the X.509 in PEM format. The default is ``false``.
+
+    .. code-block:: hsl
 
 	  	  // SHA256 fingerprint
 	  	  echo sha2($c->toDER(), 256);
