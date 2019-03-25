@@ -9,11 +9,11 @@
   Type            Example
   =============== =======
   remoteip        $connection["remoteip"]
-  saslusername    $connection["saslusername"]
+  saslusername    $connection["auth"]["username"]
   sender          $transaction["sender"]
-  senderdomain    $transaction["senderdomain"]
+  senderdomain    $transaction["senderaddress"]["domain"]
   recipient       $transaction["recipients"][0]["recipient"]
-  recipientdomain $transaction["recipients"][0]["recipientdomain"]
+  recipientdomain $transaction["recipients"][0]["address"]["domain"]
   transportid     $transaction["recipients"][0]["transportid"]
   retry           1
   metadata.x      any metadata
