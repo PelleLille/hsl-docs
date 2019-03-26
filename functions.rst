@@ -2153,17 +2153,17 @@ Socket
 
   .. function:: X509.subject()
 
-    The subject, if there are duplicate attribute types (eg. C or CN) the attribute value will be an array instead
+    The subject of the certificate
 
     :return: The subject
-    :rtype: array
+    :rtype: array of (string, string)
 
   .. function:: X509.issuer()
 
-    The issuer, if there are duplicate attribute types (eg. C or CN) the attribute value will be an array instead
+    The issuer of the certificate
 
     :return: The issuer
-    :rtype: array
+    :rtype: array of (string, string)
 
   .. function:: X509.subject_alt_name()
 
