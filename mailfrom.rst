@@ -140,7 +140,7 @@ Functions
 
   .. note::
 
-  	This function changes the sender for all recipients. To change sender per recipient use :func:`~predelivery.SetSender` in the :doc:`Pre-delivery <predelivery>` context.
+  	This function changes the sender for all recipients. To change sender per recipient change the sender in the :doc:`EOD <eod>` context when queuing a recipient.
 
 .. function:: Reject([reason, [options]])
 
