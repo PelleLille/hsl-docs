@@ -2228,4 +2228,4 @@ Socket
     .. code-block:: hsl
 
 	  	  // SHA256 fingerprint
-	  	  echo sha2($c->toDER(), 256);
+	  	  echo sha2($c->export(), 256);
