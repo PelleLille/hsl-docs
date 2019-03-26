@@ -2153,14 +2153,14 @@ Socket
 
   .. function:: X509.subject()
 
-    The subject of the certificate
+    The subject of the certificate. The first field in the tuple is the name (eg. CN, OU) and the second is the value.
 
     :return: The subject
     :rtype: array of (string, string)
 
   .. function:: X509.issuer()
 
-    The issuer of the certificate
+    The issuer of the certificate. The first field in the tuple is the name (eg. CN, OU) and the second is the value.
 
     :return: The issuer
     :rtype: array of (string, string)
