@@ -71,9 +71,20 @@ Array item           Type    Example                    Description
 protocol             string  "TLSv1.3"                  The protocol
 cipher               string  "ECDHE-RSA-AES256-SHA384"  The cipher
 keysize              number  256                        The keysize
-peercert             x509                               The peer certificate (if provided by the client)
-peercerterror        number  18                         The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))
+:ref:`peercert <p4>` array                              The peer certificate (if provided by the client)
 ==================== ======= ========================== ===========
+
+.. _p4:
+
+Peercert
+________
+
+==================== ============= ========================== ===========
+Array item           Type          Example                    Description
+==================== ============= ========================== ===========
+x509                 X509Resource                             An X509Resource to be used with the :class:`X509` class
+error                number        18                         The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3))
+==================== ============= ========================== ===========
 
 .. _au4:
 
