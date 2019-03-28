@@ -1,0 +1,108 @@
+{
+    "core": [],
+    "connect": [
+        {
+            "name": "SetSenderIP",
+            "compat": 1,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "senderip",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string or none",
+            "detail": "SetSenderIP(string $senderip): string or none",
+            "value": "SetSenderIP($0)",
+            "documentation": "Change the senderip for the current connection.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/4.8-stable/connect.html#SetSenderIP)"
+        }
+    ],
+    "helo": [
+        {
+            "name": "SetHELO",
+            "compat": 1,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "senderhelo",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string or none",
+            "detail": "SetHELO(string $senderhelo): string or none",
+            "value": "SetHELO($0)",
+            "documentation": "Change the HELO hostname for the current connection.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/4.8-stable/helo.html#SetHELO)"
+        }
+    ],
+    "auth": [],
+    "mailfrom": [
+        {
+            "name": "SetSender",
+            "compat": 1,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "sender",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string or none",
+            "detail": "SetSender(string $sender): string or none",
+            "value": "SetSender($0)",
+            "documentation": "Change the sender of the message.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/4.8-stable/mailfrom.html#SetSender)"
+        }
+    ],
+    "rcptto": [
+        {
+            "name": "SetSender",
+            "compat": 1,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "sender",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string or none",
+            "detail": "SetSender(string $sender): string or none",
+            "value": "SetSender($0)",
+            "documentation": "Change the sender of the message.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/4.8-stable/rcptto.html#SetSender)"
+        },
+        {
+            "name": "SetRecipient",
+            "compat": 1,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "recipient",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "string or none",
+            "detail": "SetRecipient(string $recipient): string or none",
+            "value": "SetRecipient($0)",
+            "documentation": "Changes the recipient.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/4.8-stable/rcptto.html#SetRecipient)"
+        }
+    ],
+    "eodonce": [],
+    "eodrcpt": [],
+    "predelivery": [],
+    "postdelivery": [],
+    "api": [],
+    "firewall": []
+}

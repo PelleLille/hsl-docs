@@ -25,7 +25,7 @@
             "detail": "ldap_search(string $profile, any $lookup [, array $override]): array or number",
             "value": "ldap_search($0)",
             "documentation": "Query an LDAP server for lookup and return all LDAP entries found.",
-            "link": "https://docs.halon.io/hsl/archive/4.8-stable/functions.html#ldap_search"
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/4.8-stable/functions.html#ldap_search)"
         },
         {
             "name": "ldap_bind",
@@ -56,7 +56,7 @@
             "detail": "ldap_bind(string $profile, string $username, string $password [, array $override]): number",
             "value": "ldap_bind($0)",
             "documentation": "Try to bind (authenticate) against an LDAP server.",
-            "link": "https://docs.halon.io/hsl/archive/4.8-stable/functions.html#ldap_bind"
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/4.8-stable/functions.html#ldap_bind)"
         },
         {
             "name": "file",
@@ -74,7 +74,7 @@
             "detail": "file(string $filename): array",
             "value": "file($0)",
             "documentation": "Return the content of the filename as an array line by line (without CR\/LF).",
-            "link": "https://docs.halon.io/hsl/archive/4.8-stable/functions.html#file"
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/4.8-stable/functions.html#file)"
         },
         {
             "name": "in_file",
@@ -101,7 +101,7 @@
             "detail": "in_file(any $needle, string $filename [, array $options]): array",
             "value": "in_file($0)",
             "documentation": "Searches for a needle at the beginning (or at index) of each line in filename. If found, the line is returned as an array separated by the delimiter.",
-            "link": "https://docs.halon.io/hsl/archive/4.8-stable/functions.html#in_file"
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/4.8-stable/functions.html#in_file)"
         },
         {
             "name": "file_get_contents",
@@ -119,14 +119,103 @@
             "detail": "file_get_contents(string $filename): string",
             "value": "file_get_contents($0)",
             "documentation": "Return the content of the filename as a string.",
-            "link": "https://docs.halon.io/hsl/archive/4.8-stable/functions.html#file_get_contents"
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/4.8-stable/functions.html#file_get_contents)"
         }
     ],
     "connect": [],
-    "helo": [],
-    "auth": [],
-    "mailfrom": [],
-    "rcptto": [],
+    "helo": [
+        {
+            "name": "GetExtensions",
+            "deprecated": true,
+            "parameters": {
+                "required": [],
+                "optional": []
+            },
+            "returnType": "array",
+            "detail": "GetExtensions(): array",
+            "value": "GetExtensions()",
+            "documentation": "Return the current SMTP service extensions to be sent if the EHLO command was issued.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.0-stable/helo.html#GetExtensions)"
+        },
+        {
+            "name": "GetTLS",
+            "deprecated": true,
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "GetTLS([array $options]): array",
+            "value": "GetTLS($0)",
+            "documentation": "Get the TLS information for a connection.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.0-stable/helo.html#GetTLS)"
+        }
+    ],
+    "auth": [
+        {
+            "name": "GetTLS",
+            "deprecated": true,
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "GetTLS([array $options]): array",
+            "value": "GetTLS($0)",
+            "documentation": "Get the TLS information for a connection.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.0-stable/auth.html#GetTLS)"
+        }
+    ],
+    "mailfrom": [
+        {
+            "name": "GetTLS",
+            "deprecated": true,
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "GetTLS([array $options]): array",
+            "value": "GetTLS($0)",
+            "documentation": "Get the TLS information for a connection.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.0-stable/mailfrom.html#GetTLS)"
+        }
+    ],
+    "rcptto": [
+        {
+            "name": "GetTLS",
+            "deprecated": true,
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "GetTLS([array $options]): array",
+            "value": "GetTLS($0)",
+            "documentation": "Get the TLS information for a connection.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/4.8-stable/rcptto.html#GetTLS)"
+        }
+    ],
     "eodonce": [],
     "eodrcpt": [],
     "predelivery": [],

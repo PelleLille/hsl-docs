@@ -330,6 +330,12 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 		$result = array_merge_recursive($result, $deprecations_file);
 	}
 
+	// Compat
+	if ($argv[1] === 'functions') {
+		$compat_file = json_decode(file_get_contents(dirname(__FILE__).'/compat/functions.json'), true);
+		$result = array_merge_recursive($result, $compat_file);
+	}
+
 	if (!is_dir($outputPath)) mkdir($outputPath);
 	file_put_contents($outputFile, json_encode($result, JSON_PRETTY_PRINT)."\n");
 
