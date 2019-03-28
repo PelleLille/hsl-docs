@@ -15,7 +15,7 @@
 
 	  .. code-block:: hsl
 
-		GetMailMessage()->reset();
+		$mail->reset();
 
   .. function:: MailMessage.snapshot()
 
@@ -26,7 +26,7 @@
 
     .. code-block:: hsl
 
-      $id = GetMailMessage()->snapshot();
+      $id = $mail->snapshot();
 
   .. function:: MailMessage.restore(id)
 
@@ -38,7 +38,7 @@
 
     .. code-block:: hsl
 
-      GetMailMessage()->restore($id);
+      $mail->restore($id);
 
   .. function:: MailMessage.toFile()
 
