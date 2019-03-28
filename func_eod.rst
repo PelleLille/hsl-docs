@@ -426,12 +426,19 @@ DKIM
 
 These are DKIM-related functions, including DMARC. Other modules, such as ARC, is available in the `authentication script library <https://github.com/halon/hsl-examples/tree/master/authentication>`_.
 
-.. function:: ScanDMARC()
+.. function:: ScanDMARC([options])
 
   Returns the `DMARC <https://docs.halon.io/go/dmarc>`_ policy to apply to the message for the From-address. It will return an associative array containing the domain as result. If the domain cannot be properly extracted or missing an error message will be returned.
 
+  :param array options: options array
   :return: associative array containing the domain and result or an error.
   :rtype: array or string
+
+  The following options are available in the options array.
+
+   * **ip** (string) Override the client `ip` for SPF lookup.
+   * **helo** (string) Override the `helo` host for SPF lookup.
+   * **domain** (string) Override the mail from `domain` for SPF lookup.
 
   ================================== ==========
   "permerror"                        An unknown error occurred (more details may be available in the log)
@@ -514,6 +521,10 @@ All connectors are available in the `script library <https://github.com/halon/hs
    * **refid** (boolean) Return RefID (used to report FN and FP). The default is ``false``.
    * **outbound** (boolean) Use RPD in outbound mode. The default is ``false``.
    * **extended_result** (boolean) Return extended results. The default is ``false``.
+   * **senderip** (string) Change the value of the `X-CTCH-SenderIP` header.
+   * **mailfrom** (string) Change the value of the `X-CTCH-MailFrom` header.
+   * **senderid** (string) Set the value of the `X-CTCH-SenderID` header (only for outbound).
+   * **rcptcount** (number) Set the value of the `X-CTCH-RcptCount` header (only for outbound).
 
   The following results are available in the extended results array.
 
