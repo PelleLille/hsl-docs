@@ -165,6 +165,10 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 				// Skip echo since it's not a function
 				if ($argv[1] === 'functions' && $name === 'echo')
 					continue;
+			
+				// skip ldap_bind and ldap_search
+				if ($argv[1] === 'functions' && ($name === 'ldap_search' || $name === 'ldap_bind'))
+					continue;
 
 				// Parameters
 				$parameters = ['required' => [], 'optional' => []];
