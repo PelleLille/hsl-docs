@@ -133,7 +133,7 @@
 
     .. code-block:: hsl
 
-      $response = $message->send(
+      $response = $message->deliver(
           ["localpart" => "nick", "domain" => "example.org"],
           [
               ["localpart" => "chris", "domain" => "example.com", "params" => ["NOTIFY" => "DELAY"]],
