@@ -45,79 +45,77 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 					}
 				}
 			} else {
-				$tables = $variables->xpath('.//table');
-				foreach ($tables as $table) {
-					$title = (string) $table->xpath('parent::*')[0]->title;
-					if ($title === 'Variables') {
-						// Variables
-						$rows = $table->tgroup->tbody->row;
-						foreach ($rows as $row) {
-							if (isset($row->entry[0]->paragraph->reference)) {
-								$name = (string) $row->entry[0]->paragraph->reference->inline;
-							} else if (isset($row->entry[0]->paragraph->inline)) {
-								$name = (string) $row->entry[0]->paragraph->inline;
-							} else {
-								$name = (string) $row->entry[0]->paragraph;
-							}
-	
-							if (isset($row->entry[1]->paragraph->reference)) {
-								$type = (string) $row->entry[1]->paragraph->reference->literal;
-							} else if (isset($row->entry[1]->paragraph->inline)) {
-								$type = (string) $row->entry[1]->paragraph->inline;
-							} else {
-								$type = (string) $row->entry[1]->paragraph;
-							}
-	
-							$readonly = (string) $row->entry[2]->paragraph;
-							$documentation = (string) $row->entry[3]->paragraph;
-	
-							$result[$file][$i]['name'] = $name;
-							$result[$file][$i]['type'] = $type;
-							if ($readonly === 'yes') {
-								$result[$file][$i]['detail'] = $type.' readonly '.$name;
-							} else {
-								$result[$file][$i]['detail'] = $type.' '.$name;
-							}
-							$result[$file][$i]['documentation'] = $documentation;
-							$i += 1;
-						}
+				// Root
+				$rows = $variables->table->tgroup->tbody->row;
+				foreach ($rows as $row) {
+					if (isset($row->entry[0]->paragraph->reference)) {
+						$name = (string) $row->entry[0]->paragraph->reference->inline;
+					} else if (isset($row->entry[0]->paragraph->inline)) {
+						$name = (string) $row->entry[0]->paragraph->inline;
 					} else {
-						// Properties
-						$variable = '$'.strtolower($title);
-						$rows = $table->tgroup->tbody->row;
-						foreach ($rows as $row) {
-							if (isset($row->entry[0]->paragraph->reference)) {
-								$name = (string) $row->entry[0]->paragraph->reference->inline;
-							} else if (isset($row->entry[0]->paragraph->inline)) {
-								$name = (string) $row->entry[0]->paragraph->inline;
-							} else {
-								$name = (string) $row->entry[0]->paragraph;
-							}
-	
-							if (isset($row->entry[1]->paragraph->reference)) {
-								$type = (string) $row->entry[1]->paragraph->reference->literal;
-							} else if (isset($row->entry[1]->paragraph->inline)) {
-								$type = (string) $row->entry[1]->paragraph->inline;
-							} else {
-								$type = (string) $row->entry[1]->paragraph;
-							}
-	
-							$example = (string) $row->entry[2]->paragraph;
-							$documentation = (string) $row->entry[3]->paragraph;
-				
-							$result[$file] = array_map(function($item) use ($variable, $name, $type, $example, $documentation) {
-								if ($variable == $item['name']) {
-									$key = [];
-									$key['name'] = $name;
-									$key['type'] = $type;
-									$key['detail'] = $type.' '.$name;
-									if ($example) $key['example'] = $example;
-									$key['documentation'] = $documentation;
-									$item['keys'][] = $key;
-								}
-								return $item;
-							}, $result[$file]);
+						$name = (string) $row->entry[0]->paragraph;
+					}
+
+					if (isset($row->entry[1]->paragraph->reference)) {
+						$type = (string) $row->entry[1]->paragraph->reference->literal;
+					} else if (isset($row->entry[1]->paragraph->inline)) {
+						$type = (string) $row->entry[1]->paragraph->inline;
+					} else {
+						$type = (string) $row->entry[1]->paragraph;
+					}
+
+					$readonly = (string) $row->entry[2]->paragraph;
+					$documentation = (string) $row->entry[3]->paragraph;
+
+					$result[$file][$i]['name'] = $name;
+					$result[$file][$i]['type'] = $type;
+					if ($readonly === 'yes') {
+						$result[$file][$i]['detail'] = $type.' readonly '.$name;
+					} else {
+						$result[$file][$i]['detail'] = $type.' '.$name;
+					}
+					$result[$file][$i]['documentation'] = $documentation;
+					$i += 1;
+				}
+
+				// Keys
+				$sections = $variables->section;
+				foreach ($sections as $section) {
+					$title = (string) $section->title;
+					$variable = '$'.strtolower($title);
+					$rows = $section->table->tgroup->tbody->row;
+					foreach ($rows as $row) {
+						if (isset($row->entry[0]->paragraph->reference)) {
+							$name = (string) $row->entry[0]->paragraph->reference->inline;
+						} else if (isset($row->entry[0]->paragraph->inline)) {
+							$name = (string) $row->entry[0]->paragraph->inline;
+						} else {
+							$name = (string) $row->entry[0]->paragraph;
 						}
+
+						if (isset($row->entry[1]->paragraph->reference)) {
+							$type = (string) $row->entry[1]->paragraph->reference->literal;
+						} else if (isset($row->entry[1]->paragraph->inline)) {
+							$type = (string) $row->entry[1]->paragraph->inline;
+						} else {
+							$type = (string) $row->entry[1]->paragraph;
+						}
+
+						$example = (string) $row->entry[2]->paragraph;
+						$documentation = (string) $row->entry[3]->paragraph;
+			
+						$result[$file] = array_map(function($item) use ($variable, $name, $type, $example, $documentation) {
+							if ($variable == $item['name']) {
+								$key = [];
+								$key['name'] = $name;
+								$key['type'] = $type;
+								$key['detail'] = $type.' '.$name;
+								if ($example) $key['example'] = $example;
+								$key['documentation'] = $documentation;
+								$item['keys'][] = $key;
+							}
+							return $item;
+						}, $result[$file]);
 					}
 				}
 			}
