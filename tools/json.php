@@ -19,9 +19,9 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 			$xml = simplexml_load_file($inputPath.$file.'.xml');
 			$variables = $xml->xpath('//*[@ids="variables"]')[0];
 			$i = 0;
-			$tables = $variables->xpath('.//table');
-			foreach ($tables as $table) {
-				if ($file == 'eodrcpt' || $file === 'predelivery' || $file === 'postdelivery' || $file === 'api' || $file === 'firewall') {
+			if ($file == 'eodrcpt' || $file === 'predelivery' || $file === 'postdelivery' || $file === 'api' || $file === 'firewall') {
+				$tables = $variables->xpath('.//table');
+				foreach ($tables as $table) {
 					$rows = $table->tgroup->tbody->row;
 					foreach ($rows as $row) {
 						$name = (string) $row->entry[0]->paragraph;
@@ -43,7 +43,10 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 							$i += 1;
 						}
 					}
-				} else {
+				}
+			} else {
+				$tables = $variables->xpath('.//table');
+				foreach ($tables as $table) {
 					$title = (string) $table->xpath('parent::*')[0]->title;
 					if ($title === 'Variables') {
 						// Variables
