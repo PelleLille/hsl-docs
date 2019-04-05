@@ -45,7 +45,6 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 					}
 				}
 			} else {
-				// Root
 				$rows = $variables->table->tgroup->tbody->row;
 				foreach ($rows as $row) {
 					if (isset($row->entry[0]->paragraph->reference)) {
@@ -78,42 +77,11 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 					$i += 1;
 				}
 
-				// Keys
-				$sections = $variables->section;
-				foreach ($sections as $section) {
-					$title = (string) $section->title;
-					$variable = '$'.strtolower($title);
-					$rows = $section->table->tgroup->tbody->row;
-					foreach ($rows as $row) {
-						if (isset($row->entry[0]->paragraph->reference)) {
-							$name = (string) $row->entry[0]->paragraph->reference->inline;
-						} else if (isset($row->entry[0]->paragraph->inline)) {
-							$name = (string) $row->entry[0]->paragraph->inline;
-						} else {
-							$name = (string) $row->entry[0]->paragraph;
-						}
-
-						if (isset($row->entry[1]->paragraph->reference)) {
-							$type = (string) $row->entry[1]->paragraph->reference->literal;
-						} else if (isset($row->entry[1]->paragraph->inline)) {
-							$type = (string) $row->entry[1]->paragraph->inline;
-						} else {
-							$type = (string) $row->entry[1]->paragraph;
-						}
-
-						$example = (string) $row->entry[2]->paragraph;
-						$documentation = (string) $row->entry[3]->paragraph;
-			
-						$result[$file] = array_map(function($item) use ($variable, $name, $type, $example, $documentation) {
-							if ($variable == $item['name']) {
-								$key = [];
-								$key['name'] = $name;
-								$key['type'] = $type;
-								$key['detail'] = $type.' '.$name;
-								if ($example) $key['example'] = $example;
-								$key['documentation'] = $documentation;
-								$item['keys'][] = $key;
-							}
+				foreach ($variables->section as $section) {
+					$keys = variable_keys($section);
+					if (count($keys['keys'])) {
+						$result[$file] = array_map(function($item) use ($keys) {
+							if ($item['name'] === '$'.$keys['title']) $item['keys'] = $keys['keys'];
 							return $item;
 						}, $result[$file]);
 					}
@@ -356,4 +324,52 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 		}
 		file_put_contents($outputPath.'functions.json', json_encode($jsonOutput, JSON_PRETTY_PRINT)."\n");
 	}
+}
+
+function variable_keys($section) {
+	$keys = [];
+	$title = strtolower((string) $section->title);
+	$rows = $section->table->tgroup->tbody->row;
+	foreach ($rows as $row) {
+		if (isset($row->entry[0]->paragraph->reference)) {
+			$name = (string) $row->entry[0]->paragraph->reference->inline;
+		} else if (isset($row->entry[0]->paragraph->inline)) {
+			$name = (string) $row->entry[0]->paragraph->inline;
+		} else {
+			$name = (string) $row->entry[0]->paragraph;
+		}
+
+		if (isset($row->entry[1]->paragraph->reference)) {
+			$type = (string) $row->entry[1]->paragraph->reference->literal;
+		} else if (isset($row->entry[1]->paragraph->inline)) {
+			$type = (string) $row->entry[1]->paragraph->inline;
+		} else {
+			$type = (string) $row->entry[1]->paragraph;
+		}
+
+		$example = (string) $row->entry[2]->paragraph;
+		$documentation = (string) $row->entry[3]->paragraph;
+
+		$key = [];
+		$key['name'] = $name;
+		$key['type'] = $type;
+		$key['detail'] = $type.' '.$name;
+		if ($example) $key['example'] = $example;
+		$key['documentation'] = $documentation;
+
+		$keys[] = $key;
+	}
+
+	$subsections = $section->section;
+	foreach ($subsections as $subsection) {
+		$subkeys = variable_keys($subsection);
+		if (count($subkeys['keys'])) {
+			$keys = array_map(function($item) use ($subkeys) {
+				if ($item['name'] === $subkeys['title']) $item['keys'] = $subkeys['keys'];
+				return $item;
+			}, $keys);
+		}
+	}
+
+	return ['title' => $title, 'keys' => $keys];
 }
