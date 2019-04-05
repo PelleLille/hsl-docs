@@ -354,7 +354,9 @@ function variable_keys($section) {
 		$key['name'] = $name;
 		$key['type'] = $type;
 		$key['detail'] = $type.' '.$name;
-		if ($example) $key['example'] = $example;
+		if ($example && $name !== 'recipients') {
+			$key['example'] = $example;
+		}
 		$key['documentation'] = $documentation;
 
 		$keys[] = $key;
