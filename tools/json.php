@@ -77,6 +77,15 @@ if (isset($argv[1]) and $argv[1] === 'variables') {
 					$i += 1;
 				}
 
+				// Special handling of "address" object
+				$addressobject = $variables->xpath('//title[contains(.,"Address")]')[0];
+				if ($addressobject) {
+					$addressobject = $addressobject->xpath('parent::*')[0];
+					if ($addressobject) {
+						$addressobject = variable_keys($addressobject);
+					}
+				}
+
 				foreach ($variables->section as $section) {
 					$keys = variable_keys($section);
 					if (count($keys['keys'])) {
@@ -327,6 +336,7 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 }
 
 function variable_keys($section) {
+	global $addressobject;
 	$keys = [];
 	$title = strtolower((string) $section->title);
 	$rows = $section->table->tgroup->tbody->row;
@@ -361,6 +371,14 @@ function variable_keys($section) {
 
 		$keys[] = $key;
 	}
+
+	// Special handling of "address" object
+	$keys = array_map(function($item) use ($addressobject) {
+		if (strpos($item['name'], 'address') !== false && $addressobject) {
+			$item['keys'] = $addressobject['keys'];
+		}
+		return $item;
+	}, $keys);
 
 	$subsections = $section->section;
 	foreach ($subsections as $subsection) {
