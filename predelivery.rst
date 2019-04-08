@@ -117,6 +117,7 @@ Functions
   :param string namespace: the namespace
   :param string entry: the entry
   :param number max: the maximum concurrency
+  :rtype: boolean
 
   .. code-block:: hsl
 
