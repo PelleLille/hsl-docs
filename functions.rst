@@ -1619,7 +1619,7 @@ Protocols
 
   The LDAP class is a OpenLDAP wrapper class. The URI should be in the format of ldap:// or ldaps://. Multiple hosts may be given separated by space.
 
-  .. function:: LDAP.constructor(family, type)
+  .. function:: LDAP.constructor(uri)
 
     :param string uri: The LDAP 
   
@@ -1709,6 +1709,13 @@ Protocols
 
 	  :return: errno
 	  :rtype: number
+
+  .. function:: LDAP.getpeerx509()
+
+	  Get the peer certificate (X.509) as a :class:`X509` instance.
+
+	  :return: The peer certificate
+	  :rtype: :class:`X509`
 
   .. staticmethod:: err2string(errno)
 
@@ -2028,7 +2035,7 @@ Socket
 	  :return: data
 	  :rtype: string or None
 
-	  Flags may be any of, the default is no posix recv(3) flag.
+	  Flags may be any of, the default is no POSIX recv(3) flag.
 
 	  +--------------+------------------------------------------+
 	  | Name         | Behaviour                                |
