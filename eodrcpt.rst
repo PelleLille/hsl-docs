@@ -71,7 +71,7 @@ Functions
 * **Embedded scanning** :func:`ScanDMARC` :func:`ScanDLP` :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM`
 * **Miscellaneous** :func:`GetMailQueueMetric` :func:`GetTLS`
 * **Arguments** :func:`SetRecipient` :func:`SetMailTransport` :func:`SetDelayedDeliver` :func:`SetMetaData` :func:`GetMetaData` :func:`SetSender` :func:`SetSenderIP` :func:`SetSenderHELO`
-* **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetRoute` :func:`GetDSN` :func:`GetDSNHeader`
+* **Headers** :func:`GetHeader` :func:`GetHeaders` :func:`AddHeader` :func:`SetHeader` :func:`PrependHeader` :func:`AppendHeader` :func:`DelHeader` :func:`GetDSN` :func:`GetDSNHeader`
 
 Actions
 ^^^^^^^
@@ -349,12 +349,6 @@ These functions operate on message headers, just like :cpp:class:`MIMEPart`.
   :param string name: name of the header
   :return: number of headers deleted
   :rtype: number
-
-.. function:: GetRoute([extended_result = false])
-
-  :param boolean extended_result: include more information
-  :return: the message's `Received` header(s) parsed in a usable format
-  :rtype: array
 
 .. function:: GetDSN()
 
