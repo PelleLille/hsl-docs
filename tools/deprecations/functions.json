@@ -217,7 +217,61 @@
         }
     ],
     "eodonce": [],
-    "eodrcpt": [],
+    "eodrcpt": [
+        {
+            "name": "GetRoute",
+            "deprecated": true,
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "extended_result = false",
+                        "type": "boolean"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "GetRoute([boolean $extended_result = false]): array",
+            "value": "GetRoute($0)",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.0-stable/eodrcpt.html#GetRoute)"
+        },
+        {
+            "name": "GetDSN",
+            "deprecated": true,
+            "parameters": {
+                "required": [],
+                "optional": []
+            },
+            "returnType": "array or false",
+            "detail": "GetDSN(): array or false",
+            "value": "GetDSN()",
+            "documentation": "Parse a DSN message.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.0-stable/eodrcpt.html#GetDSN)"
+        },
+        {
+            "name": "GetDSNHeader",
+            "deprecated": true,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "name",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "skip_decode = false",
+                        "type": "boolean"
+                    }
+                ]
+            },
+            "returnType": "string",
+            "detail": "GetDSNHeader(string $name [, boolean $skip_decode = false]): string",
+            "value": "GetDSNHeader($0)",
+            "documentation": "Same as GetHeader except it works on attached DSN messages. The name is not case sensitive.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.0-stable/eodrcpt.html#GetDSNHeader)"
+        }
+    ],
     "predelivery": [],
     "postdelivery": [],
     "api": [],
