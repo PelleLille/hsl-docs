@@ -350,22 +350,6 @@ These functions operate on message headers, just like :cpp:class:`MIMEPart`.
   :return: number of headers deleted
   :rtype: number
 
-.. function:: GetDSN()
-
-  Parse a DSN message.
-
-  :return: information about a DSN message
-  :rtype: array or false
-
-.. function:: GetDSNHeader(name, [skip_decode = false])
-
-  Same as GetHeader except it works on attached DSN messages. The name is not case sensitive.
-
-  :param string name: the header
-  :param boolean skip_decode: if decoding should be skipped (return raw)
-  :return: the header value
-  :rtype: string
-
 On script error
 ---------------
 
