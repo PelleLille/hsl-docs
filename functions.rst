@@ -2249,6 +2249,10 @@ The foreign function interface (FFI) enables loading of shared libraries followi
 
     :param string path: a library (eg. libc.so.7)
 
+    .. code-block:: hsl
+
+     $libc = FFI("libc.so.7");
+
   .. function:: FFI.func(name, arguments, returntype)
 
     The name of the function to load, use :func:`FFI.type` to define the correct function signature. If the function is not found, None is returned.
@@ -2300,6 +2304,11 @@ The foreign function interface (FFI) enables loading of shared libraries followi
 
     * ``uint8``, ``sint8``, ``uint16``, ``sint16``, ``uint32``, ``sint32``, ``uint64``, ``sint64``, ``float``, ``double``
 
+    .. code-block:: hsl
+
+      $malloc = $libc->func("malloc", [ FFI::type("uint64") ], FFI::type("pointer"));
+      $ptr = $malloc(FFI::cnumber(FFI::type("uint64"), 32));
+
   .. staticmethod:: cstring(value)
 
     Allocate a null-terminated C string (``char *``) in memory from a HSL string and return an :data:`FFIValue` of ``pointer`` type pointing to that memory. This memory is owned by the :data:`FFIValue` resource (use the :func:`FFI.detach` function to disclaim ownership). This function is intentionally not binary safe.
@@ -2307,6 +2316,11 @@ The foreign function interface (FFI) enables loading of shared libraries followi
     :param string value: a string
     :return: An FFIValue of pointer type
     :rtype: :data:`FFIValue`
+
+    .. code-block:: hsl
+
+      $fopen = $libc->func("fopen", [ FFI::type("pointer"), FFI::type("pointer") ], FFI::type("pointer"));
+      $fp = $fopen(FFI::cstring("/dev/zero"), FFI::cstring("r"));
 
   .. staticmethod:: nullptr()
 
@@ -2447,8 +2461,15 @@ The foreign function interface (FFI) enables loading of shared libraries followi
 	  +------------------+----------+------------------------------------+
 	  | ``pointer``      | None     | :func:`FFI.nullptr`                |
 	  +------------------+----------+------------------------------------+
-	  | `any number`     | Number   | Be causes of value truncations     | 
+	  | `any number`     | Number   | Be causes of value truncations     |
 	  +------------------+----------+------------------------------------+
+
+    .. code-block:: hsl
+
+      $fopen = $libc->func("fopen", [ FFI::type("pointer"), FFI::type("pointer") ], FFI::type("pointer"));
+      $fp1 = $fopen(FFI::cstring("/dev/zero"), FFI::cstring("r"));
+      $fp2 = $fopen("/dev/zero", "r"); // implicit conversion
+
 
 .. data:: FFIType
 
