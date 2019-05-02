@@ -2470,7 +2470,6 @@ The foreign function interface (FFI) enables loading of shared libraries followi
       $fp1 = $fopen(FFI::cstring("/dev/zero"), FFI::cstring("r"));
       $fp2 = $fopen("/dev/zero", "r"); // implicit conversion
 
-
 .. data:: FFIType
 
   An FFIType resource holds information about a function signature.
