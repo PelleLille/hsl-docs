@@ -2239,11 +2239,11 @@ Socket
 FFI
 ---
 
-The FFI (Foreign Function Interface) lets to work with shared libraries following C interface calling conventions, by loading them into the HSL language as callable functions. The FFI interface has its own types (C types) and its own memory. It's very easy to crash the system if not properly using the API's.
+The foreign function interface (FFI) enables loading of shared libraries following C interface calling conventions. The FFI interface has its own types (C types) and memory. It's very easy to crash the Halon script engine if not used properly.
 
 .. class:: FFI
 
-  This class allows you to load a DLL/SO (shared object) library into HSL using the Foreign Function Interface.
+  This class allows you to load a shared object/library.
 
   .. function:: FFI.constructor(path)
 
@@ -2251,7 +2251,7 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
 
   .. function:: FFI.func(name, arguments, returntype)
 
-    The name of the function to load, use :func:`FFI.type` to define the correct function signature. If the function is not found none is returned.
+    The name of the function to load, use :func:`FFI.type` to define the correct function signature. If the function is not found, None is returned.
 
     :param string name: the function name
     :param FFIType arguments: the list of argument types
@@ -2266,18 +2266,18 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
 
   .. function:: FFI.symbol(name)
 
-    Return a pointer to a global symbol in the library (eg. a variable). This function is the equivalent of dlsym(2). If the symbol is not found none is returned.
+    Return a pointer to a global symbol in the library (eg. a variable). This function is the equivalent of dlsym(2). If the symbol is not found, None is returned.
 
     :param string name: a symbol name
-    :return: A FFIValue of pointer type
+    :return: An FFIValue of pointer type
     :rtype: :data:`FFIValue`
 
   .. staticmethod:: type(name)
 
-    A factory function for FFI types. This function is usually used to declare the function signature of a :data:`FFIFunction`.
+    A factory function for FFI types. This function is usually used to declare the function signature of an :data:`FFIFunction`.
 
     :param string name: a type name
-    :return: A FFI type
+    :return: An FFI type
     :rtype: :data:`FFIType`
 
     The following types are available.
@@ -2289,30 +2289,30 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
 
   .. staticmethod:: cnumber(type, number)
 
-    A factory function for FFIValue. These basic types exist for the lifetime of the returned value.
+    Create an :data:`FFIValue` containing a C number. It's a basic type, which exists for the lifetime of the returned value and passed by value.
   
-    :param FFIType type: a number type
-    :param any value: a  HSL value
-    :return: A FFI value
+    :param FFIType type: an FFI C number type
+    :param number number: a number
+    :return: An FFI value
     :rtype: :data:`FFIValue`
 
-    The following number types are available.
+    The following FFI number types are available:
 
     * ``uint8``, ``sint8``, ``uint16``, ``sint16``, ``uint32``, ``sint32``, ``uint64``, ``sint64``, ``float``, ``double``
 
   .. staticmethod:: cstring(value)
 
-    Allocate a null-terminated C string (``char *``) in memory from a HSL string and return a :data:`FFIValue` of ``pointer`` type pointing to that memory. This memory is owned by the :data:`FFIValue` resource (use the :func:`FFI.detach` function to change). This function is intentionally not binary safe.
+    Allocate a null-terminated C string (``char *``) in memory from a HSL string and return an :data:`FFIValue` of ``pointer`` type pointing to that memory. This memory is owned by the :data:`FFIValue` resource (use the :func:`FFI.detach` function to disclaim ownership). This function is intentionally not binary safe.
 
     :param string value: a string
-    :return: A FFIValue of pointer type
+    :return: An FFIValue of pointer type
     :rtype: :data:`FFIValue`
 
   .. staticmethod:: nullptr()
 
-    Return a NULL pointer.
+    Create an :data:`FFIValue` containing a NULL pointer.
 
-    :return: A FFIValue of pointer type
+    :return: An FFIValue of pointer type
     :rtype: :data:`FFIValue`
 
     .. note::
@@ -2321,10 +2321,10 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
   
   .. staticmethod:: allocate(size)
 
-    Allocate memory of `size` in bytes and return a :data:`FFIValue` of ``pointer`` type pointing to that memory. This memory is owned by the :data:`FFIValue` resource (use the :func:`FFI.detach` function to change). The memory is initially filled with zeros.
+    Allocate memory of `size` in bytes and return an :data:`FFIValue` of ``pointer`` type pointing to that memory. This memory is owned by the :data:`FFIValue` resource (use the :func:`FFI.detach` function to disclaim ownership). The memory is initially filled with zeros.
 
     :param any size: the memory size in bytes
-    :return: A FFIValue of pointer type
+    :return: An FFIValue of pointer type
     :rtype: :data:`FFIValue`
 
     .. note::
@@ -2333,11 +2333,11 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
 
   .. staticmethod:: memcpy(pointer, data)
 
-    Copy the binary content of (string) data into memory location pointed to by a :data:`FFIValue` of ``pointer`` type. The caller must make sure the pointer location has a sufficient length.
+    Copy the binary content of (string) data into memory location pointed to by an :data:`FFIValue` of ``pointer`` type. The caller must make sure the pointer location is of sufficient length.
   
-    :param FFIValue pointer: a FFIValue of pointer type
+    :param FFIValue pointer: an FFIValue of pointer type
     :param string data: the data to copied
-    :return: A FFIValue
+    :return: An FFIValue
     :rtype: :data:`FFIValue`
   
     .. note::
@@ -2346,10 +2346,10 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
 
   .. staticmethod:: byref(value)
 
-    Return a :data:`FFIValue` of ``pointer`` type pointing to a :data:`FFIValue`.
+    Return an :data:`FFIValue` of ``pointer`` type pointing to the :data:`FFIValue` `value`.
 
-    :param FFIValue value: a FFI value
-    :return: A FFIValue of pointer type
+    :param FFIValue value: an FFI value
+    :return: An FFIValue of pointer type
     :rtype: :data:`FFIValue`
 
     .. note::
@@ -2358,11 +2358,11 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
 
   .. staticmethod:: deref(value, [type])
 
-    Return a :data:`FFIValue` of ``pointer`` type pointing the address of a :data:`FFIValue`. The default type is a ``pointer``. If the type is a pointer and dereferenced pointer points to NULL then none is returned.
+    Return an :data:`FFIValue` with :data:`FFIType` of `type` with the value at the address pointed at by the :data:`FFIValue` value. The default type is ``pointer``. If the type is a pointer and dereferenced pointer points to NULL then None is returned.
 
-    :param FFIValue value: a FFI value
-    :param FFIType type: a FFI type
-    :return: A FFIValue of pointer type
+    :param FFIValue value: an FFI value
+    :param FFIType type: an FFI type
+    :return: An FFIValue of pointer type
     :rtype: :data:`FFIValue`
 
     .. note::
@@ -2373,9 +2373,9 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
 
     Return a new :data:`FFIValue` of ``pointer`` type pointing the same memory with an offset.
 
-    :param FFIValue pointer: a FFI value of pointer type
+    :param FFIValue pointer: an FFI value of pointer type
     :param number offset: the offset in bytes
-    :return: A FFIValue of pointer type
+    :return: An FFIValue of pointer type
     :rtype: :data:`FFIValue`
 
     .. note::
@@ -2384,26 +2384,26 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
 
   .. staticmethod:: string(pointer, [size])
 
-    Copy the binary content of a memory location pointed to by a :data:`FFIValue` of ``pointer`` type to a HSL string. If the size is omitted the memory will be copied up to the first NULL character as a null-terminated C string (``char *``).
+    Copy the binary content of a memory location pointed to by an :data:`FFIValue` of ``pointer`` type to a HSL string. If the size is omitted the memory will be copied up to the first NULL character as a null-terminated C string (``char *``).
   
-    :param FFIValue pointer: a FFI value of pointer type
+    :param FFIValue pointer: an FFI value of pointer type
     :param number size: bytes to copy
     :return: A binary safe string
     :rtype: string
 
   .. staticmethod:: number(value)
 
-    Convert a FFI value to a HSL number. The number type can safely represent all integers between `+/-9007199254740991` (the equivalent of ``(2 ** 53) - 1``). If you expect to work with greater numbers use :func:`FFI.number64`.
+    Convert an FFI value to a HSL number. The number type can safely represent all integers between `+/-9007199254740991` (the equivalent of ``(2 ** 53) - 1``). If you expect to work with greater numbers use :func:`FFI.number64`.
 
-    :param FFIValue value: a FFI value
+    :param FFIValue value: an FFI value
     :return: A number
     :rtype: number
 
   .. staticmethod:: number64(value)
 
-    Convert a FFI value (``uint64`` or ``sint64``) to a pair of two 32 bit integers ([high, low]). For signed negative numbers a two complement representation is used.
+    Convert an FFI value (``uint64`` or ``sint64``) to a pair of two 32 bit integers ([high, low]). For signed negative numbers a two complement representation is used.
 
-    :param FFIValue value: a FFI value
+    :param FFIValue value: an FFI value
     :return: A number pair
     :rtype: array of number
 
@@ -2411,7 +2411,7 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
 
     Assign the ownership of the data pointed to by the pointer argument (:data:`FFIValue` of ``pointer`` type). The default destructor is `free`. An optional destructor :data:`FFIFunction` (should have one ``pointer`` argument) may be given.
   
-    :param FFIValue pointer: a FFIValue of pointer type
+    :param FFIValue pointer: an FFIValue of pointer type
     :param FFIFunction destructor: a destructor function
     :return: The pointer argument
     :rtype: :data:`FFIValue`
@@ -2426,7 +2426,7 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
 
     Remove the ownership of the data pointed to by the pointer argument (:data:`FFIValue` of ``pointer`` type).
   
-    :param FFIValue pointer: a FFI value of pointer type
+    :param FFIValue pointer: an FFI value of pointer type
     :return: The pointer argument
     :rtype: :data:`FFIValue`
 
@@ -2452,7 +2452,7 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
 
 .. data:: FFIType
 
-  A FFIType resource holds information about a function signature.
+  An FFIType resource holds information about a function signature.
 
   The following types are available.
 
@@ -2463,4 +2463,4 @@ The FFI (Foreign Function Interface) lets to work with shared libraries followin
 
 .. data:: FFIValue
 
-  A FFIValue resource is a container for a FFI value (it also contains the FFIType) so that the correct conversions can be made. If the value is of a pointer type you may control the lifetime of the object using the :func:`FFI.attach` and :func:`FFI.detach` functions.
+  An FFIValue resource is a container for an FFI value (it also contains the FFIType) so that the correct conversions can be made. If the value is of a pointer type you may control the lifetime of the object using the :func:`FFI.attach` and :func:`FFI.detach` functions.
