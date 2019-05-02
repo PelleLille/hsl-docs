@@ -2207,7 +2207,6 @@ Socket
     :return: The certificate end date
     :rtype: number
 
-
   .. function:: X509.public_key([options])
 
     Export the public key in binary DER format (default) or in PEM format.
@@ -2234,5 +2233,234 @@ Socket
 
     .. code-block:: hsl
 
-	  	  // SHA256 fingerprint
-	  	  echo sha2($c->export(), 256);
+        // SHA256 fingerprint
+        echo sha2($c->export(), 256);
+
+FFI
+---
+
+The FFI (Foreign Function Interface) lets to work with shared libraries following C interface calling conventions, by loading them into the HSL language as callable functions. The FFI interface has its own types (C types) and its own memory. It's very easy to crash the system if not properly using the API's.
+
+.. class:: FFI
+
+  This class allows you to load a DLL/SO (shared object) library into HSL using the Foreign Function Interface.
+
+  .. function:: FFI.constructor(path)
+
+    :param string path: a library (eg. libc.so.7)
+
+  .. function:: FFI.func(name, arguments, returntype)
+
+    The name of the function to load, use :func:`FFI.type` to define the correct function signature. If the function is not found none is returned.
+
+    :param string name: the function name
+    :param FFIType arguments: the list of argument types
+    :param FFIType returntype: the return type
+    :return: A function object
+    :rtype: :data:`FFIFunction`
+
+    .. code-block:: hsl
+
+      $malloc = $libc->func("malloc", [ FFI::type("uint64") ], FFI::type("pointer"));
+      $free = $libc->func("free", [ FFI::type("pointer") ], FFI::type("void"));
+
+  .. function:: FFI.symbol(name)
+
+    Return a pointer to a global symbol in the library (eg. a variable). This function is the equivalent of dlsym(2). If the symbol is not found none is returned.
+
+    :param string name: a symbol name
+    :return: A FFIValue of pointer type
+    :rtype: :data:`FFIValue`
+
+  .. staticmethod:: type(name)
+
+    A factory function for FFI types. This function is usually used to declare the function signature of a :data:`FFIFunction`.
+
+    :param string name: a type name
+    :return: A FFI type
+    :rtype: :data:`FFIType`
+
+    The following types are available.
+
+    * ``void`` (can only be used as return value)
+    * ``uint8``, ``sint8``, ``uint16``, ``sint16``, ``uint32``, ``sint32``, ``uint64``, ``sint64``
+    * ``float``, ``double``
+    * ``pointer``
+
+  .. staticmethod:: cnumber(type, number)
+
+    A factory function for FFIValue. These basic types exist for the lifetime of the returned value.
+  
+    :param FFIType type: a number type
+    :param any value: a  HSL value
+    :return: A FFI value
+    :rtype: :data:`FFIValue`
+
+    The following number types are available.
+
+    * ``uint8``, ``sint8``, ``uint16``, ``sint16``, ``uint32``, ``sint32``, ``uint64``, ``sint64``, ``float``, ``double``
+
+  .. staticmethod:: cstring(value)
+
+    Allocate a null-terminated C string (``char *``) in memory from a HSL string and return a :data:`FFIValue` of ``pointer`` type pointing to that memory. This memory is owned by the :data:`FFIValue` resource (use the :func:`FFI.detach` function to change). This function is intentionally not binary safe.
+
+    :param string value: a string
+    :return: A FFIValue of pointer type
+    :rtype: :data:`FFIValue`
+
+  .. staticmethod:: nullptr()
+
+    Return a NULL pointer.
+
+    :return: A FFIValue of pointer type
+    :rtype: :data:`FFIValue`
+
+    .. note::
+      
+      The C equivalent of this function is ``NULL``.
+  
+  .. staticmethod:: allocate(size)
+
+    Allocate memory of `size` in bytes and return a :data:`FFIValue` of ``pointer`` type pointing to that memory. This memory is owned by the :data:`FFIValue` resource (use the :func:`FFI.detach` function to change). The memory is initially filled with zeros.
+
+    :param any size: the memory size in bytes
+    :return: A FFIValue of pointer type
+    :rtype: :data:`FFIValue`
+
+    .. note::
+      
+      The C equivalent of this function is ``malloc(size)`` with a ``memset(pointer, size, 0)``.
+
+  .. staticmethod:: memcpy(pointer, data)
+
+    Copy the binary content of (string) data into memory location pointed to by a :data:`FFIValue` of ``pointer`` type. The caller must make sure the pointer location has a sufficient length.
+  
+    :param FFIValue pointer: a FFIValue of pointer type
+    :param string data: the data to copied
+    :return: A FFIValue
+    :rtype: :data:`FFIValue`
+  
+    .. note::
+      
+      The C equivalent of this function is ``memcpy(pointer, data, datalen)``.
+
+  .. staticmethod:: byref(value)
+
+    Return a :data:`FFIValue` of ``pointer`` type pointing to a :data:`FFIValue`.
+
+    :param FFIValue value: a FFI value
+    :return: A FFIValue of pointer type
+    :rtype: :data:`FFIValue`
+
+    .. note::
+
+      The C equivalent of this function is ``&value``.
+
+  .. staticmethod:: deref(value, [type])
+
+    Return a :data:`FFIValue` of ``pointer`` type pointing the address of a :data:`FFIValue`. The default type is a ``pointer``. If the type is a pointer and dereferenced pointer points to NULL then none is returned.
+
+    :param FFIValue value: a FFI value
+    :param FFIType type: a FFI type
+    :return: A FFIValue of pointer type
+    :rtype: :data:`FFIValue`
+
+    .. note::
+
+      The C equivalent of this function is ``*value``.
+
+  .. staticmethod:: offset(pointer, offset)
+
+    Return a new :data:`FFIValue` of ``pointer`` type pointing the same memory with an offset.
+
+    :param FFIValue pointer: a FFI value of pointer type
+    :param number offset: the offset in bytes
+    :return: A FFIValue of pointer type
+    :rtype: :data:`FFIValue`
+
+    .. note::
+      
+      The C equivalent of this function is ``pointer + 32``.
+
+  .. staticmethod:: string(pointer, [size])
+
+    Copy the binary content of a memory location pointed to by a :data:`FFIValue` of ``pointer`` type to a HSL string. If the size is omitted the memory will be copied up to the first NULL character as a null-terminated C string (``char *``).
+  
+    :param FFIValue pointer: a FFI value of pointer type
+    :param number size: bytes to copy
+    :return: A binary safe string
+    :rtype: string
+
+  .. staticmethod:: number(value)
+
+    Convert a FFI value to a HSL number. The number type can safely represent all integers between `+/-9007199254740991` (the equivalent of ``(2 ** 53) - 1``). If you expect to work with greater numbers use :func:`FFI.number64`.
+
+    :param FFIValue value: a FFI value
+    :return: A number
+    :rtype: number
+
+  .. staticmethod:: number64(value)
+
+    Convert a FFI value (``uint64`` or ``sint64``) to a pair of two 32 bit integers ([high, low]). For signed negative numbers a two complement representation is used.
+
+    :param FFIValue value: a FFI value
+    :return: A number pair
+    :rtype: array of number
+
+  .. staticmethod:: attach(pointer, [destructor])
+
+    Assign the ownership of the data pointed to by the pointer argument (:data:`FFIValue` of ``pointer`` type). The default destructor is `free`. An optional destructor :data:`FFIFunction` (should have one ``pointer`` argument) may be given.
+  
+    :param FFIValue pointer: a FFIValue of pointer type
+    :param FFIFunction destructor: a destructor function
+    :return: The pointer argument
+    :rtype: :data:`FFIValue`
+
+    .. code-block:: hsl
+
+      $fopen = $libc->func("fopen", [ FFI::type("pointer"), FFI::type("pointer") ], FFI::type("pointer"));
+      $fclose = $libc->func("fclose", [ FFI::type("pointer") ], FFI::type("void"));
+      $fp = FFI::attach($fopen->call("/dev/zero", "r"), $fclose);
+
+  .. staticmethod:: detach(pointer)
+
+    Remove the ownership of the data pointed to by the pointer argument (:data:`FFIValue` of ``pointer`` type).
+  
+    :param FFIValue pointer: a FFI value of pointer type
+    :return: The pointer argument
+    :rtype: :data:`FFIValue`
+
+.. function:: FFIFunction(...args)
+
+    A callable Function object of type FFIFunction.
+
+    :param FFIValue args: FFIValues or a HSL value
+    :return: Return value of function call 
+    :rtype: :data:`FFIValue` or None (for ``void`` or a ``pointer`` returning `NULL`)
+
+    Implicit conversion can be made if the function signature has once of the following types and the argument HSL type match. Note that the lifetime of converted values are for the duration of the function call. 
+
+	  +------------------+----------+------------------------------------+
+	  | Declaration type | HSL type | Conversion                         |
+	  +==================+==========+====================================+
+	  | ``pointer``      | String   | :func:`FFI.cstring`                |
+	  +------------------+----------+------------------------------------+
+	  | ``pointer``      | None     | :func:`FFI.nullptr`                |
+	  +------------------+----------+------------------------------------+
+	  | `any number`     | Number   | Be causes of value truncations     | 
+	  +------------------+----------+------------------------------------+
+
+.. data:: FFIType
+
+  A FFIType resource holds information about a function signature.
+
+  The following types are available.
+
+    * ``void`` (can only be used as return value)
+    * ``uint8``, ``sint8``, ``uint16``, ``sint16``, ``uint32``, ``sint32``, ``uint64``, ``sint64``
+    * ``float``, ``double``
+    * ``pointer``
+
+.. data:: FFIValue
+
+  A FFIValue resource is a container for a FFI value (it also contains the FFIType) so that the correct conversions can be made. If the value is of a pointer type you may control the lifetime of the object using the :func:`FFI.attach` and :func:`FFI.detach` functions.
