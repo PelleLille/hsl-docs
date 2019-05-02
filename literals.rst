@@ -29,6 +29,10 @@ The number type is a double-precision 64-bit `IEEE 754 <http://en.wikipedia.org/
 
 	echo 1.0; // 1
 
+.. note::
+
+	The number type can safely represent all integers between `+/-9007199254740991` (the equivalent of ``(2 ** 53) - 1``).
+
 .. warning::
 
 	After some arithmetic operations on floating point numbers; the equality (`==`) of two floating point numbers may not be true even if they mathematically "should". This caveat is not unique to HSL, instead it is the result of how computers calculates and stores `floating point numbers <http://en.wikipedia.org/wiki/Floating_point>`_. Arithmetic operations on `numbers` without decimals are not affected.
