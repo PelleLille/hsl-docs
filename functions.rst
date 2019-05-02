@@ -2401,7 +2401,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
 
   .. staticmethod:: number64(value)
 
-    Convert an FFI value (``uint64`` or ``sint64``) to a pair of two 32 bit integers ([high, low]). For signed negative numbers a two complement representation is used.
+    Convert an FFI value (``uint64``, ``sint64`` or ``pointer``) to a pair of two 32 bit integers ([high, low]). For signed negative numbers a two complement representation is used.
 
     :param FFIValue value: an FFI value
     :return: A number pair
