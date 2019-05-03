@@ -1628,7 +1628,7 @@ Protocols
       $ldap = LDAP("ldap://ldap.forumsys.com");
       $ldap->bind("uid=tesla,dc=example,dc=com", "password");
       $x = $ldap->search("dc=example,dc=com");
-      while ($x and $entry = $x->entry())
+      while ($x and $entry = $x->next())
           echo $entry;
 
   .. function:: LDAP.setoption(name, value)
