@@ -1740,7 +1740,7 @@ Protocols
 
 	  .. code-block:: hsl
 
-		  $result = $ldap->search("dc=example,dc=com", ["filter" => "(cn=" . LDAP::filter_escape("firstname.lastname"] . ")"));
+		  $result = $ldap->search("dc=example,dc=com", ["filter" => "(cn=" . LDAP::filter_escape($cn) . ")"]);
 
   .. staticmethod:: str2dn(str)
 
