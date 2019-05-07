@@ -156,7 +156,7 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 					$paramOptionalPath = $function->desc_signature->desc_parameterlist->xpath('.//desc_optional');
 					$paramOptional = [];
 					foreach ($paramOptionalPath as $path) {
-						$paramOptional[] = (string) $path->desc_parameter;
+						$paramOptional = array_merge($paramOptional, (array) $path->desc_parameter);
 					}
 					if (isset($fields->field)) {
 						foreach ($fields->field as $field) {
