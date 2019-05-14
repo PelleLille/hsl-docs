@@ -979,6 +979,7 @@ File and HTTP
    * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
    * **headers** (array) An array of additional HTTP headers as strings. 
    * **response_headers** (boolean) Return the full request, including response headers (regardless of HTTP status). The default is ``false``.
+   * **redirects** (number) Specify the number of 304 redirects to follow (use ``-1`` for unlimited). The default is ``0`` (not to follow redirects).
    * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
    * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
