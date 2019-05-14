@@ -2267,6 +2267,9 @@ The foreign function interface (FFI) enables loading of shared libraries followi
 
       $malloc = $libc->func("malloc", [ FFI::type("uint64") ], FFI::type("pointer"));
       $free = $libc->func("free", [ FFI::type("pointer") ], FFI::type("void"));
+      $printf = $libc->func("printf", [ FFI::type("pointer"), FFI::type("...") ], FFI::type("sint64")); // variadic
+
+    The ``...`` type prepresents functions having a variadic arguments list. All values in the variadic arguments list must have an explicit type since they are unknown in the function definition.
 
   .. function:: FFI.symbol(name)
 
@@ -2290,6 +2293,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
     * ``uint8``, ``sint8``, ``uint16``, ``sint16``, ``uint32``, ``sint32``, ``uint64``, ``sint64``
     * ``float``, ``double``
     * ``pointer``
+    * ``...`` (can only be used as function argument)
 
   .. staticmethod:: cnumber(type, number)
 
@@ -2463,12 +2467,15 @@ The foreign function interface (FFI) enables loading of shared libraries followi
 	  +------------------+----------+------------------------------------+
 	  | `any number`     | Number   | Be causes of value truncations     |
 	  +------------------+----------+------------------------------------+
+	  | ``...``          | FFIValue | Argument must be of explicit type  |
+	  +------------------+----------+------------------------------------+
 
     .. code-block:: hsl
 
       $fopen = $libc->func("fopen", [ FFI::type("pointer"), FFI::type("pointer") ], FFI::type("pointer"));
       $fp1 = $fopen(FFI::cstring("/dev/zero"), FFI::cstring("r"));
       $fp2 = $fopen("/dev/zero", "r"); // implicit conversion
+      $printf("%s %zu\n", FFI::cstring("hello"), FFI::cnumber(FFI::type("uint64"), 123));
 
 .. data:: FFIType
 
@@ -2480,6 +2487,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
     * ``uint8``, ``sint8``, ``uint16``, ``sint16``, ``uint32``, ``sint32``, ``uint64``, ``sint64``
     * ``float``, ``double``
     * ``pointer``
+    * ``...`` (can only be used as function argument)
 
 .. data:: FFIValue
 
