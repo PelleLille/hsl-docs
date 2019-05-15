@@ -2240,7 +2240,7 @@ Socket
 FFI
 ---
 
-The foreign function interface (FFI) enables loading of shared libraries following C interface calling conventions. The FFI interface has its own types (C types) and memory. It's very easy to crash the Halon script engine if not used properly.
+The foreign function interface (FFI) enables loading of shared libraries following C interface calling conventions. The FFI interface has its own types (C types) and memory. It's very easy to crash the Halon script engine if not used properly. The FFI feature is not enabled by default and needs to be enabled in the .yaml configuration for each program.
 
 .. class:: FFI
 
