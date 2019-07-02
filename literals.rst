@@ -109,7 +109,7 @@ Variable interpolation replaces ``$variable`` placeholders within string literal
 Raw string
 ^^^^^^^^^^
 
-Raw strings do not support variable interpolation nor escape sequences. This make them suitable for :ref:`regular expressions <regex>`. Raw strings start and ends with **two single quotes** on each side ``''``, with an optional delimiter in between. The delimiter can be any of ``[\x21-\x26\x28-\x7e]*``; simply put any word.
+Raw strings do not support variable interpolation nor escape sequences. This make them suitable for :ref:`regular expressions <regex>`. Raw strings start and end with **two single quotes** on each side ``''``, with an optional delimiter in between. The delimiter can be any of ``[\x21-\x26\x28-\x7e]*``; simply put any word.
 
 .. code-block:: hsl
 
