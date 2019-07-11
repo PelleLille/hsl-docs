@@ -24,12 +24,12 @@ Variables may store values from expression (e.g. constants or function calls) or
 Functions
 ---------
 
-A lot of builtin functions are available in the :doc:`function library <functions>`. Functions are called by named followed by parentheses ``()`` with input parameters in between them. Function names are case-sensitive. The argument types must be supported by the function, otherwise an error will be raised. It's also possible to create :ref:`user-defined functions <user_function>`.
+A lot of builtin functions are available in the :doc:`function library <functions>`. Functions are called by name followed by parentheses ``()`` with input parameters in between them. Function names are case-sensitive. The argument types must be supported by the function, otherwise an error will be raised. It's also possible to create :ref:`user-defined functions <user_function>`.
 
 .. code-block:: hsl
 
 	echo uptime();
-	echo strlen("Hello");
+	echo length("Hello");
 
 .. warning::
 	Calling a function with too few or too many arguments will raise an error, either during compilation time or at runtime (using :ref:`argument unpacking<argumentunpacking>`).
