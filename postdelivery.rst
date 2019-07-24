@@ -110,6 +110,7 @@ Array item           Type    Example                    Description
 ==================== ======= ========================== ===========
 locaip               string  "1.2.3.4"                  The localip used
 remoteip             string  "4.3.2.1"                  The remoteip used
+remotemx             string  "example.com"              The remotemx used
 :ref:`tls <atls1>`   array   ["started" => true, ...]   TLS information (if TLS was started)
 ==================== ======= ========================== ===========
 
