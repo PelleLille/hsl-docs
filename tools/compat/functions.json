@@ -333,7 +333,44 @@
             "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#GetMailFile)"
         }
     ],
-    "postdelivery": [],
+    "postdelivery": [
+        {
+            "name": "GetTLS",
+            "compat": 2,
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "array",
+            "detail": "GetTLS([array $options]): array",
+            "value": "GetTLS($0)",
+            "documentation": "Get the TLS information for the delivery attempt.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/postdelivery.html#GetTLS)"
+        },
+        {
+            "name": "GetMailFile",
+            "compat": 2,
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "File",
+            "detail": "GetMailFile([array $options]): File",
+            "value": "GetMailFile($0)",
+            "documentation": "Return a File class to the current mail file.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/postdelivery.html#GetMailFile)"
+        }
+    ],
     "api": [],
     "firewall": []
 }

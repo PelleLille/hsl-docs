@@ -6,77 +6,139 @@ Post-delivery
 The post-delivery script is executed after a delivery attempt or when a message is deleted or bounced from the queue. If the message was deleted from the queue (either manually or by retention) the ``$context`` variable will not be defined.
 
 Variables
----------------------
+---------
 
-These are the read-only pre-defined variables available each time after a delivery attempt is made.
+These are the pre-defined variables available.
 
-Original message
-^^^^^^^^^^^^^^^^
+========================== ======= ========= ===========
+Variable                   Type    Read-only Description
+========================== ======= ========= ===========
+:ref:`$arguments <v_a1>`   array   yes       Context/hook arguments
+:ref:`$message <v_m1>`     array   yes       The queued message
+$context                   any     no        This variable is only defined if the pre-delivery context has been executed
+========================== ======= ========= ===========
 
-These variables are related to the queued message.
-
-Connection
-""""""""""
-
-=================== ======= ========================== ===========
-Variable            Type    Example                    Description
-=================== ======= ========================== ===========
-$senderip           string  "192.168.1.11"             IP address of the sender
-$saslusername       string  "mailuser"                 SASL username
-=================== ======= ========================== ===========
-
-Transaction
-"""""""""""""""""""""
-
-=================== ======= ========================== ===========
-Variable            Type    Example                    Description
-=================== ======= ========================== ===========
-$messageid          string  "18c190a3-93f-47d7-bd..."  ID of the message
-$sender             string  "test\@example.org"        Email address of sender (envelope), lowercase
-$senderlocalpart    string  "test"                     Local part of sender's address (envelope)
-$senderdomain       string  "example.org"              Domain part of sender's address (envelope)
-$recipient          string  "test\@example.com"        Email address of recipient (envelope), lowercase
-$recipientlocalpart string  "test"                     Local part of recipient's address (envelope)
-$recipientdomain    string  "example.com"              Domain part of recipient's address (envelope)
-$receivedtime       number  1445937340                 The unix time (in UTC) when the message was received
-$actionid           number  1                          Same as $actionid in DATA context
-=================== ======= ========================== ===========
-
-Queue
-^^^^^
-
-=================== ======= ========================== ===========
-Variable            Type    Example                    Description
-=================== ======= ========================== ===========
-$transportid        string  "mailtransport\:1"         ID of the transport profile that was used
-$queueid            number  12345                      Queue ID of the message
-$retry              number  3                          The current retry count
-$retries            number  30                         The maximum number of retries for that message
-=================== ======= ========================== ===========
+.. _v_a1:
 
 Arguments
-^^^^^^^^^
++++++++++
 
-=================== ======= ========================== ===========
-Variable            Type    Example                    Description
-=================== ======= ========================== ===========
-$action             string  "DELETE"                   The default action of this execution ("DELETE", "BOUNCE", "RETRY" or "")
-$errormsg           string  "5.7.1... we do not relay" The error message from the server
-$errorcode          number  550                        The error code from the server (A value 0 of indicates network problems)
-$errorndr           string  "5.7.1"                    The NDR code from the server (if available)
-$transfertime       number  0.512                      The transfer time for this delivery attempt (seconds)
-$sourceip           string  "10.0.0.1"                 The delivery source IP
-$serverip           string  "172.16.1.25"              IP which we tried to connect to (empty on DNS problems)
-$serverport         number  25                         Port which we tried to connect to
-=================== ======= ========================== ===========
+=================== ======= ================================= ===========
+Array item          Type    Example                           Description
+=================== ======= ================================= ===========
+retry               number  3                                 The current retry
+action              string  "DELETE"                          The default action of this execution ("DELETE", "BOUNCE", "RETRY"). Missing on successful deliveries.
+:ref:`attempt <r1>` array   ["result" => [ "code" => 200, ... The delivery attempt result (if an attempt was made)
+=================== ======= ================================= ===========
 
-These are the writable pre-defined variables available.
+.. _v_m1:
 
-================= ======= ===========
-Variable          Type    Description
-================= ======= ===========
-$context          any     This variable is only defined if the pre-delivery context has been executed
-================= ======= ===========
+Message
++++++++
+
+============================ ======= ========================== ===========
+Array item                   Type    Example                    Description
+============================ ======= ========================== ===========
+id                           string  "18c190a3-93f-47d7-bd..."  ID of the transaction
+serverid                     string  "inbound"                  ID of the server
+sender                       string  "test\@example.org"        Sender address (envelope), lowercase
+:ref:`senderaddress <z1>`    array   ["localpart" => "test"...] Sender address (envelope)
+recipient                    string  "test\@example.org"        Recipient address (envelope), lowercase
+:ref:`recipientaddress <z1>` array   ["localpart" => "test"...] Recipient address (envelope)
+transportid                  string  "inbound"                  ID of the transport profile to be used
+queueid                      number  12345                      Queue ID of the message
+============================ ======= ========================== ===========
+
+.. _z1:
+
+Address
+>>>>>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+localpart            string  "test"                     Local part of address
+domain               string  "example.org"              Domain part of address
+==================== ======= ========================== ===========
+
+.. _r1:
+
+Attempt
+>>>>>>>
+
+======================= ======= ======================================= ===========
+Array item              Type    Example                                 Description
+======================= ======= ======================================= ===========
+:ref:`result <ar1>`     array   ["code" = >250, "enhanced" => [1, ...]  A SMTP protocol response (if available)
+:ref:`error <ae1>`      array   ["temporary" => true, "reason" => ...]  A generic eror message (if no SMTP result)
+:ref:`connection <ac1>` array   ["localip" => "1.2.3.4", "remoteip"...] Connection information
+======================= ======= ======================================= ===========
+
+.. _ar1:
+
+Result
+>>>>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+code                 number  250                        A SMTP status code
+enhanced             array   [2, 0, 0]                  A SMTP enhanced status code
+reason               array   ["OK: queued as 18c19..."] A SMTP response text
+:ref:`state <as1>`   string  "MAIL"                     An enum to indicate which issued SMTP command triggerd the result
+==================== ======= ========================== ===========
+
+.. _ae1:
+
+Error
+>>>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+temporary            boolean true                       If the error may be transient 
+message              message "A generic error"          An error message
+==================== ======= ========================== ===========
+
+.. _ac1:
+
+Connection
+>>>>>>>>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+locaip               string  "1.2.3.4"                  The localip used
+remoteip             string  "4.3.2.1"                  The remoteip used
+:ref:`tls <atls1>`   array   ["started" => true, ...]   TLS information (if TLS was started)
+==================== ======= ========================== ===========
+
+.. _atls1:
+
+TLS
+>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+started              boolean true                       If STARTTLS was successfully started
+protocol             string  "TLSv1.3"                  The protocol (if available)
+cipher               string  "ECDHE-RSA-AES256-SHA384"  The cipher (if available)
+keysize              number  256                        The keysize (if available)
+:ref:`peercert <p1>` array                              The peer certificate (if available)
+tlsrpt               string  "starttls"                 The tlsrpt error (if available)
+==================== ======= ========================== ===========
+
+.. _p1:
+
+Peercert
+________
+
+==================== ============= ========================== ===========
+Array item           Type          Example                    Description
+==================== ============= ========================== ===========
+x509                 X509Resource                             An X509Resource to be used with the :class:`X509` class
+==================== ============= ========================== ===========
 
 Functions
 ---------
@@ -89,7 +151,7 @@ Functions
 
   .. warning::
 
-     If the message was delivered (``$action == ""``) this function will raise a runtime error.
+     If the message was delivered (``isset($arguments["action"])``) this function will raise a runtime error.
 
 .. function:: Delete()
 
@@ -99,7 +161,7 @@ Functions
 
   .. warning::
 
-     If the message was delivered (``$action == ""``) this function will raise a runtime error.
+     If the message was delivered (``isset($arguments["action"])``) this function will raise a runtime error.
 
 .. function:: Retry([options])
 
@@ -118,7 +180,7 @@ Functions
 
   .. warning::
 
-     If the message was delivered (``$action == ""``) this function will raise a runtime error.
+     If the message was delivered (``isset($arguments["action"])``) this function will raise a runtime error.
 
 .. function:: SetDSN(options)
 
@@ -148,44 +210,12 @@ Functions
 
     To work-around the data type limitation of the metadata; data can be encoded using :func:`json_encode`.
 
-.. function:: GetTLS([options])
-
-  Get the TLS information for the delivery attempt.
-
-  :param array options: options array
-  :rtype: array
-
-  The following options are available in the options array.
-
-   * **fingerprint** (string) Generate the fingerprint of the certificate using one of the following hash function (``md5``, ``sha1``, ``sha256`` or ``sha512``). The default no hashing.
-
-  The following items are available in the result.
-
-   * **started** (boolean) If STARTTLS was issued.
-   * **protocol** (string) The protocol used (eg. ``TLSv1.2``)
-   * **cipher** (string) The cipher used (eg. ``ECDHE-RSA-AES256-SHA384``).
-   * **keysize** (number) The keysize used (eg. ``256``).
-   * **peer_cert** (array) The peer certificate (if requested by :func:`predelivery.SetTLS`). Same format as :func:`TLSSocket.getpeercert`.
-   * **tlsrpt** (string) TLS reporting result.
-
 .. function:: GetMetaData()
 
   Get the metadata set by :func:`SetMetaData`. If no data was set, an empty array is returned.
 
   :return: the data set by :func:`SetMetaData`
   :rtype: array
-
-.. function:: GetMailFile([options])
-
-  Return a :class:`File` class to the current mail file.
-
-  :param array options: an options array
-  :return: A File class to the current mail file.
-  :rtype: File
-
-  The following options are available in the options array.
-
-   * **changes** (boolean) Include changes done to the original message. The default is ``false``.
 
 On script error
 ---------------
@@ -196,3 +226,49 @@ On implicit termination
 -----------------------
 
 If not explicitly terminated then the default action is taken.
+
+References
+-----------------------
+
+.. _as1:
+
+SMTP states
++++++++++++
+
++-----------------+-------------------------------------------------+
+| CONNECT         | The initial SMTP greeting                       |
++-----------------+-------------------------------------------------+
+| HELO            |                                                 |
++-----------------+-------------------------------------------------+
+| EHLO            |                                                 |
++-----------------+-------------------------------------------------+
+| LHLO            |                                                 |
++-----------------+-------------------------------------------------+
+| STARTTLS        |                                                 |
++-----------------+-------------------------------------------------+
+| AUTH-CRAM-MD5   | In reply to sending AUTH CRAM-MD5 command       |
++-----------------+-------------------------------------------------+
+| AUTH-PLAIN      | In reply to sending AUTH PLAIN command          |
++-----------------+-------------------------------------------------+
+| AUTH-LOGIN      | In reply to sending AUTH LOGIN command          |
++-----------------+-------------------------------------------------+
+| AUTH-LOGIN-USER | In reply to sending AUTH LOGIN username         |
++-----------------+-------------------------------------------------+
+| AUTH            | In reply to last command of AUTH login attempt  |
++-----------------+-------------------------------------------------+
+| XCLIENT         | In reply to sending a XCLIENT command           |
++-----------------+-------------------------------------------------+
+| MAIL            |                                                 |
++-----------------+-------------------------------------------------+
+| RCPT            |                                                 |
++-----------------+-------------------------------------------------+
+| DATA            | In reply to sending the DATA command            |
++-----------------+-------------------------------------------------+
+| EOD             | In reply sending the End-of-DATA                |
++-----------------+-------------------------------------------------+
+| RSET            |                                                 |
++-----------------+-------------------------------------------------+
+| NOOP            |                                                 |
++-----------------+-------------------------------------------------+
+| QUIT            |                                                 |
++-----------------+-------------------------------------------------+

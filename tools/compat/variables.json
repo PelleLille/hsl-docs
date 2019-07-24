@@ -669,7 +669,192 @@
             "documentation": "The destination port (initially defined by the transport profile)"
         }
     ],
-    "postdelivery": [],
+    "postdelivery": [
+        {
+            "name": "$senderip",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $senderip",
+            "example": "\"192.168.1.11\"",
+            "documentation": "IP address of the sender"
+        },
+        {
+            "name": "$saslusername",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $saslusername",
+            "example": "\"mailuser\"",
+            "documentation": "SASL username"
+        },
+        {
+            "name": "$messageid",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "example": "\"18c190a3-93f-47d7-bd...\"",
+            "documentation": "ID of the message"
+        },
+        {
+            "name": "$sender",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $sender",
+            "example": "\"test@example.org\"",
+            "documentation": "Email address of sender (envelope), lowercase"
+        },
+        {
+            "name": "$senderlocalpart",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $senderlocalpart",
+            "example": "\"test\"",
+            "documentation": "Local part of sender's address (envelope)"
+        },
+        {
+            "name": "$senderdomain",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $senderdomain",
+            "example": "\"example.org\"",
+            "documentation": "Domain part of sender's address (envelope)"
+        },
+        {
+            "name": "$recipient",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $recipient",
+            "example": "\"test@example.com\"",
+            "documentation": "Email address of recipient (envelope), lowercase"
+        },
+        {
+            "name": "$recipientlocalpart",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $recipientlocalpart",
+            "example": "\"test\"",
+            "documentation": "Local part of recipient's address (envelope)"
+        },
+        {
+            "name": "$recipientdomain",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $recipientdomain",
+            "example": "\"example.com\"",
+            "documentation": "Domain part of recipient's address (envelope)"
+        },
+        {
+            "name": "$receivedtime",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $receivedtime",
+            "example": "1445937340",
+            "documentation": "The unix time (in UTC) when the message was received"
+        },
+        {
+            "name": "$actionid",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $actionid",
+            "example": "1",
+            "documentation": "Same as $actionid in DATA context"
+        },
+        {
+            "name": "$transportid",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $transportid",
+            "example": "\"mailtransport:1\"",
+            "documentation": "ID of the transport profile that was used"
+        },
+        {
+            "name": "$queueid",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $queueid",
+            "example": "12345",
+            "documentation": "Queue ID of the message"
+        },
+        {
+            "name": "$retry",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $retry",
+            "example": "3",
+            "documentation": "The current retry count"
+        },
+        {
+            "name": "$retries",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $retries",
+            "example": "30",
+            "documentation": "The maximum number of retries for that message"
+        },
+        {
+            "name": "$action",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $action",
+            "example": "\"DELETE\"",
+            "documentation": "The default action of this execution (\"DELETE\", \"BOUNCE\", \"RETRY\" or \"\")"
+        },
+        {
+            "name": "$errormsg",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $errormsg",
+            "example": "\"5.7.1... we do not relay\"",
+            "documentation": "The error message from the server"
+        },
+        {
+            "name": "$errorcode",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $errorcode",
+            "example": "550",
+            "documentation": "The error code from the server (A value 0 of indicates network problems)"
+        },
+        {
+            "name": "$errorndr",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $errorndr",
+            "example": "\"5.7.1\"",
+            "documentation": "The NDR code from the server (if available)"
+        },
+        {
+            "name": "$transfertime",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $transfertime",
+            "example": "0.512",
+            "documentation": "The transfer time for this delivery attempt (seconds)"
+        },
+        {
+            "name": "$sourceip",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $sourceip",
+            "example": "\"10.0.0.1\"",
+            "documentation": "The delivery source IP"
+        },
+        {
+            "name": "$serverip",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $serverip",
+            "example": "\"172.16.1.25\"",
+            "documentation": "IP which we tried to connect to (empty on DNS problems)"
+        },
+        {
+            "name": "$serverport",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $serverport",
+            "example": "25",
+            "documentation": "Port which we tried to connect to"
+        }
+    ],
     "api": [],
     "firewall": []
 }
