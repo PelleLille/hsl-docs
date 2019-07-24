@@ -192,7 +192,7 @@ Functions
   The following options are available in the options array.
 
    * **transportid** (string) Set the transport ID. The default is either choosen by the transport or automatically assigned.
-   * **recipient** (string) Set the recipient. The default is ``$recipientlocalpart`` at ``$recipientdomain``.
+   * **recipient** (string) Set the recipient. The default is the sender address.
    * **metadata** (array) Add additional metadata (KVP) to the DSN.
    * **from** (string) Set the From-header address of the DSN.
    * **from_name** (string) Set the From-header display name of the DSN.
