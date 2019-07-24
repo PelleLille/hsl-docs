@@ -6,73 +6,58 @@ Pre-delivery
 The pre-delivery script is executed just before a delivery attempt of a message that is being picked up from the queue.
 
 Variables
----------------------
+---------
 
-These are the read-only pre-defined variables available. Some of them can be changed using the functions below.
+These are the pre-defined variables available.
 
-Original message
-^^^^^^^^^^^^^^^^
+========================== ======= ========= ===========
+Variable                   Type    Read-only Description
+========================== ======= ========= ===========
+:ref:`$arguments <v_a1>`   array   yes       Context/hook arguments
+:ref:`$message <v_m1>`     array   yes       The queued message
+$context                   any     no        Delivery attempt-bound variable. It is only passed between pre and post-delivery.
+========================== ======= ========= ===========
 
-These variables are related to the queued message.
-
-Connection
-""""""""""
-
-=================== ======= ========================== ===========
-Variable            Type    Example                    Description
-=================== ======= ========================== ===========
-$senderip           string  "192.168.1.11"             IP address of the sender
-$serverid           string  "mailserver\:1"            ID of the server the message was recevied on
-$senderhelo         string  "mail.example.com"         HELO hostname of sender
-$saslusername       string  "mailuser"                 SASL username
-=================== ======= ========================== ===========
-
-Transaction
-"""""""""""
-
-=================== ======= ========================== ===========
-Variable            Type    Example                    Description
-=================== ======= ========================== ===========
-$messageid          string  "18c190a3-93f-47d7-bd..."  ID of the message
-$sender             string  "test\@example.org"        Email address of sender (envelope), lowercase
-$senderlocalpart    string  "test"                     Local part of sender's address (envelope)
-$senderdomain       string  "example.org"              Domain part of sender's address (envelope)
-$recipient          string  "test\@example.com"        Email address of recipient (envelope), lowercase
-$recipientlocalpart string  "test"                     Local part of recipient's address (envelope)
-$recipientdomain    string  "example.com"              Domain part of recipient's address (envelope)
-$receivedtime       number  1445937340                 The unix time (in UTC) when the message was received
-$actionid           number  1                          Same as $actionid in DATA context
-=================== ======= ========================== ===========
-
-Queue
-^^^^^
-=================== ======= ========================== ===========
-Variable            Type    Example                    Description
-=================== ======= ========================== ===========
-$transportid        string  "mailtransport\:1"         ID of the transport profile assigned
-$queueid            number  12345                      Queue ID of the message
-$retry              number  3                          The current retry count
-$retries            number  30                         The maximum number of retries for that message
-=================== ======= ========================== ===========
+.. _v_a1:
 
 Arguments
-^^^^^^^^^
++++++++++
 
-=================== ======= ========================== ===========
-Variable            Type    Example                    Description
-=================== ======= ========================== ===========
-$sourceip           string  "10.0.0.1"                 The delivery source IP (initially defined by the transport profile)
-$destination        string  "172.16.1.25"              The destination host (initially defined by the transport profile)
-$destinationport    number  25                         The destination port (initially defined by the transport profile)
-=================== ======= ========================== ===========
+================= ======= ========================== ===========
+Array item        Type    Example                    Description
+================= ======= ========================== ===========
+retry             number  3                          The current retry
+================= ======= ========================== ===========
 
-These are the writable pre-defined variables available.
+.. _v_m1:
 
-================= ======= ===========
-Variable          Type    Description
-================= ======= ===========
-$context          any     Delivery attempt-bound variable. It is only passed between pre and post-delivery.
-================= ======= ===========
+Message
++++++++
+
+============================ ======= ========================== ===========
+Array item                   Type    Example                    Description
+============================ ======= ========================== ===========
+id                           string  "18c190a3-93f-47d7-bd..."  ID of the transaction
+serverid                     string  "inbound"                  ID of the server
+sender                       string  "test\@example.org"        Sender address (envelope), lowercase
+:ref:`senderaddress <a1>`    array   ["localpart" => "test"...] Sender address (envelope)
+recipient                    string  "test\@example.org"        Recipient address (envelope), lowercase
+:ref:`recipientaddress <a1>` array   ["localpart" => "test"...] Recipient address (envelope)
+transportid                  string  "inbound"                  ID of the transport profile to be used
+queueid                      number  12345                      Queue ID of the message
+============================ ======= ========================== ===========
+
+.. _a1:
+
+Address
+>>>>>>>
+
+==================== ======= ========================== ===========
+Array item           Type    Example                    Description
+==================== ======= ========================== ===========
+localpart            string  "test"                     Local part of address
+domain               string  "example.org"              Domain part of address
+==================== ======= ========================== ===========
 
 Functions
 ---------
