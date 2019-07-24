@@ -62,21 +62,32 @@ domain               string  "example.org"              Domain part of address
 Functions
 ---------
 
-.. function:: Try()
+.. function:: Try([options])
 
   Try to deliver the message now. This is the default action.
 
-  :return: doesn't return, script is terminated
+  The following options are available in the options array.
 
-.. function:: Bounce()
-
-  Delete the message from the queue, and generate a DSN (bounce) to the sender.
-
-  :return: doesn't return, script is terminated
-
-.. function:: Delete()
-
-  Delete the message from the queue, without generating a DSN (bounce) to the sender.
+    * **host** (string) IP-address or hostname. The default is to use lookup-mx for the recipient domain.
+    * **port** (number) TCP port. The default is ``25``.
+    * **sender** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``.
+    * **recipient** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``.
+    * **helo** (string) The default is to use the system hostname.
+    * **sourceipid** (string) Explicitly bind an IP address ID. The default is to be chosen by the system.
+    * **nonlocal_source** (boolean) Allow binding of non-local addresses (BINDANY). The default is ``false``.
+    * **saslusername** (string) If specified issue a AUTH LOGIN before MAIL FROM.
+    * **saslpassword** (string) If specified issue a AUTH LOGIN before MAIL FROM.
+    * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
+    * **tls_sni** (string or boolean) Request a certificate using the SNI extension. If ``true`` the connected hostname will be used. The default is not to use SNI (``false``).
+    * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv2``, ``SSLv3``, ``TLSv1``, ``TLSv1.1``, ``TLSv1.2`` or ``TLSv1.3``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
+    * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
+    * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
+    * **tls_verify_name** (array) Hostnames to verify against the certificate's CN and SAN (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
+    * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
+    * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
+    * **tls_capture_peer_cert** (boolean) If set to true, the peer certificate will be available in the extended results. The default is ``false``.
+    * **xclient** (array) Associative array of XCLIENT attributes to send.
+    * **protocol** (string) The protocol to use; ``smtp`` or ``lmtp``. The default is ``smtp``.
 
   :return: doesn't return, script is terminated
 
@@ -95,129 +106,17 @@ Functions
    * **reset_retry** (boolean) If the retry count should be reset to zero. The default is ``false``.
    * **transportid** (string) Set the transport ID. The default is ``$transportid``.
 
-.. function:: CurrentConnections(namespace, entry, max)
+.. function:: Bounce()
 
-  Can be used to limit concurrency. It returns false of the current number of connections with the same `entry` name in that `namespace` exceeds `max`, and true otherwise. The function will also occupy one "slot" after being executed, over the duration of its delivery attempt.
+  Delete the message from the queue, and generate a DSN (bounce) to the sender.
 
-  :param string namespace: the namespace
-  :param string entry: the entry
-  :param number max: the maximum concurrency
-  :rtype: boolean
+  :return: doesn't return, script is terminated
 
-  .. code-block:: hsl
+.. function:: Delete()
 
-    if (CurrentConnections("to-domain", $recipientdomain, 3) == false) {
-            Reschedule(rand(1, 30), [
-                    "reason" => "Too many concurrent connections for this domain",
-                    "increment_retry" => false
-            ]);
-    }
+  Delete the message from the queue, without generating a DSN (bounce) to the sender.
 
-.. function:: SetDestination(host, [port])
-
-  Set the host and port for the current delivery attempt. It is not remembered for the next retry.
-
-  :param string host: hostname or IP address
-  :param number port: the TCP destination port
-  :rtype: none
-  :updates: ``$destination`` and ``$destinationport``
-
-.. function:: SetProtocol(protocol)
-
-  Set the protocol for the current delivery attempt. It is not remembered for the next retry.
-
-  :param string protocol: ``smtp`` or ``lmtp``
-  :rtype: none
-
-.. function:: SetTLS(options)
-
-  Set the TLS options for the current delivery attempt. It is not remembered for the next retry.
-
-  :param array options: options array
-  :rtype: none
-
-  The following options are available in the options array.
-
-   * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``.
-   * **tls_sni** (string or boolean) Request a certificate using the SNI extension. If ``true`` the connected hostname will be used. The default is not to use SNI (``false``).
-   * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv2``, ``SSLv3``, ``TLSv1``, ``TLSv1.1``, ``TLSv1.2`` or ``TLSv1.3``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
-   * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each SSL/TLS protocol.
-   * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
-   * **tls_verify_name** (array) Hostnames to verify against the certificate's CN and SAN (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
-   * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
-   * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
-   * **tls_capture_peer_cert** (boolean) If set to true, the peer certificate will be available in the :func:`postdelivery.GetTLS` results. The default is ``false``.
-
-.. function:: SetSASL(username, password)
-
-  Set the SASL `AUTH` username and password for the current delivery attempt. It is not remembered for the next retry.
-
-  :param string username: username
-  :param string password: password
-  :rtype: none
-
-.. function:: SetXCLIENT(attributes)
-
-  Send the following XCLIENT xclient attributes. It is not remembered for the next retry.
-
-  :param array attributes: associative array of XCLIENT attributes to send
-  :rtype: none
-
-.. function:: SetHELO(hostname)
-
-  Set the `HELO` hostname for the current delivery attempt. It is not remembered for the next retry.
-
-  :param string hostname: a hostname
-  :rtype: none
-
-.. function:: SetSourceIP(id, [options])
-
-  This function changes the source IP of the current delivery attempt. It is not remembered for the next retry.
-
-  :param id: the IP address ID to use
-  :type id: string or array
-  :param array options: options array
-  :rtype: none
-  :updates: ``$sourceip`` to the actual IP address of ``id``
-
-  The following options are available in the options array.
-
-   * **nonlocal_source** (boolean) If the system setting 'system_nonlocal_source' is enabled, `id` may be an IP. The default is ``false``.
-
-  .. note::
-  	If `id` is given as an array, only one item for each IP family may be given.
-
-.. function:: SetSender(sender)
-
-  Set the sender `MAIL FROM` for the current delivery attempt. It is not remembered for the next retry.
-
-  :param sender: an email address, either as a string or a tuple with localpart and domain
-  :type sender: string or array
-  :rtype: none
-  :updates: ``$sender``, ``$senderlocalpart`` and ``$senderdomain``
-
-.. function:: SetSenderParams(params)
-
-  Set the sender `MAIL FROM` params for the current delivery attempt. It is not remembered for the next retry.
-
-  :param array params: key-value array of params
-  :rtype: none
-
-.. function:: SetRecipient(recipient)
-
-  Set the recipient `RCPT TO` for the current delivery attempt. It is not remembered for the next retry.
-
-  :param recipient: an email address, either as a string or a tuple with localpart and domain
-  :type recipient: string or array
-  :rtype: none
-  :updates: ``$recipient``, ``$recipientlocalpart`` and ``$recipientdomain``
-
-.. function:: SetRecipientParams(params)
-
-  Set the recipient `RCPT TO` params for the current delivery attempt. It is not remembered for the next retry.
-
-  :param array params: key-value array of params
-  :rtype: none
+  :return: doesn't return, script is terminated
 
 .. function:: SetDSN(options)
 
@@ -262,18 +161,6 @@ Functions
   :rtype: number
 
 .. include:: func_getmailqueuemetric.rst
-
-.. function:: GetMailFile([options])
-
-  Return a :class:`File` class to the current mail file.
-
-  :param array options: an options array
-  :return: A File class to the current mail file.
-  :rtype: File
-
-  The following options are available in the options array.
-
-   * **changes** (boolean) Include changes done to the original message. The default is ``false``.
 
 On script error
 ---------------

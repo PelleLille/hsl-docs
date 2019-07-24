@@ -507,7 +507,168 @@
     ],
     "eodrcpt": [],
     "eodonce": [],
-    "predelivery": [],
+    "predelivery": [
+        {
+            "name": "$senderip",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $senderip",
+            "example": "\"192.168.1.11\"",
+            "documentation": "IP address of the sender"
+        },
+        {
+            "name": "$serverid",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $serverid",
+            "example": "\"mailserver:1\"",
+            "documentation": "ID of the server the message was recevied on"
+        },
+        {
+            "name": "$senderhelo",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $senderhelo",
+            "example": "\"mail.example.com\"",
+            "documentation": "HELO hostname of sender"
+        },
+        {
+            "name": "$saslusername",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $saslusername",
+            "example": "\"mailuser\"",
+            "documentation": "SASL username"
+        },
+        {
+            "name": "$messageid",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $messageid",
+            "example": "\"18c190a3-93f-47d7-bd...\"",
+            "documentation": "ID of the message"
+        },
+        {
+            "name": "$sender",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $sender",
+            "example": "\"test@example.org\"",
+            "documentation": "Email address of sender (envelope), lowercase"
+        },
+        {
+            "name": "$senderlocalpart",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $senderlocalpart",
+            "example": "\"test\"",
+            "documentation": "Local part of sender's address (envelope)"
+        },
+        {
+            "name": "$senderdomain",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $senderdomain",
+            "example": "\"example.org\"",
+            "documentation": "Domain part of sender's address (envelope)"
+        },
+        {
+            "name": "$recipient",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $recipient",
+            "example": "\"test@example.com\"",
+            "documentation": "Email address of recipient (envelope), lowercase"
+        },
+        {
+            "name": "$recipientlocalpart",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $recipientlocalpart",
+            "example": "\"test\"",
+            "documentation": "Local part of recipient's address (envelope)"
+        },
+        {
+            "name": "$recipientdomain",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $recipientdomain",
+            "example": "\"example.com\"",
+            "documentation": "Domain part of recipient's address (envelope)"
+        },
+        {
+            "name": "$receivedtime",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $receivedtime",
+            "example": "1445937340",
+            "documentation": "The unix time (in UTC) when the message was received"
+        },
+        {
+            "name": "$actionid",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $actionid",
+            "example": "1",
+            "documentation": "Same as $actionid in DATA context"
+        },
+        {
+            "name": "$transportid",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $transportid",
+            "example": "\"mailtransport:1\"",
+            "documentation": "ID of the transport profile assigned"
+        },
+        {
+            "name": "$queueid",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $queueid",
+            "example": "12345",
+            "documentation": "Queue ID of the message"
+        },
+        {
+            "name": "$retry",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $retry",
+            "example": "3",
+            "documentation": "The current retry count"
+        },
+        {
+            "name": "$retries",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $retries",
+            "example": "30",
+            "documentation": "The maximum number of retries for that message"
+        },
+        {
+            "name": "$sourceip",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $sourceip",
+            "example": "\"10.0.0.1\"",
+            "documentation": "The delivery source IP (initially defined by the transport profile)"
+        },
+        {
+            "name": "$destination",
+            "compat": 2,
+            "type": "string",
+            "detail": "string readonly $destination",
+            "example": "\"172.16.1.25\"",
+            "documentation": "The destination host (initially defined by the transport profile)"
+        },
+        {
+            "name": "$destinationport",
+            "compat": 2,
+            "type": "number",
+            "detail": "number readonly $destinationport",
+            "example": "25",
+            "documentation": "The destination port (initially defined by the transport profile)"
+        }
+    ],
     "postdelivery": [],
     "api": [],
     "firewall": []

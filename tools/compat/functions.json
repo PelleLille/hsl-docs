@@ -101,7 +101,238 @@
     ],
     "eodonce": [],
     "eodrcpt": [],
-    "predelivery": [],
+    "predelivery": [
+        {
+            "name": "SetDestination",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "host",
+                        "type": "string"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "port",
+                        "type": "number"
+                    }
+                ]
+            },
+            "returnType": "none",
+            "detail": "SetDestination(string $host [, number $port]): none",
+            "value": "SetDestination($0)",
+            "documentation": "Set the host and port for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#SetDestination)"
+        },
+        {
+            "name": "SetProtocol",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "protocol",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetProtocol(string $protocol): none",
+            "value": "SetProtocol($0)",
+            "documentation": "Set the protocol for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#SetProtocol)"
+        },
+        {
+            "name": "SetTLS",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetTLS(array $options): none",
+            "value": "SetTLS($0)",
+            "documentation": "Set the TLS options for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#SetTLS)"
+        },
+        {
+            "name": "SetSASL",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "username",
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetSASL(string $username, string $password): none",
+            "value": "SetSASL($0)",
+            "documentation": "Set the SASL AUTH username and password for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#SetSASL)"
+        },
+        {
+            "name": "SetXCLIENT",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "attributes",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetXCLIENT(array $attributes): none",
+            "value": "SetXCLIENT($0)",
+            "documentation": "Send the following XCLIENT xclient attributes. It is not remembered for the next retry.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#SetXCLIENT)"
+        },
+        {
+            "name": "SetHELO",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "hostname",
+                        "type": "string"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetHELO(string $hostname): none",
+            "value": "SetHELO($0)",
+            "documentation": "Set the HELO hostname for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#SetHELO)"
+        },
+        {
+            "name": "SetSourceIP",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "id",
+                        "type": "string or array"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "none",
+            "detail": "SetSourceIP(string or array $id [, array $options]): none",
+            "value": "SetSourceIP($0)",
+            "documentation": "This function changes the source IP of the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#SetSourceIP)"
+        },
+        {
+            "name": "SetSender",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "sender",
+                        "type": "string or array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetSender(string or array $sender): none",
+            "value": "SetSender($0)",
+            "documentation": "Set the sender MAIL FROM for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#SetSender)"
+        },
+        {
+            "name": "SetSenderParams",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "params",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetSenderParams(array $params): none",
+            "value": "SetSenderParams($0)",
+            "documentation": "Set the sender MAIL FROM params for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#SetSenderParams)"
+        },
+        {
+            "name": "SetRecipient",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "recipient",
+                        "type": "string or array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetRecipient(string or array $recipient): none",
+            "value": "SetRecipient($0)",
+            "documentation": "Set the recipient RCPT TO for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#SetRecipient)"
+        },
+        {
+            "name": "SetRecipientParams",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "params",
+                        "type": "array"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "none",
+            "detail": "SetRecipientParams(array $params): none",
+            "value": "SetRecipientParams($0)",
+            "documentation": "Set the recipient RCPT TO params for the current delivery attempt. It is not remembered for the next retry.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#SetRecipientParams)"
+        },
+        {
+            "name": "GetMailFile",
+            "compat": 2,
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "returnType": "File",
+            "detail": "GetMailFile([array $options]): File",
+            "value": "GetMailFile($0)",
+            "documentation": "Return a File class to the current mail file.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#GetMailFile)"
+        }
+    ],
     "postdelivery": [],
     "api": [],
     "firewall": []

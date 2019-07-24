@@ -272,7 +272,33 @@
             "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.0-stable/eodrcpt.html#GetDSNHeader)"
         }
     ],
-    "predelivery": [],
+    "predelivery": [
+        {
+            "name": "CurrentConnections",
+            "parameters": {
+                "required": [
+                    {
+                        "name": "namespace",
+                        "type": "string"
+                    },
+                    {
+                        "name": "entry",
+                        "type": "string"
+                    },
+                    {
+                        "name": "max",
+                        "type": "number"
+                    }
+                ],
+                "optional": []
+            },
+            "returnType": "boolean",
+            "detail": "CurrentConnections(string $namespace, string $entry, number $max): boolean",
+            "value": "CurrentConnections($0)",
+            "documentation": "Can be used to limit concurrency. It returns false of the current number of connections with the same entry name in that namespace exceeds max, and true otherwise. The function will also occupy one \"slot\" after being executed, over the duration of its delivery attempt.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#CurrentConnections)"
+        }
+    ],
     "postdelivery": [],
     "api": [],
     "firewall": []
