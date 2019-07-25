@@ -73,7 +73,7 @@ Functions
     * **sender** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``.
     * **recipient** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``.
     * **helo** (string) The default is to use the system hostname.
-    * **sourceip** (array) Explicitly bind an IP address ID. The array may contain either strings (of id's) or associative arrays with ``id`` and ``helo``. The default is to be chosen by the transport/system.
+    * **sourceip** (array) Explicitly bind an IP address ID. The array may contain either strings (of id's) or associative arrays with ``id`` or ``address`` (literal) and ``helo``. The default is to be chosen by the transport/system.
     * **nonlocal_source** (boolean) Allow binding of non-local addresses (BINDANY). The default is ``false``.
     * **saslusername** (string) If specified issue a AUTH LOGIN before MAIL FROM.
     * **saslpassword** (string) If specified issue a AUTH LOGIN before MAIL FROM.
