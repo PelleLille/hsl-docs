@@ -42,6 +42,7 @@ Array item              Type    Example                                 Descript
 :ref:`result <ar1>`     array   ["code" = >250, "enhanced" => [1, ...]  A SMTP protocol response (if available)
 :ref:`error <ae1>`      array   ["temporary" => true, "reason" => ...]  A generic eror message (if no SMTP result)
 :ref:`connection <ac1>` array   ["localip" => "1.2.3.4", "remoteip"...] Connection information
+duration                number  1.012                                   The delivery attempt duration
 ======================= ======= ======================================= ===========
 
 .. _ar1:
@@ -54,7 +55,7 @@ Array item           Type    Example                    Description
 ==================== ======= ========================== ===========
 code                 number  250                        A SMTP status code
 enhanced             array   [2, 0, 0]                  A SMTP enhanced status code
-reason               array   ["OK: queued as 18c19..."] A SMTP response text
+reason               array   ["Ok: queued as 18c19..."] A SMTP response text
 :ref:`state <as1>`   string  "MAIL"                     An enum to indicate which issued SMTP command triggerd the result
 ==================== ======= ========================== ===========
 
@@ -167,7 +168,7 @@ Functions
 
 .. function:: Retry([options])
 
-  Retry the message again later. This is the default action for non-permanent (5XX) ``$errorcode``'s. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.
+  Retry the message again later. This is the default action for temporary / non-permanent (5XX) errors. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.
 
   :param array options: options array
   :return: doesn't return, script is terminated
@@ -178,7 +179,7 @@ Functions
    * **reason** (string) optional message to be logged with the message.
    * **increment_retry** (boolean) if the retry count should be increased. The default is ``true``.
    * **reset_retry** (boolean) if the retry count should be reset to zero. The default is ``false``.
-   * **transportid** (string) set the transport ID. The default is ``$transportid``.
+   * **transportid** (string) change the transport ID. The default the current `transportid`.
 
   .. warning::
 
