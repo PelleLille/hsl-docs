@@ -113,7 +113,7 @@
     The following options are available in the options array.
 
      * **metadata** (array) Add metadata to the queued message, as a key-value pair array of strings.
-     * **hold** (boolean) Put the message in the hold (inactive) queue.
+     * **hold** (boolean) Put the message in the hold (inactive) queue. The default is ``false``.
      * **delay** (number) Delay the first delivery attempt, in seconds. The default is ``0``.
 
   .. function:: MailMessage.deliver(sender, recipients, server)

@@ -14,8 +14,8 @@ These are the pre-defined variables available.
 Variable                   Type    Read-only Description
 ========================== ======= ========= ===========
 :ref:`$arguments <v_a1>`   array   yes       Context/hook arguments
-:ref:`$message <v_m1>`     array   yes       The queued message
-$context                   any     no        This variable is only defined if the pre-delivery context has been executed
+:ref:`$message <v_m1>`     array   yes       The queued message (with modifications from pre-delivery)
+$context                   any     no        This variable is only defined if the pre-delivery has been executed
 ========================== ======= ========= ===========
 
 .. _v_a1:
