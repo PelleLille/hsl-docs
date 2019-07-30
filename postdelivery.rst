@@ -27,7 +27,7 @@ Arguments
 Array item          Type    Example                           Description
 =================== ======= ================================= ===========
 retry               number  3                                 The current retry
-action              string  "DELETE"                          The default action of this execution ("DELETE", "BOUNCE", "RETRY"). Missing on successful deliveries.
+action              string  "DELETE"                          The default action of this execution ("DELETE", "BOUNCE", "QUEUE"). Missing on successful deliveries.
 :ref:`attempt <r1>` array   ["result" => [ "code" => 200, ... The delivery attempt result (if an attempt was made)
 =================== ======= ================================= ===========
 
@@ -146,15 +146,16 @@ domain               string  "example.org"              Domain part of address
 Functions
 ---------
 
-.. function:: Retry([options])
+.. function:: Queue([options])
 
-  Retry the message again later. This is the default action for temporary / non-permanent (5XX) errors. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.
+  Queue the message to be retried later. This is the default action for temporary / non-permanent (5XX) errors. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.
 
   :param array options: options array
   :return: doesn't return, script is terminated
 
   The following options are available in the options array.
 
+   * **hold** (boolean) Put the message in the hold (inactive) queue. The default is ``false``.
    * **delay** (number) the delay in seconds. The default is according to the current transports retry delay.
    * **reason** (string) optional message to be logged with the message.
    * **increment_retry** (boolean) if the retry count should be increased. The default is ``true``.

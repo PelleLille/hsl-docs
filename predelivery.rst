@@ -90,16 +90,17 @@ Functions
 
   :return: doesn't return, script is terminated
 
-.. function:: Reschedule(delay, [options])
+.. function:: Queue([options])
 
-  Reschedule the message for `delay` seconds.
+  Queue the message to be retried later. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.
 
-  :param number delay: delay in seconds
   :param array options: options array
   :return: doesn't return, script is terminated
 
   The following options are available in the options array.
 
+   * **hold** (boolean) Put the message in the hold (inactive) queue. The default is ``false``.
+   * **delay** (number) the delay in seconds. The default is according to the current transports retry delay.
    * **reason** (string) Optional message to be logged with the message.
    * **increment_retry** (boolean) If the retry count should be increased. The default is ``true``.
    * **reset_retry** (boolean) If the retry count should be reset to zero. The default is ``false``.
@@ -164,7 +165,7 @@ Functions
 On script error
 ---------------
 
-On script error ``Reschedule(300)`` is called with ``increment_retry`` set to false.
+On script error ``Queue(["delay" => 300, "increment_retry" => false])`` is called.
 
 On implicit termination
 -----------------------

@@ -103,6 +103,28 @@
     "eodrcpt": [],
     "predelivery": [
         {
+            "name": "Reschedule",
+            "compat": 2,
+            "parameters": {
+                "required": [
+                    {
+                        "name": "delay",
+                        "type": "number"
+                    }
+                ],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Reschedule(number $delay [, array $options])",
+            "value": "Reschedule($0)",
+            "documentation": "Reschedule the message for delay seconds.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/predelivery.html#Reschedule)"
+        },
+        {
             "name": "SetDestination",
             "compat": 2,
             "parameters": {
@@ -334,6 +356,23 @@
         }
     ],
     "postdelivery": [
+        {
+            "name": "Retry",
+            "compat": 2,
+            "parameters": {
+                "required": [],
+                "optional": [
+                    {
+                        "name": "options",
+                        "type": "array"
+                    }
+                ]
+            },
+            "detail": "Retry([array $options])",
+            "value": "Retry($0)",
+            "documentation": "Retry the message again later. This is the default action for non-permanent (5XX) $errorcode's. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.",
+            "link": "[Full documentation](https://docs.halon.io/hsl/archive/5.1-stable/postdelivery.html#Retry)"
+        },
         {
             "name": "GetTLS",
             "compat": 2,
