@@ -146,6 +146,25 @@ domain               string  "example.org"              Domain part of address
 Functions
 ---------
 
+.. function:: Retry([options])
+
+  Retry the message again later. This is the default action for temporary / non-permanent (5XX) errors. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.
+
+  :param array options: options array
+  :return: doesn't return, script is terminated
+
+  The following options are available in the options array.
+
+   * **delay** (number) the delay in seconds. The default is according to the current transports retry delay.
+   * **reason** (string) optional message to be logged with the message.
+   * **increment_retry** (boolean) if the retry count should be increased. The default is ``true``.
+   * **reset_retry** (boolean) if the retry count should be reset to zero. The default is ``false``.
+   * **transportid** (string) change the transport ID. The default the current `transportid`.
+
+  .. warning::
+
+     If the message was delivered (``isset($arguments["action"])``) this function will raise a runtime error.
+
 .. function:: Bounce()
 
   Delete the message from the queue, and generating a DSN (bounce) to the sender.
@@ -161,25 +180,6 @@ Functions
   Delete the message from the queue, without generating a DSN (bounce) to the sender.
 
   :return: doesn't return, script is terminated
-
-  .. warning::
-
-     If the message was delivered (``isset($arguments["action"])``) this function will raise a runtime error.
-
-.. function:: Retry([options])
-
-  Retry the message again later. This is the default action for temporary / non-permanent (5XX) errors. If the maximum retry count is exceeded; the message is either bounced or deleted depending on the transport's settings.
-
-  :param array options: options array
-  :return: doesn't return, script is terminated
-
-  The following options are available in the options array.
-
-   * **delay** (number) the delay in seconds. The default is according to the current transports retry delay.
-   * **reason** (string) optional message to be logged with the message.
-   * **increment_retry** (boolean) if the retry count should be increased. The default is ``true``.
-   * **reset_retry** (boolean) if the retry count should be reset to zero. The default is ``false``.
-   * **transportid** (string) change the transport ID. The default the current `transportid`.
 
   .. warning::
 
