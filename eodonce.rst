@@ -209,7 +209,7 @@ Logging
 
   The following options are available in the options array.
 
-   * **sender** (string) the sender email address, either as a string or an associative array with a ``localpart`` and ``domain``. The default is ``$transaction["senderaddress"]``
+   * **sender** (string or array) the sender email address, either as a string or an associative array with a ``localpart`` and ``domain``. The default is ``$transaction["senderaddress"]``
    * **metadata** (array) add metadata to the history entry, as a key-value pair array of strings
    * **transportid** (string) the transport profile ID
    * **reason** (string) reason message

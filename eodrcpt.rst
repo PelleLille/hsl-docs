@@ -86,7 +86,7 @@ Actions
 
   The following options are available in the options array.
 
-   * **recipient** (string or array) Set the recipient email address, either as a string or a tuple with localpart and domain. The default is ``$recipientlocalpart`` at ``$recipientdomain``.
+   * **recipient** (string or array) Set the recipient email address, either as a string or an associative array with a ``localpart`` and ``domain``. The default is ``$recipientlocalpart`` and ``$recipientdomain``.
    * **transportid** (string) Set the transport ID. The default is ``$transportid``.
    * **metadata** (array) Add additional metadata (KVP). Same as :func:`SetMetaData`.
    * **delay** (number) Same as :func:`SetDelayedDeliver`. The default is ``0`` seconds.
@@ -144,7 +144,7 @@ Actions
 
   The following options are available in the options array.
 
-   * **recipient** (string or array) Set the recipient email address, either as a string or a tuple with localpart and domain. The default is ``$recipientlocalpart`` at ``$recipientdomain``.
+   * **recipient** (string or array) Set the recipient email address, either as a string or an associative array with a ``localpart`` and ``domain``. The default is ``$recipientlocalpart`` and ``$recipientdomain``.
    * **transportid** (string) Set the transport ID. The default is ``$transportid``.
    * **metadata** (array) Add additional metadata to the message (KVP). same as :func:`SetMetaData`.
    * **done** (boolean) If the function should terminate the script. Same as calling :func:`Done`. The default is ``true``.
@@ -210,7 +210,7 @@ Those functions update the current recipient execution (``$actionid``) arguments
 
   Changes the recipient.
 
-  :param recipient: an email address, either as a string or a tuple with localpart and domain
+  :param recipient: an email address, either as a string or an associative array with a ``localpart`` and ``domain``
   :type recipient: string or array
   :return: recipient if successful
   :rtype: string or none
@@ -257,7 +257,7 @@ Those functions update the current recipient execution (``$actionid``) arguments
 
   Change the sender.
 
-  :param sender: an email address, either as a string or a tuple with localpart and domain
+  :param sender: an email address, either as a string or an associative array with a ``localpart`` and ``domain``
   :type sender: string or array
   :return: sender if successful
   :rtype: string or none
