@@ -1308,6 +1308,7 @@ MIME
 	  The following options are available in the options array.
 
 	   * **metadata** (array) Add additional metadata to the message (KVP).
+	   * **jobid** (string) Assign a jobid the message.
 
 	  .. code-block:: hsl
 
