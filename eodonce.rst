@@ -4,7 +4,7 @@ Per message
 ===========
 
 The per-message end-of-DATA script is executed once, when the message is fully received (but not yet accepted).
-To relay the message for all recipients, call :func:`Queue` for each ``$transaction["recipients"]`` and then :func:`Accept`.
+To relay the message for all recipients, call :func:`MailMessage.queue` for each ``$transaction["recipients"]`` and then :func:`Accept`.
 
 Variables
 ---------
