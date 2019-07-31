@@ -970,7 +970,7 @@ File and HTTP
 
   The following options are available in the options array.
 
-   * **extended_result** (boolean) Get a more extended result. The default is ``false``.
+   * **extended_result** (boolean) Get an extended result with response code. The default is ``false``.
    * **connect_timeout** (number) Connection timeout (in seconds). The default is ``10`` seconds.
    * **timeout** (number) Timeout (in seconds) waiting for data once the connection is established. The default is to wait indefinitely.
    * **max_file_size** (number) Maximum file size (in bytes). The default is no limit.
@@ -990,7 +990,7 @@ File and HTTP
    * **background_retry_delay** (number) The delay, in seconds, before each retry attempt. The default is ``0`` seconds.
    * **proxy** (string) Use a HTTP proxy. See CURL_PROXY manual. The default is to inherit proxy settings from the system. Setting it to an empty string will disable the proxy.
 
-  If the option ``extended_result`` result is ``true``. This function will return an array containing the ``status`` code and ``content``. If no valid HTTP response is receivied `None` is return.
+  If the option ``extended_result`` is ``true``, the function returns an array containing the ``status`` code and ``content``. If no valid HTTP response is receivied, `None` is returned.
 
 	.. code-block:: hsl
 
