@@ -66,6 +66,9 @@ Functions
 
   Try to deliver the message now. This is the default action.
 
+  :param array options: an options array
+  :return: doesn't return, script is terminated
+
   The following options are available in the options array.
 
     * **host** (string) IP-address or hostname. The default is to use lookup-mx for the recipient domain.
@@ -87,8 +90,6 @@ Functions
     * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
     * **xclient** (array) Associative array of XCLIENT attributes to send.
     * **protocol** (string) The protocol to use; ``smtp`` or ``lmtp``. The default is ``smtp``.
-
-  :return: doesn't return, script is terminated
 
 .. function:: Queue([options])
 
