@@ -444,7 +444,7 @@
 DKIM
 ++++
 
-These are DKIM-related functions, including DMARC. Other modules, such as ARC, is available in the `authentication script library <https://github.com/halon/hsl-examples/tree/master/authentication>`_.
+These are DKIM-related functions, including DMARC. Other modules, such as ARC, is available in the authentication folder of the `script library <https://docs.halon.io/go/scriptlibrary>`_.
 
 .. function:: ScanDMARC([options])
 
@@ -475,7 +475,7 @@ Embedded content scanning
 
 These functions scan the message file using various engines.
 While the DLP engine ``dlpd`` is included in all software packages, the embedded anti-spam and anti-virus engines are only available in the full system distribution (virtual machine) package.
-All connectors are available in the `script library <https://github.com/halon/hsl-examples/>`_.
+All connectors are available in the `script library <https://docs.halon.io/go/scriptlibrary>`_.
 
 .. function:: ScanDLP([patterns, [options]])
 
