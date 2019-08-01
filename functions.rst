@@ -1112,7 +1112,7 @@ Mail
 
   Query the embedded Cyren IP reputation, ``ctipd``.
   This function is only available in the full system distribution (virtual machine) package.
-  All connectors are available in the `script library <https://github.com/halon/hsl-examples/>`_.
+  All connectors are available in the `script library <https://docs.halon.io/go/scriptlibrary>`_.
 
   :param string ip: IP or IPv6 address to check
   :return: the recommended action to take for the ip ``accept``, ``tempfail`` or ``permfail``.
@@ -1400,7 +1400,7 @@ Misc
   Collect statistics based on one or more legend (value).
   This function is only available in the full system distribution (virtual machine) package.
   Connectors for external time-series databases such as Graphite or InfluxDB
-  are available in the `script library <https://github.com/halon/hsl-examples/>`_.
+  are available in the `script library <https://docs.halon.io/go/scriptlibrary>`_.
 
   The `name` is the name of the graph (the collection of `legends`). A legend is a value for which the system should collect statistics.
 
