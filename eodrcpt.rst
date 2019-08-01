@@ -4,7 +4,7 @@ Per recipient
 =============
 
 The per-recipient end-of-DATA script is executed once for every recipient when the message is fully received (but not yet accepted).
-If multiple types of actions are performed, the response message (sent back to the client) will be chosen in the order of reject, defer, quarantine, delete and deliver.
+If different actions are performed, the response code and message (sent back to the client) will be chosen in the order of reject (5XX), defer (4XX), quarantine, delete (250) and deliver (250).
 
 Variables
 ---------------------
@@ -78,7 +78,7 @@ Actions
 
 .. function:: Deliver([options])
 
-  Deliver the message.
+  Queue or deliver the message.
 
   :param array options: an options array
   :return: doesn't return, script is terminated
@@ -135,7 +135,7 @@ Actions
 
 .. function:: Quarantine(quarantineid, [options])
 
-  Quarantine or `archive <https://docs.halon.io/go/archiving>`_ a message.
+  Quarantine or `archive <https://docs.halon.io/go/archiving>`_ the message, by putting it in the hold queue.
 
   :param string quarantineid: the quarantine profile ID
   :param array options: an options array
