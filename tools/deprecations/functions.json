@@ -275,6 +275,7 @@
     "predelivery": [
         {
             "name": "CurrentConnections",
+            "deprecated": true,
             "parameters": {
                 "required": [
                     {
