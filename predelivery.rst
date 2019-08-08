@@ -3,7 +3,8 @@
 Pre-delivery
 ============
 
-The pre-delivery script is executed just before a delivery attempt of a message that is being picked up from the queue.
+The pre-delivery script is executed just before an email is being put into the active queue
+(for delivery as soon as the active queue policies allow).
 
 Variables
 ---------
@@ -64,23 +65,25 @@ Functions
 
 .. function:: Try([options])
 
-  Try to deliver the message now. This is the default action.
+  Accept the email into the active queue
+  (for delivery as soon as the active queue policies allow). This is the default action.
 
   :param array options: an options array
   :return: doesn't return, script is terminated
 
-  The following options are available in the options array.
+  The following options are available in the options array. Some are used to override
+  the properties eitherwise chosen based on the queue email's metadata and transport settings.
 
-    * **host** (string) IP-address or hostname. The default is to use lookup-mx for the recipient domain.
-    * **port** (number) TCP port. The default is ``25``.
-    * **sender** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``.
-    * **recipient** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``.
-    * **helo** (string) The default is to use the system hostname.
-    * **sourceip** (array) Explicitly bind an IP address ID. The array may contain either strings (of id's) or associative arrays with ``id`` or ``address`` (literal) and ``helo``. The default is to be chosen by the transport/system.
+    * **host** (string) The IP address or hostname to connect to, or "lookup-mx" for MX lookup). Overrides the transport setting.
+    * **port** (number) TCP port to connect to. Overrides the transport setting.
+    * **sender** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``. Overrides the queued email's metadata.
+    * **recipient** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``. Overrides the queued email's metadata.
+    * **helo** (string) The SMTP HELO/EHLO hostname. It can also be specified per source IP. Overrides the transport setting.
+    * **sourceip** (array) Source (local) IP(s) to use. The array may contain either strings (of ID's) or associative arrays with ``id`` or ``address`` (literal) and ``helo``. Overrides the transport setting.
     * **nonlocal_source** (boolean) Allow binding of non-local addresses (BINDANY). The default is ``false``.
-    * **saslusername** (string) If specified issue a AUTH LOGIN before MAIL FROM.
-    * **saslpassword** (string) If specified issue a AUTH LOGIN before MAIL FROM.
-    * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
+    * **saslusername** (string) If specified issue a AUTH LOGIN before MAIL FROM. Overrides the transport setting.
+    * **saslpassword** (string) If specified issue a AUTH LOGIN before MAIL FROM. Overrides the transport setting.
+    * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. Overrides the transport setting.
     * **tls_sni** (string or boolean) Request a certificate using the SNI extension. If ``true`` the connected hostname will be used. The default is not to use SNI (``false``).
     * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv2``, ``SSLv3``, ``TLSv1``, ``TLSv1.1``, ``TLSv1.2`` or ``TLSv1.3``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
     * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
@@ -89,7 +92,7 @@ Functions
     * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
     * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
     * **xclient** (array) Associative array of XCLIENT attributes to send.
-    * **protocol** (string) The protocol to use; ``smtp`` or ``lmtp``. The default is ``smtp``.
+    * **protocol** (string) The protocol to use; ``smtp`` or ``lmtp``. Overrides the transport setting.
 
 .. function:: Queue([options])
 
