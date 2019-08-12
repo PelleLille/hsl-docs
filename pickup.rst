@@ -53,8 +53,8 @@
 
   The following policies are available in the policy array.
 
-   * **concurrency** (number) The concurrency limit
-   * **rate** (string) The rate given as of "messages/interval". The interval is given in seconds.
+   * **concurrency** (number) The concurrency limit.
+   * **rate** (array) The rate given as [messages, interval]. The interval is given in seconds.
 
    .. code-block:: hsl
 
