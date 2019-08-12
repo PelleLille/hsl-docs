@@ -62,6 +62,6 @@
      PickupPolicy(
            ["localip", "recipientdomain"],
            ["recipientdomain" => "yahoo.com"],
-           ["rate" => "10/60"],
+           ["rate" => [10, 60]],
            3600
          );
