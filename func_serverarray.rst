@@ -19,3 +19,5 @@ The following server settings are available in the server array.
  * **tls_capture_peer_cert** (boolean) If set to true, the peer certificate will be available in the extended results. The default is ``false``.
  * **xclient** (array) Associative array of XCLIENT attributes to send.
  * **protocol** (string) The protocol to use; ``smtp`` or ``lmtp``. The default is ``smtp``.
+ * **mx_include** (array) Filter the MX lookup result, only including ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
+ * **mx_exclude** (array) Filter the MX lookup result, removing ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
