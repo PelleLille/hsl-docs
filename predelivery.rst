@@ -124,6 +124,8 @@ Functions
 
   :return: doesn't return, script is terminated
 
+.. include:: pickup.rst
+
 .. function:: SetDSN(options)
 
   Set the DSN options for the current delivery attempt if a DSN were to be created. It is not remembered for the next retry.
