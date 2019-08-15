@@ -2494,3 +2494,88 @@ The foreign function interface (FFI) enables loading of shared libraries followi
 .. data:: FFIValue
 
   An FFIValue resource is a container for an FFI value (it also contains the FFIType) so that the correct conversions can be made. If the value is of a pointer type you may control the lifetime of the object using the :func:`FFI.attach` and :func:`FFI.detach` functions.
+
+Shared memory
+-------------
+
+The memory function API provides shared, atomic and synchronized memory access between paralell script executions within the same program. The memory resides in runtime memory (heap) hence it is automatically cleared upon program restart. Access to this memory is also available through the protobuf control socket API.
+
+.. function:: memory_add(key, value)
+
+  Add the value to the memory store only if the key doesn't already exist.
+
+  :param string key: the memory key
+  :param any value: the value
+  :return: if the value was added
+  :rtype: boolean
+
+.. function:: memory_cas(key, oldvalue, value)
+
+  Replace the value in the memory store only if the current value is the same as oldvalue (compare-and-swap).
+
+  :param string key: the memory key
+  :param any value: the old value
+  :param any value: the value
+  :return: if the value was replaced
+  :rtype: boolean
+
+.. function:: memory_dec(key, [offset=1])
+
+  Decrements a number value in the memory store. If the key doens't exist it's initialized to 0 before the decrement. If the value is not a number this function fail and will return `none`.
+
+  :param string key: the memory key
+  :param number offset: the offset to decrement
+  :return: the current value
+  :rtype: boolean or none
+
+.. function:: memory_delete(key)
+
+  Delete a key from the memory store.
+
+  :param string key: the memory key
+  :return: if the key was removed
+  :rtype: boolean
+
+.. function:: memory_entry(key, callback)
+
+  Return the value of key in the memory store. If the entry doesn't exist it will be added to the store from the return value of the callback function (called with the key as argument). 
+
+  :param string key: the memory key
+  :param function callback: a callback function
+  :return: the value of key
+  :rtype: any
+
+.. function:: memory_exists(key)
+
+  Check if a key in the memory store exists.
+
+  :param string key: the memory key
+  :return: if the key exists
+  :rtype: boolean
+
+.. function:: memory_fetch(key)
+
+  Return the value of key in the memory store. If the entry doesn't exist none will be returned.
+
+  :param string key: the memory key
+  :param function initialize: the initialize callback function
+  :return: the value of key
+  :rtype: any or none
+
+.. function:: memory_inc(key, [offset=1])
+
+  Increments a number value in the memory store. If the key doens't exist it's initialized to 0 before the increment. If the value is not a number this function fail and return `none`.
+
+  :param string key: the memory key
+  :param number offset: the offset to increment
+  :return: the current value
+  :rtype: boolean or none
+
+.. function:: memory_store(key, value)
+
+  Replace the value of key in the memory store. If the key already exist the current value will be returned.
+
+  :param string key: the memory key
+  :param any value: the value
+  :return: the current value of key
+  :rtype: any or none
