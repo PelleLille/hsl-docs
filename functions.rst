@@ -2498,7 +2498,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
 Shared memory
 -------------
 
-The memory function API provides shared, atomic and synchronized memory access between paralell script executions within the same program. The memory resides in runtime memory (heap) hence it is automatically cleared upon program restart. Access to this memory is also available through the protobuf control socket API.
+The memory function API provides shared, atomic and synchronized memory access between parallel script executions within the same program. The memory resides in runtime memory (heap) hence it is automatically cleared upon program restart. Access to this memory is also available through the protobuf control socket API.
 
 .. function:: memory_add(key, value)
 
@@ -2514,9 +2514,9 @@ The memory function API provides shared, atomic and synchronized memory access b
   Replace the value in the memory store only if the current value is the same as oldvalue (compare-and-swap).
 
   :param string key: the memory key
-  :param any value: the old value
+  :param any oldvalue: the old value
   :param any value: the value
-  :return: if the value was replaced
+  :return: true if the value was replaced
   :rtype: boolean
 
 .. function:: memory_dec(key, [offset=1])
@@ -2526,7 +2526,7 @@ The memory function API provides shared, atomic and synchronized memory access b
   :param string key: the memory key
   :param number offset: the offset to decrement
   :return: the current value
-  :rtype: boolean or none
+  :rtype: number or none
 
 .. function:: memory_delete(key)
 
@@ -2550,7 +2550,7 @@ The memory function API provides shared, atomic and synchronized memory access b
   Check if a key in the memory store exists.
 
   :param string key: the memory key
-  :return: if the key exists
+  :return: true if the key exists
   :rtype: boolean
 
 .. function:: memory_fetch(key)
@@ -2558,7 +2558,6 @@ The memory function API provides shared, atomic and synchronized memory access b
   Return the value of key in the memory store. If the entry doesn't exist none will be returned.
 
   :param string key: the memory key
-  :param function initialize: the initialize callback function
   :return: the value of key
   :rtype: any or none
 
@@ -2569,7 +2568,7 @@ The memory function API provides shared, atomic and synchronized memory access b
   :param string key: the memory key
   :param number offset: the offset to increment
   :return: the current value
-  :rtype: boolean or none
+  :rtype: number or none
 
 .. function:: memory_store(key, value)
 
