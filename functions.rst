@@ -2583,6 +2583,7 @@ The memory function API provides shared, atomic and synchronized memory access b
   (called with the key, current value and value as argument) will be used as the stored value.
   
   If the key doesn't exist, and...
+  
     *  ...no initial value is provided, no action will take place.
     *  ...an initial value is provided, the callback will be called with the initial value as the current value.
 
