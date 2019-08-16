@@ -2509,16 +2509,6 @@ The memory function API provides shared, atomic and synchronized memory access b
   :return: if the value was added
   :rtype: boolean
 
-.. function:: memory_cas(key, oldvalue, value)
-
-  Replace the value in the memory store only if the current value is the same as oldvalue (compare-and-swap).
-
-  :param string key: the memory key
-  :param any oldvalue: the old value
-  :param any value: the value
-  :return: true if the value was replaced
-  :rtype: boolean
-
 .. function:: memory_dec(key, [offset=1])
 
   Decrements a number value in the memory store. If the key doens't exist it's initialized to 0 before the decrement. If the value is not a number this function fail and will return `none`.
@@ -2528,28 +2518,30 @@ The memory function API provides shared, atomic and synchronized memory access b
   :return: the current value
   :rtype: number or none
 
-.. function:: memory_delete(key)
+.. function:: memory_delete(key, [callback])
 
-  Delete a key from the memory store.
+  Delete a key from the memory store. If the key existed the callback (if provided) will be called with the key and the old value as arguments.
 
   :param string key: the memory key
+  :param function callback: a callback function
   :return: if the key was removed
   :rtype: boolean
 
 .. function:: memory_entry(key, callback)
 
-  Return the value of key in the memory store. If the entry doesn't exist it will be added to the store from the return value of the callback function (called with the key as argument). 
+  Return the value of key in the memory store. If the entry doesn't exist it will be added to the store from the return value of the callback function (called with the key as argument).
 
   :param string key: the memory key
   :param function callback: a callback function
   :return: the value of key
   :rtype: any
 
-.. function:: memory_exists(key)
+.. function:: memory_exists(key, [callback])
 
-  Check if a key in the memory store exists.
+  Check if a key in the memory store exists. If the key existed the callback (if provided) will be called with the key and the old value as arguments.
 
   :param string key: the memory key
+  :param function callback: a callback function
   :return: true if the key exists
   :rtype: boolean
 
@@ -2561,6 +2553,10 @@ The memory function API provides shared, atomic and synchronized memory access b
   :return: the value of key
   :rtype: any or none
 
+  .. note::
+
+     Since this function return none if the key doesn't exist, it's not possible to differentiate between keys with the value of none and if the key doesnt exist. If that is important use memory_exists with the callback.
+
 .. function:: memory_inc(key, [offset=1])
 
   Increments a number value in the memory store. If the key doens't exist it's initialized to 0 before the increment. If the value is not a number this function fail and return `none`.
@@ -2570,11 +2566,31 @@ The memory function API provides shared, atomic and synchronized memory access b
   :return: the current value
   :rtype: number or none
 
-.. function:: memory_store(key, value)
+.. function:: memory_store(key, value, [callback])
 
-  Replace the value of key in the memory store. If the key already exist the current value will be returned.
+  Unconditionally store the value. If the key already exist the callback (if provided) will be called with the key and the old value as arguments.
 
   :param string key: the memory key
   :param any value: the value
-  :return: the current value of key
-  :rtype: any or none
+  :param function callback: a callback function
+  :return: if the key exists
+  :rtype: boolean
+
+.. function:: memory_update(key, value, callback, [initial])
+
+  Update the key in the memory store. If the key exist value will be updated from the return value of the callback function (called with the key, oldvalue and value as argument). 
+
+  :param string key: the memory key
+  :param any value: the value
+  :param function callback: a callback function
+  :param any initial: a initial value
+  :return: if the key exists
+  :rtype: boolean
+
+  If no initial value is provided and;
+
+	* the key doesnt exist is empty, no update will take place.
+
+  If an initial value is provided and;
+
+	* the key doesnt exist is empty, the update will take place and the callback will be called with the initial value as the old value.
