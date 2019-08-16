@@ -2502,45 +2502,45 @@ The memory function API provides shared, atomic and synchronized memory access b
 
 .. function:: memory_add(key, value)
 
-  Add the value to the memory store only if the key doesn't already exist.
+  Adds the value to the store, but only if the key doesn't already exist.
 
-  :param string key: the memory key
+  :param string key: the key name
   :param any value: the value
   :return: if the value was added
   :rtype: boolean
 
 .. function:: memory_dec(key, [offset=1])
 
-  Decrements a number value in the memory store. If the key doens't exist it's initialized to 0 before the decrement. If the value is not a number this function fail and will return `none`.
+  Decrements a number value in the store. If the key doesn't exist, it's created and the value is initialized to 0 before the decrement. If the value is not a number, this function fail and will return `none`.
 
-  :param string key: the memory key
+  :param string key: the key name
   :param number offset: the offset to decrement
-  :return: the current value
+  :return: the decremeted value
   :rtype: number or none
 
 .. function:: memory_delete(key, [callback])
 
-  Delete a key from the memory store. If the key existed the callback (if provided) will be called with the key and the old value as arguments.
+  Deletes a key from the store. If the key existed, the callback (if provided) will be called with the key and value as arguments.
 
-  :param string key: the memory key
+  :param string key: the key name
   :param function callback: a callback function
   :return: if the key was removed
   :rtype: boolean
 
 .. function:: memory_exists(key, [callback])
 
-  Check if a key in the memory store exists. If the key existed the callback (if provided) will be called with the key and the old value as arguments.
+  Checks if a key in the store exists. If the key exists the callback (if provided) will be called with the key and value as arguments.
 
-  :param string key: the memory key
+  :param string key: the key name
   :param function callback: a callback function
-  :return: true if the key exists
+  :return: if the key exists
   :rtype: boolean
 
 .. function:: memory_fetch(key, [callback])
 
-  Return the value of key in the memory store. If the entry doesn't exist and no callback is provided none will be returned, otherwise the value of the callback will be used instead.
+  Returns the value of a key in the store. If the entry doesn't exist and no callback is provided, `none` will be returned. If the entry doesn't exist and a callback is provided, it will be called with the key as argument, and the return value of the callback will be used as return value for this function.
 
-  :param string key: the memory key
+  :param string key: the key name
   :param function callback: a callback function
   :return: the value of key
   :rtype: any or none
@@ -2556,22 +2556,22 @@ The memory function API provides shared, atomic and synchronized memory access b
 
   .. note::
 
-     Since this function may return none if the key doesn't exist, it's not possible to differentiate between keys with the value of none and if the key doesnt exist. If that is important use memory_exists with the callback or use a callback pattern which tells if the key is not found.
+     Since this function may return `none` if the key doesn't exist, it's not possible to differentiate between keys with the value of `none` and a non-existing key. If it's important to differentiate between those, use :func:`memory_exists` with a callback.
 
 .. function:: memory_inc(key, [offset=1])
 
-  Increments a number value in the memory store. If the key doens't exist it's initialized to 0 before the increment. If the value is not a number this function fail and return `none`.
+  Increments a number value in the store. If the key doesn't exist, it's created and the value is initialized to 0 before the increment. If the value is not a number, this function fail and will return `none`.
 
-  :param string key: the memory key
+  :param string key: the key name
   :param number offset: the offset to increment
-  :return: the current value
+  :return: the incremeted value
   :rtype: number or none
 
 .. function:: memory_store(key, value, [callback])
 
-  Unconditionally store the value. If the key already exist the callback (if provided) will be called with the key and the old value as arguments.
+  Update or create the value of key in the store. If the key exists, the callback (if provided) will be called with the key and the current value as arguments in order to know what value was overwritten.
 
-  :param string key: the memory key
+  :param string key: the key name
   :param any value: the value
   :param function callback: a callback function
   :return: if the key exists
@@ -2579,22 +2579,19 @@ The memory function API provides shared, atomic and synchronized memory access b
 
 .. function:: memory_update(key, value, callback, [initial])
 
-  Update the key in the memory store. If the key exist value will be updated from the return value of the callback function (called with the key, oldvalue and value as argument). 
+  Update the value of key in the store, if it exists. The return value of the callback function
+  (called with the key, current value and value as argument) will be used as the stored value.
+  
+  If the key doesn't exist, and...
+    *  ...no initial value is provided, no action will take place.
+    *  ...an initial value is provided, the callback will be called with the initial value as the current value.
 
-  :param string key: the memory key
+  :param string key: the key name
   :param any value: the value
   :param function callback: a callback function
-  :param any initial: a initial value
+  :param any initial: an initial value
   :return: if the key exists
   :rtype: boolean
-
-  If no initial value is provided and;
-
-	* the key doesnt exist is empty, no update will take place.
-
-  If an initial value is provided and;
-
-	* the key doesnt exist is empty, the update will take place and the callback will be called with the initial value as the old value.
 
   .. code-block:: hsl
 
