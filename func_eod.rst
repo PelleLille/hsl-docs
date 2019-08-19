@@ -107,8 +107,7 @@
     :type recipient: string or array
     :param string transportid: the transport profile ID
     :param array options: an options array
-    :return: true (or none)
-    :rtype: boolean or none
+    :rtype: none
 
     The following options are available in the options array.
 
