@@ -8,7 +8,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Data types** :func:`length` :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns_query` :func:`domain_includes` :func:`idna_encode` :func:`idna_decode`
-* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_decode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
+* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_encode` :func:`csv_decode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
 * **File and HTTP** :class:`File` :func:`http`
 * **Mail** :func:`header_addresslist_extract` :func:`header_dkim_decode` :func:`xtext_encode` :func:`xtext_decode` :func:`dnsbl` :func:`spf_query` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
@@ -693,6 +693,24 @@ Encodings and JSON
   :param string string: the input string
   :return: the string representation
   :rtype: string
+
+.. function:: csv_encode(values, [options])
+
+  Encode an array of strings as CSV encoded data.
+
+  :param array values: strings to encode
+  :param array options: options array
+  :return: an array of data
+  :rtype: array
+
+  The following options are available in the options array.
+
+   * **delimiter** (string) The format separator. The default is ``,``.
+
+  .. code-block:: hsl
+
+    echo csv_encode(["Hello", "World", "Hello World"]);
+    // Hello,World,"Hello World"
 
 .. function:: csv_decode(string, [options])
 
@@ -2583,7 +2601,7 @@ The memory function API provides shared, atomic and synchronized memory access b
   (called with the key, current value and value as argument) will be used as the stored value.
   
   If the key doesn't exist, and...
-  
+
     *  ...no initial value is provided, no action will take place.
     *  ...an initial value is provided, the callback will be called with the initial value as the current value.
 
