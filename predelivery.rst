@@ -46,6 +46,7 @@ recipient                    string  "test\@example.org"        Recipient addres
 :ref:`recipientaddress <a1>` array   ["localpart" => "test"...] Recipient address (envelope)
 transportid                  string  "inbound"                  ID of the transport profile to be used
 queueid                      number  12345                      Queue ID of the message
+jobid                        string  "customidentifier1"        Job ID of the message
 ============================ ======= ========================== ===========
 
 .. _a1:
