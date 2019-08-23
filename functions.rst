@@ -1994,7 +1994,7 @@ Socket
 
   .. function:: Socket.constructor(family, type)
 
-    :param string family: address family either ``AF_INET`` or ``AF_INET6``
+    :param string family: address family either ``AF_INET``, ``AF_INET6`` or ``AF_UNIX``
     :param string type: socket type either ``SOCK_STREAM`` (TCP) or ``SOCK_DGRAM`` (UDP)
 
     .. code-block:: hsl
