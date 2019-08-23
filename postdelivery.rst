@@ -204,6 +204,7 @@ Functions
    * **from** (string) Set the From-header address of the DSN.
    * **from_name** (string) Set the From-header display name of the DSN.
    * **dkim** (array) Set the DKIM options of the DSN (``selector``, ``domain``, ``key`` including the options available in :func:`MIME.signDKIM`).
+   * **jobid** (string) Job ID of the message.
 
 .. function:: SetMetaData(metadata)
 
