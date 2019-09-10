@@ -961,7 +961,7 @@ File and HTTP
 	  :return: path
 	  :rtype: string or None
 
-  .. staticmethod:: String(data)
+  .. staticmethod:: File.String(data)
 
 	  Return a File resource containing the data.
 
@@ -1737,7 +1737,7 @@ Protocols
 	  :return: The peer certificate
 	  :rtype: :class:`X509`
 
-  .. staticmethod:: err2string(errno)
+  .. staticmethod:: LDAP.err2string(errno)
 
 	  Get a descriptive error message, uses OpenLDAP's `ldap_err2string()`.
 
@@ -1750,7 +1750,7 @@ Protocols
 		  if (!$ldap->bind())
 		      echo LDAP::err2string($ldap->errno());
 
-  .. staticmethod:: filter_escape(value)
+  .. staticmethod:: LDAP.filter_escape(value)
 
 	  LDAP escape values to be used in LDAP filters.
 
@@ -1762,7 +1762,7 @@ Protocols
 
 		  $result = $ldap->search("dc=example,dc=com", ["filter" => "(cn=" . LDAP::filter_escape($cn) . ")"]);
 
-  .. staticmethod:: str2dn(str)
+  .. staticmethod:: LDAP.str2dn(str)
 
     Parses the string representation of a distinguished name `str` into its components, returning an array of tupels.
 
@@ -1775,7 +1775,7 @@ Protocols
       echo LDAP::str2dn("cn=admin,dc=example,dc=org");
       // [0=>[0=>"cn",1=>"admin"],1=>[0=>"dc",1=>"example"],2=>[0=>"dc",1=>"org"]]
 
-  .. staticmethod:: dn2str(dn)
+  .. staticmethod:: LDAP.dn2str(dn)
 
     Performs the inverse operation of :func:`LDAP.str2dn`, returning a string representation of `dn` with the necessary escaping.
 
@@ -2095,7 +2095,7 @@ Socket
 
 		Sockets are automatically closed.
 
-  .. staticmethod:: AF(address)
+  .. staticmethod:: Socket.AF(address)
 
 	  Return the AF family of an address (either ``AF_INET`` or ``AF_INET6``). A utility function helpful when constructing a :class:`Socket` class.
 
@@ -2299,7 +2299,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
     :return: An FFIValue of pointer type
     :rtype: :data:`FFIValue`
 
-  .. staticmethod:: type(name)
+  .. staticmethod:: FFI.type(name)
 
     A factory function for FFI types. This function is usually used to declare the function signature of an :data:`FFIFunction`.
 
@@ -2315,7 +2315,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
     * ``pointer``
     * ``...`` (can only be used as function argument)
 
-  .. staticmethod:: cnumber(type, number)
+  .. staticmethod:: FFI.cnumber(type, number)
 
     Create an :data:`FFIValue` containing a C number. It's a basic type, which exists for the lifetime of the returned value and passed by value.
   
@@ -2333,7 +2333,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
       $malloc = $libc->func("malloc", [ FFI::type("uint64") ], FFI::type("pointer"));
       $ptr = $malloc(FFI::cnumber(FFI::type("uint64"), 32));
 
-  .. staticmethod:: cstring(value)
+  .. staticmethod:: FFI.cstring(value)
 
     Allocate a null-terminated C string (``char *``) in memory from a HSL string and return an :data:`FFIValue` of ``pointer`` type pointing to that memory. This memory is owned by the :data:`FFIValue` resource (use the :func:`FFI.detach` function to disclaim ownership). This function is intentionally not binary safe.
 
@@ -2346,7 +2346,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
       $fopen = $libc->func("fopen", [ FFI::type("pointer"), FFI::type("pointer") ], FFI::type("pointer"));
       $fp = $fopen(FFI::cstring("/dev/zero"), FFI::cstring("r"));
 
-  .. staticmethod:: nullptr()
+  .. staticmethod:: FFI.nullptr()
 
     Create an :data:`FFIValue` containing a NULL pointer.
 
@@ -2357,7 +2357,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
       
       The C equivalent of this function is ``NULL``.
   
-  .. staticmethod:: allocate(size)
+  .. staticmethod:: FFI.allocate(size)
 
     Allocate memory of `size` in bytes and return an :data:`FFIValue` of ``pointer`` type pointing to that memory. This memory is owned by the :data:`FFIValue` resource (use the :func:`FFI.detach` function to disclaim ownership). The memory is initially filled with zeros.
 
@@ -2369,7 +2369,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
       
       The C equivalent of this function is ``malloc(size)`` with a ``memset(pointer, size, 0)``.
 
-  .. staticmethod:: memcpy(pointer, data)
+  .. staticmethod:: FFI.memcpy(pointer, data)
 
     Copy the binary content of (string) data into memory location pointed to by an :data:`FFIValue` of ``pointer`` type. The caller must make sure the pointer location is of sufficient length.
   
@@ -2382,7 +2382,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
       
       The C equivalent of this function is ``memcpy(pointer, data, datalen)``.
 
-  .. staticmethod:: byref(value)
+  .. staticmethod:: FFI.byref(value)
 
     Return an :data:`FFIValue` of ``pointer`` type pointing to the :data:`FFIValue` `value`.
 
@@ -2394,7 +2394,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
 
       The C equivalent of this function is ``&value``.
 
-  .. staticmethod:: deref(value, [type])
+  .. staticmethod:: FFI.deref(value, [type])
 
     Return an :data:`FFIValue` with :data:`FFIType` of `type` with the value at the address pointed at by the :data:`FFIValue` value. The default type is ``pointer``. If the type is a pointer and dereferenced pointer points to NULL then None is returned.
 
@@ -2407,7 +2407,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
 
       The C equivalent of this function is ``*value``.
 
-  .. staticmethod:: offset(pointer, offset)
+  .. staticmethod:: FFI.offset(pointer, offset)
 
     Return a new :data:`FFIValue` of ``pointer`` type pointing the same memory with an offset.
 
@@ -2420,7 +2420,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
       
       The C equivalent of this function is ``pointer + 32``.
 
-  .. staticmethod:: string(pointer, [size])
+  .. staticmethod:: FFI.string(pointer, [size])
 
     Copy the binary content of a memory location pointed to by an :data:`FFIValue` of ``pointer`` type to a HSL string. If the size is omitted the memory will be copied up to the first NULL character as a null-terminated C string (``char *``).
   
@@ -2429,7 +2429,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
     :return: A binary safe string
     :rtype: string
 
-  .. staticmethod:: number(value)
+  .. staticmethod:: FFI.number(value)
 
     Convert an FFI value to a HSL number. The number type can safely represent all integers between `+/-9007199254740991` (the equivalent of ``(2 ** 53) - 1``). If you expect to work with greater numbers use :func:`FFI.number64`.
 
@@ -2437,7 +2437,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
     :return: A number
     :rtype: number
 
-  .. staticmethod:: number64(value)
+  .. staticmethod:: FFI.number64(value)
 
     Convert an FFI value (``uint64``, ``sint64`` or ``pointer``) to a pair of two 32 bit integers ([high, low]). For signed negative numbers a two complement representation is used.
 
@@ -2445,7 +2445,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
     :return: A number pair
     :rtype: array of number
 
-  .. staticmethod:: attach(pointer, [destructor])
+  .. staticmethod:: FFI.attach(pointer, [destructor])
 
     Assign the ownership of the data pointed to by the pointer argument (:data:`FFIValue` of ``pointer`` type). The default destructor is `free`. An optional destructor :data:`FFIFunction` (should have one ``pointer`` argument) may be given.
   
@@ -2460,7 +2460,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
       $fclose = $libc->func("fclose", [ FFI::type("pointer") ], FFI::type("void"));
       $fp = FFI::attach($fopen->call("/dev/zero", "r"), $fclose);
 
-  .. staticmethod:: detach(pointer)
+  .. staticmethod:: FFI.detach(pointer)
 
     Remove the ownership of the data pointed to by the pointer argument (:data:`FFIValue` of ``pointer`` type).
   
