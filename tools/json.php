@@ -274,7 +274,7 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 					$value = explode('.', $value, 2)[1];
 					$detail = str_replace('.', '->', $detail);
 				}
-				$result[$file === 'functions' ? 'core': $file][$i]['static'] = ($function->attributes()['objtype'] == 'staticmethod'); 
+				if ($function->attributes()['objtype'] == 'staticmethod') $result[$file === 'functions' ? 'core': $file][$i]['static'] = true; 
 				$result[$file === 'functions' ? 'core': $file][$i]['name'] = $name;
 				if ($parameters) $result[$file === 'functions' ? 'core': $file][$i]['parameters'] = $parameters;
 				if ($methods) $result[$file === 'functions' ? 'core': $file][$i]['methods'] = $methods;
