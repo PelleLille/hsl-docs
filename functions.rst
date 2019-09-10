@@ -1333,7 +1333,7 @@ MIME
 		MIME()
 			->addHeader("Subject", "Hello")
 			->setBody("Hi, how are you?")
-			->queue("", ["localpart" => "info", "domain" => "example.com"], "mailtransport:1");
+			->queue("", ["localpart" => "info", "domain" => "example.com"], "outbound");
 
 Misc
 ----
@@ -1555,7 +1555,7 @@ Misc
 			"support@halon.se",
 			"Lunch",
 			"How about lunch on Friday?",
-			"mailtransport:1"
+			"outbound"
 		);
 
   .. note::

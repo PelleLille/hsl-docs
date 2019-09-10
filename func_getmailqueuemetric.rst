@@ -26,12 +26,12 @@
 			"metric" => "bytes",
 			"filter" => [
 				"senderdomain" => ["example.com" , "example.net"],
-				"transportid" => "mailtransport:2"
+				"transportid" => "outbound"
 			]
 		]
 	) / 1024 / 1024;
 	if ($queuesize > 500) {
-		Defer("Current queue for mailtransport:2 exceeds 500 MiB");
+		Defer("Current queue for outbound exceeds 500 MiB");
 	}
 
   .. note::
