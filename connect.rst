@@ -14,7 +14,7 @@ These are the pre-defined variables available.
 Variable                   Type    Read-only Description
 ========================== ======= ========= ===========
 :ref:`$arguments <v_a1>`   array   yes       Context/hook arguments
-:ref:`$connection <v_c1>`  array   yes       Connection/session bound
+$connection                array   yes       Connection/session bound
 :ref:`$transaction <v_t1>` array   yes       Transaction bound
 $context                   any     no        Connection bound user-defined (default none)
 ========================== ======= ========= ===========
@@ -65,7 +65,7 @@ Functions
 
   .. note::
 
-	This can be useful for eg. decoding IPv4 addresses embedded in an IPv6 address (`RFC6052 <https://tools.ietf.org/html/rfc6052>`_).
+	The ``remoteptr`` option can be useful for eg. decoding IPv4 addresses embedded in an IPv6 address (`RFC6052 <https://tools.ietf.org/html/rfc6052>`_).
 
 	.. code::
 
