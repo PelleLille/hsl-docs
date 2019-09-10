@@ -266,15 +266,17 @@ if (isset($argv[1]) and $argv[1] === 'functions' || $argv[1] === 'classes') {
 					$documentation = $function->desc_content->block_quote->paragraph->asXML();
 				$documentation = strip_tags($documentation);
 
+				$static = $function->attributes()['objtype'] == 'staticmethod';
+
 				// Store result
 				$class = null;
 				if (strpos($name, '.')) {
 					[$class, $name] = explode('.', $name, 2);
 					$result[$file === 'functions' ? 'core': $file][$i]['class'] = $class;
 					$value = explode('.', $value, 2)[1];
-					$detail = str_replace('.', '->', $detail);
+					$detail = str_replace('.', $static ? '::' : '->', $detail);
 				}
-				if ($function->attributes()['objtype'] == 'staticmethod') $result[$file === 'functions' ? 'core': $file][$i]['static'] = true; 
+				if ($static) $result[$file === 'functions' ? 'core': $file][$i]['static'] = $static; 
 				$result[$file === 'functions' ? 'core': $file][$i]['name'] = $name;
 				if ($parameters) $result[$file === 'functions' ? 'core': $file][$i]['parameters'] = $parameters;
 				if ($methods) $result[$file === 'functions' ? 'core': $file][$i]['methods'] = $methods;
