@@ -28,7 +28,7 @@ Arguments
 ================= ================================= ========================== ===========
 Array item        Type                              Example                    Description
 ================= ================================= ========================== ===========
-mail              :ref:`MailMessage <MailMessage>`                             An instance of the mail message
+mail              :cpp:class:`EODMailMessage`                                  An instance of the mail message
 ================= ================================= ========================== ===========
 
 .. _v_c6:
@@ -219,7 +219,7 @@ DATA, MIME and attachments
 
 .. _mailmessage:
 
-.. cpp:class:: MailMessage : MailMessage
+.. cpp:class:: EODMailMessage : MailMessage
 
 In the EOD once context extends the :cpp:class:`MailMessage` has two additional functions; :func:`MailMessage.queue` and :func:`MailMessage.send`.
 
