@@ -221,7 +221,7 @@ DATA, MIME and attachments
 
 .. cpp:class:: EODMailMessage : MailMessage
 
-In the EOD once context extends the :cpp:class:`MailMessage` has two additional functions; :func:`EODMailMessage.queue` and :func:`EODMailMessage.send`.
+In the EOD once context the :cpp:class:`MailMessage` class has been extended and has two additional functions; :func:`EODMailMessage.queue` and :func:`EODMailMessage.send`.
 
   .. function:: EODMailMessage.queue(sender, recipient, transportid, [options])
 
