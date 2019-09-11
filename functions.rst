@@ -12,7 +12,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **File and HTTP** :class:`File` :func:`http`
 * **Mail** :func:`header_addresslist_extract` :func:`header_dkim_decode` :func:`xtext_encode` :func:`xtext_decode` :func:`dnsbl` :func:`spf_query` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
-* **MIME** :class:`MIME`
+* **MIME** :class:`MIME` :cpp:class:`MailMessage`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`inet_includes` :func:`inet_ntop` :func:`inet_pton` :func:`inet_reverse` :func:`rate` :func:`mail`
 * **Protocols** :func:`smtp_lookup_rcpt` :func:`smtp_lookup_auth` :func:`ldap_search` :func:`ldap_bind` :class:`LDAP`
 * **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`str_find` :func:`str_rfind` :func:`str_lower` :func:`str_upper` :func:`str_slice` :func:`str_split`
@@ -1206,7 +1206,7 @@ MIME
 
 .. class:: MIME
 
-  This is a MIME "string builder" used to construct MIME parts. In the :doc:`end-of-DATA <eod>` context there is a similar :cpp:class:`MIMEPart` object as well (however it has other member functions available), which is used to work with a message's MIME parts.
+  This is a MIME "string builder" used to construct MIME parts.
   
   .. function:: MIME.constructor()
 
@@ -1334,6 +1334,327 @@ MIME
 			->addHeader("Subject", "Hello")
 			->setBody("Hi, how are you?")
 			->queue("", ["localpart" => "info", "domain" => "example.com"], "outbound");
+
+.. cpp:class:: MailMessage : MIMEPart
+
+  This class extends the :cpp:class:`MIMEPart` class, all instances of this class automatically holds a reference to the top level MIMEPart object.
+
+  .. function:: MailMessage.reset()
+
+	  Undo all changes on the message.
+
+	  :return: number of changes discarded
+	  :rtype: number
+
+	  .. code-block:: hsl
+
+		$mail->reset();
+
+  .. function:: MailMessage.snapshot()
+
+    Take a snapshot of the current state of the MIME object (to be used with :func:`MailMessage.restore`).
+
+    :return: the snapshot id
+    :rtype: number
+
+    .. code-block:: hsl
+
+      $id = $mail->snapshot();
+
+  .. function:: MailMessage.restore(id)
+
+    Restore to a snapshot (to be used with :func:`MailMessage.snapshot`).
+
+    :param number id: snapshot id
+    :return: if restore was successful
+    :rtype: boolean
+
+    .. code-block:: hsl
+
+      $mail->restore($id);
+
+  .. function:: MailMessage.toFile()
+
+    Return a :class:`File` class for the current MIME object (with all changes applied).
+
+    :return: A File class for the current MIME object.
+    :rtype: :class:`File`
+
+  .. function:: MailMessage.toString()
+
+	  Return the MailMessage as a string. This function useful for debugging.
+
+	  :return: the MailMessage as string
+	  :rtype: string
+
+  .. function:: MailMessage.signDKIM(selector, domain, key, [options])
+
+    Sign the message using `DKIM <https://docs.halon.io/go/dkim>`_. On error None is returned.
+
+    :param string selector: selector to use when signing
+    :param string domain: domain to use when signing
+    :param string key: private key to use, either ``pki:X`` or a private RSA key in PEM format.
+    :param array options: options array
+    :return: this
+    :rtype: :cpp:class:`MailMessage`
+
+    The following options are available in the options array.
+
+      * **canonicalization_header** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``relaxed``.
+      * **canonicalization_body** (string) body canonicalization (``simple`` or ``relaxed``). The default is ``relaxed``.
+      * **algorithm** (string) algorithm to hash the message with (``rsa-sha1``, ``rsa-sha256`` or ``ed25519-sha256``). The default is ``rsa-sha256``.
+      * **additional_headers** (array) additional headers to sign in addition to those recommended by the RFC.
+      * **oversign_headers** (array) headers to oversign. The default is ``from``.
+      * **headers** (array) headers to sign. The default is to sign all headers recommended by the RFC.
+      * **id** (boolean) If the key is expected to be in the ``pki:X`` format. The default is auto detect.
+      * **return_header** (boolean) Return the DKIM signature as a string, instead of adding it to the message. The default is ``false``.
+      * **arc** (boolean) Create an ARC-Message-Signature header. The default is ``false``.
+
+    .. note::
+
+      If `return_header` is used, you need to add the header yourself without refolding.
+
+      .. code-block:: hsl
+
+        $dkimsig = $message->signDKIM("selector", "example.com", $key, ["return_header" => true]);
+        $message->addHeader("DKIM-Signature", $dkimsig, ["encode" => false]);
+
+  .. function:: MailMessage.verifyDKIM(headerfield, [options]])
+
+    DKIM verify a `DKIM-Signature` or `ARC-Message-Signature` header. The header should include both the header name and value (unmodified).
+
+    :param string headerfield: the header to verify
+    :param array options: options array
+    :return: associative array containing the result.
+    :rtype: array
+
+    The following options are available in the options array.
+
+     * **timeout** (number) the timeout (per DNS query). The default is ``5``.
+     * **dns_function** (function) a custom DNS function. The default is to use the built in.
+
+    The DNS function will be called with the hostname (eg. `2018._domainkeys.example.com`) for which a DKIM record should be returned. The result must be an array containing either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
+
+    The resulting array always contains a ``result`` field of either ``pass``, ``permerror`` or ``temperror``. In case of an error the reason is included in an ``error`` field. If the header was successfully parsed (regardless of the result) a ``tags`` field will be included. 
+
+  .. staticmethod:: MailMessage.String(data)
+
+	  Return a MailMessage resource containing the data.
+
+	  :param string data: the content
+	  :return: A MailMessage resource
+	  :rtype: MailMessage or None
+
+.. cpp:class:: MIMEPart
+
+  This class represent a MIME part in the MIME tree.
+
+  .. note::
+
+    This class can only be accessed through the extended :cpp:class:`MailMessage` class or from functions returning this object type eg. :func:`MIMEPart.getParts`. 
+
+  .. note::
+
+    Changes done to any MIME object will **not** be reflected on consecutive calls to "get" functions, however they will be applied to the message upon delivery.
+
+  .. function:: MIMEPart.getID()
+
+	  Return the MIME part's ID.
+
+	  :return: part id
+	  :rtype: string
+
+  .. function:: MIMEPart.getSize()
+
+	  Return the MIME part's size in bytes.
+
+	  :return: size in bytes
+	  :rtype: number
+
+  .. function:: MIMEPart.getFileName()
+
+	  Return the MIME part's file name (if it has one).
+
+	  :return: file name
+	  :rtype: string (or none)
+
+  .. function:: MIMEPart.getType()
+
+	  Return the MIME part's `Content-Type`'s type field (eg. `text/plain`).
+
+	  :return: content type
+	  :rtype: string (or none)
+
+  .. function:: MIMEPart.getHeader(name, [options])
+
+	  Return the value of a header (if multiple headers with the same name exists, the first will be returned). If no header is found, the type `none` is returned. The name is not case sensitive.
+
+	  :param string name: name of the header
+	  :param array options: an options array
+	  :return: header value
+	  :rtype: string (or none)
+
+	  The following options are available in the options array.
+
+	   * **index** (number) The index of the header, from the top, starting at zero. The default is ``0``.
+	   * **field** (boolean) Get the header field as is (including the name). The default is ``false``.
+
+	  .. code-block:: hsl
+
+		if (is_string($contentid = $part->getHeader("Content-ID")))
+			echo "Content-ID is $contentid";
+
+	  .. note::
+
+		The :func:`MIMEPart.getHeader` function family will return headers as a UTF-8 string with all MIME encoded-words decoded (`=?charset?encoding?data?=`). However even if headers must be in 7-bit ASCII, some senders do not conform to this and do send headers with different charset encodings. In those cases we (1) Use the MIME-parts "Content-Type" headers charset when converting to UTF-8. (2) If there is no charset information available we use a statistical charset detection function. (3) We just pretend it to be US-ASCII and covert it to UTF-8 anyway (guaranteeing the result will be valid UTF-8).
+
+  .. function:: MIMEPart.getHeaders(name, [options])
+
+	  Return a list of header values. If no header is found, an empty list is returned. The name is not case sensitive.
+
+	  :param string name: name of the header
+	  :param array options: an options array
+	  :return: header values
+	  :rtype: array of string
+
+	  The following options are available in the options array.
+
+	   * **field** (boolean) Get the header field as is (including the name). The default is ``false``.
+
+	  .. code-block:: hsl
+
+		echo "Received headers: ".count(DATA()->getHeaders("Received"));
+
+  .. function:: MIMEPart.getHeaderNames()
+
+	  Return a list of all header names, from the top. The names are in lower case.
+
+	  :return: header names
+	  :rtype: array of string
+
+  .. function:: MIMEPart.setHeader(name, value, [options])
+
+	  Overwrite existing header(s) or create a new header. The name is not case sensitive.
+
+	  :param string name: name of the header
+	  :param string value: value of the header
+	  :param array options: an options array
+	  :return: number of headers changed
+	  :rtype: number
+
+	  The following options are available in the options array.
+
+	   * **index** (number) The index of the header, from the top, starting at zero.
+	   * **encode** (boolean) Refold and encode the header. The default is ``true``.
+
+  .. function:: MIMEPart.addHeader(name, value, [options])
+
+	  Add a new header (at the top of the message).
+
+	  :param string name: name of the header
+	  :param string value: value of the header
+	  :param array options: an options array
+	  :rtype: none
+
+	  The following options are available in the options array.
+
+	   * **encode** (boolean) Refold and encode the header. The default is ``true``.
+
+  .. function:: MIMEPart.delHeader(name, [options])
+
+	  Delete all headers by the name. The name is not case sensitive.
+
+	  :param string name: name of the header
+	  :param array options: an options array
+	  :return: number of headers deleted
+	  :rtype: number
+
+	  The following options are available in the options array.
+
+	   * **index** (number) The index of the header, from the top, starting at zero.
+
+  .. function:: MIMEPart.remove()
+
+	  Remove this MIME part.
+
+	  :rtype: none
+
+  .. function:: MIMEPart.getBody([options])
+
+	  Get the body (content) of a MIME part. The content will be decoded according to the `Content-Transfer-Encoding` header.
+
+	  :param array options: an options array
+	  :return: the body content
+	  :rtype: string (or none)
+
+	  The following options are available in the options array.
+
+	   * **decode** (boolean) Decode the body accoding to the "Content-Transfer-Encoding" header. The default is ``true``.
+
+	  .. note::
+
+		This function will decode using the "Content-Transfer-Encoding" header. It will not do any character set conversion, hence the data can be in any character set encoding.
+
+  .. function:: MIMEPart.setBody(data)
+
+	  Set the body (content) of a MIME part. If the body argument is bigger than 1 MiB (or an another error occurred), the type `none` is returned. The MIME parts encoding (`Content-Transfer-Encoding`) will be changed to the best readable match, that can be either `7bit`, `quoted-printable` or `base64` and the data will encoded as such.
+
+	  :param string data: the body content
+	  :return: this
+
+  .. function:: MIMEPart.prependPart(part, [options])
+
+	  Add a MIME part before this part.
+
+	  :param MIME part: a :class:`MIME` or :cpp:class:`MIMEPart` object
+	  :param array options: an options array
+	  :return: this
+
+	  The following options are available in the options array.
+
+	   * **type** (string) The multipart content type to use. The default is ``multipart/mixed``.
+
+  .. function:: MIMEPart.appendPart(part, [options])
+
+	  Add a MIME part after this part.
+
+	  :param MIME part: a :class:`MIME` or :cpp:class:`MIMEPart` object
+	  :param array options: an options array
+	  :return: this
+
+	  The following options are available in the options array.
+
+	   * **type** (string) The multipart content type to use. The default is ``multipart/mixed``.
+
+  .. function:: MIMEPart.replacePart(part)
+
+	  Replace the current MIME part.
+
+	  :param MIME part: a :class:`MIME` or :cpp:class:`MIMEPart` object
+	  :rtype: none
+
+  .. function:: MIMEPart.findByType(type)
+
+	  Find descendant parts (on any depth) based on their `Content-Type`.
+
+	  :param string type: type as regex
+	  :return: parts
+	  :rtype: array of :cpp:class:`MIMEPart` objects
+
+  .. function:: MIMEPart.findByFileName(filename)
+
+	  Find descendant parts (on any depth) based on their file name.
+
+	  :param string filename: filename as regex
+	  :return: parts
+	  :rtype: array of :cpp:class:`MIMEPart` objects
+
+  .. function:: MIMEPart.getParts()
+
+	  Return child parts.
+
+	  :return: parts
+	  :rtype: array of :cpp:class:`MIMEPart` objects
 
 Misc
 ----
