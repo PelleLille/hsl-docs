@@ -221,9 +221,9 @@ DATA, MIME and attachments
 
 .. cpp:class:: EODMailMessage : MailMessage
 
-In the EOD once context extends the :cpp:class:`MailMessage` has two additional functions; :func:`MailMessage.queue` and :func:`MailMessage.send`.
+In the EOD once context extends the :cpp:class:`MailMessage` has two additional functions; :func:`EODMailMessage.queue` and :func:`EODMailMessage.send`.
 
-  .. function:: MailMessage.queue(sender, recipient, transportid, [options])
+  .. function:: EODMailMessage.queue(sender, recipient, transportid, [options])
 
     Queue the message.
 
@@ -242,7 +242,7 @@ In the EOD once context extends the :cpp:class:`MailMessage` has two additional 
      * **jobid** (string) Assign a jobid the message.
      * **delay** (number) Delay the first delivery attempt, in seconds. The default is ``0``.
 
-  .. function:: MailMessage.send(sender, recipients, server)
+  .. function:: EODMailMessage.send(sender, recipients, server)
 
     Try to send the message to the server.
 
