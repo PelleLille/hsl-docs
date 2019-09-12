@@ -913,9 +913,9 @@ File and HTTP
 
     Read data from file. On EOF an empty string is returned. On error ``None`` is returned.
 
-    :param number length: bytes to read
-    :return: data
-    :rtype: string or None
+	  :param number length: bytes to read
+	  :return: data
+	  :rtype: string or None
 
 	  .. note::
 
