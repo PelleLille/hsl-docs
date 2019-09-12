@@ -911,7 +911,7 @@ File and HTTP
 
   .. function:: File.read([length])
 
-    Read data from file. On EOF an empty string is returned. On error ``None`` is returned.
+	  Read data from file. On EOF an empty string is returned. On error ``None`` is returned.
 
 	  :param number length: bytes to read
 	  :return: data
@@ -919,7 +919,7 @@ File and HTTP
 
 	  .. note::
 
-	  If no length is given, all the remaning data until EOF will be read in one operation.
+		If no length is given, all the remaning data until EOF will be read in one operation.
 
   .. function:: File.readline()
 
