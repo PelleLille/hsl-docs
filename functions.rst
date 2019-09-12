@@ -118,7 +118,7 @@ Array
 
 	  foreach (range(0, 9) as $i) // 0,1,2,..,8
 		  echo $i;
-  
+
 .. function:: array_reduce(callback, array, [initial])
 
   Reduces the values in the array using the callback from left-to-right, optionally starting with a initial value.
@@ -402,7 +402,7 @@ Cryptographic
   :rtype: string
 
   .. code-block:: hsl
-  
+
     if (crypt($password, $encryptedpassword) === $encryptedpassword)
       echo "match";
 
@@ -888,7 +888,7 @@ File and HTTP
 
   .. function:: File.constructor(filename)
 
-    Open a virtual file from the configuration. 
+    Open a virtual file from the configuration.
 
     :param string filename: the file name
 
@@ -997,7 +997,7 @@ File and HTTP
    * **sourceip** (string) Explicitly bind an IP address. The default is to be chosen by the system.
    * **sourceipid** (string) Explicitly bind an IP address ID. The default is to be chosen by the system.
    * **method** (string) Request method. The default is ``GET`` unless ``POST`` data is sent.
-   * **headers** (array) An array of additional HTTP headers as strings. 
+   * **headers** (array) An array of additional HTTP headers as strings.
    * **response_headers** (boolean) Return the full request, including response headers (regardless of HTTP status). The default is ``false``.
    * **redirects** (number) Specify the number of 304 redirects to follow (use ``-1`` for `unlimited`). The default is ``0`` (not to follow redirects).
    * **tls_verify_peer** (boolean) Verify peer certificate. The default is ``true``.
@@ -1209,7 +1209,7 @@ MIME
 .. class:: MIME
 
   This is a MIME "string builder" used to construct MIME parts.
-  
+
   .. function:: MIME.constructor()
 
     The MIME object "constructor" takes no function arguments.
@@ -1437,7 +1437,121 @@ MIME
 
     The DNS function will be called with the hostname (eg. `2018._domainkeys.example.com`) for which a DKIM record should be returned. The result must be an array containing either an ``error`` field (``permerror`` or ``temperror``) or a ``result`` field with a DKIM TXT record as string.
 
-    The resulting array always contains a ``result`` field of either ``pass``, ``permerror`` or ``temperror``. In case of an error the reason is included in an ``error`` field. If the header was successfully parsed (regardless of the result) a ``tags`` field will be included. 
+    The resulting array always contains a ``result`` field of either ``pass``, ``permerror`` or ``temperror``. In case of an error the reason is included in an ``error`` field. If the header was successfully parsed (regardless of the result) a ``tags`` field will be included.
+
+  .. function:: MailMessage.send(sender, recipients, server)
+
+    Try to send the message to the server.
+
+    :param sender: the sender (`MAIL FROM`), an address object
+    :type sender: string or array
+    :param recipients: the recipient (`RCPT TO`), an array of address objects
+    :type recipients: array of (string or array)
+    :param server: array with server settings or transport profile ID
+    :type server: string or array
+    :return: associative array containing the result or an error
+    :rtype: array
+
+    The address parameters should be either a string or an associative array with a ``localpart`` and ``domain`` and optionally a ``params`` field as an key-values array (to be sent in the `MAIL FROM` or `RCPT TO` command).
+
+    .. code-block:: hsl
+
+      $response = $message->send(
+          ["localpart" => "nick", "domain" => "example.org"],
+          [
+              ["localpart" => "chris", "domain" => "example.com", "params" => ["NOTIFY" => "DELAY"]],
+              ["localpart" => "charlie", "domain" => "example.com"],
+          ],
+          ["host" => "10.2.0.1", "tls" => "require"]);
+
+      if (isset($response["result"]))
+      {
+          $result = $response["result"];
+          $codes = [];
+          if ($result["state"] == "EOD")
+              $codes = ["reply_codes" => ["code" => $result["code"], "enhanced" => $result["enhanced"]]];
+          if ($result["code"] >= 200 and $result["code"] <= 299)
+              Accept($result["reason"], $codes);
+          if ($result["code"] >= 500 and $result["code"] <= 599)
+              Reject($result["reason"], $codes);
+          Defer($result["reason"], $codes);
+      }
+      else
+      {
+          $error = $response["error"];
+          if (!$error["temporary"])
+              Reject($error["message"]);
+          Defer($error["message"]);
+      }
+
+    The following server settings are available in the server array.
+
+      * **host** (string) IP-address or hostname. This argument is **required**.
+      * **port** (number) TCP port. The default is ``25``.
+      * **helo** (string) The default is to use the system hostname.
+      * **sourceip** (string) Explicitly bind an IP address. The default is to be chosen by the system.
+      * **sourceipid** (string) Explicitly bind an IP address ID. The default is to be chosen by the system.
+      * **nonlocal_source** (boolean) Allow binding of non-local addresses (BINDANY). The default is ``false``.
+      * **saslusername** (string) If specified issue a AUTH LOGIN before MAIL FROM.
+      * **saslpassword** (string) If specified issue a AUTH LOGIN before MAIL FROM.
+      * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
+      * **tls_sni** (string or boolean) Request a certificate using the SNI extension. If ``true`` the connected hostname will be used. The default is not to use SNI (``false``).
+      * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv2``, ``SSLv3``, ``TLSv1``, ``TLSv1.1``, ``TLSv1.2`` or ``TLSv1.3``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
+      * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
+      * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
+      * **tls_verify_name** (array) Hostnames to verify against the certificate's CN and SAN (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
+      * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
+      * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
+      * **xclient** (array) Associative array of XCLIENT attributes to send.
+      * **protocol** (string) The protocol to use; ``smtp`` or ``lmtp``. The default is ``smtp``.
+      * **mx_include** (array) Filter the MX lookup result, only including ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
+      * **mx_exclude** (array) Filter the MX lookup result, removing ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
+
+    If the send function resulted in a SMTP response you will get the SMTP response in a ``result`` field. This ``result`` field contains a ``state`` field (string) which indicates at what SMTP stage the error happened, a ``reason`` field (array of strings) containing the SMTP reponse (from the server) and a ``code`` field (number) containg the SMTP status code, optionally a ``enhanced`` (array of three numbers) field containg the SMTP enhanced status code. If a generic error happens the function will return a ``error`` field. This ``error`` field contains a ``temporary`` (boolean) field to indicate if the error may be transient and a ``reason`` field (string) containing a the error which happened.
+
+    If a SMTP connection could be established a ``connection`` field will be included. This field contains the ``localip`` field (string), the ``remoteip`` field (string) and the ``remotemx`` field (string).
+
+    A ``tls`` field will always be included, to indicate if the connection had TLS enabled.
+
+    The following ``state`` values are available.
+
+    +-----------------+-------------------------------------------------+
+    | CONNECT         | The initial SMTP greeting                       |
+    +-----------------+-------------------------------------------------+
+    | HELO            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | EHLO            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | LHLO            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | STARTTLS        |                                                 |
+    +-----------------+-------------------------------------------------+
+    | AUTH-CRAM-MD5   | In reply to sending AUTH CRAM-MD5 command       |
+    +-----------------+-------------------------------------------------+
+    | AUTH-PLAIN      | In reply to sending AUTH PLAIN command          |
+    +-----------------+-------------------------------------------------+
+    | AUTH-LOGIN      | In reply to sending AUTH LOGIN command          |
+    +-----------------+-------------------------------------------------+
+    | AUTH-LOGIN-USER | In reply to sending AUTH LOGIN username         |
+    +-----------------+-------------------------------------------------+
+    | AUTH            | In reply to last command of AUTH login attempt  |
+    +-----------------+-------------------------------------------------+
+    | XCLIENT         | In reply to sending a XCLIENT command           |
+    +-----------------+-------------------------------------------------+
+    | MAIL            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | RCPT            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | DATA            | In reply to sending the DATA command            |
+    +-----------------+-------------------------------------------------+
+    | EOD             | In reply sending the End-of-DATA                |
+    +-----------------+-------------------------------------------------+
+    | RSET            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | NOOP            |                                                 |
+    +-----------------+-------------------------------------------------+
+    | QUIT            |                                                 |
+    +-----------------+-------------------------------------------------+
 
   .. staticmethod:: MailMessage.String(data)
 
@@ -1453,7 +1567,7 @@ MIME
 
   .. note::
 
-    This class can only be accessed through the extended :cpp:class:`MailMessage` class or from functions returning this object type eg. :func:`MIMEPart.getParts`. 
+    This class can only be accessed through the extended :cpp:class:`MailMessage` class or from functions returning this object type eg. :func:`MIMEPart.getParts`.
 
   .. note::
 
@@ -1964,10 +2078,10 @@ Protocols
 
   .. function:: LDAP.constructor(uri)
 
-    :param string uri: The LDAP 
-  
+    :param string uri: The LDAP
+
     .. code-block:: hsl
-  
+
       $ldap = LDAP("ldap://ldap.forumsys.com");
       $ldap->bind("uid=tesla,dc=example,dc=com", "password");
       $x = $ldap->search("dc=example,dc=com");
@@ -2641,7 +2755,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
   .. staticmethod:: FFI.cnumber(type, number)
 
     Create an :data:`FFIValue` containing a C number. It's a basic type, which exists for the lifetime of the returned value and passed by value.
-  
+
     :param FFIType type: an FFI C number type
     :param number number: a number
     :return: An FFI value
@@ -2677,9 +2791,9 @@ The foreign function interface (FFI) enables loading of shared libraries followi
     :rtype: :data:`FFIValue`
 
     .. note::
-      
+
       The C equivalent of this function is ``NULL``.
-  
+
   .. staticmethod:: FFI.allocate(size)
 
     Allocate memory of `size` in bytes and return an :data:`FFIValue` of ``pointer`` type pointing to that memory. This memory is owned by the :data:`FFIValue` resource (use the :func:`FFI.detach` function to disclaim ownership). The memory is initially filled with zeros.
@@ -2689,20 +2803,20 @@ The foreign function interface (FFI) enables loading of shared libraries followi
     :rtype: :data:`FFIValue`
 
     .. note::
-      
+
       The C equivalent of this function is ``malloc(size)`` with a ``memset(pointer, size, 0)``.
 
   .. staticmethod:: FFI.memcpy(pointer, data)
 
     Copy the binary content of (string) data into memory location pointed to by an :data:`FFIValue` of ``pointer`` type. The caller must make sure the pointer location is of sufficient length.
-  
+
     :param FFIValue pointer: an FFIValue of pointer type
     :param string data: the data to copied
     :return: An FFIValue
     :rtype: :data:`FFIValue`
-  
+
     .. note::
-      
+
       The C equivalent of this function is ``memcpy(pointer, data, datalen)``.
 
   .. staticmethod:: FFI.byref(value)
@@ -2740,13 +2854,13 @@ The foreign function interface (FFI) enables loading of shared libraries followi
     :rtype: :data:`FFIValue`
 
     .. note::
-      
+
       The C equivalent of this function is ``pointer + 32``.
 
   .. staticmethod:: FFI.string(pointer, [size])
 
     Copy the binary content of a memory location pointed to by an :data:`FFIValue` of ``pointer`` type to a HSL string. If the size is omitted the memory will be copied up to the first NULL character as a null-terminated C string (``char *``).
-  
+
     :param FFIValue pointer: an FFI value of pointer type
     :param number size: bytes to copy
     :return: A binary safe string
@@ -2771,7 +2885,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
   .. staticmethod:: FFI.attach(pointer, [destructor])
 
     Assign the ownership of the data pointed to by the pointer argument (:data:`FFIValue` of ``pointer`` type). The default destructor is `free`. An optional destructor :data:`FFIFunction` (should have one ``pointer`` argument) may be given.
-  
+
     :param FFIValue pointer: an FFIValue of pointer type
     :param FFIFunction destructor: a destructor function
     :return: The pointer argument
@@ -2786,7 +2900,7 @@ The foreign function interface (FFI) enables loading of shared libraries followi
   .. staticmethod:: FFI.detach(pointer)
 
     Remove the ownership of the data pointed to by the pointer argument (:data:`FFIValue` of ``pointer`` type).
-  
+
     :param FFIValue pointer: an FFI value of pointer type
     :return: The pointer argument
     :rtype: :data:`FFIValue`
@@ -2796,10 +2910,10 @@ The foreign function interface (FFI) enables loading of shared libraries followi
     A callable Function object of type FFIFunction.
 
     :param FFIValue args: FFIValues or a HSL value
-    :return: Return value of function call 
+    :return: Return value of function call
     :rtype: :data:`FFIValue` or None (for ``void`` or a ``pointer`` returning `NULL`)
 
-    Implicit conversion can be made if the function signature has once of the following types and the argument HSL type match. Note that the lifetime of converted values are for the duration of the function call. 
+    Implicit conversion can be made if the function signature has once of the following types and the argument HSL type match. Note that the lifetime of converted values are for the duration of the function call.
 
 	  +------------------+----------+------------------------------------+
 	  | Declaration type | HSL type | Conversion                         |
@@ -2920,9 +3034,8 @@ The memory function API provides shared, atomic and synchronized memory access b
 
 .. function:: memory_update(key, value, callback, [initial])
 
-  Update the value of key in the store, if it exists. The return value of the callback function
-  (called with the key, current value and value as argument) will be used as the stored value.
-  
+  Update the value of key in the store, if it exists. The return value of the callback function (called with the key, current value and value as argument) will be used as the stored value.
+
   If the key doesn't exist, and...
 
     *  ...no initial value is provided, no action will take place.

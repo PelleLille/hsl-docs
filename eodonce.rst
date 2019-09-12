@@ -221,7 +221,7 @@ DATA, MIME and attachments
 
 .. cpp:class:: EODMailMessage : MailMessage
 
-In the EOD once context the :cpp:class:`MailMessage` class has been extended and has two additional functions; :func:`EODMailMessage.queue` and :func:`EODMailMessage.send`.
+In the EOD once context the :cpp:class:`MailMessage` class has been extended with one additional function; :func:`EODMailMessage.queue`.
 
   .. function:: EODMailMessage.queue(sender, recipient, transportid, [options])
 
@@ -241,120 +241,6 @@ In the EOD once context the :cpp:class:`MailMessage` class has been extended and
      * **hold** (boolean) Put the message in the hold (inactive) queue. The default is ``false``.
      * **jobid** (string) Assign a jobid the message.
      * **delay** (number) Delay the first delivery attempt, in seconds. The default is ``0``.
-
-  .. function:: EODMailMessage.send(sender, recipients, server)
-
-    Try to send the message to the server.
-
-    :param sender: the sender (`MAIL FROM`), an address object
-    :type sender: string or array
-    :param recipients: the recipient (`RCPT TO`), an array of address objects
-    :type recipients: array of (string or array)
-    :param server: array with server settings or transport profile ID
-    :type server: string or array
-    :return: associative array containing the result or an error
-    :rtype: array
-
-    The address parameters should be either a string or an associative array with a ``localpart`` and ``domain`` and optionally a ``params`` field as an key-values array (to be sent in the `MAIL FROM` or `RCPT TO` command).
-
-    .. code-block:: hsl
-
-      $response = $message->deliver(
-          ["localpart" => "nick", "domain" => "example.org"],
-          [
-              ["localpart" => "chris", "domain" => "example.com", "params" => ["NOTIFY" => "DELAY"]],
-              ["localpart" => "charlie", "domain" => "example.com"],
-          ],
-          ["host" => "10.2.0.1", "tls" => "require"]);
-      
-      if (isset($response["result"]))
-      {
-          $result = $response["result"];
-          $codes = [];
-          if ($result["state"] == "EOD")
-              $codes = ["reply_codes" => ["code" => $result["code"], "enhanced" => $result["enhanced"]]];
-          if ($result["code"] >= 200 and $result["code"] <= 299)
-              Accept($result["reason"], $codes);
-          if ($result["code"] >= 500 and $result["code"] <= 599)
-              Reject($result["reason"], $codes);
-          Defer($result["reason"], $codes);
-      }
-      else
-      {
-          $error = $response["error"];
-          if (!$error["temporary"])
-              Reject($error["message"]);
-          Defer($error["message"]);
-      }
-
-    The following server settings are available in the server array.
-
-      * **host** (string) IP-address or hostname. The default is to use lookup-mx for the recipient domain.
-      * **port** (number) TCP port. The default is ``25``.
-      * **helo** (string) The default is to use the system hostname.
-      * **sourceip** (string) Explicitly bind an IP address. The default is to be chosen by the system.
-      * **sourceipid** (string) Explicitly bind an IP address ID. The default is to be chosen by the system.
-      * **nonlocal_source** (boolean) Allow binding of non-local addresses (BINDANY). The default is ``false``.
-      * **saslusername** (string) If specified issue a AUTH LOGIN before MAIL FROM.
-      * **saslpassword** (string) If specified issue a AUTH LOGIN before MAIL FROM.
-      * **tls** (string) Use any of the following TLS modes; ``disabled``, ``optional``, ``optional_verify``, ``dane``, ``dane_require``, ``require`` or ``require_verify``. The default is ``disabled``.
-      * **tls_sni** (string or boolean) Request a certificate using the SNI extension. If ``true`` the connected hostname will be used. The default is not to use SNI (``false``).
-      * **tls_protocols** (string) Use one or many of the following TLS protocols; ``SSLv2``, ``SSLv3``, ``TLSv1``, ``TLSv1.1``, ``TLSv1.2`` or ``TLSv1.3``. Protocols may be separated by ``,`` and excluded by ``!``. The default is ``!SSLv2,!SSLv3``.
-      * **tls_ciphers** (string) List of ciphers to support. The default is decided by OpenSSL for each ``tls_protocol``.
-      * **tls_verify_host** (boolean) Verify certificate hostname (CN). The default is ``false``.
-      * **tls_verify_name** (array) Hostnames to verify against the certificate's CN and SAN (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
-      * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
-      * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
-      * **xclient** (array) Associative array of XCLIENT attributes to send.
-      * **protocol** (string) The protocol to use; ``smtp`` or ``lmtp``. The default is ``smtp``.
-      * **mx_include** (array) Filter the MX lookup result, only including ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
-      * **mx_exclude** (array) Filter the MX lookup result, removing ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
-
-    If the send function resulted in a SMTP response you will get the SMTP response in a ``result`` field. This ``result`` field contains a ``state`` field (string) which indicates at what SMTP stage the error happened, a ``reason`` field (array of strings) containing the SMTP reponse (from the server) and a ``code`` field (number) containg the SMTP status code, optionally a ``enhanced`` (array of three numbers) field containg the SMTP enhanced status code. If a generic error happens the function will return a ``error`` field. This ``error`` field contains a ``temporary`` (boolean) field to indicate if the error may be transient and a ``reason`` field (string) containing a the error which happened.
-
-    If a SMTP connection could be established a ``connection`` field will be included. This field contains the ``localip`` field (string), the ``remoteip`` field (string) and the ``remotemx`` field (string).
-
-    A ``tls`` field will always be included, to indicate if the connection had TLS enabled. 
-
-    The follwing ``state`` are available.
-
-    +-----------------+-------------------------------------------------+
-    | CONNECT         | The initial SMTP greeting                       |
-    +-----------------+-------------------------------------------------+
-    | HELO            |                                                 |
-    +-----------------+-------------------------------------------------+
-    | EHLO            |                                                 |
-    +-----------------+-------------------------------------------------+
-    | LHLO            |                                                 |
-    +-----------------+-------------------------------------------------+
-    | STARTTLS        |                                                 |
-    +-----------------+-------------------------------------------------+
-    | AUTH-CRAM-MD5   | In reply to sending AUTH CRAM-MD5 command       |
-    +-----------------+-------------------------------------------------+
-    | AUTH-PLAIN      | In reply to sending AUTH PLAIN command          |
-    +-----------------+-------------------------------------------------+
-    | AUTH-LOGIN      | In reply to sending AUTH LOGIN command          |
-    +-----------------+-------------------------------------------------+
-    | AUTH-LOGIN-USER | In reply to sending AUTH LOGIN username         |
-    +-----------------+-------------------------------------------------+
-    | AUTH            | In reply to last command of AUTH login attempt  |
-    +-----------------+-------------------------------------------------+
-    | XCLIENT         | In reply to sending a XCLIENT command           |
-    +-----------------+-------------------------------------------------+
-    | MAIL            |                                                 |
-    +-----------------+-------------------------------------------------+
-    | RCPT            |                                                 |
-    +-----------------+-------------------------------------------------+
-    | DATA            | In reply to sending the DATA command            |
-    +-----------------+-------------------------------------------------+
-    | EOD             | In reply sending the End-of-DATA                |
-    +-----------------+-------------------------------------------------+
-    | RSET            |                                                 |
-    +-----------------+-------------------------------------------------+
-    | NOOP            |                                                 |
-    +-----------------+-------------------------------------------------+
-    | QUIT            |                                                 |
-    +-----------------+-------------------------------------------------+
 
 .. include:: func_eod.rst
 
