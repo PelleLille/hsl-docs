@@ -917,6 +917,8 @@ File and HTTP
     :return: data
     :rtype: string or None
 
+	  .. note::
+
 	  If no length is given, all the remaning data until EOF will be read in one operation.
 
   .. function:: File.readline()
