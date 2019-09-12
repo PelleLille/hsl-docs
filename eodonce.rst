@@ -252,4 +252,4 @@ On script error :func:`Defer` is called.
 On implicit termination
 -----------------------
 
-If not explicitly terminated then :func:`Defer` is called.
+If not explicitly terminated then :func:`Defer` is called and no recipients will be queued.
