@@ -1382,7 +1382,7 @@ MIME
 
   .. function:: MailMessage.toString()
 
-	  Return the MailMessage as a string. This function useful for debugging.
+	  Return the MailMessage as a string (with all changes applied).
 
 	  :return: the MailMessage as string
 	  :rtype: string
