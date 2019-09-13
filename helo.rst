@@ -42,6 +42,7 @@ Array item        Type    Example                    Description
 ================= ======= ========================== ===========
 remoteip          string  "192.168.1.11"             IP address of the connected client
 remoteport        number  41666                      TCP port of connected client
+remoteptr         string  "mail.example.org"         Reverse DNS (FCrDNS) for remoteip (not always available)
 localip           string  "10.0.0.1"                 IP address of the server
 localport         number  25                         TCP port of the server
 serverid          string  "inbound"                  ID of the server
