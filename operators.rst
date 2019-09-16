@@ -171,12 +171,12 @@ The string format operator ``%``, allows you to interpolate values into a string
 
 ::
 
-	%[argument][[fill]align][width][.precision][type]
+	%[argument][[fill]align][width][.precision]type
 
 +-----------+--------------------------------------------------------------------------+
 | argument  | "[" integer "]"                                                          |
 +-----------+--------------------------------------------------------------------------+
-| fill      | <any character>                                                          |
+| fill      | "'" <any character>                                                      |
 +-----------+--------------------------------------------------------------------------+
 | align     | "<" (left) | ">" (right) | "^" (center) | "=" (align after sign)         |
 +-----------+--------------------------------------------------------------------------+
@@ -187,7 +187,7 @@ The string format operator ``%``, allows you to interpolate values into a string
 | type      | "s" (string) | "f" (number) | "x" (hex) | "c" (char) | "b" (binary)      |
 +-----------+--------------------------------------------------------------------------+
 
-The default *argument* is the next value in the array. If an argument is specified (indexed at zero), the next implicit argument is ``n + 1``. The default *fill* character is a space, but that can be changed to any characters (except `%`). The default *alignment* is left with the exception for numbers which has right. For strings the *precision* acts as a cut-off point (max length). Unsupported options for a specific type is simply ignored. To print a literal ``%`` in a format string replace it with ``%%``.
+The default *argument* is the next value in the array. If an argument is specified (indexed at zero), the next implicit argument is ``n + 1``. The default *fill* character is a space, but that can be changed to any characters. The default *alignment* is left with the exception for numbers which has right. For strings the *precision* acts as a cut-off point (max length). Unsupported options for a specific type is simply ignored. To print a literal ``%`` in a format string replace it with ``%%``.
 
 .. code-block:: hsl
 
