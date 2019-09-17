@@ -138,9 +138,9 @@ Functions
   The following options are available in the options array.
 
    * **transportid** (string) Set the transport ID. The default is either choosen by the transport or automatically assigned.
-   * **recipient** (string) Set the recipient. The default is the sender address.
+   * **recipient** (string or array) Set the recipient of the DSN, either as a string or an associative array with a ``localpart`` and ``domain``.
    * **metadata** (array) Add additional metadata (KVP) to the DSN.
-   * **from** (string) Set the From-header address of the DSN.
+   * **from** (string or array) Set the From-header address of the DSN, either as a string or an associative array with a ``localpart`` and ``domain``.
    * **from_name** (string) Set the From-header display name of the DSN.
    * **dkim** (array) Set the DKIM options of the DSN (``selector``, ``domain``, ``key`` including the options available in :func:`MIME.signDKIM`).
    * **jobid** (string) Job ID of the message.
