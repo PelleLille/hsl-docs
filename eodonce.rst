@@ -146,7 +146,7 @@ Functions
 
 * **Actions** :func:`Accept` :func:`Reject` :func:`Defer`
 * **Logging** :func:`History`
-* **DATA, MIME and attachments** :cpp:class:`MailMessage` :cpp:class:`MIMEPart`
+* **DATA, MIME and attachments** :cpp:class:`EODMailMessage` :cpp:class:`MIMEPart`
 * **Embedded scanning** :func:`ScanDMARC` :func:`ScanDLP` :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM`
 * **Miscellaneous** :func:`GetMailQueueMetric`
 
@@ -234,7 +234,8 @@ In the EOD once context the :cpp:class:`MailMessage` class has been extended wit
     :type recipient: string or array
     :param string transportid: the transport profile ID
     :param array options: an options array
-    :rtype: none
+    :return: an id object (with ``transaction`` and ``queue``)
+    :rtype: array
 
     The following options are available in the options array.
 

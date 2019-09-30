@@ -38,15 +38,26 @@ Message
 ============================ ======= ========================== ===========
 Array item                   Type    Example                    Description
 ============================ ======= ========================== ===========
-id                           string  "18c190a3-93f-47d7-bd..."  ID of the transaction
+:ref:`id <id1>`              array   ["transaction" => "18..."  ID of the message
 serverid                     string  "inbound"                  ID of the server
 sender                       string  "test\@example.org"        Sender address (envelope), lowercase
 :ref:`senderaddress <a1>`    array   ["localpart" => "test"...] Sender address (envelope)
 recipient                    string  "test\@example.org"        Recipient address (envelope), lowercase
 :ref:`recipientaddress <a1>` array   ["localpart" => "test"...] Recipient address (envelope)
 transportid                  string  "inbound"                  ID of the transport profile to be used
-queueid                      number  12345                      Queue ID of the message
 jobid                        string  "customidentifier1"        Job ID of the message
+============================ ======= ========================== ===========
+
+.. _id1:
+
+id
+>>>>>>>
+
+============================ ======= ========================== ===========
+Array item                   Type    Example                    Description
+============================ ======= ========================== ===========
+transaction                  string  "18c190a3-93f-47d7-bd..."  ID of the transaction
+queue                        number  1                          Queue ID of the message
 ============================ ======= ========================== ===========
 
 .. _a1:

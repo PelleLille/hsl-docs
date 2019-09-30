@@ -1322,8 +1322,8 @@ MIME
 	  :type recipient: string or array
 	  :param string transportid: the transportid
 	  :param array options: options array
-	  :return: the message id
-	  :rtype: string
+	  :return: an id object (with ``transaction`` and ``queue``)
+	  :rtype: array
 
 	  The following options are available in the options array.
 
