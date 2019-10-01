@@ -19,7 +19,7 @@
 
      // Suspend matching traffic for one minute
      PickupSuspend(
-            ["remotemx" => "*.protection.outlook.com"],
+            ["remotemx" => "*.protection.example.com"],
             60
          );
 
@@ -33,7 +33,7 @@
   :param number ttl: ttl in seconds
   :rtype: none
 
-  The following field values are available in the fields array.
+  The following field values are available in the fields array. The counter for those fields needs to exists in the policy configuration before it can have dynamic condition added to it.
 
    * ``transportid``
    * ``localip``
@@ -61,7 +61,12 @@
      // Enforce a 10 messages per minute limit for an hour
      PickupPolicy(
            ["localip", "recipientdomain"],
-           ["recipientdomain" => "yahoo.com"],
+           ["recipientdomain" => "example.com"],
            ["rate" => [10, 60]],
            3600
          );
+
+  .. note::
+
+    If you have groupings and you add a condition matching a grouping, then the condition will be applied on the grouping and not the individual item.
+    For example if you have a grouping named ``#exampleRollup`` (*.example.com) and you add a condition for ``mx1.example.com`` the condition will be applied on the ``#exampleRollup`` grouping instead.
