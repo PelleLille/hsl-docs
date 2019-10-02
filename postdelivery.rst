@@ -28,8 +28,20 @@ Array item          Type    Example                           Description
 =================== ======= ================================= ===========
 retry               number  3                                 The current retry
 action              string  "DELETE"                          The default action of this execution ("DELETE", "BOUNCE", "QUEUE"). Missing on successful deliveries.
+:ref:`policy <p2>`  array   ["tags" => ["backoff"]            The pickup policy information (if an attempt was made)
 :ref:`attempt <r1>` array   ["result" => [ "code" => 200, ... The delivery attempt result (if an attempt was made)
 =================== ======= ================================= ===========
+
+.. _p2:
+
+Policy
+>>>>>>>
+
+============= ======= ================================== ===========
+Array item    Type    Example                            Description
+============= ======= ================================== ===========
+tags          array   ["backoff", ...]                   The policy tags applied
+============= ======= ================================== ===========
 
 .. _r1:
 
