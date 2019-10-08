@@ -1506,6 +1506,7 @@ MIME
       * **protocol** (string) The protocol to use; ``smtp`` or ``lmtp``. The default is ``smtp``.
       * **mx_include** (array) Filter the MX lookup result, only including ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
       * **mx_exclude** (array) Filter the MX lookup result, removing ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
+      * **timeout** (array) Associative array of :ref:`state <as1>` and the timeout in seconds. The default is set according to RFC2821.
 
     If the send function resulted in a SMTP response you will get the SMTP response in a ``result`` field. This ``result`` field contains a ``state`` field (string) which indicates at what SMTP stage the error happened, a ``reason`` field (array of strings) containing the SMTP reponse (from the server) and a ``code`` field (number) containg the SMTP status code, optionally a ``enhanced`` (array of three numbers) field containg the SMTP enhanced status code. If a generic error happens the function will return a ``error`` field. This ``error`` field contains a ``temporary`` (boolean) field to indicate if the error may be transient and a ``reason`` field (string) containing a the error which happened.
 
@@ -1516,7 +1517,7 @@ MIME
     The following ``state`` values are available.
 
     +-----------------+-------------------------------------------------+
-    | CONNECT         | The initial SMTP greeting                       |
+    | BANNER          | The initial SMTP greeting                       |
     +-----------------+-------------------------------------------------+
     | HELO            |                                                 |
     +-----------------+-------------------------------------------------+

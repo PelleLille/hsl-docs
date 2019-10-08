@@ -21,3 +21,4 @@ The following server settings are available in the server array.
  * **protocol** (string) The protocol to use; ``smtp`` or ``lmtp``. The default is ``smtp``.
  * **mx_include** (array) Filter the MX lookup result, only including ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
  * **mx_exclude** (array) Filter the MX lookup result, removing ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
+ * **timeout** (array) Associative array of :ref:`state <as1>` and the timeout in seconds. The default is set according to RFC2821.

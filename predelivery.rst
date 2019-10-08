@@ -108,6 +108,7 @@ Functions
     * **mx_include** (array) Filter the MX lookup result, only including ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
     * **mx_exclude** (array) Filter the MX lookup result, removing ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
     * **jobid** (string) Job ID of the message.
+    * **timeout** (array) Associative array of :ref:`state <as1>` and the timeout in seconds. The default is set according to RFC2821.
 
 .. function:: Queue([options])
 
