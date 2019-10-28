@@ -10,7 +10,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **DNS** :func:`dns_query` :func:`domain_includes` :func:`idna_encode` :func:`idna_decode`
 * **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_encode` :func:`csv_decode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
 * **File and HTTP** :class:`File` :func:`http`
-* **Mail** :func:`header_addresslist_extract` :func:`header_dkim_decode` :func:`xtext_encode` :func:`xtext_decode` :func:`dnsbl` :func:`spf_query` :func:`globalview`
+* **Mail** :func:`envelope_address_parse` :func:`envelope_localpart_escape` :func:`header_addresslist_extract` :func:`header_dkim_decode` :func:`xtext_encode` :func:`xtext_decode` :func:`dnsbl` :func:`spf_query` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
 * **MIME** :class:`MIME` :cpp:class:`MailMessage`
 * **Misc** :func:`serial` :func:`gethostname` :func:`uuid` :func:`syslog` :func:`stat` :func:`inet_includes` :func:`inet_ntop` :func:`inet_pton` :func:`inet_reverse` :func:`rate` :func:`mail`
@@ -1024,6 +1024,30 @@ File and HTTP
 
 Mail
 ----
+
+.. function:: envelope_address_parse(address)
+
+  Parse an email address into `localpart` and `domain`. On error `None` is returned.
+
+  :param string address: email addresses
+  :return: email address parts
+  :rtype: array
+
+  .. code-block:: hsl
+
+    echo envelope_address_parse("user@example.com"); // ["localpart"=>"user","domain"=>"example.com"]
+
+.. function:: envelope_localpart_escape(address)
+
+  Apply escaping to the an email envelope localpart.
+
+  :param string address: local part
+  :return: escaped localpart
+  :rtype: strings
+
+  .. code-block:: hsl
+
+    echo envelope_localpart_escape("email address") . "@example.org"; // "email address"@example.org
 
 .. function:: header_addresslist_extract(value, [options])
 
