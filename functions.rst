@@ -2975,10 +2975,12 @@ The foreign function interface (FFI) enables loading of shared libraries followi
 
   An FFIValue resource is a container for an FFI value (it also contains the FFIType) so that the correct conversions can be made. If the value is of a pointer type you may control the lifetime of the object using the :func:`FFI.attach` and :func:`FFI.detach` functions.
 
+.. _shared_memory:
+
 Shared memory
 -------------
 
-The memory function API provides shared, atomic and synchronized memory access between parallel script executions within the same program. The memory resides in runtime memory (heap) hence it is automatically cleared upon program restart. Access to this memory is also available through the protobuf control socket API.
+The memory function API provides shared, atomic and synchronized memory access between parallel script executions within the same program. The memory resides in runtime memory (heap) hence it is automatically cleared upon program restart. Access to this memory is also available through the protobuf control socket API. The memory functions share the same memory and lock as the :ref:`barrier` structure.
 
 .. function:: memory_add(key, value)
 

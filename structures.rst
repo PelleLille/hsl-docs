@@ -777,10 +777,12 @@ The following cache options are available.
 
 	By default (if not distinguish by `namespace`), all cached calls to the same function name share the same cache bucket, consequently the cache statement with the smallest size set the effective max size for that cache. It's recommended to use different `namespaces` for unrelated function calls.
 
+.. _barrier:
+
 barrier
 -------
 
-A `barrier` is system-wide `named` mutually exclusive scope, only one execution is allowed to enter the same named scope (applies to all thread and processes). Waiters are queued for execution in random order. Optionally with every barrier comes a shared variable (`shared memory`) which data is shared among executions.
+A `barrier` is `named` mutually exclusive scope, only one execution is allowed to enter the same named scope (applies to all thread). Waiters are queued for execution in random order. Optionally with every barrier comes a shared variable (`shared memory`) which data is shared among executions. Barries shares the same locks as the :ref:`memoy<shared_memory>` functions.
 
 ::
 
