@@ -782,7 +782,7 @@ The following cache options are available.
 barrier
 -------
 
-A `barrier` is `named` mutually exclusive scope, only one execution is allowed to enter the same named scope (applies to all thread). Waiters are queued for execution in random order. Optionally with every barrier comes a shared variable (`shared memory`) which data is shared among executions. Barries share the same memory and lock as the :ref:`memoy<shared_memory>` functions.
+A `barrier` is `named` mutually exclusive scope, only one execution is allowed to enter the same named scope (applies to all thread). Waiters are queued for execution in random order. Optionally with every barrier comes a shared variable (`shared memory`) which data is shared among executions. Barries share the same memory and lock as the :ref:`memory<shared_memory>` functions.
 
 ::
 
