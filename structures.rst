@@ -800,7 +800,3 @@ A `barrier` is `named` mutually exclusive scope, only one execution is allowed t
 		echo $var;
 		$var += 1;
 	}
-
-.. note::
-
-	Storing large data object is much faster if serialized using :func:`json_encode` and :func:`json_decode`.
