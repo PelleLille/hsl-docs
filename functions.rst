@@ -2492,7 +2492,7 @@ Socket
 
 		Sockets are automatically garbage collected (closed). However you may want to explicitly call close.
 
-  .. function:: Socket.connect(address, port)
+  .. function:: Socket.connect(address, [port])
 
 	  Connect the socket to `address` and `port`. The address must match the Sockets address family.
 
