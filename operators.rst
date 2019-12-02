@@ -427,9 +427,9 @@ These operators compare the expressions (operands) on both sides of the operator
 +-------------------------------+-----+--------------------------------------------------+----------------+
 | greater than                  | >   | Matches for greater than                         | Numbers        |
 +-------------------------------+-----+--------------------------------------------------+----------------+
-| less or equal than            | <=  | Matches for less than                            | Numbers        |
+| less or equal than            | <=  | Matches for less or equal than                   | Numbers        |
 +-------------------------------+-----+--------------------------------------------------+----------------+
-| greater or equal than         | >=  | Matches for greater than                         | Numbers        |
+| greater or equal than         | >=  | Matches for greater or equal than                | Numbers        |
 +-------------------------------+-----+--------------------------------------------------+----------------+
 | regular expression            | =~  | Matches for equality using regular expressions   | Strings        |
 +-------------------------------+-----+--------------------------------------------------+----------------+
