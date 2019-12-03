@@ -188,7 +188,7 @@ Functions
 
   .. warning::
 
-     If the message was delivered (``isset($arguments["action"])``) this function will raise a runtime error.
+     If the message was delivered (``!isset($arguments["action"])``) this function will raise a runtime error.
 
 .. function:: Bounce()
 
@@ -198,7 +198,7 @@ Functions
 
   .. warning::
 
-     If the message was delivered (``isset($arguments["action"])``) this function will raise a runtime error.
+     If the message was delivered (``!isset($arguments["action"])``) this function will raise a runtime error.
 
 .. function:: Delete()
 
@@ -208,7 +208,7 @@ Functions
 
   .. warning::
 
-     If the message was delivered (``isset($arguments["action"])``) this function will raise a runtime error.
+     If the message was delivered (``!isset($arguments["action"])``) this function will raise a runtime error.
 
 .. include:: pickup.rst
 
