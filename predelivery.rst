@@ -39,6 +39,7 @@ Message
 Array item                   Type    Example                    Description
 ============================ ======= ========================== ===========
 :ref:`id <id1>`              array   ["transaction" => "18..."  ID of the message
+ts                           number  1575558785.1234            Unix time of transaction
 serverid                     string  "inbound"                  ID of the server
 sender                       string  "test\@example.org"        Sender address (envelope), lowercase
 :ref:`senderaddress <a1>`    array   ["localpart" => "test"...] Sender address (envelope)
@@ -109,6 +110,7 @@ Functions
     * **mx_exclude** (array) Filter the MX lookup result, removing ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
     * **jobid** (string) Job ID of the message.
     * **timeout** (array) Associative array of :ref:`state <as1>` and the timeout in seconds. The default is set according to RFC2821.
+    * **connect_timeout** (number) The connect timeout in seconds. The default is ``30`` seconds.
 
 .. function:: Queue([options])
 

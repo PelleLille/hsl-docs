@@ -109,6 +109,7 @@ Transaction
 Array item                Type    Example                          Description
 ========================= ======= ================================ ===========
 id                        string  "18c190a3-93f-47d7-bd..."        ID of the transaction
+ts                        number  1575558785.1234                  Unix time of transaction
 sender                    string  "test\@example.org"              Sender address (envelope), lowercase
 :ref:`senderaddress <a6>` array   ["localpart" => "test"...]       Sender address (envelope)
 senderparams              array   ["SIZE" => "2048", ... ]         Sender parameters to the envelope address

@@ -199,6 +199,7 @@ All connectors are available in the `script library <https://docs.halon.io/go/sc
   The following options are available in the options array.
 
    * **extended_result** (boolean) Return extended results. The default is ``false``.
+   * **signature_exclude** (array) List of signatures to ignore / whitelist.
 
   The following results are available in the extended results array.
 

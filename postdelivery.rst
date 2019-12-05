@@ -134,6 +134,7 @@ Message
 Array item                   Type    Example                    Description
 ============================ ======= ========================== ===========
 :ref:`id <id2>`              array   ["transaction" => "18..."  ID of the message
+ts                           number  1575558785.1234            Unix time of transaction
 serverid                     string  "inbound"                  ID of the server
 sender                       string  "test\@example.org"        Sender address (envelope), lowercase
 :ref:`senderaddress <z1>`    array   ["localpart" => "test"...] Sender address (envelope)
