@@ -2305,6 +2305,10 @@ String
   :return: subject with searched replaced with replace
   :rtype: string
 
+  .. code-block:: hsl
+
+	str_replace("Hello", "Hej", "Hello World") // "Hej World"
+
 .. function:: str_split(string, delimiter, [limit = 0])
 
   Splits the string into an array on the delimiter.
