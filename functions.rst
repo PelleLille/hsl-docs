@@ -3,7 +3,7 @@ Standard library
 
 Functions which are documented in this chapter are considered `core` functions hence are available in all `contexts`. Functions in the standard library may be recognized by the fact that they are all in lowercase.
 
-* **Array** :func:`array_filter` :func:`array_find` :func:`array_includes` :func:`array_join` :func:`array_keys` :func:`array_map` :func:`array_range` :func:`array_reduce` :func:`array_reverse` :func:`array_sort`
+* **Array** :func:`array_every` :func:`array_filter` :func:`array_find` :func:`array_includes` :func:`array_join` :func:`array_keys` :func:`array_map` :func:`array_range` :func:`array_reduce` :func:`array_reverse` :func:`array_sort`
 * **Cryptographic** :func:`aes_decrypt` :func:`aes_encrypt` :func:`hmac_md5` :func:`hmac_sha1` :func:`hmac_sha2` :func:`md5` :func:`sha1` :func:`sha2` :func:`hash` :func:`rsa_sign` :func:`rsa_verify` :func:`ed25519_sign` :func:`ed25519_verify` :func:`pkcs7_sign` :func:`random_bytes` :func:`random_number` :func:`crypt`
 * **Data types** :func:`length` :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
@@ -21,6 +21,22 @@ Functions which are documented in this chapter are considered `core` functions h
 
 Array
 -----
+
+.. function:: array_every(callback, array)
+
+  Returns true if all items in the array are true based on the result of the callback function.
+
+  :param function callback: the callback
+  :param array array: the array
+  :return: true if all callbacks return true
+  :rtype: boolean
+
+  The callback function should take one argument (value) and return a boolean value.
+
+  .. code-block:: hsl
+
+	  array_every(function ($x) { return $x % 2 == 0; }, [0, 2, 4, 6]); // true
+	  array_every(function ($x) { return $x % 2 == 0; }, [0, 2, 5, 6]); // false
 
 .. function:: array_filter(callback, array)
 
