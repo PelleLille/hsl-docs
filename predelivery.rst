@@ -178,15 +178,6 @@ Functions
   :return: the data set by :func:`SetMetaData`
   :rtype: array
 
-.. function:: GetMailQueueMetric([options])
-
-  Return metric information about the mail queue, it can be used to enforce quotas.
-
-  :param array options: options array
-  :rtype: number
-
-.. include:: func_getmailqueuemetric.rst
-
 On script error
 ---------------
 

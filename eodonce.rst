@@ -149,7 +149,6 @@ Functions
 * **Logging** :func:`History`
 * **DATA, MIME and attachments** :cpp:class:`EODMailMessage` :cpp:class:`MIMEPart`
 * **Embedded scanning** :func:`ScanDMARC` :func:`ScanDLP` :func:`ScanRPD` :func:`ScanSA` :func:`ScanKAV` :func:`ScanCLAM`
-* **Miscellaneous** :func:`GetMailQueueMetric`
 
 Actions
 +++++++

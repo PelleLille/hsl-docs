@@ -159,15 +159,6 @@ Functions
    * **disconnect** (boolean) Disconnect the client. The default is ``false``.
    * **reply_codes** (array) The array may contain *code* (number) and *enhanced* (array of three numbers). The default is pre-defined.
 
-.. function:: GetMailQueueMetric([options])
-
-  Return metric information about the mail queue, it can be used to enforce quotas.
-
-  :param array options: options array
-  :rtype: number
-
-.. include:: func_getmailqueuemetric.rst
-
 On script error
 ---------------
 
