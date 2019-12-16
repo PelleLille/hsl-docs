@@ -2027,6 +2027,7 @@ Misc
    * **recipient_name** (string) Friendly name of the recipient.
    * **headers** (array) Add additional message headers (KVP).
    * **metadata** (array) Add additional metadata to the message (KVP).
+   * **jobid** (string) Assign a jobid the message.
 
   .. code-block:: hsl
 

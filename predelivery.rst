@@ -87,7 +87,7 @@ Functions
   The following options are available in the options array. Some are used to override
   the properties eitherwise chosen based on the queue email's metadata and transport settings.
 
-    * **host** (string) The IP address or hostname to connect to, or "lookup-mx" for MX lookup). Overrides the transport setting.
+    * **host** (string) The IP address or hostname to connect to, or "lookup-mx" for MX lookup. Overrides the transport setting.
     * **port** (number) TCP port to connect to. Overrides the transport setting.
     * **sender** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``. Overrides the queued email's metadata.
     * **recipient** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``. Overrides the queued email's metadata.
