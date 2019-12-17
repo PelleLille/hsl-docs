@@ -18,7 +18,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **String** :func:`chr` :func:`ord` :func:`str_repeat` :func:`str_replace` :func:`str_find` :func:`str_rfind` :func:`str_lower` :func:`str_upper` :func:`str_slice` :func:`str_split`
 * **Regular expression** :func:`pcre_match` :func:`pcre_match_all` :func:`pcre_quote` :func:`pcre_replace`
 * **Socket** :class:`Socket` :class:`TLSSocket` :class:`X509`
-* **Queue** :func:`queue_policy` :func:`queue_suspend`
+* **Queue** :func:`queue_policy` :func:`queue_suspend` :func:`queue_quota`
 
 Array
 -----
@@ -1370,6 +1370,7 @@ MIME
 
 	   * **metadata** (array) Add additional metadata to the message (KVP).
 	   * **jobid** (string) Assign a jobid the message.
+	   * **quotas** (array) An array of quotas to be associated with the message.
 
 	  .. code-block:: hsl
 
@@ -2028,6 +2029,7 @@ Misc
    * **headers** (array) Add additional message headers (KVP).
    * **metadata** (array) Add additional metadata to the message (KVP).
    * **jobid** (string) Assign a jobid the message.
+   * **quotas** (array) An array of quotas to be associated with the message.
 
   .. code-block:: hsl
 
@@ -3205,3 +3207,13 @@ Queue
   .. note::
 
 	  If you have groupings and you add a condition matching a grouping, then the condition will be applied on the grouping and not the individual item. For example if you have a grouping named ``#exampleRollup`` (*.example.com) and you add a condition for ``mx1.example.com`` the condition will be applied on the ``#exampleRollup`` grouping instead.
+
+.. function:: queue_quota(name)
+
+  Get the quota usage for a specific quota name.
+
+  :param string id: the quota name
+  :return: the quota information
+  :rtype: array
+
+  The return value is always an associative array with ``count`` and ``bytes``.

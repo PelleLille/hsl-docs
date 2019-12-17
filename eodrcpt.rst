@@ -91,6 +91,7 @@ Actions
    * **transportid** (string) Set the transport ID. The default is ``$transportid``.
    * **metadata** (array) Add additional metadata (KVP). Same as :func:`SetMetaData`.
    * **jobid** (string) Assign a jobid the message.
+   * **quotas** (array) An array of quotas to be associated with the message.
    * **delay** (number) Same as :func:`SetDelayedDeliver`. The default is ``0`` seconds.
    * **done** (boolean) If the function should terminate the script. Same as calling :func:`Done`. The default is ``true``.
    * **queue** (boolean) Deliver the message using the queue. The default is ``true``.
@@ -150,6 +151,7 @@ Actions
    * **transportid** (string) Set the transport ID. The default is ``$transportid``.
    * **metadata** (array) Add additional metadata to the message (KVP). same as :func:`SetMetaData`.
    * **jobid** (string) Assign a jobid the message.
+   * **quotas** (array) An array of quotas to be associated with the message.
    * **done** (boolean) If the function should terminate the script. Same as calling :func:`Done`. The default is ``true``.
    * **reject** (boolean) If the function should return an 500 error. The default is ``true``.
    * **reason** (string) The reason to report. The default is a system generated message.
