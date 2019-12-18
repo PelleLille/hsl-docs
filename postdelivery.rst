@@ -142,6 +142,7 @@ recipient                    string  "test\@example.org"        Recipient addres
 :ref:`recipientaddress <z1>` array   ["localpart" => "test"...] Recipient address (envelope)
 transportid                  string  "inbound"                  ID of the transport profile to be used
 jobid                        string  "customidentifier1"        Job ID of the message
+size                         number  412311                     Message size in bytes
 ============================ ======= ========================== ===========
 
 .. _id2:
