@@ -1343,6 +1343,10 @@ MIME
 	   * **algorithm** (string) algorithm to hash the message with (``rsa-sha1``, ``rsa-sha256`` or ``ed25519-sha256``). The default is ``rsa-sha256``.
 	   * **additional_headers** (array) additional headers to sign in addition to those recommended by the RFC.
 	   * **oversign_headers** (array) headers to oversign. The default is ``from``.
+	   * **timestamp** (boolean or number) add the ``t`` tag to the signature (may be an absolute unix timestamp). The default is ``false``.
+	   * **expiration** (number) add the ``x`` tag to the signature (an absolute unix timestamp). The default is no expiration.
+	   * **expiration_relative** (number) add the ``x`` tag to the signature (seconds relative to ``timestamp`` or current time). The default is no expiration.
+	   * **identity** (string) add the ``i`` tag to the signature. The default is no identity tag.
 	   * **headers** (array) headers to sign. The default is to sign all headers recommended by the RFC.
 	   * **id** (boolean) If the key is expected to be in the ``pki:X`` format. The default is auto detect.
 
@@ -1449,6 +1453,10 @@ MIME
       * **algorithm** (string) algorithm to hash the message with (``rsa-sha1``, ``rsa-sha256`` or ``ed25519-sha256``). The default is ``rsa-sha256``.
       * **additional_headers** (array) additional headers to sign in addition to those recommended by the RFC.
       * **oversign_headers** (array) headers to oversign. The default is ``from``.
+      * **timestamp** (boolean or number) add the ``t`` tag to the signature (may be an absolute unix timestamp). The default is ``false``.
+      * **expiration** (number) add the ``x`` tag to the signature (an absolute unix timestamp). The default is no expiration.
+      * **expiration_relative** (number) add the ``x`` tag to the signature (seconds relative to ``timestamp`` or current time). The default is no expiration.
+      * **identity** (string) add the ``i`` tag to the signature. The default is no identity tag.
       * **headers** (array) headers to sign. The default is to sign all headers recommended by the RFC.
       * **id** (boolean) If the key is expected to be in the ``pki:X`` format. The default is auto detect.
       * **return_header** (boolean) Return the DKIM signature as a string, instead of adding it to the message. The default is ``false``.
