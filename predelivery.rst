@@ -86,7 +86,7 @@ Functions
   :return: doesn't return, script is terminated
 
   The following options are available in the options array. Some are used to override
-  the properties eitherwise chosen based on the queue email's metadata and transport settings.
+  the properties otherwise chosen based on the to-be-queued email's metadata and transport settings.
 
     * **host** (string) The IP address or hostname to connect to, or "lookup-mx" for MX lookup. Overrides the transport setting.
     * **port** (number) TCP port to connect to. Overrides the transport setting.
