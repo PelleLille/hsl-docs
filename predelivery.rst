@@ -128,6 +128,7 @@ Functions
    * **increment_retry** (boolean) If the retry count should be increased. The default is ``true``.
    * **reset_retry** (boolean) If the retry count should be reset to zero. The default is ``false``.
    * **transportid** (string) Set the transport ID.  The default the current `transportid`.
+   * **quotas** (array) An array of quotas to be associated with the message.
 
 .. function:: Bounce()
 
