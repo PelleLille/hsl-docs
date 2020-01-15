@@ -91,7 +91,7 @@ Functions
     * **host** (string) The IP address or hostname to connect to, or "lookup-mx" for MX lookup. Overrides the transport setting.
     * **port** (number) TCP port to connect to. Overrides the transport setting.
     * **sender** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``. Overrides the queued email's metadata.
-    * **recipient** (string or array) Change the sender email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``. Overrides the queued email's metadata.
+    * **recipient** (string or array) Change the recipient email address, either as a string or an associative array with a ``localpart``, ``domain`` and ``params``. Overrides the queued email's metadata.
     * **helo** (string) The SMTP HELO/EHLO hostname. It can also be specified per source IP. Overrides the transport setting.
     * **sourceip** (array) Source (local) IP(s) to use. The array may contain either strings (of ID's) or associative arrays with ``id`` or ``address`` (literal) and ``helo``. Overrides the transport setting.
     * **nonlocal_source** (boolean) Allow binding of non-local addresses (BINDANY). The default is ``false``.
