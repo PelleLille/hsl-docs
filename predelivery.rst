@@ -112,6 +112,7 @@ Functions
     * **jobid** (string) Job ID of the message.
     * **timeout** (array) Associative array of :ref:`state <as1>` and the timeout in seconds. The default is set according to RFC2821.
     * **connect_timeout** (number) The connect timeout in seconds. The default is ``30`` seconds.
+    * **pooling** (boolean) Enable connection pooling. The default is ``false``.
 
 .. function:: Queue([options])
 
