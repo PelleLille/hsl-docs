@@ -1284,6 +1284,7 @@ MIME
 	  The following options are available in the options array.
 
 	   * **encode** (boolean) Refold and encode the header. The default is ``true``.
+	   * **encoding** (string) Encoding to use (base64 or quoted-printable). The default is ``quoted-printable``.
 
 	  .. note::
 
@@ -1714,6 +1715,7 @@ MIME
 
 	   * **index** (number) The index of the header, from the top, starting at zero.
 	   * **encode** (boolean) Refold and encode the header. The default is ``true``.
+	   * **encoding** (string) Encoding to use (base64 or quoted-printable). The default is ``quoted-printable``.
 
   .. function:: MIMEPart.addHeader(name, value, [options])
 
@@ -1727,6 +1729,7 @@ MIME
 	  The following options are available in the options array.
 
 	   * **encode** (boolean) Refold and encode the header. The default is ``true``.
+	   * **encoding** (string) Encoding to use (base64 or quoted-printable). The default is ``quoted-printable``.
 
   .. function:: MIMEPart.delHeader(name, [options])
 
