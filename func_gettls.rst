@@ -15,5 +15,5 @@
    * **protocol** (string) The protocol used (eg. ``TLSv1.2``)
    * **cipher** (string) The cipher used (eg. ``ECDHE-RSA-AES256-SHA384``).
    * **keysize** (number) The keysize used (eg. ``256``).
-   * **peer_cert** (array) The peer certificate (if provided by the client). Same format as :func:`TLSSocket.getpeercert`.
+   * **peer_cert** (array) The peer certificate (if provided by the client). Same format as :func:`TLSSocket.getpeerx509`.
    * **peer_cert_error** (number) The peer certificate validation error (see OpenSSLs SSL_get_verify_result(3)).
