@@ -2150,7 +2150,7 @@ Protocols
     Set LDAP connection options.
 
     :param string name: the option name
-    :param number value: the option value
+    :param any value: the option value
     :return: this
     :rtype: LDAP or None
 
