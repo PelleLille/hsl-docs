@@ -61,10 +61,10 @@ Array item           Type    Example                    Description
 protocol             string  "TLSv1.3"                  The protocol
 cipher               string  "ECDHE-RSA-AES256-SHA384"  The cipher
 keysize              number  256                        The keysize
-:ref:`peercert <p2>` array                              The peer certificate (if provided by the client)
+:ref:`peercert <p9>` array                              The peer certificate (if provided by the client)
 ==================== ======= ========================== ===========
 
-.. _p2:
+.. _p9:
 
 Peercert
 ________
