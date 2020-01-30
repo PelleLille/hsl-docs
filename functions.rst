@@ -2407,11 +2407,30 @@ String
   .. seealso::
 	  It's significantly faster to use the slice [:] operator since it's an operator and not a function.
 
-.. function:: str_strip(string)
+.. function:: str_strip(string, [characters])
 
-  Returns string with whitespace characters (`\\s\\t\\r\\n`) removed from the start and end of the string.
+  Returns string with whitespace strip characters (``\s\t\r\n``) removed from the start and end of the string.
 
   :param string string: the input string
+  :param string characters: the strip characters
+  :return: the trimmed string
+  :rtype: string
+
+.. function:: str_lstrip(string, [characters])
+
+  Returns string with whitespace strip characters (``\s\t\r\n``) removed from the start of the string.
+
+  :param string string: the input string
+  :param string characters: the strip characters
+  :return: the trimmed string
+  :rtype: string
+
+.. function:: str_rstrip(string, [characters])
+
+  Returns string with whitespace strip characters (``\s\t\r\n``) removed from the end of the string.
+
+  :param string string: the input string
+  :param string characters: the strip characters
   :return: the trimmed string
   :rtype: string
 
