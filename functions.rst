@@ -3217,7 +3217,7 @@ Queue
 
   .. note::
 
-	  If you have groupings and you add a condition matching a grouping, then the condition will be applied on the grouping and not the individual item. For example if you have a grouping named ``#exampleRollup`` (*.example.com) and you add a condition for ``mx1.example.com`` the condition will be applied on the ``#exampleRollup`` grouping instead.
+	If you have groupings and you add a condition matching a grouping, then the condition will be applied on the grouping and not the individual item. For example if you have a grouping named ``#exampleRollup`` (\*.example.com) and you add a condition for ``mx1.example.com`` the condition will be applied on the ``#exampleRollup`` grouping instead.
 
 .. function:: queue_quota(name)
 
