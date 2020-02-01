@@ -160,6 +160,10 @@ Functions
    * **dkim** (array) Set the DKIM options of the DSN (``selector``, ``domain``, ``key`` including the options available in :func:`MIME.signDKIM`).
    * **jobid** (string) Job ID of the message.
 
+  .. note::
+
+    For memory consumption reasons, if possible; it's beneficial to configure the DSN options in the Post-delivery context. That way the DSN options isn't kept while the message is in the active queue.
+
 .. function:: SetMetaData(metadata)
 
   This function updates the queued message's metadata in the database. It is consequentially remembered for the next retry.
