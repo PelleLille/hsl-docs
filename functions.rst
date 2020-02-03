@@ -1981,7 +1981,7 @@ Misc
 
 .. function:: inet_reverse(ip, [zone])
 
-	Converts an IP to a reverse DNS compatible format (to be used with PTR lookups or DNSxL lookups). By default the zone correspons to the ARPA address for each IP family. On error `None` is returned.
+	Converts an IPv4 or IPv6 to a reverse DNS compatible format (to be used with PTR lookups or DNSxL lookups). By default the zone correspons to the ARPA address for each IP family. On error `None` is returned.
 
   :param string ip: the ip in printable format
   :param string zone: the zone to append
