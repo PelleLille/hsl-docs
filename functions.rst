@@ -1289,7 +1289,7 @@ MIME
 
 	  .. note::
 
-		If a `Content-Type` header is added, the value of :func:`MIME.setType` is ignored. If a `Content-Transfer-Encoding` header is added no encoding will be done on data added by :func:`MIME.setBody`.
+		If a `Content-Type` header is added, the value of :func:`MIME.setType` is ignored. If a `Content-Transfer-Encoding` header is added it will be used as the default encoding for the :func:`MIME.setBody`.
 
   .. function:: MIME.appendPart(part)
 
@@ -1305,7 +1305,7 @@ MIME
 
   .. function:: MIME.setBody(body)
 
-	  Set the MIME part body content. In case the MIME part has children (multipart) this will be the MIME parts preamble. The body will be Base64 encoded if no `Content-Transfer-Encoding` header is added.
+	  Set the MIME part body content. In case the MIME part has children (multipart) this will be the MIME parts preamble. The body will be encoded as either quoted-printable or base64 depending on the type of data if no `Content-Transfer-Encoding` header is explicitly added.
 
 	  :param string body: the body
 	  :return: this
@@ -1313,7 +1313,7 @@ MIME
 
   .. function:: MIME.setType(type)
 
-	  Set the type field of the `Content-Type` header. The default type is `text/plain`, and the charset is always utf-8.
+	  Set the type field of the `Content-Type` header. The default type is `text/plain`, and for `text/...` the charset is always utf-8.
 
 	  :param string type: the content type
 	  :return: this
