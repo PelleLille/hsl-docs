@@ -635,6 +635,7 @@ DNS
   * **type** (string) Query type (one of ``a``, ``aaaa``, ``mx``, ``txt``, ``cname``, ``ns`` or ``ptr``). The default is to query for ``a`` records.
   * **timeout** (number) Query timeout in seconds. The default is ``5``.
   * **servers** (array) List of resolvers. The default is the system wide.
+  * **port** (number) Query port (only works when also setting servers). The default is ``53``.
 
   An array with either ``result`` or ``error`` in set in an associative array. ``dnssec`` is always included. ``result`` is the list of results and ``error`` is the string representation of `rcode` or `h_errno`.
 
