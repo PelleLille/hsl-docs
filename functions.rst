@@ -3257,5 +3257,5 @@ Queue
      //
      // Do not forget to specificying the same quota name when accepting messages
      //
-     if (queue_quota("senderdomain:$senderdomanin")["bytes"] > 1024 * 1024 * 1024)
+     if (queue_quota("senderdomain:$senderdomain")["bytes"] > 1024 * 1024 * 1024)
          Defer("Too many mail in queue from $senderdomain");
