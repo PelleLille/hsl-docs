@@ -3241,10 +3241,21 @@ Queue
 
 .. function:: queue_quota(name)
 
-  Get the quota usage for a specific quota name.
+  Get the usage for a specific quota. Messages may be assigned to one or more quotas when calling eg. :func:`eodonce.EODMailMessage.queue` which is the incremented accordingly. When the messages is removed from the queue (delivered or not) the quota is decremented.
 
   :param string id: the quota name
   :return: the quota information
   :rtype: array
 
   The return value is always an associative array with ``count`` and ``bytes``.
+
+  .. code-block:: hsl
+
+     // Enforce a limit of 1 GiB of message data in queue for a specific senderdomain
+     // In this example we have a made-up namespace called "senderdomain:"
+     // but that is not necessary
+     //
+     // Do not forget to specificying the same quota name when accepting messages
+     //
+     if (queue_quota("senderdomain:$senderdomanin")["bytes"] > 1024 * 1024 * 1024)
+         Defer("Too many mail in queue from $senderdomain");
