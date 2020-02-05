@@ -187,7 +187,7 @@ Functions
    * **increment_retry** (boolean) if the retry count should be increased. The default is ``true``.
    * **reset_retry** (boolean) if the retry count should be reset to zero. The default is ``false``.
    * **transportid** (string) change the transport ID. The default the current `transportid`.
-   * **quotas** (array) An array of quotas to be associated with the message.
+   * **quotas** (array) An array of quotas to be associated with the message, for use with :func:`queue_quota`.
 
   .. warning::
 

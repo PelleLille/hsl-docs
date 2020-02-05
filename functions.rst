@@ -1376,7 +1376,7 @@ MIME
 
 	   * **metadata** (array) Add additional metadata to the message (KVP).
 	   * **jobid** (string) Assign a jobid the message.
-	   * **quotas** (array) An array of quotas to be associated with the message.
+	   * **quotas** (array) An array of quotas to be associated with the message, for use with :func:`queue_quota`.
 
 	  .. code-block:: hsl
 
@@ -2041,7 +2041,7 @@ Misc
    * **headers** (array) Add additional message headers (KVP).
    * **metadata** (array) Add additional metadata to the message (KVP).
    * **jobid** (string) Assign a jobid the message.
-   * **quotas** (array) An array of quotas to be associated with the message.
+   * **quotas** (array) An array of quotas to be associated with the message, for use with :func:`queue_quota`.
 
   .. code-block:: hsl
 
