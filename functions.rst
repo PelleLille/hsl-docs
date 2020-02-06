@@ -8,7 +8,7 @@ Functions which are documented in this chapter are considered `core` functions h
 * **Data types** :func:`length` :func:`array` :func:`boolean` :func:`number` :func:`string` :func:`is_array` :func:`is_boolean` :func:`is_function` :func:`is_number` :func:`is_object` :func:`is_string` :func:`isset` :func:`unset`
 * **Date and time** :func:`executiontime` :func:`sleep` :func:`strftime` :func:`strptime` :func:`time` :func:`timelocal` :func:`uptime`
 * **DNS** :func:`dns_query` :func:`domain_includes` :func:`idna_encode` :func:`idna_decode`
-* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_encode` :func:`csv_decode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack`
+* **Encodings and JSON** :func:`base64_encode` :func:`base64_decode` :func:`csv_encode` :func:`csv_decode` :func:`json_encode` :func:`json_decode` :func:`pack` :func:`unpack` :class:`Iconv`
 * **File and HTTP** :class:`File` :func:`http`
 * **Mail** :func:`envelope_address_parse` :func:`envelope_localpart_escape` :func:`header_addresslist_extract` :func:`header_dkim_decode` :func:`xtext_encode` :func:`xtext_decode` :func:`dnsbl` :func:`spf_query` :func:`globalview`
 * **Mathematical** :func:`abs` :func:`ceil` :func:`floor` :func:`log` :func:`pow` :func:`round` :func:`sqrt`
@@ -896,6 +896,47 @@ Encodings and JSON
   | ``Z`` | *n*, ``*`` | String (excluding NULL)       | String   | 1     |
   +-------+------------+-------------------------------+----------+-------+
 
+.. class:: Iconv
+
+  This class allows characters set conversions using the `Iconv <https://www.gnu.org/software/libiconv/>`_ library. Be aware that different versions of Iconv may have subtile differences.
+
+  .. function:: Iconv.constructor(fromcharset, tocharset)
+
+    Create a class for conversions between two character sets.
+
+    :param string fromcharset: the input character set
+    :param string tocharset: the output character set
+
+    .. code-block:: hsl
+
+  	$text = Iconv("UTF-8", "ASCII//TRANSLIT//IGNORE");
+  	echo $text->convert("Hello wörld"); // Hello wrld
+
+  .. function:: Iconv.close()
+
+	  Close the Iconv resource and destroy the internal resource.
+
+	  :return: none
+	  :rtype: None
+
+	  .. note::
+
+		Iconv classes are automatically garbage collected (closed). However you may want to explicitly call close.
+
+  .. function:: Iconv.convert(text)
+
+	  Convert the text between the two different character sets. On error ``None`` is returned and you may call :func:`Iconv.errno` to get the error code.
+
+	  :param string text: text to convert
+	  :return: text
+	  :rtype: string or None
+
+  .. function:: Iconv.errno()
+
+	  Get the latest errno returned from the underlying Iconv API.
+
+	  :return: errno
+	  :rtype: number
 
 File and HTTP
 -------------
