@@ -232,7 +232,7 @@ Functions
 
 .. function:: SetMetaData(metadata)
 
-  This function updates the queued message's metadata in the database. It is consequentially remembered for the next retry.
+  This function updates the queued message's metadata in the hqf file. It is consequentially remembered for the next retry.
   The metadata must be an array with both string keys and values.
 
   :param array metadata: metadata to set
