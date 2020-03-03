@@ -3,7 +3,7 @@
 API
 ===
 
-The API script is executed for each `SOAP <http://wiki.halon.se/SOAP>`_ API call, to verify the authentication credentials and enforce permissions. All communication to the system goes through the API; even the (jailed) web interface and console/terminal interface. This script can be used to grant limited permissions for external services such as the `end-user interface <https://github.com/halon/sp-enduser>`_, but also to implement external authentication (such as LDAP) for access to the local system.
+The API script is executed for each `SOAP <http://wiki.halon.se/SOAP>`_ API call, to verify the authentication credentials and enforce permissions. All communication to the system goes through the API; even the (jailed) web interface and console/terminal interface. This script can be used to grant limited permissions for external services, but also to implement external authentication (such as LDAP) for access to the local system.
 
 Variables
 ---------------------
