@@ -1596,6 +1596,7 @@ MIME
       * **tls_default_ca** (boolean) Load additional TLS certificates (ca_root_nss). The default is ``false``.
       * **tls_client_cert** (string) Use the following ``pki:X`` as client certificate. The default is to not send a client certificate.
       * **xclient** (array) Associative array of XCLIENT attributes to send.
+      * **chunking** (boolean) Enable CHUNKING support. The default is ``true``.
       * **protocol** (string) The protocol to use; ``smtp`` or ``lmtp``. The default is ``smtp``.
       * **mx_include** (array) Filter the MX lookup result, only including ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
       * **mx_exclude** (array) Filter the MX lookup result, removing ones matching the hostnames/wildcards (NO_PARTIAL_WILDCARDS | SINGLE_LABEL_SUBDOMAINS).
