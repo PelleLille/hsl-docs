@@ -12,6 +12,9 @@ This script language documentation references many other resources, such as:
 * `Script library <https://docs.halon.io/go/scriptlibrary>`_ 
 * `Knowledge base <https://docs.halon.io/go/knowledgebase>`_
 
+Table of contents
+-----------------
+
 .. toctree::
    :numbered:
 
