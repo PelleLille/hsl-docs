@@ -3283,7 +3283,7 @@ Queue
 
 .. function:: queue_quota(name)
 
-  Get the usage for a specific quota. Messages may be assigned to one or more quotas when calling eg. :func:`eodonce.EODMailMessage.queue` which is the incremented accordingly. When the messages is removed from the queue (delivered or not) the quota is decremented.
+  Get the usage for a specific quota. Messages may be assigned to one or more quotas when calling eg. :func:`eodonce.EODMailMessage.queue` which is then incremented accordingly. When the messages is removed from the queue (delivered or not) the quota is decremented.
 
   :param string name: the quota name
   :return: the quota information
